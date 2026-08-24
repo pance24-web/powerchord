@@ -53,7 +53,6 @@ body {
 
 .search-results {
     margin-top: 8px;
-    display: none;
     background: #ffffff;
     border: 1px solid #e9ecef;
     border-radius: 8px;
@@ -68,8 +67,19 @@ body {
     border-bottom: 1px solid #f1f3f5;
 }
 
-.search-results a:hover {
+.search-results[hidden] {
+    display: none;
+}
+
+.search-results a:hover,
+.search-results a:focus-visible {
     background: #f8f9fa;
+}
+
+.search-empty {
+    margin: 0;
+    padding: 10px 16px;
+    color: #6c757d;
 }
 
 .genre-section {
@@ -96,8 +106,15 @@ body {
     transition: background 0.2s, border-color 0.2s;
 }
 
-.chip:hover {
+.chip:hover,
+.chip:focus-visible,
+.song-card:focus-visible,
+.transpose-box button:focus-visible,
+.btn-scroll:focus-visible,
+.scroll-speed button:focus-visible {
     border-color: #ff8c00;
+    outline: 2px solid #ff8c00;
+    outline-offset: 2px;
 }
 
 .chip.active {
@@ -282,4 +299,137 @@ body {
 
 .teks-lirik {
     font-size: 1.1rem;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (max-width: 600px) {
+    .transpose-box,
+    .autoscroll-box {
+        align-items: stretch;
+        flex-wrap: wrap;
+    }
+
+    .autoscroll-box {
+        justify-content: flex-start;
+    }
+
+    .scroll-speed {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+
+/* ===== THEME TOGGLE & DARK MODE ===== */
+.theme-toggle {
+    float: right;
+    border: 1px solid #e9ecef;
+    border-radius: 999px;
+    background: transparent;
+    color: #1e3a5f;
+    padding: 6px 10px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+    border-color: #ff8c00;
+    outline: 2px solid #ff8c00;
+    outline-offset: 2px;
+}
+
+.icon-sun {
+    display: none;
+}
+
+[data-theme="dark"] body {
+    background: #121826;
+    color: #e8edf5;
+}
+
+[data-theme="dark"] .header,
+[data-theme="dark"] .search-section,
+[data-theme="dark"] .genre-section,
+[data-theme="dark"] .song-card,
+[data-theme="dark"] .search-results,
+[data-theme="dark"] .transpose-box,
+[data-theme="dark"] .autoscroll-box,
+[data-theme="dark"] .lirik-area {
+    background: #1b2435;
+    border-color: #344158;
+}
+
+[data-theme="dark"] .logo,
+[data-theme="dark"] #keyNow {
+    color: #9fc5ff;
+}
+
+[data-theme="dark"] .theme-toggle {
+    color: #ffd166;
+    border-color: #52627d;
+}
+
+[data-theme="dark"] .icon-moon {
+    display: none;
+}
+
+[data-theme="dark"] .icon-sun {
+    display: inline;
+}
+
+[data-theme="dark"] .search-input,
+[data-theme="dark"] .chip,
+[data-theme="dark"] .scroll-speed button {
+    background: #121826;
+    color: #e8edf5;
+    border-color: #52627d;
+}
+
+[data-theme="dark"] .search-results a,
+[data-theme="dark"] .song-card {
+    color: #e8edf5;
+}
+
+[data-theme="dark"] .search-results a:hover,
+[data-theme="dark"] .search-results a:focus-visible,
+[data-theme="dark"] .chip:not(.active):hover {
+    background: #27334a;
+}
+
+[data-theme="dark"] .search-empty {
+    color: #b7c2d4;
+}
+
+[data-theme="dark"] .card-artist,
+[data-theme="dark"] .detail-artist,
+[data-theme="dark"] .scroll-speed,
+[data-theme="dark"] .footer {
+    color: #b7c2d4;
+}
+
+[data-theme="dark"] .footer {
+    border-color: #344158;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
 }

@@ -5,9 +5,10 @@
   "main": "index.html",
   "scripts": {
     "dev": "python -m http.server 3000",
-    "start": "python -m http.server 3000"
+    "start": "python -m http.server 3000",
+    "check": "node --check js/main.js && python3 scripts/validate_data.py"
   },
-  "keywords": [],
+  "keywords": ["chord", "gitar", "lirik", "musik"],
   "author": "",
   "license": "ISC"
 }

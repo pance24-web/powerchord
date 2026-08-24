@@ -8,7 +8,12 @@
     <script>
         // Terapkan tema sebelum render untuk mencegah FOUC
         (function () {
-            var saved = localStorage.getItem('theme');
+            var saved = null;
+            try {
+                saved = localStorage.getItem('theme');
+            } catch (e) {
+                // Gunakan preferensi sistem jika storage tidak tersedia.
+            }
             var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
             var theme = saved || (prefersDark ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', theme);
@@ -20,7 +25,7 @@
     <header class="header">
         <div class="container">
             <a href="index.html" class="logo">← Kembali</a>
-            <button id="themeToggle" class="theme-toggle" aria-label="Ganti mode terang/gelap" title="Ganti mode terang/gelap">
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
                 <span class="icon-moon">🌙</span>
                 <span class="icon-sun">☀️</span>
             </button>
@@ -33,20 +38,20 @@
 
         <!-- Transpose -->
         <div class="transpose-box">
-            <button id="minus">-</button>
-            <span id="keyNow">G</span>
-            <button id="plus">+</button>
-            <button id="reset">Reset</button>
+            <button id="minus" type="button" aria-label="Turunkan kunci satu semitone">-</button>
+            <span id="keyNow" aria-live="polite">G</span>
+            <button id="plus" type="button" aria-label="Naikkan kunci satu semitone">+</button>
+            <button id="reset" type="button">Reset</button>
         </div>
 
         <!-- Autoscroll -->
         <div class="autoscroll-box">
-            <button id="toggleScroll" class="btn-scroll">▶ Autoscroll</button>
+            <button id="toggleScroll" class="btn-scroll" type="button" aria-pressed="false">▶ Autoscroll</button>
             <div class="scroll-speed">
-                <span>Speed:</span>
-                <button id="scrollSlow">-</button>
-                <span id="speedDisplay">1x</span>
-                <button id="scrollFast">+</button>
+                <span id="speedLabel">Kecepatan:</span>
+                <button id="scrollSlow" type="button" aria-label="Kurangi kecepatan autoscroll">-</button>
+                <span id="speedDisplay" aria-live="polite">1x</span>
+                <button id="scrollFast" type="button" aria-label="Tambah kecepatan autoscroll">+</button>
             </div>
         </div>
 

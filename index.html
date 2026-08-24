@@ -8,7 +8,12 @@
     <script>
         // Terapkan tema sebelum render untuk mencegah FOUC
         (function () {
-            var saved = localStorage.getItem('theme');
+            var saved = null;
+            try {
+                saved = localStorage.getItem('theme');
+            } catch (e) {
+                // Gunakan preferensi sistem jika storage tidak tersedia.
+            }
             var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
             var theme = saved || (prefersDark ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', theme);
@@ -20,7 +25,7 @@
     <header class="header">
         <div class="container">
             <a href="index.html" class="logo">🎸 ChordLagu</a>
-            <button id="themeToggle" class="theme-toggle" aria-label="Ganti mode terang/gelap" title="Ganti mode terang/gelap">
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
                 <span class="icon-moon">🌙</span>
                 <span class="icon-sun">☀️</span>
             </button>
@@ -29,25 +34,26 @@
 
     <section class="search-section">
         <div class="container">
-            <input type="text" id="searchInput" placeholder="Cari lagu atau artis..." class="search-input">
-            <div id="searchResults" class="search-results"></div>
+            <label for="searchInput" class="visually-hidden">Cari lagu atau artis</label>
+            <input type="search" id="searchInput" placeholder="Cari lagu atau artis..." class="search-input" autocomplete="off" aria-controls="searchResults" aria-autocomplete="list">
+            <div id="searchResults" class="search-results" role="status" aria-live="polite" aria-busy="false" hidden></div>
         </div>
     </section>
 
     <section class="genre-section">
         <div class="container">
             <div class="genre-chips" id="genreChips">
-                <button class="chip active" data-genre="all">Semua</button>
-                <button class="chip" data-genre="Pop">Pop</button>
-                <button class="chip" data-genre="Rock">Rock</button>
-                <button class="chip" data-genre="Dangdut">Dangdut</button>
-                <button class="chip" data-genre="Pop Rock">Pop Rock</button>
-                <button class="chip" data-genre="Indie">Indie</button>
-                <button class="chip" data-genre="Reggae">Reggae</button>
-                <button class="chip" data-genre="Minang">Minang</button>
-                <button class="chip" data-genre="Melayu">Melayu</button>
-                <button class="chip" data-genre="Ska">Ska</button>
-                <button class="chip" data-genre="Folk">Folk</button>
+                <button class="chip active" type="button" data-genre="all" aria-pressed="true">Semua</button>
+                <button class="chip" type="button" aria-pressed="false" data-genre="Pop">Pop</button>
+                <button class="chip" type="button" aria-pressed="false" data-genre="Rock">Rock</button>
+                <button class="chip" type="button" aria-pressed="false" data-genre="Dangdut">Dangdut</button>
+                <button class="chip" type="button" aria-pressed="false" data-genre="Pop Rock">Pop Rock</button>
+                <button class="chip" type="button" aria-pressed="false" data-genre="Indie">Indie</button>
+                <button class="chip" type="button" aria-pressed="false" data-genre="Reggae">Reggae</button>
+                <button class="chip" type="button" aria-pressed="false" data-genre="Minang">Minang</button>
+                <button class="chip" type="button" aria-pressed="false" data-genre="Melayu">Melayu</button>
+                <button class="chip" type="button" aria-pressed="false" data-genre="Ska">Ska</button>
+                <button class="chip" type="button" aria-pressed="false" data-genre="Folk">Folk</button>
             </div>
         </div>
     </section>

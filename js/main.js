@@ -3,6 +3,26 @@ let activeGenre = 'all';
 let searchQuery = '';
 let lagu = []; // Data akan diisi dari JSON
 
+const genreMatchers = {
+    all: () => true,
+    Pop: (genre) => genre === 'Pop',
+    Rock: (genre) => genre === 'Rock' || genre.includes('Rock'),
+    Dangdut: (genre) => genre === 'Dangdut',
+    'Pop Rock': (genre) => genre === 'Pop Rock',
+    Indie: (genre) => genre.includes('Indie'),
+    Reggae: (genre) => genre === 'Reggae',
+    Minang: (genre) => genre === 'Pop Minang',
+    Melayu: (genre) => genre === 'Pop Melayu',
+    Ska: (genre) => genre === 'Ska',
+    Folk: (genre) => genre.includes('Folk')
+};
+
+function matchesGenre(song, genre) {
+    const songGenre = typeof song.genre === 'string' ? song.genre : '';
+    const matcher = genreMatchers[genre];
+    return matcher ? matcher(songGenre) : songGenre === genre;
+}
+
 /* ===== THEME TOGGLE ===== */
 (function initThemeToggle() {
     const toggleBtn = document.getElementById('themeToggle');
@@ -12,9 +32,18 @@ let lagu = []; // Data akan diisi dari JSON
         return document.documentElement.getAttribute('data-theme') || 'light';
     }
 
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        const isDark = theme === 'dark';
+        toggleBtn.setAttribute('aria-pressed', String(isDark));
+        toggleBtn.setAttribute('aria-label', isDark ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
+        toggleBtn.setAttribute('title', isDark ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
+    }
+
+    setTheme(currentTheme());
     toggleBtn.addEventListener('click', () => {
         const next = currentTheme() === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', next);
+        setTheme(next);
         try {
             localStorage.setItem('theme', next);
         } catch (e) {
@@ -27,7 +56,7 @@ let lagu = []; // Data akan diisi dari JSON
         if (!localStorage.getItem('theme') && window.matchMedia) {
             const mql = window.matchMedia('(prefers-color-scheme: dark)');
             const handler = (e) => {
-                document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+                setTheme(e.matches ? 'dark' : 'light');
             };
             if (mql.addEventListener) mql.addEventListener('change', handler);
             else if (mql.addListener) mql.addListener(handler);
@@ -42,14 +71,18 @@ async function loadSongs() {
         if (!response.ok) {
             throw new Error('Gagal memuat data');
         }
-        lagu = await response.json();
+        const songs = await response.json();
+        if (!Array.isArray(songs)) {
+            throw new Error('Format data lagu tidak valid');
+        }
+        lagu = songs;
         filterSongs(); // Tampilkan semua lagu setelah data dimuat
         initDetailPage(); // Inisialisasi halaman detail jika sedang di detail.html
     } catch (error) {
         console.error('Error:', error);
         const songList = document.getElementById('songList');
         if (songList) {
-            songList.innerHTML = '<p style="padding:16px;">Gagal memuat data lagu. Pastikan file songs.json ada di folder data/.</p>';
+            songList.textContent = 'Gagal memuat data lagu. Pastikan file songs.json ada di folder data/.';
         }
     }
 }
@@ -58,23 +91,28 @@ async function loadSongs() {
 function renderSongs(data) {
     const songList = document.getElementById('songList');
     if (!songList) return;
-    songList.innerHTML = '';
+    songList.replaceChildren();
 
     if (data.length === 0) {
-        songList.innerHTML = '<p style="padding:16px; color:#6c757d;">Tidak ada lagu ditemukan.</p>';
+        songList.textContent = 'Tidak ada lagu ditemukan.';
         return;
     }
 
-    data.forEach((song, idx) => {
+    data.forEach((song) => {
+        const originalIndex = lagu.indexOf(song);
         const card = document.createElement('a');
-        card.href = `detail.html?id=${idx}`;
+        card.href = originalIndex >= 0 ? `detail.html?id=${originalIndex}` : '#';
         card.className = 'song-card';
 
-        card.innerHTML = `
-            <div class="card-title">${song.judul}</div>
-            <div class="card-artist">${song.artis}</div>
-        `;
+        const title = document.createElement('div');
+        title.className = 'card-title';
+        title.textContent = song.judul;
 
+        const artist = document.createElement('div');
+        artist.className = 'card-artist';
+        artist.textContent = song.artis;
+
+        card.append(title, artist);
         songList.appendChild(card);
     });
 }
@@ -83,21 +121,9 @@ function renderSongs(data) {
 function filterSongs() {
     let filtered = lagu;
 
-    // Filter genre
+    // Filter genre menggunakan aturan yang konsisten untuk kategori utama dan subgenre.
     if (activeGenre !== 'all') {
-        // Kategori gabungan (mengandung kata tertentu)
-        if (activeGenre === 'Indie') {
-            filtered = filtered.filter(song => song.genre.includes('Indie'));
-        } else if (activeGenre === 'Folk') {
-            filtered = filtered.filter(song => song.genre.includes('Folk'));
-        } else if (activeGenre === 'Minang') {
-            filtered = filtered.filter(song => song.genre === 'Pop Minang');
-        } else if (activeGenre === 'Melayu') {
-            filtered = filtered.filter(song => song.genre === 'Pop Melayu');
-        } else {
-            // Exact match untuk genre lain (Pop, Rock, Dangdut, Pop Rock, Reggae, Ska, dll.)
-            filtered = filtered.filter(song => song.genre === activeGenre);
-        }
+        filtered = filtered.filter(song => matchesGenre(song, activeGenre));
     }
 
     // Filter pencarian (jika ada)
@@ -117,29 +143,39 @@ const searchResults = document.getElementById('searchResults');
 
 if (searchInput && searchResults) {
     searchInput.addEventListener('input', (e) => {
+        searchResults.setAttribute('aria-busy', 'true');
         searchQuery = e.target.value.toLowerCase().trim();
         filterSongs();
 
         // Tampilkan autocomplete
         if (searchQuery.length < 2) {
-            searchResults.style.display = 'none';
+            searchResults.replaceChildren();
+            searchResults.hidden = true;
+            searchResults.setAttribute('aria-busy', 'false');
             return;
         }
 
-        const filtered = lagu.filter(song => 
-            song.judul.toLowerCase().includes(searchQuery) || 
+        const filtered = lagu.filter(song =>
+            song.judul.toLowerCase().includes(searchQuery) ||
             song.artis.toLowerCase().includes(searchQuery)
         );
 
+        searchResults.replaceChildren();
         if (filtered.length > 0) {
-            searchResults.innerHTML = filtered.map(song => `
-                <a href="detail.html?id=${lagu.indexOf(song)}">${song.judul} - ${song.artis}</a>
-            `).join('');
-            searchResults.style.display = 'block';
+            filtered.forEach(song => {
+                const link = document.createElement('a');
+                link.href = `detail.html?id=${lagu.indexOf(song)}`;
+                link.textContent = `${song.judul} - ${song.artis}`;
+                searchResults.appendChild(link);
+            });
         } else {
-            searchResults.innerHTML = `<a href="#">Lagu tidak ditemukan</a>`;
-            searchResults.style.display = 'block';
+            const emptyMessage = document.createElement('p');
+            emptyMessage.className = 'search-empty';
+            emptyMessage.textContent = 'Lagu tidak ditemukan';
+            searchResults.appendChild(emptyMessage);
         }
+        searchResults.hidden = false;
+        searchResults.setAttribute('aria-busy', 'false');
     });
 }
 
@@ -150,6 +186,7 @@ genreChips.forEach(chip => {
         genreChips.forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
         activeGenre = chip.dataset.genre;
+        genreChips.forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
         filterSongs();
     });
 });
@@ -157,9 +194,21 @@ genreChips.forEach(chip => {
 // Sembunyikan hasil autocomplete saat klik di luar
 document.addEventListener('click', (e) => {
     if (searchResults && !e.target.closest('.search-section')) {
-        searchResults.style.display = 'none';
+        searchResults.hidden = true;
     }
 });
+
+if (searchInput && searchResults) {
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            searchResults.replaceChildren();
+            searchResults.hidden = true;
+            searchInput.value = '';
+            searchQuery = '';
+            filterSongs();
+        }
+    });
+}
 
 // Jalankan saat halaman dimuat
 loadSongs();
@@ -167,9 +216,28 @@ loadSongs();
 /* ===== LOGIKA HALAMAN DETAIL ===== */
 function initDetailPage() {
     const urlParams = new URLSearchParams(window.location.search);
-    const songId = parseInt(urlParams.get('id'));
+    const rawSongId = urlParams.get('id');
+    const songId = Number(rawSongId);
 
-    if (songId !== null && !isNaN(songId)) {
+    const showDetailError = (message) => {
+        const judulElem = document.getElementById('judulLagu');
+        const artisElem = document.getElementById('artisLagu');
+        const lirikContainer = document.getElementById('lirik');
+        const transposeBox = document.querySelector('.transpose-box');
+        const autoscrollBox = document.querySelector('.autoscroll-box');
+        if (judulElem) judulElem.textContent = message;
+        if (artisElem) artisElem.textContent = '';
+        if (lirikContainer) lirikContainer.textContent = '';
+        if (transposeBox) transposeBox.hidden = true;
+        if (autoscrollBox) autoscrollBox.hidden = true;
+    };
+
+    if (rawSongId === null || !Number.isInteger(songId) || songId < 0) {
+        if (document.getElementById('judulLagu')) showDetailError('Lagu tidak ditemukan');
+        return;
+    }
+
+    {
         async function loadDetailSong() {
             try {
                 let song = lagu[songId];
@@ -192,24 +260,22 @@ function initDetailPage() {
                     if (keyDisplay) keyDisplay.textContent = currentKey;
 
                     const chromatic = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+                    const enharmonic = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };
 
                     function transposeChord(chord) {
                         if (!chord) return '';
-                        const regex = /^[A-G][#b]?/;
-                        const match = chord.match(regex);
-                        if (!match) return chord;
-                        const root = match[0];
-                        const index = chromatic.indexOf(root);
-                        if (index === -1) return chord;
-                        const newIndex = (index + offset + 12) % 12;
-                        const newRoot = chromatic[newIndex];
-                        return newRoot + chord.slice(root.length);
+                        return chord.replace(/[A-G](?:#|b)?/g, (root) => {
+                            const normalizedRoot = enharmonic[root] || root;
+                            const index = chromatic.indexOf(normalizedRoot);
+                            if (index === -1) return root;
+                            return chromatic[(index + offset + 12) % 12];
+                        });
                     }
 
                     function renderLirik() {
                         const lirikContainer = document.getElementById('lirik');
                         if (!lirikContainer) return;
-                        lirikContainer.innerHTML = '';
+                        lirikContainer.replaceChildren();
 
                         if (song.lirik && Array.isArray(song.lirik)) {
                             song.lirik.forEach(baris => {
@@ -268,31 +334,43 @@ function initDetailPage() {
                     const speedDisplay = document.getElementById('speedDisplay');
 
                     let isScrolling = false;
-                    let scrollInterval = null;
+                    let animationFrame = null;
+                    let lastFrameTime = 0;
                     let scrollSpeed = 1;
+
+                    const updateScrollButton = () => {
+                        if (!toggleScrollBtn) return;
+                        toggleScrollBtn.classList.toggle('scrolling', isScrolling);
+                        toggleScrollBtn.textContent = isScrolling ? '⏸ Pause Scroll' : '▶ Autoscroll';
+                        toggleScrollBtn.setAttribute('aria-pressed', String(isScrolling));
+                    };
+
+                    const scrollFrame = (timestamp) => {
+                        if (!isScrolling) return;
+                        const elapsed = lastFrameTime ? timestamp - lastFrameTime : 16;
+                        lastFrameTime = timestamp;
+                        window.scrollBy(0, scrollSpeed * elapsed / 16);
+                        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 20) {
+                            stopScroll();
+                            return;
+                        }
+                        animationFrame = requestAnimationFrame(scrollFrame);
+                    };
 
                     const startScroll = () => {
                         if (isScrolling) return;
                         isScrolling = true;
-                        if (toggleScrollBtn) {
-                            toggleScrollBtn.classList.add('scrolling');
-                            toggleScrollBtn.textContent = '⏸ Pause Scroll';
-                        }
-                        scrollInterval = setInterval(() => {
-                            window.scrollBy({ top: scrollSpeed, behavior: 'smooth' });
-                            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 20) {
-                                stopScroll();
-                            }
-                        }, 50);
+                        lastFrameTime = 0;
+                        updateScrollButton();
+                        animationFrame = requestAnimationFrame(scrollFrame);
                     };
 
                     const stopScroll = () => {
                         isScrolling = false;
-                        clearInterval(scrollInterval);
-                        if (toggleScrollBtn) {
-                            toggleScrollBtn.classList.remove('scrolling');
-                            toggleScrollBtn.textContent = '▶ Autoscroll';
-                        }
+                        if (animationFrame !== null) cancelAnimationFrame(animationFrame);
+                        animationFrame = null;
+                        lastFrameTime = 0;
+                        updateScrollButton();
                     };
 
                     if (toggleScrollBtn) {
@@ -321,11 +399,13 @@ function initDetailPage() {
                             }
                         });
                     }
+                } else {
+                    showDetailError('Lagu tidak ditemukan');
                 }
             } catch (error) {
                 console.error('Error:', error);
                 const lirikContainer = document.getElementById('lirik');
-                if (lirikContainer) lirikContainer.innerHTML = '<p>Gagal memuat lagu.</p>';
+                if (lirikContainer) lirikContainer.textContent = 'Gagal memuat lagu.';
             }
         }
 
