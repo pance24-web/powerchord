@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChordLagu - Kunci Gitar & Lirik</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        // Terapkan tema sebelum render untuk mencegah FOUC
+        (function () {
+            var saved = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = saved || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">🎸 ChordLagu</a>
+            <button id="themeToggle" class="theme-toggle" aria-label="Ganti mode terang/gelap" title="Ganti mode terang/gelap">
+                <span class="icon-moon">🌙</span>
+                <span class="icon-sun">☀️</span>
+            </button>
+        </div>
+    </header>
+
+    <section class="search-section">
+        <div class="container">
+            <input type="text" id="searchInput" placeholder="Cari lagu atau artis..." class="search-input">
+            <div id="searchResults" class="search-results"></div>
+        </div>
+    </section>
+
+    <section class="genre-section">
+        <div class="container">
+            <div class="genre-chips" id="genreChips">
+                <button class="chip active" data-genre="all">Semua</button>
+                <button class="chip" data-genre="Pop">Pop</button>
+                <button class="chip" data-genre="Rock">Rock</button>
+                <button class="chip" data-genre="Dangdut">Dangdut</button>
+                <button class="chip" data-genre="Pop Rock">Pop Rock</button>
+                <button class="chip" data-genre="Indie">Indie</button>
+                <button class="chip" data-genre="Reggae">Reggae</button>
+                <button class="chip" data-genre="Minang">Minang</button>
+                <button class="chip" data-genre="Melayu">Melayu</button>
+                <button class="chip" data-genre="Ska">Ska</button>
+                <button class="chip" data-genre="Folk">Folk</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="song-section">
+        <div class="container">
+            <h2 class="section-title">Daftar Lagu</h2>
+            <div id="songList" class="song-list">
+                <!-- Kartu lagu diisi oleh JS -->
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 ChordLagu.com</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
