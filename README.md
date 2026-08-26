@@ -2,16 +2,16 @@
 ---
 
 # Product Requirements Document (PRD)
-## Proyek: Punk-Kord (ChordLagu)
+## Proyek: PowerChord (ChordLagu)
 **Versi:** 2.0 (Post-Audit & Hardening)  
 **Tanggal:** 26 Agustus 2026  
 **Status:** Stabil / Production Ready  
-**Repo:** [pance24-web/punk-kord](https://github.com/pance24-web/punk-kord)
+**Repo:** [pance24-web/powerchord](https://github.com/pance24-web/powerchord)
 
 ---
 
 ### 1. Ringkasan Eksekutif
-**Punk-Kord** adalah aplikasi web statis ringan yang menyediakan database kunci gitar dan lirik lagu Indonesia. Aplikasi ini dirancang untuk musisi pemula hingga mahir yang membutuhkan akses cepat ke chord lagu dengan fitur transposisi kunci dan autoscroll lirik.
+**PowerChord** adalah aplikasi web statis ringan yang menyediakan database kunci gitar dan lirik lagu Indonesia. Aplikasi ini dirancang untuk musisi pemula hingga mahir yang membutuhkan akses cepat ke chord lagu dengan fitur transposisi kunci dan autoscroll lirik.
 
 Setelah melalui proses audit keamanan dan fungsionalitas pada 25 Agustus 2026, seluruh temuan kritis (navigasi filter yang salah, kegagalan dark mode, dan kerentanan XSS potensial) telah diperbaiki. Aplikasi kini memiliki integritas data yang terjaga, aksesibilitas yang lebih baik, dan performa scroll yang optimal.
 
