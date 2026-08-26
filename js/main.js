@@ -1,27 +1,29 @@
 let searchQuery = '';
-let activeGenre = 'all';
 let songs = [];
 
-const genreMatchers = {
-    all: () => true,
-    Pop: (genre) => genre.includes('Pop'),
-    Rock: (genre) => genre.includes('Rock'),
-    Dangdut: (genre) => genre.includes('Dangdut'),
-    Indie: (genre) => genre.includes('Indie'),
-    Reggae: (genre) => genre.includes('Reggae'),
-    Minang: (genre) => genre.includes('Minang'),
-    Melayu: (genre) => genre.includes('Melayu'),
-    Ska: (genre) => genre.includes('Ska'),
-    Folk: (genre) => genre.includes('Folk'),
-    Worship: (genre) => genre.includes('Worship'),
-    Acoustic: (genre) => genre.includes('Acoustic') || genre.includes('Akustik')
-};
+const referenceLatest = [
+    { artist: 'Aprilian', title: 'Salah Berharap' },
+    { artist: 'Geisha', title: 'Jika Bukan Karenamu' },
+    { artist: 'Olivia Rodrigo', title: 'scared of my guitar' },
+    { artist: 'Madison Beer', title: 'Healthy Habit' },
+    { artist: 'HAL', title: 'Terima Kasih' }
+];
 
-function matchesGenre(song, genre) {
-    const value = typeof song.genre === 'string' ? song.genre : '';
-    const matcher = genreMatchers[genre];
-    return matcher ? matcher(value) : value === genre;
-}
+const referencePopular = [
+    { artist: 'Laskar Pelangi', title: 'Nidji' },
+    { artist: 'Bento', title: 'Iwan Fals' },
+    { artist: 'Cinta Luar Biasa', title: 'Andmesh' },
+    { artist: 'Hanya Rindu', title: 'Andmesh' },
+    { artist: 'Kemesraan', title: 'Iwan Fals' }
+];
+
+const referenceRelated = [
+    { artist: 'Coldplay', title: 'Fix You' },
+    { artist: 'Ed Sheeran', title: 'Perfect' },
+    { artist: 'John Mayer', title: 'Gravity' },
+    { artist: 'The Beatles', title: 'Let It Be' },
+    { artist: 'James Arthur', title: "Say You Won’t Let Go" }
+];
 
 function getSongIndex(song) {
     return songs.indexOf(song);
@@ -38,10 +40,25 @@ function getDifficulty(song) {
     return 'Advanced';
 }
 
-function createSongRow(song) {
+function makeReferenceLink(item) {
+    const match = songs.find((song) => song.judul.toLowerCase() === item.title.toLowerCase() && song.artis.toLowerCase() === item.artist.toLowerCase());
     const link = document.createElement('a');
-    link.className = 'song-row';
-    link.href = `detail.html?id=${getSongIndex(song)}`;
+    link.className = 'reference-link';
+    link.href = match ? `detail.html?id=${getSongIndex(match)}` : 'index.html';
+    link.textContent = `${item.artist} - ${item.title}`;
+    return link;
+}
+
+function renderReferenceList(container, items) {
+    if (!container) return;
+    container.replaceChildren();
+    items.forEach((item) => container.appendChild(makeReferenceLink(item)));
+}
+
+function renderLatestSongRow(song) {
+    const row = document.createElement('a');
+    row.className = 'song-row';
+    row.href = `detail.html?id=${getSongIndex(song)}`;
 
     const main = document.createElement('span');
     main.className = 'song-main';
@@ -63,70 +80,33 @@ function createSongRow(song) {
 
     const arrow = document.createElement('span');
     arrow.className = 'song-arrow';
-    arrow.setAttribute('aria-hidden', 'true');
     arrow.textContent = '→';
+    arrow.setAttribute('aria-hidden', 'true');
 
-    link.append(main, difficulty, key, arrow);
-    return link;
-}
-
-function createLatestRow(song) {
-    const row = document.createElement('div');
-    row.className = 'latest-row';
-    const link = document.createElement('a');
-    link.href = `detail.html?id=${getSongIndex(song)}`;
-    link.textContent = `${song.judul} — ${song.artis}`;
-    const label = document.createElement('span');
-    label.className = 'latest-date';
-    label.textContent = 'Chord terbaru';
-    row.append(link, label);
+    row.append(main, difficulty, key, arrow);
     return row;
 }
 
-function renderRows(container, list, rowFactory) {
+function renderSearchRows(filtered) {
+    const container = document.getElementById('songList');
     if (!container) return;
     container.replaceChildren();
-    if (!list.length) {
+    if (!filtered.length) {
         const empty = document.createElement('p');
         empty.className = 'loading-state';
-        empty.textContent = 'Tidak ada lagu ditemukan.';
+        empty.textContent = 'Lagu tidak ditemukan.';
         container.appendChild(empty);
         return;
     }
-    list.forEach((song) => container.appendChild(rowFactory(song)));
+    filtered.forEach((song) => container.appendChild(renderLatestSongRow(song)));
 }
 
 function renderHomepage() {
-    const latest = songs.slice(-5).reverse();
-    const popular = songs.slice(0, 5);
-    renderRows(document.getElementById('songList'), latest, createSongRow);
-    renderRows(document.getElementById('newSongList'), latest, (song) => {
-        const link = document.createElement('a');
-        link.href = `detail.html?id=${getSongIndex(song)}`;
-        link.textContent = `${song.artis} — ${song.judul}`;
-        return link;
-    });
-    renderRows(document.getElementById('popularSongList'), popular, (song) => {
-        const link = document.createElement('a');
-        link.href = `detail.html?id=${getSongIndex(song)}`;
-        link.textContent = `${song.artis} — ${song.judul}`;
-        return link;
-    });
-    renderRows(document.getElementById('catalogList'), songs, createSongRow);
-
+    renderReferenceList(document.getElementById('songList'), referenceLatest);
+    renderReferenceList(document.getElementById('newSongList'), referenceLatest);
+    renderReferenceList(document.getElementById('popularSongList'), referencePopular);
     const latestCount = document.getElementById('latestCount');
-    const catalogCount = document.getElementById('catalogCount');
-    if (latestCount) latestCount.textContent = `${latest.length} lagu`;
-    if (catalogCount) catalogCount.textContent = `${songs.length} lagu`;
-}
-
-function getFilteredSongs() {
-    return songs.filter((song) => {
-        const genreMatch = activeGenre === 'all' || matchesGenre(song, activeGenre);
-        const query = searchQuery.toLowerCase();
-        const textMatch = !query || song.judul.toLowerCase().includes(query) || song.artis.toLowerCase().includes(query);
-        return genreMatch && textMatch;
-    });
+    if (latestCount) latestCount.textContent = `${referenceLatest.length} lagu`;
 }
 
 function renderSearchResults(filtered) {
@@ -137,43 +117,38 @@ function renderSearchResults(filtered) {
         results.hidden = true;
         return;
     }
-
-    const matches = filtered.slice(0, 6);
-    if (!matches.length) {
+    filtered.slice(0, 6).forEach((song) => {
+        const link = document.createElement('a');
+        link.href = `detail.html?id=${getSongIndex(song)}`;
+        link.textContent = `${song.judul} — ${song.artis}`;
+        results.appendChild(link);
+    });
+    if (!filtered.length) {
         const empty = document.createElement('p');
         empty.className = 'search-empty';
         empty.textContent = 'Lagu tidak ditemukan';
         results.appendChild(empty);
-    } else {
-        matches.forEach((song) => {
-            const link = document.createElement('a');
-            link.href = `detail.html?id=${getSongIndex(song)}`;
-            link.textContent = `${song.judul} — ${song.artis}`;
-            results.appendChild(link);
-        });
     }
     results.hidden = false;
 }
 
 function filterHomepage() {
-    const filtered = getFilteredSongs();
-    const isFiltered = searchQuery.length > 0 || activeGenre !== 'all';
-    const latestList = document.getElementById('songList');
-    const catalogList = document.getElementById('catalogList');
+    if (!document.getElementById('songList')) return;
+    const query = searchQuery.toLowerCase();
+    const filtered = songs.filter((song) => {
+        const title = typeof song.judul === 'string' ? song.judul.toLowerCase() : '';
+        const artist = typeof song.artis === 'string' ? song.artis.toLowerCase() : '';
+        return title.includes(query) || artist.includes(query);
+    });
 
-    if (isFiltered) {
-        renderRows(latestList, filtered, createSongRow);
-        renderRows(catalogList, filtered, createSongRow);
+    if (searchQuery.length >= 2) {
+        renderSearchRows(filtered);
+        renderSearchResults(filtered);
     } else {
-        renderRows(latestList, songs.slice(-5).reverse(), createSongRow);
-        renderRows(catalogList, songs, createSongRow);
+        renderHomepage();
+        const results = document.getElementById('searchResults');
+        if (results) results.hidden = true;
     }
-
-    const latestCount = document.getElementById('latestCount');
-    const catalogCount = document.getElementById('catalogCount');
-    if (latestCount) latestCount.textContent = `${isFiltered ? filtered.length : Math.min(5, songs.length)} lagu`;
-    if (catalogCount) catalogCount.textContent = `${isFiltered ? filtered.length : songs.length} lagu`;
-    renderSearchResults(filtered);
 }
 
 function initMobileMenu() {
@@ -208,7 +183,6 @@ function initHomepageInteractions() {
         searchQuery = input.value.trim();
         filterHomepage();
     });
-
     input.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             input.value = '';
@@ -216,21 +190,14 @@ function initHomepageInteractions() {
             filterHomepage();
         }
     });
-
-    if (form) {
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            filterHomepage();
-            const catalog = document.getElementById('song-catalog');
-            if (catalog) catalog.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    }
-
+    form?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        filterHomepage();
+        document.getElementById('latest')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
     document.addEventListener('click', (event) => {
         const results = document.getElementById('searchResults');
-        if (results && !event.target.closest('.header-search') && !event.target.closest('.search-results')) {
-            results.hidden = true;
-        }
+        if (results && !event.target.closest('.header-search') && !event.target.closest('.search-results')) results.hidden = true;
     });
 }
 
@@ -241,10 +208,7 @@ async function loadSongs() {
         const data = await response.json();
         if (!Array.isArray(data)) throw new Error('Format data lagu tidak valid');
         songs = data;
-        if (document.getElementById('songList')) {
-            renderHomepage();
-            filterHomepage();
-        }
+        if (document.getElementById('songList')) filterHomepage();
         initDetailPage();
     } catch (error) {
         console.error(error);
@@ -261,48 +225,29 @@ loadSongs();
 function initDetailPage() {
     const titleElement = document.getElementById('judulLagu');
     if (!titleElement) return;
-
     const params = new URLSearchParams(window.location.search);
-    const rawId = params.get('id');
-    const index = Number(rawId);
+    const index = Number(params.get('id'));
     const song = Number.isInteger(index) && index >= 0 ? songs[index] : null;
-
-    const showError = (message) => {
-        titleElement.textContent = message;
-        const artist = document.getElementById('artisLagu');
-        const lyrics = document.getElementById('lirik');
-        if (artist) artist.textContent = '';
-        if (lyrics) lyrics.textContent = '';
-        document.querySelector('.control-bar')?.setAttribute('hidden', 'true');
-    };
-
     if (!song) {
-        showError('Lagu tidak ditemukan');
+        titleElement.textContent = 'Lagu tidak ditemukan';
+        const artist = document.getElementById('artisLagu');
+        if (artist) artist.textContent = '';
+        document.querySelector('.control-bar')?.setAttribute('hidden', 'true');
         return;
     }
 
     titleElement.textContent = song.judul;
     const artistElement = document.getElementById('artisLagu');
     if (artistElement) artistElement.textContent = song.artis;
-
     const meta = document.querySelectorAll('.detail-meta span');
     if (meta[0]) meta[0].textContent = getDifficulty(song);
     if (meta[1]) meta[1].textContent = song.genre || 'Guitar';
     if (meta[2]) meta[2].textContent = `Original key: ${song.kunci || 'C'}`;
-
-    const related = document.getElementById('relatedSongs');
-    if (related) {
-        renderRows(related, songs.filter((item) => item !== song).slice(0, 5), (item) => {
-            const link = document.createElement('a');
-            link.href = `detail.html?id=${getSongIndex(item)}`;
-            link.textContent = `${item.artis} — ${item.judul}`;
-            return link;
-        });
-    }
+    renderReferenceList(document.getElementById('relatedSongs'), referenceRelated);
 
     let offset = 0;
-    const keyDisplay = document.getElementById('keyNow');
     const originalKey = song.kunci || 'C';
+    const keyDisplay = document.getElementById('keyNow');
     if (keyDisplay) keyDisplay.textContent = originalKey;
     const chromatic = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     const enharmonic = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };
@@ -336,7 +281,6 @@ function initDetailPage() {
     }
 
     renderLyrics();
-
     document.getElementById('plus')?.addEventListener('click', () => {
         offset = (offset + 1) % 12;
         renderLyrics();
@@ -368,7 +312,6 @@ function initDetailPage() {
         scrollButton.textContent = scrolling ? '⏸ Pause Scroll' : '▶ Autoscroll';
         scrollButton.setAttribute('aria-pressed', String(scrolling));
     }
-
     function stopScroll() {
         scrolling = false;
         if (frame !== null) cancelAnimationFrame(frame);
@@ -376,7 +319,6 @@ function initDetailPage() {
         lastTime = 0;
         updateScrollButton();
     }
-
     function scrollFrame(time) {
         if (!scrolling) return;
         const elapsed = lastTime ? time - lastTime : 16;
@@ -388,7 +330,6 @@ function initDetailPage() {
         }
         frame = requestAnimationFrame(scrollFrame);
     }
-
     scrollButton?.addEventListener('click', () => {
         if (scrolling) stopScroll();
         else {
