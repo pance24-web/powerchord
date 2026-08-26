@@ -942,3 +942,114 @@ button {
 .footer-link {
     color: inherit;
 }
+
+.legal-page {
+    max-width: 860px;
+    padding-top: 52px;
+    padding-bottom: 72px;
+}
+
+.legal-page h1 {
+    margin: 0 0 12px;
+    color: var(--text);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    line-height: 1.2;
+}
+
+.legal-page .lead {
+    margin: 0 0 36px;
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+.legal-page h2 {
+    margin: 34px 0 12px;
+    color: var(--text);
+    font-size: 1.25rem;
+    line-height: 1.3;
+}
+
+.legal-page p,
+.legal-page li {
+    color: var(--muted);
+}
+
+.legal-page p {
+    margin: 0 0 16px;
+}
+
+.legal-page ul,
+.legal-page ol {
+    margin: 0 0 18px;
+    padding-left: 24px;
+}
+
+.legal-page li {
+    margin-bottom: 8px;
+}
+
+.legal-page a {
+    color: var(--accent-dark);
+}
+
+.legal-notice,
+.contact-card,
+.about-card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--soft);
+    padding: 20px;
+}
+
+.legal-notice {
+    border-left: 4px solid var(--accent);
+}
+
+.legal-notice p:last-child,
+.contact-card p:last-child,
+.about-card p:last-child {
+    margin-bottom: 0;
+}
+
+.about-grid,
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.about-card h3,
+.contact-card h3 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 1rem;
+}
+
+.about-card p,
+.contact-card p {
+    font-size: 0.92rem;
+}
+
+.legal-updated {
+    margin-top: 36px;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.legal-page + .footer,
+.legal-page ~ .footer {
+    margin-top: 0;
+}
+
+@media (max-width: 620px) {
+    .legal-page {
+        padding-top: 34px;
+        padding-bottom: 56px;
+    }
+
+    .about-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
