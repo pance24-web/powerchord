@@ -1,0 +1,14 @@
+{
+  "name": "chord-lagu",
+  "version": "1.0.0",
+  "description": "Aplikasi Chord & Lirik Lagu Sederhana",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 3000",
+    "start": "python -m http.server 3000",
+    "check": "node --check js/main.js && python3 scripts/validate_data.py"
+  },
+  "keywords": ["chord", "gitar", "lirik", "musik"],
+  "author": "",
+  "license": "ISC"
+}
