@@ -202,6 +202,9 @@ function initHomepageInteractions() {
 }
 
 async function loadSongs() {
+    const needsSongData = document.getElementById('songList') || document.getElementById('judulLagu');
+    if (!needsSongData) return;
+
     try {
         const response = await fetch('data/songs.json');
         if (!response.ok) throw new Error('Gagal memuat data lagu');
