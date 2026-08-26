@@ -7,7 +7,7 @@ function initTheme() {
     const button = document.getElementById('themeToggle');
     let storedTheme = null;
     try {
-        storedTheme = localStorage.getItem('punkkord-theme');
+        storedTheme = localStorage.getItem('powerchord-theme');
     } catch (error) {
         console.warn('Preferensi tema tidak dapat dibaca.', error);
     }
@@ -31,7 +31,7 @@ function initTheme() {
         const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
         applyTheme(nextTheme);
         try {
-            localStorage.setItem('punkkord-theme', nextTheme);
+            localStorage.setItem('powerchord-theme', nextTheme);
         } catch (error) {
             console.warn('Preferensi tema tidak dapat disimpan.', error);
         }

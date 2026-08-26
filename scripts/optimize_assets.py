@@ -2,8 +2,8 @@ from pathlib import Path
 from PIL import Image
 
 asset = Path('asset/favicon.png')
-backup = Path('/tmp/PunkKord-favicon-original.png')
-output = Path('/tmp/PunkKord-favicon-optimized.png')
+backup = Path('/tmp/PowerChord-favicon-original.png')
+output = Path('/tmp/PowerChord-favicon-optimized.png')
 
 if not asset.exists():
     raise SystemExit(f'Missing asset: {asset}')

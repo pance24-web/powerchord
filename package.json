@@ -9,6 +9,6 @@
     "check": "node --check js/main.js && python3 scripts/validate_data.py"
   },
   "keywords": ["chord", "gitar", "lirik", "musik"],
-  "author": "PunkKord Contributors",
+  "author": "PowerChord Contributors",
   "license": "ISC"
 }
