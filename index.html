@@ -1,76 +1,166 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Punk Kord - Kunci Gitar & Lirik</title>
+    <meta name="description" content="ChordFlow menyediakan chord gitar dan lirik lagu yang sederhana, cepat, dan mudah dimainkan.">
+    <title>ChordFlow — Chord & Lirik Lagu</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="asset/favicon.png">
     <script>
-        // Terapkan tema sebelum render untuk mencegah FOUC
         (function () {
             var saved = null;
-            try {
-                saved = localStorage.getItem('theme');
-            } catch (e) {
-                // Gunakan preferensi sistem jika storage tidak tersedia.
-            }
-            var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            var theme = saved || (prefersDark ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', theme);
+            try { saved = localStorage.getItem('theme'); } catch (e) {}
+            document.documentElement.setAttribute('data-theme', saved || 'light');
         })();
     </script>
 </head>
 <body>
-
-    <header class="header">
-        <div class="container">
-            <a href="index.html" class="logo">Punk Kord</a>
-            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
-                <span class="icon-moon">🌙</span>
-                <span class="icon-sun">☀️</span>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="ChordFlow home">ChordFlow</a>
+            <nav class="primary-nav" aria-label="Navigasi utama">
+                <a href="#browse">Browse</a>
+                <a href="#quick-tools">Transpose</a>
+                <a href="#quick-tools">Tuner</a>
+                <a href="#library">Library</a>
+            </nav>
+            <div class="header-actions">
+                <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
+                    <span aria-hidden="true">◐</span>
+                    <span class="visually-hidden">Ganti tema</span>
+                </button>
+                <a class="sign-in-link" href="#library">Sign in</a>
+            </div>
+            <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Buka menu">
+                <span aria-hidden="true">☰</span>
             </button>
         </div>
+        <nav id="mobileNav" class="mobile-nav container" aria-label="Navigasi mobile" hidden>
+            <a href="#browse">Browse</a>
+            <a href="#quick-tools">Transpose</a>
+            <a href="#quick-tools">Tuner</a>
+            <a href="#library">Library</a>
+            <a href="#popular">Popular</a>
+            <a href="#latest">Latest</a>
+        </nav>
     </header>
 
-    <section class="search-section">
-        <div class="container">
-            <label for="searchInput" class="visually-hidden">Cari lagu atau artis</label>
-            <input type="search" id="searchInput" placeholder="Cari lagu atau artis..." class="search-input" autocomplete="off" aria-controls="searchResults" aria-autocomplete="list">
-            <div id="searchResults" class="search-results" role="status" aria-live="polite" aria-busy="false" hidden></div>
-        </div>
-    </section>
-
-    <section class="genre-section">
-        <div class="container">
-            <div class="genre-chips" id="genreChips">
-                <button class="chip active" type="button" data-genre="all" aria-pressed="true">Semua</button>
-                <button class="chip" type="button" aria-pressed="false" data-genre="Pop">Pop</button>
-                <button class="chip" type="button" aria-pressed="false" data-genre="Rock">Rock</button>
-                <button class="chip" type="button" aria-pressed="false" data-genre="Dangdut">Dangdut</button>
-                <button class="chip" type="button" aria-pressed="false" data-genre="Pop Rock">Pop Rock</button>
-                <button class="chip" type="button" aria-pressed="false" data-genre="Indie">Indie</button>
-                <button class="chip" type="button" aria-pressed="false" data-genre="Reggae">Reggae</button>
-                <button class="chip" type="button" aria-pressed="false" data-genre="Minang">Minang</button>
-                <button class="chip" type="button" aria-pressed="false" data-genre="Melayu">Melayu</button>
-                <button class="chip" type="button" aria-pressed="false" data-genre="Ska">Ska</button>
-                <button class="chip" type="button" aria-pressed="false" data-genre="Folk">Folk</button>
+    <main>
+        <section class="hero-section" aria-labelledby="hero-title">
+            <div class="container hero-content">
+                <p class="eyebrow">PLAY MORE. SEARCH LESS.</p>
+                <h1 id="hero-title">Find the right chords<br class="desktop-only"> for your next song.</h1>
+                <p class="hero-description">Simple chord sheets and lyrics, ready when you pick up your guitar.</p>
+                <form id="searchForm" class="hero-search" role="search">
+                    <label for="searchInput" class="visually-hidden">Cari lagu, artis, atau chord</label>
+                    <span class="search-icon" aria-hidden="true">⌕</span>
+                    <input type="search" id="searchInput" placeholder="Search songs, artists, or chords" autocomplete="off" aria-controls="searchResults" aria-autocomplete="list">
+                    <button type="submit">Search</button>
+                </form>
+                <div class="search-suggestions" aria-label="Pencarian cepat">
+                    <span>Try:</span>
+                    <button type="button" data-search="Yellow">Yellow</button>
+                    <button type="button" data-search="Wonderwall">Wonderwall</button>
+                    <button type="button" data-search="Let It Be">Let It Be</button>
+                </div>
+                <div id="searchResults" class="search-results" role="status" aria-live="polite" aria-busy="false" hidden></div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="song-section">
-        <div class="container">
-            <h2 class="section-title">Daftar Lagu</h2>
-            <div id="songList" class="song-list">
-                <!-- Kartu lagu diisi oleh JS -->
+        <nav class="category-nav" aria-label="Kategori lagu">
+            <div class="container category-nav-inner" id="categoryNav">
+                <a href="#popular" class="category-link active" data-section="popular" aria-current="page">Popular</a>
+                <a href="#latest" class="category-link" data-section="latest">Latest</a>
+                <a href="#browse" class="category-link" data-section="easy">Easy Songs</a>
+                <a href="#browse" class="category-link" data-section="genre">By Genre</a>
+                <a href="#browse" class="category-link" data-section="artist">By Artist</a>
+                <a href="#browse" class="category-link" data-section="four-chords">4-Chord Songs</a>
             </div>
-        </div>
-    </section>
+        </nav>
 
-<footer class="footer">
-    <p>&copy; 2026 PunkKord.com | <a href="disclaimer.html" style="color: inherit;">Disclaimer</a> | <a href="dmca.html" style="color: inherit;">DMCA</a></p>
-</footer>
+        <section class="content-section" id="browse" aria-labelledby="popular-title">
+            <div class="container content-grid">
+                <div class="main-column">
+                    <section class="listing-section" id="popular">
+                        <div class="section-heading-row">
+                            <div>
+                                <p class="section-kicker">Paling banyak dimainkan</p>
+                                <h2 id="popular-title">Popular Chord Sheets</h2>
+                            </div>
+                            <a class="text-link" href="#song-catalog" data-focus-catalog="true">Lihat semua <span aria-hidden="true">→</span></a>
+                        </div>
+                        <div id="popularList" class="song-list compact-list" aria-live="polite"></div>
+                    </section>
+
+                    <section class="listing-section" id="latest" aria-labelledby="latest-title">
+                        <div class="section-heading-row">
+                            <div>
+                                <p class="section-kicker">Update terbaru dari katalog</p>
+                                <h2 id="latest-title">Chord Terbaru</h2>
+                            </div>
+                            <a class="text-link" href="#song-catalog" data-focus-catalog="true">Lihat semua <span aria-hidden="true">→</span></a>
+                        </div>
+                        <div id="latestList" class="latest-list" aria-live="polite"></div>
+                    </section>
+
+                    <section class="listing-section catalog-section" id="song-catalog" aria-labelledby="catalog-title">
+                        <div class="section-heading-row">
+                            <div>
+                                <p class="section-kicker">Jelajahi seluruh koleksi</p>
+                                <h2 id="catalog-title">Browse all songs</h2>
+                            </div>
+                            <span class="catalog-count" id="catalogCount" aria-live="polite"></span>
+                        </div>
+                        <div id="songList" class="song-list" aria-live="polite">
+                            <p class="loading-state">Memuat lagu…</p>
+                        </div>
+                    </section>
+                </div>
+
+                <aside class="side-column" aria-label="Menu tambahan">
+                    <section class="side-section" id="quick-tools" aria-labelledby="quick-tools-title">
+                        <h2 id="quick-tools-title">Quick tools</h2>
+                        <a href="detail.html?id=0" class="utility-link"><span>Transpose Chord</span><span aria-hidden="true">→</span></a>
+                        <a href="#quick-tools" class="utility-link"><span>Guitar Tuner</span><span aria-hidden="true">→</span></a>
+                        <a href="#quick-tools" class="utility-link"><span>Practice Mode</span><span aria-hidden="true">→</span></a>
+                    </section>
+
+                    <section class="side-section" aria-labelledby="genre-title">
+                        <h2 id="genre-title">Browse by Genre</h2>
+                        <div class="genre-list" id="genreChips">
+                            <button type="button" class="genre-link active" data-genre="all" aria-pressed="true">Semua <span aria-hidden="true">→</span></button>
+                            <button type="button" class="genre-link" data-genre="Pop" aria-pressed="false">Pop <span aria-hidden="true">→</span></button>
+                            <button type="button" class="genre-link" data-genre="Rock" aria-pressed="false">Rock <span aria-hidden="true">→</span></button>
+                            <button type="button" class="genre-link" data-genre="Indie" aria-pressed="false">Indie <span aria-hidden="true">→</span></button>
+                            <button type="button" class="genre-link" data-genre="Dangdut" aria-pressed="false">Dangdut <span aria-hidden="true">→</span></button>
+                            <button type="button" class="genre-link" data-genre="Worship" aria-pressed="false">Worship <span aria-hidden="true">→</span></button>
+                            <button type="button" class="genre-link" data-genre="Acoustic" aria-pressed="false">Acoustic <span aria-hidden="true">→</span></button>
+                        </div>
+                    </section>
+
+                    <section class="side-section library-note" id="library" aria-labelledby="library-title">
+                        <p class="section-kicker">Your next session</p>
+                        <h2 id="library-title">Keep your favorite chords close.</h2>
+                        <p>Sign in untuk menyimpan lagu dan melanjutkan latihan dari perangkat apa pun.</p>
+                        <a class="text-link" href="#library">Masuk ke library <span aria-hidden="true">→</span></a>
+                    </section>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <span>© 2026 ChordFlow</span>
+            <nav aria-label="Tautan footer">
+                <a href="#library">About us</a>
+                <a href="#quick-tools">Contact</a>
+                <a href="disclaimer.html">Privacy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+            </nav>
+        </div>
+    </footer>
 
     <script src="js/main.js"></script>
 </body>
