@@ -35,6 +35,8 @@ for index, song in enumerate(songs):
             fail(f'item {index}, baris {line_index} bukan object')
         if not isinstance(line.get('chord'), str) or not isinstance(line.get('teks'), str):
             fail(f'item {index}, baris {line_index} harus memiliki chord dan teks string')
+        if not line['chord'].strip() and not line['teks'].strip():
+            fail(f'item {index}, baris {line_index} tidak boleh kosong')
     identity = (song['judul'].strip().casefold(), song['artis'].strip().casefold())
     if identity in identities:
         fail(f'duplikasi lagu: {song["judul"]} - {song["artis"]}')

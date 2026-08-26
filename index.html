@@ -21,7 +21,7 @@
             <form id="headerSearchForm" class="header-search" role="search" action="index.html" method="get">
                 <label for="searchInput" class="visually-hidden">Cari chord</label>
                 <span aria-hidden="true">⌕</span>
-                <input type="search" id="searchInput" name="q" placeholder="Search Chord" autocomplete="off" aria-controls="searchResults" aria-autocomplete="list">
+                <input type="search" id="searchInput" name="q" placeholder="Search Chord" autocomplete="off" aria-controls="searchResults" aria-autocomplete="list" aria-expanded="false" aria-activedescendant="">
             </form>
             <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
                 <span class="icon-moon" aria-hidden="true">🌙</span><span class="icon-sun" aria-hidden="true">☀️</span>
@@ -66,7 +66,7 @@
                     <button type="button" data-genre="Ska" aria-pressed="false">Ska</button>
                     <button type="button" data-genre="Folk" aria-pressed="false">Folk</button>
                 </div>
-                <div id="searchResults" class="search-results" role="status" aria-live="polite" aria-busy="false" hidden></div>
+                <div id="searchResults" class="search-results" role="listbox" aria-label="Saran pencarian" aria-live="polite" aria-busy="false" hidden></div>
                 <div id="songList" class="link-list" aria-live="polite">
                     <p class="loading-state">Memuat chord…</p>
                 </div>

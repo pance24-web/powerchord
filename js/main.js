@@ -1,5 +1,6 @@
 let searchQuery = '';
 let activeGenre = 'All';
+let activeSuggestion = -1;
 let songs = [];
 
 function initTheme() {
@@ -37,30 +38,6 @@ function initTheme() {
     });
 }
 
-const referenceLatest = [
-    { artist: 'Aprilian', title: 'Salah Berharap' },
-    { artist: 'Geisha', title: 'Jika Bukan Karenamu' },
-    { artist: 'Olivia Rodrigo', title: 'scared of my guitar' },
-    { artist: 'Madison Beer', title: 'Healthy Habit' },
-    { artist: 'HAL', title: 'Terima Kasih' }
-];
-
-const referencePopular = [
-    { artist: 'Nidji', title: 'Laskar Pelangi' },
-    { artist: 'Iwan Fals', title: 'Bento' },
-    { artist: 'Andmesh', title: 'Cinta Luar Biasa' },
-    { artist: 'Andmesh', title: 'Hanya Rindu' },
-    { artist: 'Iwan Fals', title: 'Kemesraan' }
-];
-
-const referenceRelated = [
-    { artist: 'Coldplay', title: 'Fix You' },
-    { artist: 'Ed Sheeran', title: 'Perfect' },
-    { artist: 'John Mayer', title: 'Gravity' },
-    { artist: 'The Beatles', title: 'Let It Be' },
-    { artist: 'James Arthur', title: "Say You Won’t Let Go" }
-];
-
 function getSongIndex(song) {
     return songs.indexOf(song);
 }
@@ -76,12 +53,11 @@ function getDifficulty(song) {
     return 'Advanced';
 }
 
-function makeReferenceLink(item) {
-    const match = songs.find((song) => song.judul.toLowerCase() === item.title.toLowerCase() && song.artis.toLowerCase() === item.artist.toLowerCase());
+function makeReferenceLink(song) {
     const link = document.createElement('a');
     link.className = 'reference-link';
-    link.href = match ? `detail.html?id=${getSongIndex(match)}` : 'index.html';
-    link.textContent = `${item.artist} - ${item.title}`;
+    link.href = `detail.html?id=${getSongIndex(song)}`;
+    link.textContent = `${song.artis} - ${song.judul}`;
     return link;
 }
 
@@ -144,33 +120,52 @@ function matchesGenre(song) {
 
 function renderHomepage() {
     renderSearchRows(songs.filter(matchesGenre));
-    renderReferenceList(document.getElementById('newSongList'), referenceLatest);
-    renderReferenceList(document.getElementById('popularSongList'), referencePopular);
+    renderReferenceList(document.getElementById('newSongList'), songs.slice(-5).reverse());
+    renderReferenceList(document.getElementById('popularSongList'), songs.slice(0, 5));
     const latestCount = document.getElementById('latestCount');
     if (latestCount) latestCount.textContent = `${songs.filter(matchesGenre).length} lagu`;
 }
 
+function closeSearchResults() {
+    const input = document.getElementById('searchInput');
+    const results = document.getElementById('searchResults');
+    activeSuggestion = -1;
+    if (input) input.setAttribute('aria-activedescendant', '');
+    if (input) input.setAttribute('aria-expanded', 'false');
+    if (results) results.hidden = true;
+}
+
 function renderSearchResults(filtered) {
+    const input = document.getElementById('searchInput');
     const results = document.getElementById('searchResults');
     if (!results) return;
     results.replaceChildren();
+    activeSuggestion = -1;
+    if (input) input.setAttribute('aria-activedescendant', '');
     if (searchQuery.length < 2) {
-        results.hidden = true;
+        closeSearchResults();
         return;
     }
-    filtered.slice(0, 6).forEach((song) => {
-        const link = document.createElement('a');
-        link.href = `detail.html?id=${getSongIndex(song)}`;
-        link.textContent = `${song.judul} — ${song.artis}`;
-        results.appendChild(link);
+    filtered.slice(0, 6).forEach((song, index) => {
+        const option = document.createElement('a');
+        option.id = `search-option-${index}`;
+        option.className = 'search-option';
+        option.setAttribute('role', 'option');
+        option.setAttribute('aria-selected', 'false');
+        option.href = `detail.html?id=${getSongIndex(song)}`;
+        option.textContent = `${song.judul} — ${song.artis}`;
+        option.addEventListener('click', closeSearchResults);
+        results.appendChild(option);
     });
     if (!filtered.length) {
         const empty = document.createElement('p');
         empty.className = 'search-empty';
+        empty.setAttribute('role', 'status');
         empty.textContent = 'Lagu tidak ditemukan';
         results.appendChild(empty);
     }
     results.hidden = false;
+    if (input) input.setAttribute('aria-expanded', 'true');
 }
 
 function filterHomepage() {
@@ -222,18 +217,45 @@ function initHomepageInteractions() {
 
     input.addEventListener('input', () => {
         searchQuery = input.value.trim();
+        activeSuggestion = -1;
+        input.setAttribute('aria-activedescendant', '');
         filterHomepage();
     });
     input.addEventListener('keydown', (event) => {
+        const results = document.getElementById('searchResults');
+        const options = results ? [...results.querySelectorAll('[role="option"]')] : [];
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+            if (!options.length) return;
+            event.preventDefault();
+            if (activeSuggestion < 0) {
+                activeSuggestion = event.key === 'ArrowDown' ? 0 : options.length - 1;
+            } else {
+                const direction = event.key === 'ArrowDown' ? 1 : -1;
+                activeSuggestion = (activeSuggestion + direction + options.length) % options.length;
+            }
+            options.forEach((option, index) => {
+                const selected = index === activeSuggestion;
+                option.setAttribute('aria-selected', String(selected));
+            });
+            input.setAttribute('aria-activedescendant', options[activeSuggestion].id);
+            return;
+        }
+        if (event.key === 'Enter' && activeSuggestion >= 0 && options[activeSuggestion]) {
+            event.preventDefault();
+            options[activeSuggestion].click();
+            return;
+        }
         if (event.key === 'Escape') {
             input.value = '';
             searchQuery = '';
             filterHomepage();
+            closeSearchResults();
         }
     });
     form?.addEventListener('submit', (event) => {
         event.preventDefault();
         filterHomepage();
+        closeSearchResults();
         document.getElementById('song-catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
@@ -249,7 +271,7 @@ function initHomepageInteractions() {
     });
     document.addEventListener('click', (event) => {
         const results = document.getElementById('searchResults');
-        if (results && !event.target.closest('.header-search') && !event.target.closest('.search-results')) results.hidden = true;
+        if (results && !event.target.closest('.header-search') && !event.target.closest('.search-results')) closeSearchResults();
     });
 }
 
@@ -299,7 +321,8 @@ function initDetailPage() {
     if (meta[0]) meta[0].textContent = getDifficulty(song);
     if (meta[1]) meta[1].textContent = song.genre || 'Guitar';
     if (meta[2]) meta[2].textContent = `Original key: ${song.kunci || 'C'}`;
-    renderReferenceList(document.getElementById('relatedSongs'), referenceRelated);
+    const relatedSongs = songs.filter((candidate) => candidate !== song && candidate.genre === song.genre).slice(0, 5);
+    renderReferenceList(document.getElementById('relatedSongs'), relatedSongs);
 
     let offset = 0;
     const originalKey = song.kunci || 'C';
