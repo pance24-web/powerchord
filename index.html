@@ -15,27 +15,30 @@
             <nav class="desktop-nav" aria-label="Navigasi utama">
                 <a class="active" href="index.html">Home</a>
                 <a href="detail.html?id=0">Transpose Chord</a>
-                <a href="#tuner">Tuner</a>
+                <a href="#song-catalog">Katalog</a>
                 <a href="#daftar-isi">Daftar Isi</a>
             </nav>
-            <form id="headerSearchForm" class="header-search" role="search">
+            <form id="headerSearchForm" class="header-search" role="search" action="index.html" method="get">
                 <label for="searchInput" class="visually-hidden">Cari chord</label>
                 <span aria-hidden="true">⌕</span>
-                <input type="search" id="searchInput" placeholder="Search Chord" autocomplete="off" aria-controls="searchResults" aria-autocomplete="list">
+                <input type="search" id="searchInput" name="q" placeholder="Search Chord" autocomplete="off" aria-controls="searchResults" aria-autocomplete="list">
             </form>
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
+                <span class="icon-moon" aria-hidden="true">🌙</span><span class="icon-sun" aria-hidden="true">☀️</span>
+            </button>
             <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Buka menu">☰</button>
         </div>
         <nav id="mobileNav" class="mobile-nav container" aria-label="Navigasi mobile" hidden>
             <a href="index.html">Home</a>
             <a href="detail.html?id=0">Transpose Chord</a>
-            <a href="#tuner">Tuner</a>
+            <a href="#song-catalog">Katalog</a>
             <a href="#daftar-isi">Daftar Isi</a>
         </nav>
     </header>
 
     <section class="alphabet-section" id="daftar-isi" aria-label="Daftar artis berdasarkan abjad">
         <div class="container alphabet-nav">
-            <a href="#latest">0-9</a><a href="#latest">A</a><a href="#latest">B</a><a href="#latest">C</a><a href="#latest">D</a><a href="#latest">E</a><a href="#latest">F</a><a href="#latest">G</a><a href="#latest">H</a><a href="#latest">I</a><a href="#latest">J</a><a href="#latest">K</a><a href="#latest">L</a><a href="#latest">M</a><a href="#latest">N</a><a href="#latest">O</a><a href="#latest">P</a><a href="#latest">Q</a><a href="#latest">R</a><a href="#latest">S</a><a href="#latest">T</a><a href="#latest">U</a><a href="#latest">V</a><a href="#latest">W</a><a href="#latest">X</a><a href="#latest">Y</a><a href="#latest">Z</a>
+            <a href="#song-catalog">0-9</a><a href="#song-catalog">A</a><a href="#song-catalog">B</a><a href="#song-catalog">C</a><a href="#song-catalog">D</a><a href="#song-catalog">E</a><a href="#song-catalog">F</a><a href="#song-catalog">G</a><a href="#song-catalog">H</a><a href="#song-catalog">I</a><a href="#song-catalog">J</a><a href="#song-catalog">K</a><a href="#song-catalog">L</a><a href="#song-catalog">M</a><a href="#song-catalog">N</a><a href="#song-catalog">O</a><a href="#song-catalog">P</a><a href="#song-catalog">Q</a><a href="#song-catalog">R</a><a href="#song-catalog">S</a><a href="#song-catalog">T</a><a href="#song-catalog">U</a><a href="#song-catalog">V</a><a href="#song-catalog">W</a><a href="#song-catalog">X</a><a href="#song-catalog">Y</a><a href="#song-catalog">Z</a>
         </div>
     </section>
 
@@ -46,9 +49,22 @@
                 <p>Temukan chord gitar dasar dan lirik lagu favoritmu di PunkKord. Kumpulan chord lengkap, akurat, dan mudah dimainkan untuk pemula hingga pro.</p>
             </header>
 
-            <section class="content-block" id="latest" aria-labelledby="latest-title">
+            <section class="content-block" id="song-catalog" aria-labelledby="latest-title">
                 <div class="section-heading">
-                    <h2 id="latest-title">Chord Terbaru</h2>
+                    <h2 id="latest-title">Katalog Chord</h2>
+                    <span class="result-count" id="latestCount" aria-live="polite">0 lagu</span>
+                </div>
+                <div class="genre-filters" aria-label="Filter genre">
+                    <button type="button" data-genre="All" class="active" aria-pressed="true">Semua</button>
+                    <button type="button" data-genre="Pop" aria-pressed="false">Pop</button>
+                    <button type="button" data-genre="Rock" aria-pressed="false">Rock</button>
+                    <button type="button" data-genre="Dangdut" aria-pressed="false">Dangdut</button>
+                    <button type="button" data-genre="Indie" aria-pressed="false">Indie</button>
+                    <button type="button" data-genre="Reggae" aria-pressed="false">Reggae</button>
+                    <button type="button" data-genre="Minang" aria-pressed="false">Minang</button>
+                    <button type="button" data-genre="Melayu" aria-pressed="false">Melayu</button>
+                    <button type="button" data-genre="Ska" aria-pressed="false">Ska</button>
+                    <button type="button" data-genre="Folk" aria-pressed="false">Folk</button>
                 </div>
                 <div id="searchResults" class="search-results" role="status" aria-live="polite" aria-busy="false" hidden></div>
                 <div id="songList" class="link-list" aria-live="polite">
@@ -69,12 +85,12 @@
         </aside>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" id="contact">
         <div class="container footer-inner">
             <span>© 2026 PunkKord</span>
             <nav aria-label="Tautan footer">
                 <a href="#daftar-isi">About us</a>
-                <a href="#tuner" id="tuner">Contact</a>
+                <a href="#contact">Contact</a>
                 <a href="disclaimer.html">Privacy</a>
                 <a href="disclaimer.html">Disclaimer</a>
             </nav>
@@ -84,7 +100,7 @@
     <nav class="mobile-bottom-nav" aria-label="Navigasi cepat mobile">
         <a class="active" href="index.html">Home</a>
         <a href="detail.html?id=0">Transpose Chord</a>
-        <a href="#tuner">Tuner</a>
+        <a href="#song-catalog">Katalog</a>
         <a href="#daftar-isi">Daftar Isi</a>
     </nav>
 

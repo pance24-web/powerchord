@@ -1,5 +1,41 @@
 let searchQuery = '';
+let activeGenre = 'All';
 let songs = [];
+
+function initTheme() {
+    const button = document.getElementById('themeToggle');
+    let storedTheme = null;
+    try {
+        storedTheme = localStorage.getItem('punkkord-theme');
+    } catch (error) {
+        console.warn('Preferensi tema tidak dapat dibaca.', error);
+    }
+
+    const systemDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+    const initialTheme = storedTheme === 'dark' || storedTheme === 'light'
+        ? storedTheme
+        : (systemDark ? 'dark' : 'light');
+
+    const applyTheme = (theme) => {
+        document.documentElement.dataset.theme = theme;
+        if (!button) return;
+        const dark = theme === 'dark';
+        button.setAttribute('aria-pressed', String(dark));
+        button.setAttribute('aria-label', dark ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
+        button.setAttribute('title', dark ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
+    };
+
+    applyTheme(initialTheme);
+    button?.addEventListener('click', () => {
+        const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(nextTheme);
+        try {
+            localStorage.setItem('punkkord-theme', nextTheme);
+        } catch (error) {
+            console.warn('Preferensi tema tidak dapat disimpan.', error);
+        }
+    });
+}
 
 const referenceLatest = [
     { artist: 'Aprilian', title: 'Salah Berharap' },
@@ -10,11 +46,11 @@ const referenceLatest = [
 ];
 
 const referencePopular = [
-    { artist: 'Laskar Pelangi', title: 'Nidji' },
-    { artist: 'Bento', title: 'Iwan Fals' },
-    { artist: 'Cinta Luar Biasa', title: 'Andmesh' },
-    { artist: 'Hanya Rindu', title: 'Andmesh' },
-    { artist: 'Kemesraan', title: 'Iwan Fals' }
+    { artist: 'Nidji', title: 'Laskar Pelangi' },
+    { artist: 'Iwan Fals', title: 'Bento' },
+    { artist: 'Andmesh', title: 'Cinta Luar Biasa' },
+    { artist: 'Andmesh', title: 'Hanya Rindu' },
+    { artist: 'Iwan Fals', title: 'Kemesraan' }
 ];
 
 const referenceRelated = [
@@ -101,12 +137,17 @@ function renderSearchRows(filtered) {
     filtered.forEach((song) => container.appendChild(renderLatestSongRow(song)));
 }
 
+function matchesGenre(song) {
+    const genre = typeof song.genre === 'string' ? song.genre.toLowerCase() : '';
+    return activeGenre === 'All' || genre.includes(activeGenre.toLowerCase());
+}
+
 function renderHomepage() {
-    renderReferenceList(document.getElementById('songList'), referenceLatest);
+    renderSearchRows(songs.filter(matchesGenre));
     renderReferenceList(document.getElementById('newSongList'), referenceLatest);
     renderReferenceList(document.getElementById('popularSongList'), referencePopular);
     const latestCount = document.getElementById('latestCount');
-    if (latestCount) latestCount.textContent = `${referenceLatest.length} lagu`;
+    if (latestCount) latestCount.textContent = `${songs.filter(matchesGenre).length} lagu`;
 }
 
 function renderSearchResults(filtered) {
@@ -138,7 +179,7 @@ function filterHomepage() {
     const filtered = songs.filter((song) => {
         const title = typeof song.judul === 'string' ? song.judul.toLowerCase() : '';
         const artist = typeof song.artis === 'string' ? song.artis.toLowerCase() : '';
-        return title.includes(query) || artist.includes(query);
+        return matchesGenre(song) && (!query || title.includes(query) || artist.includes(query));
     });
 
     if (searchQuery.length >= 2) {
@@ -193,7 +234,18 @@ function initHomepageInteractions() {
     form?.addEventListener('submit', (event) => {
         event.preventDefault();
         filterHomepage();
-        document.getElementById('latest')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('song-catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    document.querySelectorAll('[data-genre]').forEach((button) => {
+        button.addEventListener('click', () => {
+            activeGenre = button.dataset.genre || 'All';
+            document.querySelectorAll('[data-genre]').forEach((item) => {
+                item.classList.toggle('active', item === button);
+                item.setAttribute('aria-pressed', String(item === button));
+            });
+            filterHomepage();
+        });
     });
     document.addEventListener('click', (event) => {
         const results = document.getElementById('searchResults');
@@ -220,6 +272,7 @@ async function loadSongs() {
     }
 }
 
+initTheme();
 initMobileMenu();
 initHomepageInteractions();
 loadSongs();
