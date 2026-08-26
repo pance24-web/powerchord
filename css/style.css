@@ -1053,3 +1053,24 @@ button {
         grid-template-columns: 1fr;
     }
 }
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.logo-mark {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 7px;
+    object-fit: contain;
+}
+
+@media (max-width: 520px) {
+    .logo-mark {
+        width: 28px;
+        height: 28px;
+    }
+}
