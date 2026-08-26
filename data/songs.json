@@ -5,14 +5,36 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Sebab kau terlalu indah" },
-      { "chord": "D", "teks": "dari sekedar kata" },
-      { "chord": "Am", "teks": "Dunia berhenti sejenak" },
-      { "chord": "C", "teks": "menikmati indahmu" },
-      { "chord": "G", "teks": "Dan apabila ku tak lagi denganmu" },
-      { "chord": "D", "teks": "Ku harap kau tetap bahagia" },
-      { "chord": "Am", "teks": "dengan hidupmu" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Sebab kau terlalu indah"
+      },
+      {
+        "chord": "D",
+        "teks": "dari sekedar kata"
+      },
+      {
+        "chord": "Am",
+        "teks": "Dunia berhenti sejenak"
+      },
+      {
+        "chord": "C",
+        "teks": "menikmati indahmu"
+      },
+      {
+        "chord": "G",
+        "teks": "Dan apabila ku tak lagi denganmu"
+      },
+      {
+        "chord": "D",
+        "teks": "Ku harap kau tetap bahagia"
+      },
+      {
+        "chord": "Am",
+        "teks": "dengan hidupmu"
+      }
+    ],
+    "id": "komang-raim-laode"
   },
   {
     "judul": "Rayuan Perempuan Gila",
@@ -20,11 +42,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Kau adalah rayuan gila" },
-      { "chord": "Em", "teks": "yang membuatku lupa" },
-      { "chord": "F", "teks": "akan segala waktu" },
-      { "chord": "G", "teks": "yang telah kulewati" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Kau adalah rayuan gila"
+      },
+      {
+        "chord": "Em",
+        "teks": "yang membuatku lupa"
+      },
+      {
+        "chord": "F",
+        "teks": "akan segala waktu"
+      },
+      {
+        "chord": "G",
+        "teks": "yang telah kulewati"
+      }
+    ],
+    "id": "rayuan-perempuan-gila-nadin-amizah"
   },
   {
     "judul": "Dan...",
@@ -32,11 +67,24 @@
     "genre": "Rock",
     "kunci": "A",
     "lirik": [
-      { "chord": "A", "teks": "Dan... aku tak bisa" },
-      { "chord": "C#m", "teks": "melupakanmu" },
-      { "chord": "D", "teks": "walau ku telah jauh" },
-      { "chord": "E", "teks": "dari hidupmu" }
-    ]
+      {
+        "chord": "A",
+        "teks": "Dan... aku tak bisa"
+      },
+      {
+        "chord": "C#m",
+        "teks": "melupakanmu"
+      },
+      {
+        "chord": "D",
+        "teks": "walau ku telah jauh"
+      },
+      {
+        "chord": "E",
+        "teks": "dari hidupmu"
+      }
+    ],
+    "id": "dan-sheila-on-7"
   },
   {
     "judul": "Cundamani",
@@ -44,11 +92,24 @@
     "genre": "Dangdut",
     "kunci": "Am",
     "lirik": [
-      { "chord": "Am", "teks": "Cundamani cundamani" },
-      { "chord": "F", "teks": "kowe takon karo aku" },
-      { "chord": "C", "teks": "aku takon karo kowe" },
-      { "chord": "G", "teks": "kabeh bakal dadi geger" }
-    ]
+      {
+        "chord": "Am",
+        "teks": "Cundamani cundamani"
+      },
+      {
+        "chord": "F",
+        "teks": "kowe takon karo aku"
+      },
+      {
+        "chord": "C",
+        "teks": "aku takon karo kowe"
+      },
+      {
+        "chord": "G",
+        "teks": "kabeh bakal dadi geger"
+      }
+    ],
+    "id": "cundamani-denny-caknan"
   },
   {
     "judul": "Mimpi Yang Sempurna",
@@ -56,11 +117,24 @@
     "genre": "Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "Em", "teks": "Mimpi yang sempurna" },
-      { "chord": "C", "teks": "tak akan pernah sirna" },
-      { "chord": "G", "teks": "walau kau jauh di sana" },
-      { "chord": "D", "teks": "ku kan selalu mengingatmu" }
-    ]
+      {
+        "chord": "Em",
+        "teks": "Mimpi yang sempurna"
+      },
+      {
+        "chord": "C",
+        "teks": "tak akan pernah sirna"
+      },
+      {
+        "chord": "G",
+        "teks": "walau kau jauh di sana"
+      },
+      {
+        "chord": "D",
+        "teks": "ku kan selalu mengingatmu"
+      }
+    ],
+    "id": "mimpi-yang-sempurna-peterpan"
   },
   {
     "judul": "Pelangi",
@@ -68,9 +142,16 @@
     "genre": "Pop Rock",
     "kunci": "Em",
     "lirik": [
-      { "chord": "Em", "teks": "Indah bening matamu" },
-      { "chord": "Em", "teks": "Lembut tatap pandangmu" }
-    ]
+      {
+        "chord": "Em",
+        "teks": "Indah bening matamu"
+      },
+      {
+        "chord": "Em",
+        "teks": "Lembut tatap pandangmu"
+      }
+    ],
+    "id": "pelangi-boomerang"
   },
   {
     "judul": "Milikmu",
@@ -78,10 +159,20 @@
     "genre": "Pop Rock",
     "kunci": "Em",
     "lirik": [
-      { "chord": "Bm", "teks": "Tuhanku tuntun hambaMu" },
-      { "chord": "A", "teks": "dalam kegelapan" },
-      { "chord": "G", "teks": "beri aku petunjukMu" }
-    ]
+      {
+        "chord": "Bm",
+        "teks": "Tuhanku tuntun hambaMu"
+      },
+      {
+        "chord": "A",
+        "teks": "dalam kegelapan"
+      },
+      {
+        "chord": "G",
+        "teks": "beri aku petunjukMu"
+      }
+    ],
+    "id": "milikmu-boomerang"
   },
   {
     "judul": "Aku Bukan Pilihan Hatimu",
@@ -89,11 +180,24 @@
     "genre": "Pop Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Jika memang diriku bukanlah" },
-      { "chord": "G", "teks": "menjadi pilihan hatimu" },
-      { "chord": "Am", "teks": "ku ikhlas menerima" },
-      { "chord": "F", "teks": "meski hati hancur" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Jika memang diriku bukanlah"
+      },
+      {
+        "chord": "G",
+        "teks": "menjadi pilihan hatimu"
+      },
+      {
+        "chord": "Am",
+        "teks": "ku ikhlas menerima"
+      },
+      {
+        "chord": "F",
+        "teks": "meski hati hancur"
+      }
+    ],
+    "id": "aku-bukan-pilihan-hatimu-ungu"
   },
   {
     "judul": "Skak Mat",
@@ -101,9 +205,16 @@
     "genre": "Rock",
     "kunci": "E",
     "lirik": [
-      { "chord": "E", "teks": "Intro (E 8x)" },
-      { "chord": "E", "teks": "Kir, Dipikir Pikir..." }
-    ]
+      {
+        "chord": "E",
+        "teks": "Intro (E 8x)"
+      },
+      {
+        "chord": "E",
+        "teks": "Kir, Dipikir Pikir..."
+      }
+    ],
+    "id": "skak-mat-bip"
   },
   {
     "judul": "Percayalah",
@@ -111,9 +222,16 @@
     "genre": "Slow Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Ku ungkapkan isi hatiku," },
-      { "chord": "D", "teks": "hilangkan segala resah" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Ku ungkapkan isi hatiku,"
+      },
+      {
+        "chord": "D",
+        "teks": "hilangkan segala resah"
+      }
+    ],
+    "id": "percayalah-whizzkid"
   },
   {
     "judul": "Akal Sehat",
@@ -121,9 +239,16 @@
     "genre": "Pop Rock",
     "kunci": "E",
     "lirik": [
-      { "chord": "E", "teks": "Dulu kumencintaimu terasa bahagia" },
-      { "chord": "A", "teks": "Namun kau hilang tanpa jejak" }
-    ]
+      {
+        "chord": "E",
+        "teks": "Dulu kumencintaimu terasa bahagia"
+      },
+      {
+        "chord": "A",
+        "teks": "Namun kau hilang tanpa jejak"
+      }
+    ],
+    "id": "akal-sehat-ada-band"
   },
   {
     "judul": "Cerita Tentang Gunung dan Laut",
@@ -131,9 +256,16 @@
     "genre": "Indie Folk",
     "kunci": "Dm, Em",
     "lirik": [
-      { "chord": "Dm", "teks": "Aku pernah berjalan di sebuah bukit" },
-      { "chord": "Em", "teks": "Tak ada air tak ada rumput" }
-    ]
+      {
+        "chord": "Dm",
+        "teks": "Aku pernah berjalan di sebuah bukit"
+      },
+      {
+        "chord": "Em",
+        "teks": "Tak ada air tak ada rumput"
+      }
+    ],
+    "id": "cerita-tentang-gunung-dan-laut-payung-teduh"
   },
   {
     "judul": "Cinta Melulu",
@@ -141,9 +273,16 @@
     "genre": "Indie Rock",
     "kunci": "Bm, E",
     "lirik": [
-      { "chord": "Bm", "teks": "wo ho lagu cinta melulu" },
-      { "chord": "E", "teks": "kita memang benar-benar melayu" }
-    ]
+      {
+        "chord": "Bm",
+        "teks": "wo ho lagu cinta melulu"
+      },
+      {
+        "chord": "E",
+        "teks": "kita memang benar-benar melayu"
+      }
+    ],
+    "id": "cinta-melulu-efek-rumah-kaca"
   },
   {
     "judul": "Senang Bersamamu",
@@ -151,9 +290,16 @@
     "genre": "Indie Retro",
     "kunci": "A",
     "lirik": [
-      { "chord": "A", "teks": "Saat senja berlalu" },
-      { "chord": "D", "teks": "Ku cari dirimu" }
-    ]
+      {
+        "chord": "A",
+        "teks": "Saat senja berlalu"
+      },
+      {
+        "chord": "D",
+        "teks": "Ku cari dirimu"
+      }
+    ],
+    "id": "senang-bersamamu-naif"
   },
   {
     "judul": "Tentang Rumahku",
@@ -161,9 +307,16 @@
     "genre": "Folk",
     "kunci": "A, Bm",
     "lirik": [
-      { "chord": "A", "teks": "Di ujung bukit karang yang berbatu" },
-      { "chord": "Bm", "teks": "Beranda Rumahku" }
-    ]
+      {
+        "chord": "A",
+        "teks": "Di ujung bukit karang yang berbatu"
+      },
+      {
+        "chord": "Bm",
+        "teks": "Beranda Rumahku"
+      }
+    ],
+    "id": "tentang-rumahku-dialog-dini-hari"
   },
   {
     "judul": "Bebas Merdeka",
@@ -171,9 +324,16 @@
     "genre": "Reggae",
     "kunci": "G, Em",
     "lirik": [
-      { "chord": "G", "teks": "kujalani apa adanya aku bahagia" },
-      { "chord": "Em", "teks": "bebas lepas tanpa beban aku merdeka" }
-    ]
+      {
+        "chord": "G",
+        "teks": "kujalani apa adanya aku bahagia"
+      },
+      {
+        "chord": "Em",
+        "teks": "bebas lepas tanpa beban aku merdeka"
+      }
+    ],
+    "id": "bebas-merdeka-steven-coconut-treez"
   },
   {
     "judul": "Lagu Santai",
@@ -181,11 +341,24 @@
     "genre": "Reggae",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Lagu santai kita bergoyang" },
-      { "chord": "D", "teks": "lepaskan semua beban" },
-      { "chord": "Em", "teks": "rasakan getaran cinta" },
-      { "chord": "C", "teks": "dalam setiap nada" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Lagu santai kita bergoyang"
+      },
+      {
+        "chord": "D",
+        "teks": "lepaskan semua beban"
+      },
+      {
+        "chord": "Em",
+        "teks": "rasakan getaran cinta"
+      },
+      {
+        "chord": "C",
+        "teks": "dalam setiap nada"
+      }
+    ],
+    "id": "lagu-santai-steven-coconut-treez"
   },
   {
     "judul": "Taragak Tapi Ndak Buliah",
@@ -193,9 +366,16 @@
     "genre": "Pop Minang",
     "kunci": "G, D",
     "lirik": [
-      { "chord": "G", "teks": "lai taragak manyilau mamak" },
-      { "chord": "D", "teks": "tapi dituan manga ndak buliah" }
-    ]
+      {
+        "chord": "G",
+        "teks": "lai taragak manyilau mamak"
+      },
+      {
+        "chord": "D",
+        "teks": "tapi dituan manga ndak buliah"
+      }
+    ],
+    "id": "taragak-tapi-ndak-buliah-silva-hayati"
   },
   {
     "judul": "Denai Taragak",
@@ -203,8 +383,12 @@
     "genre": "Pop Minang",
     "kunci": "D",
     "lirik": [
-      { "chord": "D", "teks": "den taragak jo tuan dek kito badunsanak.." }
-    ]
+      {
+        "chord": "D",
+        "teks": "den taragak jo tuan dek kito badunsanak.."
+      }
+    ],
+    "id": "denai-taragak-silva-hayati"
   },
   {
     "judul": "Dirantai Digelangi Rindu",
@@ -212,9 +396,16 @@
     "genre": "Pop Melayu",
     "kunci": "Am",
     "lirik": [
-      { "chord": "Am", "teks": "Syahdu malam berlagu sepi" },
-      { "chord": "G", "teks": "Mengiring rawan dalam taman hati" }
-    ]
+      {
+        "chord": "Am",
+        "teks": "Syahdu malam berlagu sepi"
+      },
+      {
+        "chord": "G",
+        "teks": "Mengiring rawan dalam taman hati"
+      }
+    ],
+    "id": "dirantai-digelangi-rindu-exist"
   },
   {
     "judul": "Rindu Sabateh Angan",
@@ -222,9 +413,16 @@
     "genre": "Pop Minang",
     "kunci": "Em",
     "lirik": [
-      { "chord": "Em", "teks": "manga uda datang" },
-      { "chord": "Am", "teks": "jikok nan kamahilang.." }
-    ]
+      {
+        "chord": "Em",
+        "teks": "manga uda datang"
+      },
+      {
+        "chord": "Am",
+        "teks": "jikok nan kamahilang.."
+      }
+    ],
+    "id": "rindu-sabateh-angan-rayola"
   },
   {
     "judul": "Indonesiaku",
@@ -232,11 +430,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Indonesiaku, negeri yang kucinta" },
-      { "chord": "G", "teks": "tumpah darahku, tanah airku" },
-      { "chord": "Am", "teks": "kan ku jaga selalu" },
-      { "chord": "F", "teks": "sepanjang hidupku" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Indonesiaku, negeri yang kucinta"
+      },
+      {
+        "chord": "G",
+        "teks": "tumpah darahku, tanah airku"
+      },
+      {
+        "chord": "Am",
+        "teks": "kan ku jaga selalu"
+      },
+      {
+        "chord": "F",
+        "teks": "sepanjang hidupku"
+      }
+    ],
+    "id": "indonesiaku-ungu"
   },
   {
     "judul": "Andai",
@@ -244,11 +455,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Andai kau tahu, betapa ku mencinta" },
-      { "chord": "G", "teks": "setulus hatiku, sepenuh jiwaku" },
-      { "chord": "Am", "teks": "namun kau pergi" },
-      { "chord": "F", "teks": "tinggalkan semua" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Andai kau tahu, betapa ku mencinta"
+      },
+      {
+        "chord": "G",
+        "teks": "setulus hatiku, sepenuh jiwaku"
+      },
+      {
+        "chord": "Am",
+        "teks": "namun kau pergi"
+      },
+      {
+        "chord": "F",
+        "teks": "tinggalkan semua"
+      }
+    ],
+    "id": "andai-ranisha"
   },
   {
     "judul": "Sio Sio Cinto",
@@ -256,11 +480,24 @@
     "genre": "Pop Minang",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Sio sio cinto, ka ma sajo kau pergi" },
-      { "chord": "D", "teks": "tinggalkan rindu di dalam hati" },
-      { "chord": "Em", "teks": "hanyo bayangan nan tak mungkin" },
-      { "chord": "C", "teks": "kan kan kembali" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Sio sio cinto, ka ma sajo kau pergi"
+      },
+      {
+        "chord": "D",
+        "teks": "tinggalkan rindu di dalam hati"
+      },
+      {
+        "chord": "Em",
+        "teks": "hanyo bayangan nan tak mungkin"
+      },
+      {
+        "chord": "C",
+        "teks": "kan kan kembali"
+      }
+    ],
+    "id": "sio-sio-cinto-silva-hayati"
   },
   {
     "judul": "Bunga",
@@ -268,11 +505,24 @@
     "genre": "Pop Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Bunga, maafkan aku" },
-      { "chord": "D", "teks": "telah membuatmu menangis" },
-      { "chord": "C", "teks": "Ku takkan pernah" },
-      { "chord": "G", "teks": "tinggalkan dirimu" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Bunga, maafkan aku"
+      },
+      {
+        "chord": "D",
+        "teks": "telah membuatmu menangis"
+      },
+      {
+        "chord": "C",
+        "teks": "Ku takkan pernah"
+      },
+      {
+        "chord": "G",
+        "teks": "tinggalkan dirimu"
+      }
+    ],
+    "id": "bunga-sheila-on-7"
   },
   {
     "judul": "Aku Pasti Kembali",
@@ -280,11 +530,24 @@
     "genre": "Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Aku pasti kembali" },
-      { "chord": "G", "teks": "walau seribu tahun" },
-      { "chord": "Am", "teks": "kan kutunggu dirimu" },
-      { "chord": "F", "teks": "di sini" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Aku pasti kembali"
+      },
+      {
+        "chord": "G",
+        "teks": "walau seribu tahun"
+      },
+      {
+        "chord": "Am",
+        "teks": "kan kutunggu dirimu"
+      },
+      {
+        "chord": "F",
+        "teks": "di sini"
+      }
+    ],
+    "id": "aku-pasti-kembali-padi"
   },
   {
     "judul": "Malam Ini",
@@ -292,11 +555,24 @@
     "genre": "Pop Rock",
     "kunci": "A",
     "lirik": [
-      { "chord": "A", "teks": "Malam ini ku terjaga" },
-      { "chord": "E", "teks": "tuk mengingatmu" },
-      { "chord": "F#m", "teks": "di dalam sepi" },
-      { "chord": "D", "teks": "yang tak bertepi" }
-    ]
+      {
+        "chord": "A",
+        "teks": "Malam ini ku terjaga"
+      },
+      {
+        "chord": "E",
+        "teks": "tuk mengingatmu"
+      },
+      {
+        "chord": "F#m",
+        "teks": "di dalam sepi"
+      },
+      {
+        "chord": "D",
+        "teks": "yang tak bertepi"
+      }
+    ],
+    "id": "malam-ini-noah"
   },
   {
     "judul": "Sempurna",
@@ -304,11 +580,24 @@
     "genre": "Pop Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Kau begitu sempurna" },
-      { "chord": "D", "teks": "di mataku" },
-      { "chord": "Em", "teks": "dan aku begitu" },
-      { "chord": "C", "teks": "mencintaimu" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Kau begitu sempurna"
+      },
+      {
+        "chord": "D",
+        "teks": "di mataku"
+      },
+      {
+        "chord": "Em",
+        "teks": "dan aku begitu"
+      },
+      {
+        "chord": "C",
+        "teks": "mencintaimu"
+      }
+    ],
+    "id": "sempurna-andra-and-the-backbone"
   },
   {
     "judul": "Terlalu Lama",
@@ -316,11 +605,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Terlalu lama aku" },
-      { "chord": "G", "teks": "menunggu dirimu" },
-      { "chord": "Am", "teks": "namun kau tak juga" },
-      { "chord": "F", "teks": "kembali" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Terlalu lama aku"
+      },
+      {
+        "chord": "G",
+        "teks": "menunggu dirimu"
+      },
+      {
+        "chord": "Am",
+        "teks": "namun kau tak juga"
+      },
+      {
+        "chord": "F",
+        "teks": "kembali"
+      }
+    ],
+    "id": "terlalu-lama-vierra"
   },
   {
     "judul": "Jangan Cintai Aku",
@@ -328,11 +630,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Jangan cintai aku" },
-      { "chord": "G", "teks": "karena aku" },
-      { "chord": "Am", "teks": "takkan pernah bisa" },
-      { "chord": "F", "teks": "membalas cintamu" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Jangan cintai aku"
+      },
+      {
+        "chord": "G",
+        "teks": "karena aku"
+      },
+      {
+        "chord": "Am",
+        "teks": "takkan pernah bisa"
+      },
+      {
+        "chord": "F",
+        "teks": "membalas cintamu"
+      }
+    ],
+    "id": "jangan-cintai-aku-wali"
   },
   {
     "judul": "Cinta Kita",
@@ -340,11 +655,24 @@
     "genre": "Pop",
     "kunci": "D",
     "lirik": [
-      { "chord": "D", "teks": "Cinta kita terlalu indah" },
-      { "chord": "A", "teks": "untuk kau tinggalkan" },
-      { "chord": "Bm", "teks": "dan ku yakin" },
-      { "chord": "G", "teks": "kau kan kembali" }
-    ]
+      {
+        "chord": "D",
+        "teks": "Cinta kita terlalu indah"
+      },
+      {
+        "chord": "A",
+        "teks": "untuk kau tinggalkan"
+      },
+      {
+        "chord": "Bm",
+        "teks": "dan ku yakin"
+      },
+      {
+        "chord": "G",
+        "teks": "kau kan kembali"
+      }
+    ],
+    "id": "cinta-kita-armada"
   },
   {
     "judul": "Hampa",
@@ -352,11 +680,24 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Hampa, semua terasa hampa" },
-      { "chord": "D", "teks": "tanpa dirimu" },
-      { "chord": "Em", "teks": "aku tak berarti" },
-      { "chord": "C", "teks": "tanpa cintamu" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Hampa, semua terasa hampa"
+      },
+      {
+        "chord": "D",
+        "teks": "tanpa dirimu"
+      },
+      {
+        "chord": "Em",
+        "teks": "aku tak berarti"
+      },
+      {
+        "chord": "C",
+        "teks": "tanpa cintamu"
+      }
+    ],
+    "id": "hampa-ari-lasso"
   },
   {
     "judul": "Kisah Romantis",
@@ -364,11 +705,24 @@
     "genre": "Rock",
     "kunci": "E",
     "lirik": [
-      { "chord": "E", "teks": "Kisah romantis" },
-      { "chord": "A", "teks": "dimulai dari senyummu" },
-      { "chord": "B", "teks": "dan berakhir" },
-      { "chord": "E", "teks": "di pelukmu" }
-    ]
+      {
+        "chord": "E",
+        "teks": "Kisah romantis"
+      },
+      {
+        "chord": "A",
+        "teks": "dimulai dari senyummu"
+      },
+      {
+        "chord": "B",
+        "teks": "dan berakhir"
+      },
+      {
+        "chord": "E",
+        "teks": "di pelukmu"
+      }
+    ],
+    "id": "kisah-romantis-the-changcuters"
   },
   {
     "judul": "Dengarlah",
@@ -376,11 +730,24 @@
     "genre": "Pop Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Dengarlah, oh dengarlah" },
-      { "chord": "G", "teks": "suara hatiku" },
-      { "chord": "Am", "teks": "yang memanggil" },
-      { "chord": "F", "teks": "namamu" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Dengarlah, oh dengarlah"
+      },
+      {
+        "chord": "G",
+        "teks": "suara hatiku"
+      },
+      {
+        "chord": "Am",
+        "teks": "yang memanggil"
+      },
+      {
+        "chord": "F",
+        "teks": "namamu"
+      }
+    ],
+    "id": "dengarlah-nidji"
   },
   {
     "judul": "Hati Yang Lain",
@@ -388,11 +755,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Kau pergi dengan hati yang lain" },
-      { "chord": "G", "teks": "dan ku coba" },
-      { "chord": "Am", "teks": "tuk melupakan" },
-      { "chord": "F", "teks": "segala rasa" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Kau pergi dengan hati yang lain"
+      },
+      {
+        "chord": "G",
+        "teks": "dan ku coba"
+      },
+      {
+        "chord": "Am",
+        "teks": "tuk melupakan"
+      },
+      {
+        "chord": "F",
+        "teks": "segala rasa"
+      }
+    ],
+    "id": "hati-yang-lain-raisa"
   },
   {
     "judul": "Tiba-Tiba",
@@ -400,11 +780,24 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Tiba-tiba aku rindu" },
-      { "chord": "D", "teks": "pada senyummu" },
-      { "chord": "Em", "teks": "yang dulu pernah" },
-      { "chord": "C", "teks": "menyapa" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Tiba-tiba aku rindu"
+      },
+      {
+        "chord": "D",
+        "teks": "pada senyummu"
+      },
+      {
+        "chord": "Em",
+        "teks": "yang dulu pernah"
+      },
+      {
+        "chord": "C",
+        "teks": "menyapa"
+      }
+    ],
+    "id": "tiba-tiba-vidi-aldiano"
   },
   {
     "judul": "Sepatu",
@@ -412,11 +805,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Sepatu, kau teman setiaku" },
-      { "chord": "G", "teks": "menemani langkahku" },
-      { "chord": "Am", "teks": "tanpa pernah mengeluh" },
-      { "chord": "F", "teks": "kau selalu ada" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Sepatu, kau teman setiaku"
+      },
+      {
+        "chord": "G",
+        "teks": "menemani langkahku"
+      },
+      {
+        "chord": "Am",
+        "teks": "tanpa pernah mengeluh"
+      },
+      {
+        "chord": "F",
+        "teks": "kau selalu ada"
+      }
+    ],
+    "id": "sepatu-tulus"
   },
   {
     "judul": "Cantik",
@@ -424,11 +830,24 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Cantik, kau memang cantik" },
-      { "chord": "D", "teks": "dengan segala pesonamu" },
-      { "chord": "Em", "teks": "namun ku tak" },
-      { "chord": "C", "teks": "bisa memilikimu" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Cantik, kau memang cantik"
+      },
+      {
+        "chord": "D",
+        "teks": "dengan segala pesonamu"
+      },
+      {
+        "chord": "Em",
+        "teks": "namun ku tak"
+      },
+      {
+        "chord": "C",
+        "teks": "bisa memilikimu"
+      }
+    ],
+    "id": "cantik-kahitna"
   },
   {
     "judul": "Pupus",
@@ -436,11 +855,24 @@
     "genre": "Rock",
     "kunci": "A",
     "lirik": [
-      { "chord": "A", "teks": "Pupus sudah cinta kita" },
-      { "chord": "E", "teks": "bersatu dalam satu rasa" },
-      { "chord": "F#m", "teks": "kini hanya kenangan" },
-      { "chord": "D", "teks": "yang tersisa" }
-    ]
+      {
+        "chord": "A",
+        "teks": "Pupus sudah cinta kita"
+      },
+      {
+        "chord": "E",
+        "teks": "bersatu dalam satu rasa"
+      },
+      {
+        "chord": "F#m",
+        "teks": "kini hanya kenangan"
+      },
+      {
+        "chord": "D",
+        "teks": "yang tersisa"
+      }
+    ],
+    "id": "pupus-dewa-19"
   },
   {
     "judul": "Kangen",
@@ -448,11 +880,24 @@
     "genre": "Rock",
     "kunci": "E",
     "lirik": [
-      { "chord": "E", "teks": "Kangen, kangen pada dirimu" },
-      { "chord": "A", "teks": "rindu yang tak pernah hilang" },
-      { "chord": "B", "teks": "di setiap hembus nafasku" },
-      { "chord": "E", "teks": "kau selalu di hatiku" }
-    ]
+      {
+        "chord": "E",
+        "teks": "Kangen, kangen pada dirimu"
+      },
+      {
+        "chord": "A",
+        "teks": "rindu yang tak pernah hilang"
+      },
+      {
+        "chord": "B",
+        "teks": "di setiap hembus nafasku"
+      },
+      {
+        "chord": "E",
+        "teks": "kau selalu di hatiku"
+      }
+    ],
+    "id": "kangen-dewa-19"
   },
   {
     "judul": "Cobalah",
@@ -460,11 +905,24 @@
     "genre": "Pop Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Cobalah tuk mengerti" },
-      { "chord": "D", "teks": "perasaanku" },
-      { "chord": "Em", "teks": "yang tulus untukmu" },
-      { "chord": "C", "teks": "dan takkan berubah" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Cobalah tuk mengerti"
+      },
+      {
+        "chord": "D",
+        "teks": "perasaanku"
+      },
+      {
+        "chord": "Em",
+        "teks": "yang tulus untukmu"
+      },
+      {
+        "chord": "C",
+        "teks": "dan takkan berubah"
+      }
+    ],
+    "id": "cobalah-letto"
   },
   {
     "judul": "Rahasia Hati",
@@ -472,11 +930,24 @@
     "genre": "Pop Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Rahasia hati" },
-      { "chord": "G", "teks": "yang terpendam" },
-      { "chord": "Am", "teks": "ingin kuungkapkan" },
-      { "chord": "F", "teks": "untukmu" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Rahasia hati"
+      },
+      {
+        "chord": "G",
+        "teks": "yang terpendam"
+      },
+      {
+        "chord": "Am",
+        "teks": "ingin kuungkapkan"
+      },
+      {
+        "chord": "F",
+        "teks": "untukmu"
+      }
+    ],
+    "id": "rahasia-hati-nidji"
   },
   {
     "judul": "Sampai Habis Cinta",
@@ -484,11 +955,24 @@
     "genre": "Rock",
     "kunci": "D",
     "lirik": [
-      { "chord": "D", "teks": "Sampai habis cinta" },
-      { "chord": "A", "teks": "ku akan menunggu" },
-      { "chord": "Bm", "teks": "sampai kau kembali" },
-      { "chord": "G", "teks": "ke pelukku" }
-    ]
+      {
+        "chord": "D",
+        "teks": "Sampai habis cinta"
+      },
+      {
+        "chord": "A",
+        "teks": "ku akan menunggu"
+      },
+      {
+        "chord": "Bm",
+        "teks": "sampai kau kembali"
+      },
+      {
+        "chord": "G",
+        "teks": "ke pelukku"
+      }
+    ],
+    "id": "sampai-habis-cinta-padi"
   },
   {
     "judul": "Menghujam Jantungku",
@@ -496,11 +980,24 @@
     "genre": "Ska",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Menghujam jantungku" },
-      { "chord": "G", "teks": "saat kau tersenyum" },
-      { "chord": "Am", "teks": "aku tak mampu" },
-      { "chord": "F", "teks": "berpaling darimu" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Menghujam jantungku"
+      },
+      {
+        "chord": "G",
+        "teks": "saat kau tersenyum"
+      },
+      {
+        "chord": "Am",
+        "teks": "aku tak mampu"
+      },
+      {
+        "chord": "F",
+        "teks": "berpaling darimu"
+      }
+    ],
+    "id": "menghujam-jantungku-tipe-x"
   },
   {
     "judul": "Risalah Hati",
@@ -508,11 +1005,24 @@
     "genre": "Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Aku cinta kau" },
-      { "chord": "G", "teks": "di dalam hati" },
-      { "chord": "Am", "teks": "namun kau tak pernah" },
-      { "chord": "F", "teks": "menyadari" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Aku cinta kau"
+      },
+      {
+        "chord": "G",
+        "teks": "di dalam hati"
+      },
+      {
+        "chord": "Am",
+        "teks": "namun kau tak pernah"
+      },
+      {
+        "chord": "F",
+        "teks": "menyadari"
+      }
+    ],
+    "id": "risalah-hati-dewa-19"
   },
   {
     "judul": "Arjuna",
@@ -520,11 +1030,24 @@
     "genre": "Rock",
     "kunci": "A",
     "lirik": [
-      { "chord": "A", "teks": "Arjuna, kau datang" },
-      { "chord": "E", "teks": "di saat ku sendiri" },
-      { "chord": "F#m", "teks": "membawa cinta" },
-      { "chord": "D", "teks": "yang tak pernah mati" }
-    ]
+      {
+        "chord": "A",
+        "teks": "Arjuna, kau datang"
+      },
+      {
+        "chord": "E",
+        "teks": "di saat ku sendiri"
+      },
+      {
+        "chord": "F#m",
+        "teks": "membawa cinta"
+      },
+      {
+        "chord": "D",
+        "teks": "yang tak pernah mati"
+      }
+    ],
+    "id": "arjuna-dewa-19"
   },
   {
     "judul": "Kasih Tak Sampai",
@@ -532,11 +1055,24 @@
     "genre": "Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Kasih tak sampai" },
-      { "chord": "D", "teks": "padamu" },
-      { "chord": "Em", "teks": "walau ku telah" },
-      { "chord": "C", "teks": "berjuang" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Kasih tak sampai"
+      },
+      {
+        "chord": "D",
+        "teks": "padamu"
+      },
+      {
+        "chord": "Em",
+        "teks": "walau ku telah"
+      },
+      {
+        "chord": "C",
+        "teks": "berjuang"
+      }
+    ],
+    "id": "kasih-tak-sampai-padi"
   },
   {
     "judul": "Mahadewi",
@@ -544,11 +1080,24 @@
     "genre": "Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Mahadewi, cintaku" },
-      { "chord": "G", "teks": "takkan pernah pudar" },
-      { "chord": "Am", "teks": "walau dunia" },
-      { "chord": "F", "teks": "memisahkan kita" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Mahadewi, cintaku"
+      },
+      {
+        "chord": "G",
+        "teks": "takkan pernah pudar"
+      },
+      {
+        "chord": "Am",
+        "teks": "walau dunia"
+      },
+      {
+        "chord": "F",
+        "teks": "memisahkan kita"
+      }
+    ],
+    "id": "mahadewi-padi"
   },
   {
     "judul": "Hapus Aku",
@@ -556,11 +1105,24 @@
     "genre": "Pop Rock",
     "kunci": "A",
     "lirik": [
-      { "chord": "A", "teks": "Hapus aku dari" },
-      { "chord": "E", "teks": "ingatanmu" },
-      { "chord": "F#m", "teks": "bila kau tak" },
-      { "chord": "D", "teks": "mencintaiku" }
-    ]
+      {
+        "chord": "A",
+        "teks": "Hapus aku dari"
+      },
+      {
+        "chord": "E",
+        "teks": "ingatanmu"
+      },
+      {
+        "chord": "F#m",
+        "teks": "bila kau tak"
+      },
+      {
+        "chord": "D",
+        "teks": "mencintaiku"
+      }
+    ],
+    "id": "hapus-aku-nidji"
   },
   {
     "judul": "Laskar Pelangi",
@@ -568,11 +1130,24 @@
     "genre": "Pop Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Laskar pelangi" },
-      { "chord": "D", "teks": "takkan pernah" },
-      { "chord": "Em", "teks": "padam cahayanya" },
-      { "chord": "C", "teks": "di langit dunia" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Laskar pelangi"
+      },
+      {
+        "chord": "D",
+        "teks": "takkan pernah"
+      },
+      {
+        "chord": "Em",
+        "teks": "padam cahayanya"
+      },
+      {
+        "chord": "C",
+        "teks": "di langit dunia"
+      }
+    ],
+    "id": "laskar-pelangi-nidji"
   },
   {
     "judul": "Demi Waktu",
@@ -580,11 +1155,24 @@
     "genre": "Pop Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Demi waktu" },
-      { "chord": "G", "teks": "ku tunggu dirimu" },
-      { "chord": "Am", "teks": "dalam sepiku" },
-      { "chord": "F", "teks": "yang tak berujung" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Demi waktu"
+      },
+      {
+        "chord": "G",
+        "teks": "ku tunggu dirimu"
+      },
+      {
+        "chord": "Am",
+        "teks": "dalam sepiku"
+      },
+      {
+        "chord": "F",
+        "teks": "yang tak berujung"
+      }
+    ],
+    "id": "demi-waktu-ungu"
   },
   {
     "judul": "Laguku",
@@ -592,11 +1180,24 @@
     "genre": "Pop Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Laguku untukmu" },
-      { "chord": "D", "teks": "tentang cinta" },
-      { "chord": "Em", "teks": "yang hilang" },
-      { "chord": "C", "teks": "di antara kita" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Laguku untukmu"
+      },
+      {
+        "chord": "D",
+        "teks": "tentang cinta"
+      },
+      {
+        "chord": "Em",
+        "teks": "yang hilang"
+      },
+      {
+        "chord": "C",
+        "teks": "di antara kita"
+      }
+    ],
+    "id": "laguku-ungu"
   },
   {
     "judul": "Kejam",
@@ -604,11 +1205,24 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Kejamnya kau" },
-      { "chord": "D", "teks": "tinggalkan aku" },
-      { "chord": "Em", "teks": "tanpa alasan" },
-      { "chord": "C", "teks": "yang jelas" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Kejamnya kau"
+      },
+      {
+        "chord": "D",
+        "teks": "tinggalkan aku"
+      },
+      {
+        "chord": "Em",
+        "teks": "tanpa alasan"
+      },
+      {
+        "chord": "C",
+        "teks": "yang jelas"
+      }
+    ],
+    "id": "kejam-kerispatih"
   },
   {
     "judul": "Cinta Putih",
@@ -616,11 +1230,24 @@
     "genre": "Pop",
     "kunci": "D",
     "lirik": [
-      { "chord": "D", "teks": "Cinta putih" },
-      { "chord": "A", "teks": "suci dan tulus" },
-      { "chord": "Bm", "teks": "hanya untukmu" },
-      { "chord": "G", "teks": "selamanya" }
-    ]
+      {
+        "chord": "D",
+        "teks": "Cinta putih"
+      },
+      {
+        "chord": "A",
+        "teks": "suci dan tulus"
+      },
+      {
+        "chord": "Bm",
+        "teks": "hanya untukmu"
+      },
+      {
+        "chord": "G",
+        "teks": "selamanya"
+      }
+    ],
+    "id": "cinta-putih-kerispatih"
   },
   {
     "judul": "Tetaplah di Hatiku",
@@ -628,11 +1255,24 @@
     "genre": "Pop",
     "kunci": "E",
     "lirik": [
-      { "chord": "E", "teks": "Tetaplah di hatiku" },
-      { "chord": "A", "teks": "jangan pernah pergi" },
-      { "chord": "B", "teks": "karena ku" },
-      { "chord": "E", "teks": "cinta padamu" }
-    ]
+      {
+        "chord": "E",
+        "teks": "Tetaplah di hatiku"
+      },
+      {
+        "chord": "A",
+        "teks": "jangan pernah pergi"
+      },
+      {
+        "chord": "B",
+        "teks": "karena ku"
+      },
+      {
+        "chord": "E",
+        "teks": "cinta padamu"
+      }
+    ],
+    "id": "tetaplah-di-hatiku-vagetoz"
   },
   {
     "judul": "Sampai Akhir Waktu",
@@ -640,11 +1280,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Ku kan menunggu" },
-      { "chord": "G", "teks": "sampai akhir waktu" },
-      { "chord": "Am", "teks": "tuk kembali" },
-      { "chord": "F", "teks": "ke pelukmu" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Ku kan menunggu"
+      },
+      {
+        "chord": "G",
+        "teks": "sampai akhir waktu"
+      },
+      {
+        "chord": "Am",
+        "teks": "tuk kembali"
+      },
+      {
+        "chord": "F",
+        "teks": "ke pelukmu"
+      }
+    ],
+    "id": "sampai-akhir-waktu-yovie-nuno"
   },
   {
     "judul": "Menjaga Hati",
@@ -652,11 +1305,24 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Menjaga hati" },
-      { "chord": "D", "teks": "dari rasa sakit" },
-      { "chord": "Em", "teks": "yang pernah" },
-      { "chord": "C", "teks": "kau tinggalkan" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Menjaga hati"
+      },
+      {
+        "chord": "D",
+        "teks": "dari rasa sakit"
+      },
+      {
+        "chord": "Em",
+        "teks": "yang pernah"
+      },
+      {
+        "chord": "C",
+        "teks": "kau tinggalkan"
+      }
+    ],
+    "id": "menjaga-hati-yovie-nuno"
   },
   {
     "judul": "Ruang Rindu",
@@ -664,11 +1330,24 @@
     "genre": "Pop Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Ruang rindu" },
-      { "chord": "D", "teks": "di mana ku" },
-      { "chord": "Em", "teks": "menyimpan semua" },
-      { "chord": "C", "teks": "ingatan tentangmu" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Ruang rindu"
+      },
+      {
+        "chord": "D",
+        "teks": "di mana ku"
+      },
+      {
+        "chord": "Em",
+        "teks": "menyimpan semua"
+      },
+      {
+        "chord": "C",
+        "teks": "ingatan tentangmu"
+      }
+    ],
+    "id": "ruang-rindu-letto"
   },
   {
     "judul": "Hujan",
@@ -676,11 +1355,24 @@
     "genre": "Pop Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Hujan turun" },
-      { "chord": "G", "teks": "menemani sepiku" },
-      { "chord": "Am", "teks": "di saat kau" },
-      { "chord": "F", "teks": "tak ada" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Hujan turun"
+      },
+      {
+        "chord": "G",
+        "teks": "menemani sepiku"
+      },
+      {
+        "chord": "Am",
+        "teks": "di saat kau"
+      },
+      {
+        "chord": "F",
+        "teks": "tak ada"
+      }
+    ],
+    "id": "hujan-the-rain"
   },
   {
     "judul": "Cerita Cinta",
@@ -688,11 +1380,24 @@
     "genre": "Pop",
     "kunci": "D",
     "lirik": [
-      { "chord": "D", "teks": "Cerita cinta" },
-      { "chord": "A", "teks": "yang indah" },
-      { "chord": "Bm", "teks": "di antara kita" },
-      { "chord": "G", "teks": "takkan pernah usai" }
-    ]
+      {
+        "chord": "D",
+        "teks": "Cerita cinta"
+      },
+      {
+        "chord": "A",
+        "teks": "yang indah"
+      },
+      {
+        "chord": "Bm",
+        "teks": "di antara kita"
+      },
+      {
+        "chord": "G",
+        "teks": "takkan pernah usai"
+      }
+    ],
+    "id": "cerita-cinta-kahitna"
   },
   {
     "judul": "Janji",
@@ -700,11 +1405,24 @@
     "genre": "Pop Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Janji kita" },
-      { "chord": "D", "teks": "akan selalu" },
-      { "chord": "Em", "teks": "bersama" },
-      { "chord": "C", "teks": "sampai tua" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Janji kita"
+      },
+      {
+        "chord": "D",
+        "teks": "akan selalu"
+      },
+      {
+        "chord": "Em",
+        "teks": "bersama"
+      },
+      {
+        "chord": "C",
+        "teks": "sampai tua"
+      }
+    ],
+    "id": "janji-gigi"
   },
   {
     "judul": "Bintang di Surga",
@@ -712,11 +1430,24 @@
     "genre": "Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Bintang di surga" },
-      { "chord": "G", "teks": "sinari jalanku" },
-      { "chord": "Am", "teks": "menuju engkau" },
-      { "chord": "F", "teks": "di sana" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Bintang di surga"
+      },
+      {
+        "chord": "G",
+        "teks": "sinari jalanku"
+      },
+      {
+        "chord": "Am",
+        "teks": "menuju engkau"
+      },
+      {
+        "chord": "F",
+        "teks": "di sana"
+      }
+    ],
+    "id": "bintang-di-surga-peterpan"
   },
   {
     "judul": "Separuh Aku",
@@ -724,11 +1455,24 @@
     "genre": "Pop Rock",
     "kunci": "D",
     "lirik": [
-      { "chord": "D", "teks": "Separuh aku" },
-      { "chord": "A", "teks": "dalam dirimu" },
-      { "chord": "Bm", "teks": "takkan pernah" },
-      { "chord": "G", "teks": "terpisah" }
-    ]
+      {
+        "chord": "D",
+        "teks": "Separuh aku"
+      },
+      {
+        "chord": "A",
+        "teks": "dalam dirimu"
+      },
+      {
+        "chord": "Bm",
+        "teks": "takkan pernah"
+      },
+      {
+        "chord": "G",
+        "teks": "terpisah"
+      }
+    ],
+    "id": "separuh-aku-noah"
   },
   {
     "judul": "Jangan Menyerah",
@@ -736,11 +1480,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Jangan menyerah" },
-      { "chord": "G", "teks": "engkau pasti bisa" },
-      { "chord": "Am", "teks": "levati semua" },
-      { "chord": "F", "teks": "cobaan" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Jangan menyerah"
+      },
+      {
+        "chord": "G",
+        "teks": "engkau pasti bisa"
+      },
+      {
+        "chord": "Am",
+        "teks": "levati semua"
+      },
+      {
+        "chord": "F",
+        "teks": "cobaan"
+      }
+    ],
+    "id": "jangan-menyerah-d-masiv"
   },
   {
     "judul": "Rindu Setengah Mati",
@@ -748,11 +1505,24 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Rindu setengah mati" },
-      { "chord": "D", "teks": "ingin bertemu" },
-      { "chord": "Em", "teks": "namun tak bisa" },
-      { "chord": "C", "teks": "karena jarak" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Rindu setengah mati"
+      },
+      {
+        "chord": "D",
+        "teks": "ingin bertemu"
+      },
+      {
+        "chord": "Em",
+        "teks": "namun tak bisa"
+      },
+      {
+        "chord": "C",
+        "teks": "karena jarak"
+      }
+    ],
+    "id": "rindu-setengah-mati-d-masiv"
   },
   {
     "judul": "Jika Cinta Dia",
@@ -760,11 +1530,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Jika cinta dia" },
-      { "chord": "G", "teks": "maka aku rela" },
-      { "chord": "Am", "teks": "melepaskanmu" },
-      { "chord": "F", "teks": "dari hidupku" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Jika cinta dia"
+      },
+      {
+        "chord": "G",
+        "teks": "maka aku rela"
+      },
+      {
+        "chord": "Am",
+        "teks": "melepaskanmu"
+      },
+      {
+        "chord": "F",
+        "teks": "dari hidupku"
+      }
+    ],
+    "id": "jika-cinta-dia-geisha"
   },
   {
     "judul": "Kamu yang Pertama",
@@ -772,11 +1555,24 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Kamu yang pertama" },
-      { "chord": "D", "teks": "di hatiku" },
-      { "chord": "Em", "teks": "dan akan selalu" },
-      { "chord": "C", "teks": "begitu" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Kamu yang pertama"
+      },
+      {
+        "chord": "D",
+        "teks": "di hatiku"
+      },
+      {
+        "chord": "Em",
+        "teks": "dan akan selalu"
+      },
+      {
+        "chord": "C",
+        "teks": "begitu"
+      }
+    ],
+    "id": "kamu-yang-pertama-geisha"
   },
   {
     "judul": "Menemukanmu",
@@ -784,11 +1580,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Ku menemukanmu" },
-      { "chord": "G", "teks": "di saat ku lelah" },
-      { "chord": "Am", "teks": "cahaya cinta" },
-      { "chord": "F", "teks": "yang kucari" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Ku menemukanmu"
+      },
+      {
+        "chord": "G",
+        "teks": "di saat ku lelah"
+      },
+      {
+        "chord": "Am",
+        "teks": "cahaya cinta"
+      },
+      {
+        "chord": "F",
+        "teks": "yang kucari"
+      }
+    ],
+    "id": "menemukanmu-seventeen"
   },
   {
     "judul": "Ayah",
@@ -796,11 +1605,24 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Ayah, kau selalu" },
-      { "chord": "D", "teks": "di hatiku" },
-      { "chord": "Em", "teks": "terima kasih" },
-      { "chord": "C", "teks": "untuk segalanya" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Ayah, kau selalu"
+      },
+      {
+        "chord": "D",
+        "teks": "di hatiku"
+      },
+      {
+        "chord": "Em",
+        "teks": "terima kasih"
+      },
+      {
+        "chord": "C",
+        "teks": "untuk segalanya"
+      }
+    ],
+    "id": "ayah-seventeen"
   },
   {
     "judul": "P.U.S.P.A",
@@ -808,11 +1630,24 @@
     "genre": "Pop Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "P.U.S.P.A" },
-      { "chord": "G", "teks": "indahnya cinta" },
-      { "chord": "Am", "teks": "yang kita miliki" },
-      { "chord": "F", "teks": "takkan ku lupa" }
-    ]
+      {
+        "chord": "C",
+        "teks": "P.U.S.P.A"
+      },
+      {
+        "chord": "G",
+        "teks": "indahnya cinta"
+      },
+      {
+        "chord": "Am",
+        "teks": "yang kita miliki"
+      },
+      {
+        "chord": "F",
+        "teks": "takkan ku lupa"
+      }
+    ],
+    "id": "p-u-s-p-a-st12"
   },
   {
     "judul": "Saat Terakhir",
@@ -820,11 +1655,24 @@
     "genre": "Pop Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Saat terakhir" },
-      { "chord": "D", "teks": "ku lihat dirimu" },
-      { "chord": "Em", "teks": "air mata" },
-      { "chord": "C", "teks": "mengalir" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Saat terakhir"
+      },
+      {
+        "chord": "D",
+        "teks": "ku lihat dirimu"
+      },
+      {
+        "chord": "Em",
+        "teks": "air mata"
+      },
+      {
+        "chord": "C",
+        "teks": "mengalir"
+      }
+    ],
+    "id": "saat-terakhir-st12"
   },
   {
     "judul": "Cinta Dan Benci",
@@ -832,11 +1680,24 @@
     "genre": "Rock",
     "kunci": "D",
     "lirik": [
-      { "chord": "D", "teks": "Cinta dan benci" },
-      { "chord": "A", "teks": "bersatu dalam hati" },
-      { "chord": "Bm", "teks": "antara kita" },
-      { "chord": "G", "teks": "takkan pernah sirna" }
-    ]
+      {
+        "chord": "D",
+        "teks": "Cinta dan benci"
+      },
+      {
+        "chord": "A",
+        "teks": "bersatu dalam hati"
+      },
+      {
+        "chord": "Bm",
+        "teks": "antara kita"
+      },
+      {
+        "chord": "G",
+        "teks": "takkan pernah sirna"
+      }
+    ],
+    "id": "cinta-dan-benci-radja"
   },
   {
     "judul": "Jujur",
@@ -844,11 +1705,24 @@
     "genre": "Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Jujur pada hati" },
-      { "chord": "G", "teks": "aku masih cinta" },
-      { "chord": "Am", "teks": "padamu" },
-      { "chord": "F", "teks": "selamanya" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Jujur pada hati"
+      },
+      {
+        "chord": "G",
+        "teks": "aku masih cinta"
+      },
+      {
+        "chord": "Am",
+        "teks": "padamu"
+      },
+      {
+        "chord": "F",
+        "teks": "selamanya"
+      }
+    ],
+    "id": "jujur-radja"
   },
   {
     "judul": "Kekasih Bayangan",
@@ -856,11 +1730,24 @@
     "genre": "Rock",
     "kunci": "A",
     "lirik": [
-      { "chord": "A", "teks": "Kekasih bayangan" },
-      { "chord": "E", "teks": "di dalam mimpiku" },
-      { "chord": "F#m", "teks": "kau selalu hadir" },
-      { "chord": "D", "teks": "menghiasi hariku" }
-    ]
+      {
+        "chord": "A",
+        "teks": "Kekasih bayangan"
+      },
+      {
+        "chord": "E",
+        "teks": "di dalam mimpiku"
+      },
+      {
+        "chord": "F#m",
+        "teks": "kau selalu hadir"
+      },
+      {
+        "chord": "D",
+        "teks": "menghiasi hariku"
+      }
+    ],
+    "id": "kekasih-bayangan-cokelat"
   },
   {
     "judul": "Bendera",
@@ -868,11 +1755,24 @@
     "genre": "Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Bendera merah putih" },
-      { "chord": "D", "teks": "kibarkan" },
-      { "chord": "Em", "teks": "di atas tanah" },
-      { "chord": "C", "teks": "airku" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Bendera merah putih"
+      },
+      {
+        "chord": "D",
+        "teks": "kibarkan"
+      },
+      {
+        "chord": "Em",
+        "teks": "di atas tanah"
+      },
+      {
+        "chord": "C",
+        "teks": "airku"
+      }
+    ],
+    "id": "bendera-cokelat"
   },
   {
     "judul": "Asal Kau Bahagia",
@@ -880,11 +1780,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Asal kau bahagia" },
-      { "chord": "G", "teks": "aku rela" },
-      { "chord": "Am", "teks": "melepaskan" },
-      { "chord": "F", "teks": "cintamu" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Asal kau bahagia"
+      },
+      {
+        "chord": "G",
+        "teks": "aku rela"
+      },
+      {
+        "chord": "Am",
+        "teks": "melepaskan"
+      },
+      {
+        "chord": "F",
+        "teks": "cintamu"
+      }
+    ],
+    "id": "asal-kau-bahagia-armada"
   },
   {
     "judul": "Hargai Aku",
@@ -892,11 +1805,24 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Hargai aku" },
-      { "chord": "D", "teks": "cintaku" },
-      { "chord": "Em", "teks": "walau kau tak" },
-      { "chord": "C", "teks": "pernah melihat" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Hargai aku"
+      },
+      {
+        "chord": "D",
+        "teks": "cintaku"
+      },
+      {
+        "chord": "Em",
+        "teks": "walau kau tak"
+      },
+      {
+        "chord": "C",
+        "teks": "pernah melihat"
+      }
+    ],
+    "id": "hargai-aku-armada"
   },
   {
     "judul": "Aku Jatuh Cinta",
@@ -904,11 +1830,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Aku jatuh cinta" },
-      { "chord": "G", "teks": "pada senyummu" },
-      { "chord": "Am", "teks": "yang manis" },
-      { "chord": "F", "teks": "itu" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Aku jatuh cinta"
+      },
+      {
+        "chord": "G",
+        "teks": "pada senyummu"
+      },
+      {
+        "chord": "Am",
+        "teks": "yang manis"
+      },
+      {
+        "chord": "F",
+        "teks": "itu"
+      }
+    ],
+    "id": "aku-jatuh-cinta-wali"
   },
   {
     "judul": "Baik-baik Sayang",
@@ -916,11 +1855,24 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Baik-baik sayang" },
-      { "chord": "D", "teks": "jaga diri" },
-      { "chord": "Em", "teks": "di sana" },
-      { "chord": "C", "teks": "ingat aku" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Baik-baik sayang"
+      },
+      {
+        "chord": "D",
+        "teks": "jaga diri"
+      },
+      {
+        "chord": "Em",
+        "teks": "di sana"
+      },
+      {
+        "chord": "C",
+        "teks": "ingat aku"
+      }
+    ],
+    "id": "baik-baik-sayang-wali"
   },
   {
     "judul": "Bento",
@@ -928,11 +1880,24 @@
     "genre": "Folk Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Bento, bento" },
-      { "chord": "G", "teks": "anakku" },
-      { "chord": "Am", "teks": "jangan kau" },
-      { "chord": "F", "teks": "menjadi" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Bento, bento"
+      },
+      {
+        "chord": "G",
+        "teks": "anakku"
+      },
+      {
+        "chord": "Am",
+        "teks": "jangan kau"
+      },
+      {
+        "chord": "F",
+        "teks": "menjadi"
+      }
+    ],
+    "id": "bento-iwan-fals"
   },
   {
     "judul": "Ujung Aspal Pondok Gede",
@@ -940,11 +1905,24 @@
     "genre": "Folk",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Ujung aspal" },
-      { "chord": "D", "teks": "pondok gede" },
-      { "chord": "Em", "teks": "tempatku" },
-      { "chord": "C", "teks": "bermimpi" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Ujung aspal"
+      },
+      {
+        "chord": "D",
+        "teks": "pondok gede"
+      },
+      {
+        "chord": "Em",
+        "teks": "tempatku"
+      },
+      {
+        "chord": "C",
+        "teks": "bermimpi"
+      }
+    ],
+    "id": "ujung-aspal-pondok-gede-iwan-fals"
   },
   {
     "judul": "I Love You Bibeh",
@@ -952,11 +1930,24 @@
     "genre": "Rock",
     "kunci": "A",
     "lirik": [
-      { "chord": "A", "teks": "I love you bibeh" },
-      { "chord": "E", "teks": "kau begitu" },
-      { "chord": "F#m", "teks": "cantik" },
-      { "chord": "D", "teks": "di mataku" }
-    ]
+      {
+        "chord": "A",
+        "teks": "I love you bibeh"
+      },
+      {
+        "chord": "E",
+        "teks": "kau begitu"
+      },
+      {
+        "chord": "F#m",
+        "teks": "cantik"
+      },
+      {
+        "chord": "D",
+        "teks": "di mataku"
+      }
+    ],
+    "id": "i-love-you-bibeh-the-changcuters"
   },
   {
     "judul": "Boy Band",
@@ -964,11 +1955,24 @@
     "genre": "Ska",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Boy band" },
-      { "chord": "D", "teks": "bukan gayaku" },
-      { "chord": "Em", "teks": "aku cinta" },
-      { "chord": "C", "teks": "ska" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Boy band"
+      },
+      {
+        "chord": "D",
+        "teks": "bukan gayaku"
+      },
+      {
+        "chord": "Em",
+        "teks": "aku cinta"
+      },
+      {
+        "chord": "C",
+        "teks": "ska"
+      }
+    ],
+    "id": "boy-band-tipe-x"
   },
   {
     "judul": "Mawar Hitam",
@@ -976,11 +1980,24 @@
     "genre": "Ska",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Mawar hitam" },
-      { "chord": "G", "teks": "lambang cinta" },
-      { "chord": "Am", "teks": "yang terlarang" },
-      { "chord": "F", "teks": "untukmu" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Mawar hitam"
+      },
+      {
+        "chord": "G",
+        "teks": "lambang cinta"
+      },
+      {
+        "chord": "Am",
+        "teks": "yang terlarang"
+      },
+      {
+        "chord": "F",
+        "teks": "untukmu"
+      }
+    ],
+    "id": "mawar-hitam-tipe-x"
   },
   {
     "judul": "Piknik '72",
@@ -988,11 +2005,24 @@
     "genre": "Indie Retro",
     "kunci": "D",
     "lirik": [
-      { "chord": "D", "teks": "Piknik 72" },
-      { "chord": "A", "teks": "di mana kita" },
-      { "chord": "Bm", "teks": "bersama" },
-      { "chord": "G", "teks": "tertawa" }
-    ]
+      {
+        "chord": "D",
+        "teks": "Piknik 72"
+      },
+      {
+        "chord": "A",
+        "teks": "di mana kita"
+      },
+      {
+        "chord": "Bm",
+        "teks": "bersama"
+      },
+      {
+        "chord": "G",
+        "teks": "tertawa"
+      }
+    ],
+    "id": "piknik-72-naif"
   },
   {
     "judul": "Jikalau",
@@ -1000,11 +2030,24 @@
     "genre": "Indie Retro",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Jikalau kau" },
-      { "chord": "D", "teks": "ingin pergi" },
-      { "chord": "Em", "teks": "aku rela" },
-      { "chord": "C", "teks": "melepasmu" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Jikalau kau"
+      },
+      {
+        "chord": "D",
+        "teks": "ingin pergi"
+      },
+      {
+        "chord": "Em",
+        "teks": "aku rela"
+      },
+      {
+        "chord": "C",
+        "teks": "melepasmu"
+      }
+    ],
+    "id": "jikalau-naif"
   },
   {
     "judul": "Yang Terdalam",
@@ -1012,11 +2055,24 @@
     "genre": "Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Yang terdalam" },
-      { "chord": "D", "teks": "di lubuk hati" },
-      { "chord": "Em", "teks": "hanya nama" },
-      { "chord": "C", "teks": "dirimu" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Yang terdalam"
+      },
+      {
+        "chord": "D",
+        "teks": "di lubuk hati"
+      },
+      {
+        "chord": "Em",
+        "teks": "hanya nama"
+      },
+      {
+        "chord": "C",
+        "teks": "dirimu"
+      }
+    ],
+    "id": "yang-terdalam-peterpan"
   },
   {
     "judul": "Ada Apa Denganmu",
@@ -1024,11 +2080,24 @@
     "genre": "Rock",
     "kunci": "D",
     "lirik": [
-      { "chord": "D", "teks": "Ada apa denganmu" },
-      { "chord": "A", "teks": "kau tak seperti" },
-      { "chord": "Bm", "teks": "dulu" },
-      { "chord": "G", "teks": "lagi" }
-    ]
+      {
+        "chord": "D",
+        "teks": "Ada apa denganmu"
+      },
+      {
+        "chord": "A",
+        "teks": "kau tak seperti"
+      },
+      {
+        "chord": "Bm",
+        "teks": "dulu"
+      },
+      {
+        "chord": "G",
+        "teks": "lagi"
+      }
+    ],
+    "id": "ada-apa-denganmu-peterpan"
   },
   {
     "judul": "Cinta Ini Membunuhku",
@@ -1036,11 +2105,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Cinta ini" },
-      { "chord": "G", "teks": "membunuhku" },
-      { "chord": "Am", "teks": "pelan-pelan" },
-      { "chord": "F", "teks": "menghancurkanku" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Cinta ini"
+      },
+      {
+        "chord": "G",
+        "teks": "membunuhku"
+      },
+      {
+        "chord": "Am",
+        "teks": "pelan-pelan"
+      },
+      {
+        "chord": "F",
+        "teks": "menghancurkanku"
+      }
+    ],
+    "id": "cinta-ini-membunuhku-d-masiv"
   },
   {
     "judul": "Bila Rasaku Ini Rasamu",
@@ -1048,11 +2130,24 @@
     "genre": "Pop",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Bila rasaku ini" },
-      { "chord": "D", "teks": "rasamu" },
-      { "chord": "Em", "teks": "kau pasti" },
-      { "chord": "C", "teks": "mengerti" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Bila rasaku ini"
+      },
+      {
+        "chord": "D",
+        "teks": "rasamu"
+      },
+      {
+        "chord": "Em",
+        "teks": "kau pasti"
+      },
+      {
+        "chord": "C",
+        "teks": "mengerti"
+      }
+    ],
+    "id": "bila-rasaku-ini-rasamu-kerispatih"
   },
   {
     "judul": "Alasan",
@@ -1060,11 +2155,24 @@
     "genre": "Pop",
     "kunci": "E",
     "lirik": [
-      { "chord": "E", "teks": "Alasan terbesar" },
-      { "chord": "A", "teks": "mengapa ku" },
-      { "chord": "B", "teks": "mencintaimu" },
-      { "chord": "E", "teks": "adalah kamu" }
-    ]
+      {
+        "chord": "E",
+        "teks": "Alasan terbesar"
+      },
+      {
+        "chord": "A",
+        "teks": "mengapa ku"
+      },
+      {
+        "chord": "B",
+        "teks": "mencintaimu"
+      },
+      {
+        "chord": "E",
+        "teks": "adalah kamu"
+      }
+    ],
+    "id": "alasan-vagetoz"
   },
   {
     "judul": "Semua Bisa Bilang",
@@ -1072,11 +2180,24 @@
     "genre": "Pop",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Semua bisa bilang" },
-      { "chord": "G", "teks": "cinta" },
-      { "chord": "Am", "teks": "tapi tak semua" },
-      { "chord": "F", "teks": "bisa mengerti" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Semua bisa bilang"
+      },
+      {
+        "chord": "G",
+        "teks": "cinta"
+      },
+      {
+        "chord": "Am",
+        "teks": "tapi tak semua"
+      },
+      {
+        "chord": "F",
+        "teks": "bisa mengerti"
+      }
+    ],
+    "id": "semua-bisa-bilang-yovie-nuno"
   },
   {
     "judul": "My Angel",
@@ -1084,11 +2205,24 @@
     "genre": "Pop Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "My angel" },
-      { "chord": "G", "teks": "kau datang" },
-      { "chord": "Am", "teks": "di saat ku" },
-      { "chord": "F", "teks": "butuh" }
-    ]
+      {
+        "chord": "C",
+        "teks": "My angel"
+      },
+      {
+        "chord": "G",
+        "teks": "kau datang"
+      },
+      {
+        "chord": "Am",
+        "teks": "di saat ku"
+      },
+      {
+        "chord": "F",
+        "teks": "butuh"
+      }
+    ],
+    "id": "my-angel-gigi"
   },
   {
     "judul": "Waktu",
@@ -1096,11 +2230,24 @@
     "genre": "Rock",
     "kunci": "D",
     "lirik": [
-      { "chord": "D", "teks": "Waktu terus berjalan" },
-      { "chord": "A", "teks": "tanpa henti" },
-      { "chord": "Bm", "teks": "namun cinta" },
-      { "chord": "G", "teks": "tak berubah" }
-    ]
+      {
+        "chord": "D",
+        "teks": "Waktu terus berjalan"
+      },
+      {
+        "chord": "A",
+        "teks": "tanpa henti"
+      },
+      {
+        "chord": "Bm",
+        "teks": "namun cinta"
+      },
+      {
+        "chord": "G",
+        "teks": "tak berubah"
+      }
+    ],
+    "id": "waktu-cokelat"
   },
   {
     "judul": "Cinderella",
@@ -1108,11 +2255,24 @@
     "genre": "Rock",
     "kunci": "D",
     "lirik": [
-      { "chord": "D", "teks": "Cinderella" },
-      { "chord": "A", "teks": "seperti dongeng" },
-      { "chord": "Bm", "teks": "yang indah" },
-      { "chord": "G", "teks": "di malam itu" }
-    ]
+      {
+        "chord": "D",
+        "teks": "Cinderella"
+      },
+      {
+        "chord": "A",
+        "teks": "seperti dongeng"
+      },
+      {
+        "chord": "Bm",
+        "teks": "yang indah"
+      },
+      {
+        "chord": "G",
+        "teks": "di malam itu"
+      }
+    ],
+    "id": "cinderella-radja"
   },
   {
     "judul": "Aku Masih Sayang",
@@ -1120,11 +2280,24 @@
     "genre": "Pop Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Aku masih sayang" },
-      { "chord": "G", "teks": "padamu" },
-      { "chord": "Am", "teks": "walau kau" },
-      { "chord": "F", "teks": "tak cinta" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Aku masih sayang"
+      },
+      {
+        "chord": "G",
+        "teks": "padamu"
+      },
+      {
+        "chord": "Am",
+        "teks": "walau kau"
+      },
+      {
+        "chord": "F",
+        "teks": "tak cinta"
+      }
+    ],
+    "id": "aku-masih-sayang-st12"
   },
   {
     "judul": "Surga Hati",
@@ -1132,11 +2305,24 @@
     "genre": "Pop Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Surga hati" },
-      { "chord": "G", "teks": "di dalam" },
-      { "chord": "Am", "teks": "cintamu" },
-      { "chord": "F", "teks": "aku bahagia" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Surga hati"
+      },
+      {
+        "chord": "G",
+        "teks": "di dalam"
+      },
+      {
+        "chord": "Am",
+        "teks": "cintamu"
+      },
+      {
+        "chord": "F",
+        "teks": "aku bahagia"
+      }
+    ],
+    "id": "surga-hati-ungu"
   },
   {
     "judul": "Doa Untuk Ibu",
@@ -1144,11 +2330,24 @@
     "genre": "Pop Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Doa untuk ibu" },
-      { "chord": "G", "teks": "tercinta" },
-      { "chord": "Am", "teks": "semoga kau" },
-      { "chord": "F", "teks": "selalu sehat" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Doa untuk ibu"
+      },
+      {
+        "chord": "G",
+        "teks": "tercinta"
+      },
+      {
+        "chord": "Am",
+        "teks": "semoga kau"
+      },
+      {
+        "chord": "F",
+        "teks": "selalu sehat"
+      }
+    ],
+    "id": "doa-untuk-ibu-ungu"
   },
   {
     "judul": "Virus",
@@ -1156,11 +2355,24 @@
     "genre": "Rock",
     "kunci": "G",
     "lirik": [
-      { "chord": "G", "teks": "Virus cinta" },
-      { "chord": "D", "teks": "menyerangku" },
-      { "chord": "Em", "teks": "tanpa ampun" },
-      { "chord": "C", "teks": "kau buatku" }
-    ]
+      {
+        "chord": "G",
+        "teks": "Virus cinta"
+      },
+      {
+        "chord": "D",
+        "teks": "menyerangku"
+      },
+      {
+        "chord": "Em",
+        "teks": "tanpa ampun"
+      },
+      {
+        "chord": "C",
+        "teks": "kau buatku"
+      }
+    ],
+    "id": "virus-slank"
   },
   {
     "judul": "Ku Tak Bisa",
@@ -1168,10 +2380,23 @@
     "genre": "Rock",
     "kunci": "C",
     "lirik": [
-      { "chord": "C", "teks": "Ku tak bisa" },
-      { "chord": "G", "teks": "melupakan" },
-      { "chord": "Am", "teks": "senyummu" },
-      { "chord": "F", "teks": "yang indah" }
-    ]
+      {
+        "chord": "C",
+        "teks": "Ku tak bisa"
+      },
+      {
+        "chord": "G",
+        "teks": "melupakan"
+      },
+      {
+        "chord": "Am",
+        "teks": "senyummu"
+      },
+      {
+        "chord": "F",
+        "teks": "yang indah"
+      }
+    ],
+    "id": "ku-tak-bisa-slank"
   }
 ]

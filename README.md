@@ -38,7 +38,7 @@ Setelah melalui proses audit keamanan dan fungsionalitas pada 25 Agustus 2026, s
 *   **Filter Genre:**
     *   Chip kategori: Semua, Pop, Rock, Dangdut, Pop Rock, Indie, Reggae, Minang, Melayu, Ska, Folk.
     *   **Logika Filter Cerdas:** Kategori "Rock" akan mencakup sub-genre seperti "Slow Rock", "Indie Rock", dll. Kategori "Minang" mencakup "Pop Minang".
-    *   **Integritas Navigasi:** Klik pada kartu hasil filter harus membuka lagu yang benar (menggunakan indeks sumber asli, bukan indeks hasil filter).
+    *   **Integritas Navigasi:** Klik pada kartu hasil filter membuka lagu yang benar menggunakan stable ID/slug, dengan dukungan kompatibilitas untuk URL numerik lama.
 
 #### 4.2. Halaman Detail Lagu
 *   **Informasi Lagu:** Menampilkan Judul, Artis, dan Kunci Dasar.
@@ -79,10 +79,11 @@ npm run dev
 Sebelum membuat commit atau deployment, jalankan quality check berikut:
 
 ```bash
-npm run check
+npm ci
+npm run build
 ```
 
-Perintah tersebut memeriksa sintaks `js/main.js` dan memvalidasi struktur serta isi wajib pada `data/songs.json`. Untuk deployment, unggah seluruh isi repository ke hosting static seperti GitHub Pages, Netlify, atau Cloudflare Pages. Tidak diperlukan environment variable maupun backend server.
+`npm run build` menjalankan syntax check JavaScript, validasi dataset, static verifier untuk HTML/asset/reference, dan unit test. `npm run check` dapat digunakan untuk quality check cepat. Untuk deployment Cloudflare Pages, lihat [`DEPLOYMENT.md`](DEPLOYMENT.md). Tidak diperlukan backend server atau environment variable runtime.
 
 #### 5.3. Keamanan & Integritas Data (Hasil Audit)
 *   **XSS Prevention:** Seluruh input user dan data dinamis dirender menggunakan `textContent` atau DOM API, bukan `innerHTML`, untuk mencegah injeksi skrip.
@@ -105,6 +106,7 @@ Data lagu disimpan dalam `data/songs.json` dengan format berikut:
 ```json
 [
   {
+    "id": "slug-stabil",
     "judul": "String",
     "artis": "String",
     "genre": "String (Harus sesuai taksonomi: Pop, Rock, Pop Minang, dll)",
@@ -121,10 +123,10 @@ Data lagu disimpan dalam `data/songs.json` dengan format berikut:
 
 ### 7. Rencana Pengembangan Selanjutnya (Roadmap)
 Mengingat versi saat ini sudah stabil pasca-audit, fokus berikutnya adalah:
-1.  **Penambahan Konten:** Menambah jumlah lagu di `songs.json` (saat ini ~100 lagu).
+1.  **Penambahan Konten:** Menambah jumlah lagu di `songs.json` dengan mengikuti schema dan taxonomy validator.
 2.  **Fitur Favorit:** Menyimpan daftar lagu favorit di `localStorage`.
 3.  **PWA (Progressive Web App):** Menambahkan `manifest.json` dan Service Worker agar bisa diinstal di HP dan digunakan offline.
-4.  **CI/CD:** Mengotomatisasi validasi data dan deployment ke GitHub Pages/Netlify setiap kali ada commit baru.
+4.  **Deployment:** CI quality gate tersedia pada `.github/workflows/ci.yml`; deployment Cloudflare Pages diatur mengikuti `DEPLOYMENT.md`.
 
 ### 8. Metrik Keberhasilan
 *   **Zero Critical Bugs:** Tidak ada lagi bug navigasi atau keamanan seperti temuan audit sebelumnya.

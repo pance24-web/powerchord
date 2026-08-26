@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Baca chord dan lirik lagu di PowerChord.">
+    <meta name="theme-color" content="#c87522">
+    <meta property="og:title" content="Chord & Lirik Lagu — PowerChord">
+    <meta property="og:description" content="Baca chord dan lirik lagu di PowerChord.">
+    <meta property="og:type" content="website">
     <title>Chord & Lirik Lagu — PowerChord</title>
+    <link rel="canonical" href="detail.html?id=komang-raim-laode">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="asset/favicon.png">
 </head>
@@ -14,7 +19,7 @@
             <a href="index.html" class="logo" aria-label="PowerChord Home"><img class="logo-mark" src="asset/favicon.png" alt="" width="32" height="32"><span>PowerChord</span></a>
             <nav class="desktop-nav" aria-label="Navigasi utama">
                 <a href="index.html">Home</a>
-                <a class="active" href="detail.html?id=0">Transpose Chord</a>
+                <a class="active" href="detail.html?id=komang-raim-laode">Transpose Chord</a>
                 <a href="index.html#song-catalog">Katalog</a>
                 <a href="index.html#daftar-isi">Daftar Isi</a>
             </nav>
@@ -30,7 +35,7 @@
         </div>
         <nav id="mobileNav" class="mobile-nav container" aria-label="Navigasi mobile" hidden>
             <a href="index.html">Home</a>
-            <a href="detail.html?id=0">Transpose Chord</a>
+            <a href="detail.html?id=komang-raim-laode">Transpose Chord</a>
             <a href="index.html#song-catalog">Katalog</a>
             <a href="index.html#daftar-isi">Daftar Isi</a>
         </nav>
@@ -38,25 +43,25 @@
 
     <section class="alphabet-section" aria-label="Daftar artis berdasarkan abjad">
         <div class="container alphabet-nav">
-            <a href="index.html#song-catalog">0-9</a>
-            <a href="index.html#song-catalog">A</a><a href="index.html#song-catalog">B</a><a href="index.html#song-catalog">C</a><a href="index.html#song-catalog">D</a><a href="index.html#song-catalog">E</a><a href="index.html#song-catalog">F</a><a href="index.html#song-catalog">G</a><a href="index.html#song-catalog">H</a><a href="index.html#song-catalog">I</a><a href="index.html#song-catalog">J</a><a href="index.html#song-catalog">K</a><a href="index.html#song-catalog">L</a><a href="index.html#song-catalog">M</a><a href="index.html#song-catalog">N</a><a href="index.html#song-catalog">O</a><a href="index.html#song-catalog">P</a><a href="index.html#song-catalog">Q</a><a href="index.html#song-catalog">R</a><a href="index.html#song-catalog">S</a><a href="index.html#song-catalog">T</a><a href="index.html#song-catalog">U</a><a href="index.html#song-catalog">V</a><a href="index.html#song-catalog">W</a><a href="index.html#song-catalog">X</a><a href="index.html#song-catalog">Y</a><a href="index.html#song-catalog">Z</a>
+            <a href="index.html?letter=0-9#song-catalog">0-9</a>
+            <a href="index.html?letter=A#song-catalog">A</a><a href="index.html?letter=B#song-catalog">B</a><a href="index.html?letter=C#song-catalog">C</a><a href="index.html?letter=D#song-catalog">D</a><a href="index.html?letter=E#song-catalog">E</a><a href="index.html?letter=F#song-catalog">F</a><a href="index.html?letter=G#song-catalog">G</a><a href="index.html?letter=H#song-catalog">H</a><a href="index.html?letter=I#song-catalog">I</a><a href="index.html?letter=J#song-catalog">J</a><a href="index.html?letter=K#song-catalog">K</a><a href="index.html?letter=L#song-catalog">L</a><a href="index.html?letter=M#song-catalog">M</a><a href="index.html?letter=N#song-catalog">N</a><a href="index.html?letter=O#song-catalog">O</a><a href="index.html?letter=P#song-catalog">P</a><a href="index.html?letter=Q#song-catalog">Q</a><a href="index.html?letter=R#song-catalog">R</a><a href="index.html?letter=S#song-catalog">S</a><a href="index.html?letter=T#song-catalog">T</a><a href="index.html?letter=U#song-catalog">U</a><a href="index.html?letter=V#song-catalog">V</a><a href="index.html?letter=W#song-catalog">W</a><a href="index.html?letter=X#song-catalog">X</a><a href="index.html?letter=Y#song-catalog">Y</a><a href="index.html?letter=Z#song-catalog">Z</a>
         </div>
     </section>
 
     <main class="container detail-layout">
         <section class="detail-primary">
             <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><span>Chord</span></nav>
-            <h1 id="judulLagu">Komang</h1>
-            <p id="artisLagu" class="detail-artist">Raim Laode</p>
+            <h1 id="judulLagu">Memuat lagu…</h1>
+            <p id="artisLagu" class="detail-artist"></p>
             <div class="detail-meta" aria-label="Metadata lagu">
-                <span>Easy</span><span>Pop</span><span>Original key: G</span>
+                <span></span><span></span><span></span>
             </div>
 
             <section class="control-bar" aria-label="Kontrol chord dan autoscroll">
                 <div class="transpose-box">
                     <span>Transpose</span>
                     <button id="minus" type="button" aria-label="Turunkan kunci satu semitone">−</button>
-                    <span id="keyNow" aria-live="polite">G</span>
+                    <span id="keyNow" aria-live="polite">—</span>
                     <button id="plus" type="button" aria-label="Naikkan kunci satu semitone">+</button>
                     <button id="reset" type="button">Reset</button>
                 </div>
@@ -100,11 +105,11 @@
 
     <nav class="mobile-bottom-nav" aria-label="Navigasi cepat mobile">
         <a href="index.html">Home</a>
-        <a class="active" href="detail.html?id=0">Transpose Chord</a>
+        <a class="active" href="detail.html?id=komang-raim-laode">Transpose Chord</a>
         <a href="index.html#song-catalog">Katalog</a>
         <a href="index.html#daftar-isi">Daftar Isi</a>
     </nav>
 
-    <script src="js/main.js" defer></script>
+    <script type="module" src="js/main.js" defer></script>
 </body>
 </html>

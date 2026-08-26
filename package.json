@@ -1,12 +1,22 @@
 {
-  "name": "punk-kord",
+  "name": "powerchord",
   "version": "1.0.0",
-  "description": "Aplikasi Chord & Lirik Lagu Sederhana",
+  "description": "Katalog chord gitar dan lirik lagu PowerChord",
+  "private": true,
+  "type": "module",
   "main": "index.html",
   "scripts": {
-    "dev": "python -m http.server 8080",
-    "start": "python -m http.server 8080",
-    "check": "node --check js/main.js && python3 scripts/validate_data.py"
+    "dev": "python3 -m http.server 8080",
+    "start": "python3 -m http.server 8080",
+    "check": "node --check js/main.js && node --check js/core.js && node --check scripts/check_static_site.mjs && python3 scripts/validate_data.py && npm run verify:static",
+    "test": "node --test tests/*.test.js",
+    "verify:static": "node scripts/check_static_site.mjs",
+    "build": "npm run check && npm test",
+    "optimize:assets": "python3 scripts/optimize_assets.py"
+  },
+  "engines": {
+    "node": ">=20",
+    "python": ">=3.11"
   },
   "keywords": ["chord", "gitar", "lirik", "musik"],
   "author": "PowerChord Contributors",
