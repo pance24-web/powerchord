@@ -1,65 +1,109 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chord & Lirik</title>
+    <meta name="description" content="Baca chord dan lirik lagu di ChordFlow.">
+    <title>Chord & Lirik — ChordFlow</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="asset/favicon.png">
     <script>
-        // Terapkan tema sebelum render untuk mencegah FOUC
         (function () {
             var saved = null;
-            try {
-                saved = localStorage.getItem('theme');
-            } catch (e) {
-                // Gunakan preferensi sistem jika storage tidak tersedia.
-            }
-            var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            var theme = saved || (prefersDark ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', theme);
+            try { saved = localStorage.getItem('theme'); } catch (e) {}
+            document.documentElement.setAttribute('data-theme', saved || 'light');
         })();
     </script>
 </head>
 <body>
-
-    <header class="header">
-        <div class="container">
-            <a href="index.html" class="logo">← Kembali</a>
-            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
-                <span class="icon-moon">🌙</span>
-                <span class="icon-sun">☀️</span>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="ChordFlow home">ChordFlow</a>
+            <nav class="primary-nav" aria-label="Navigasi utama">
+                <a href="index.html#browse">Browse</a>
+                <a href="index.html#quick-tools">Transpose</a>
+                <a href="index.html#quick-tools">Tuner</a>
+                <a href="index.html#library">Library</a>
+            </nav>
+            <div class="header-actions">
+                <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
+                    <span aria-hidden="true">◐</span>
+                    <span class="visually-hidden">Ganti tema</span>
+                </button>
+                <a class="sign-in-link" href="index.html#library">Sign in</a>
+            </div>
+            <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Buka menu">
+                <span aria-hidden="true">☰</span>
             </button>
         </div>
+        <nav id="mobileNav" class="mobile-nav container" aria-label="Navigasi mobile" hidden>
+            <a href="index.html#browse">Browse</a>
+            <a href="index.html#quick-tools">Transpose</a>
+            <a href="index.html#quick-tools">Tuner</a>
+            <a href="index.html#library">Library</a>
+            <a href="index.html#popular">Popular</a>
+            <a href="index.html#latest">Latest</a>
+        </nav>
     </header>
 
     <main class="container detail-container">
-        <h1 id="judulLagu">Komang</h1>
-        <p id="artisLagu" class="detail-artist">Raim Laode</p>
-
-        <!-- Transpose -->
-        <div class="transpose-box">
-            <button id="minus" type="button" aria-label="Turunkan kunci satu semitone">-</button>
-            <span id="keyNow" aria-live="polite">G</span>
-            <button id="plus" type="button" aria-label="Naikkan kunci satu semitone">+</button>
-            <button id="reset" type="button">Reset</button>
-        </div>
-
-        <!-- Autoscroll -->
-        <div class="autoscroll-box">
-            <button id="toggleScroll" class="btn-scroll" type="button" aria-pressed="false">▶ Autoscroll</button>
-            <div class="scroll-speed">
-                <span id="speedLabel">Kecepatan:</span>
-                <button id="scrollSlow" type="button" aria-label="Kurangi kecepatan autoscroll">-</button>
-                <span id="speedDisplay" aria-live="polite">1x</span>
-                <button id="scrollFast" type="button" aria-label="Tambah kecepatan autoscroll">+</button>
+        <nav class="detail-breadcrumb" aria-label="Breadcrumb">
+            <a href="index.html">Home</a><span aria-hidden="true">/</span><span>Chord</span>
+        </nav>
+        <header class="detail-heading">
+            <h1 id="judulLagu">Komang</h1>
+            <p id="artisLagu" class="detail-artist">Raim Laode</p>
+            <div class="detail-meta" aria-label="Metadata lagu">
+                <span>Easy</span>
+                <span>Standard tuning</span>
+                <span>Original key</span>
             </div>
-        </div>
+        </header>
 
-        <!-- Area Lirik & Chord -->
-        <div class="lirik-area" id="lirik">
-            <!-- Diisi oleh JavaScript -->
+        <section class="detail-toolbar" aria-label="Kontrol chord">
+            <div class="transpose-box">
+                <span class="control-label">Transpose</span>
+                <button id="minus" type="button" aria-label="Turunkan kunci satu semitone">−</button>
+                <span id="keyNow" aria-live="polite">G</span>
+                <button id="plus" type="button" aria-label="Naikkan kunci satu semitone">+</button>
+                <button id="reset" type="button">Reset</button>
+            </div>
+            <div class="autoscroll-box">
+                <button id="toggleScroll" class="btn-scroll" type="button" aria-pressed="false">▶ Autoscroll</button>
+                <div class="scroll-speed">
+                    <span id="speedLabel">Kecepatan:</span>
+                    <button id="scrollSlow" type="button" aria-label="Kurangi kecepatan autoscroll">−</button>
+                    <span id="speedDisplay" aria-live="polite">1x</span>
+                    <button id="scrollFast" type="button" aria-label="Tambah kecepatan autoscroll">+</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="detail-layout">
+            <article class="lyrics-column" aria-labelledby="lyrics-title">
+                <h2 id="lyrics-title" class="visually-hidden">Chord dan lirik</h2>
+                <div class="lirik-area" id="lirik">
+                    <p class="loading-state">Memuat chord…</p>
+                </div>
+            </article>
+            <aside class="related-songs" aria-labelledby="related-title">
+                <h2 id="related-title">Chord Lainnya</h2>
+                <div id="relatedSongs" class="related-list"></div>
+            </aside>
         </div>
     </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <span>© 2026 ChordFlow</span>
+            <nav aria-label="Tautan footer">
+                <a href="index.html#library">About us</a>
+                <a href="index.html#quick-tools">Contact</a>
+                <a href="disclaimer.html">Privacy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+            </nav>
+        </div>
+    </footer>
 
     <script src="js/main.js"></script>
 </body>
