@@ -3,7 +3,7 @@
 
 # Product Requirements Document (PRD)
 ## Proyek: PowerChord (ChordLagu)
-**Versi:** 2.0 (Post-Audit & Hardening)  
+**Versi:** 1.1 (Cloudflare Build & Repository Alignment)
 **Tanggal:** 26 Agustus 2026  
 **Status:** Stabil / Production Ready  
 **Repo:** [pance24-web/powerchord](https://github.com/pance24-web/powerchord)
@@ -134,4 +134,4 @@ Mengingat versi saat ini sudah stabil pasca-audit, fokus berikutnya adalah:
 *   **Kepuasan Pengguna:** Fitur transpose dan autoscroll berfungsi mulus di perangkat mobile.
 
 ---
-*Dokumen ini disusun berdasarkan analisis kode terbaru dan laporan audit teknis per 26 Agustus 2026.*
+*Dokumen ini disusun berdasarkan analisis kode terbaru dan laporan audit teknis untuk release v1.1.*
