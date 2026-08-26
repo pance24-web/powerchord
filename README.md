@@ -1,13 +1,3 @@
-Saya akan mengecek repository GitHub Anda terlebih dahulu untuk memahami struktur dan fitur yang ada, kemudian membuatkan PRD (Product Requirements Document).
-
-
-Saya perlu melihat lebih detail tentang repo ini. Mari saya cek file-file penting dan struktur kodenya.
-
-
-Berdasarkan analisis mendalam terhadap repository **punk-kord**, berikut adalah **Product Requirements Document (PRD)** yang komprehensif untuk aplikasi ini.
-
----
-
 # Product Requirements Document (PRD): Punk Kord
 
 | Informasi Dokumen | Detail |
