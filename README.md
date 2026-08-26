@@ -68,19 +68,35 @@ Setelah melalui proses audit keamanan dan fungsionalitas pada 25 Agustus 2026, s
     *   Server: Python HTTP Server (`http.server`) untuk development/lokal.
 *   **Tanpa Backend:** Tidak ada database server atau API eksternal; semua data dimuat dari file JSON lokal.
 
-#### 5.2. Keamanan & Integritas Data (Hasil Audit)
+#### 5.2. Menjalankan dan Memeriksa Proyek
+Jalankan server HTTP lokal dari root repository agar browser dapat memuat `data/songs.json` melalui `fetch()`:
+
+```bash
+npm run dev
+# Buka http://localhost:8080
+```
+
+Sebelum membuat commit atau deployment, jalankan quality check berikut:
+
+```bash
+npm run check
+```
+
+Perintah tersebut memeriksa sintaks `js/main.js` dan memvalidasi struktur serta isi wajib pada `data/songs.json`. Untuk deployment, unggah seluruh isi repository ke hosting static seperti GitHub Pages, Netlify, atau Cloudflare Pages. Tidak diperlukan environment variable maupun backend server.
+
+#### 5.3. Keamanan & Integritas Data (Hasil Audit)
 *   **XSS Prevention:** Seluruh input user dan data dinamis dirender menggunakan `textContent` atau DOM API, bukan `innerHTML`, untuk mencegah injeksi skrip.
 *   **Validasi Data:** Script validasi (`scripts/validate_data.py`) memastikan struktur JSON lagu konsisten sebelum deployment.
 *   **Error Handling:** Penanganan graceful jika data gagal dimuat atau ID lagu tidak valid (menampilkan pesan "Lagu tidak ditemukan").
 *   **Storage Safety:** Akses `localStorage` dibungkus `try/catch` untuk mencegah error pada mode privat browser.
 
-#### 5.3. Aksesibilitas (A11y)
+#### 5.4. Aksesibilitas (A11y)
 *   **Label Form:** Input pencarian memiliki label terhubung (`visually-hidden`).
 *   **Focus Management:** Indikator fokus yang jelas (`:focus-visible`) untuk navigasi keyboard.
 *   **ARIA Attributes:** Penggunaan `aria-pressed`, `aria-label`, dan `role="status"` untuk pembaca layar.
 *   **Reduced Motion:** Mendukung preferensi pengguna untuk mengurangi animasi.
 
-#### 5.4. Performa
+#### 5.5. Performa
 *   **Ringan:** Tidak menggunakan framework berat (React/Vue), hanya vanilla JS.
 *   **Responsif:** Layout menyesuaikan layar mobile (grid 1 kolom) dan desktop.
 

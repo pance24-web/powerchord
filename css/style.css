@@ -126,6 +126,7 @@ button {
 
 .header-search:focus-within {
     border-color: var(--accent);
+    outline: 2px solid rgba(200, 117, 34, 0.22);
     outline: 2px solid color-mix(in srgb, var(--accent) 22%, transparent);
     outline-offset: 1px;
 }
@@ -764,8 +765,13 @@ button {
         grid-template-columns: repeat(4, 1fr);
         min-height: 58px;
         border-top: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.96);
         background: color-mix(in srgb, var(--surface) 96%, transparent);
         backdrop-filter: blur(8px);
+    }
+
+    [data-theme="dark"] .mobile-bottom-nav {
+        background: rgba(28, 28, 28, 0.96);
     }
 
     .mobile-bottom-nav a {
@@ -931,4 +937,8 @@ button {
     --accent: #c87522;
     --accent-dark: #a65b14;
     --soft: #fafafa;
+}
+
+.footer-link {
+    color: inherit;
 }

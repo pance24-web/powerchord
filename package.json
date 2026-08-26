@@ -1,5 +1,5 @@
 {
-  "name": "chord-lagu",
+  "name": "punk-kord",
   "version": "1.0.0",
   "description": "Aplikasi Chord & Lirik Lagu Sederhana",
   "main": "index.html",
@@ -9,6 +9,6 @@
     "check": "node --check js/main.js && python3 scripts/validate_data.py"
   },
   "keywords": ["chord", "gitar", "lirik", "musik"],
-  "author": "",
+  "author": "PunkKord Contributors",
   "license": "ISC"
 }
