@@ -402,6 +402,7 @@ function initDetailPage() {
     const slowButton = document.getElementById('scrollSlow');
     const fastButton = document.getElementById('scrollFast');
     const speedDisplay = document.getElementById('speedDisplay');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let scrolling = false;
     let frame = null;
     let lastTime = 0;
@@ -420,6 +421,18 @@ function initDetailPage() {
         lastTime = 0;
         updateScrollButton();
     }
+    function syncMotionPreference() {
+        const reducedMotion = prefersReducedMotion.matches;
+        if (!scrollButton) return;
+        scrollButton.disabled = reducedMotion;
+        scrollButton.title = reducedMotion
+            ? 'Autoscroll dinonaktifkan karena preferensi reduced motion'
+            : '';
+        if (reducedMotion) stopScroll();
+    }
+    syncMotionPreference();
+    prefersReducedMotion.addEventListener?.('change', syncMotionPreference);
+
     function scrollFrame(time) {
         if (!scrolling) return;
         const elapsed = lastTime ? time - lastTime : 16;
