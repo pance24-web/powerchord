@@ -75,18 +75,26 @@ function getFilteredSongs() {
     return filterSongs(state.songs, state.searchQuery, state.activeGenre).filter(matchesLetter);
 }
 
+function markCatalogReady(container) {
+    container.classList.remove('is-loading');
+    container.setAttribute('aria-busy', 'false');
+}
+
 function renderSearchRows(filtered) {
     const container = document.getElementById('songList');
     if (!container) return;
+    const ready = state.songs.length > 0;
     container.replaceChildren();
     if (!filtered.length) {
         const empty = document.createElement('p');
         empty.className = 'loading-state';
         empty.textContent = 'Lagu tidak ditemukan.';
         container.appendChild(empty);
+        if (ready) markCatalogReady(container);
         return;
     }
     filtered.forEach((song) => container.appendChild(renderLatestSongRow(song)));
+    if (ready) markCatalogReady(container);
 }
 
 function closeSearchResults() {
@@ -142,6 +150,15 @@ function filterHomepage() {
     if (latestCount) latestCount.textContent = `${filtered.length} lagu`;
     if (state.searchQuery.length >= 2) renderSearchResults(filtered);
     else closeSearchResults();
+}
+
+function updateLetterLinkState(activeValue) {
+    document.querySelectorAll('[data-letter]').forEach((link) => {
+        const isActive = link.dataset.letter === activeValue;
+        link.classList.toggle('active', isActive);
+        if (isActive) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+    });
 }
 
 function updateFilterButtonState(selector, activeValue, datasetKey) {
@@ -218,7 +235,7 @@ function initHomepageInteractions() {
     }
     if (incomingLetter === '0-9' || /^[A-Z]$/.test(incomingLetter || '')) {
         state.activeLetter = incomingLetter;
-        updateFilterButtonState('[data-letter]', state.activeLetter, 'letter');
+        updateLetterLinkState(state.activeLetter);
     }
 
     input.addEventListener('input', () => {
@@ -276,7 +293,7 @@ function initHomepageInteractions() {
         button.addEventListener('click', (event) => {
             event.preventDefault();
             state.activeLetter = button.dataset.letter || '';
-            updateFilterButtonState('[data-letter]', state.activeLetter, 'letter');
+            updateLetterLinkState(state.activeLetter);
             filterHomepage();
             document.getElementById('song-catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
@@ -302,7 +319,9 @@ async function loadSongs() {
         if (document.getElementById('songList')) filterHomepage();
         initDetailPage();
     } catch {
-        const target = document.getElementById('songList') || document.getElementById('lirik');
+        const songList = document.getElementById('songList');
+        const target = songList || document.getElementById('lirik');
+        if (songList) markCatalogReady(songList);
         if (target) target.textContent = 'Gagal memuat data lagu.';
     }
 }

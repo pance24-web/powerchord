@@ -280,6 +280,28 @@ button {
     border-top: 1px solid var(--line);
 }
 
+/* Reserve the catalog area while data/songs.json is loading. */
+.catalog-shell.is-loading {
+    position: relative;
+    min-height: 5400px;
+    overflow: hidden;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 53px,
+        var(--line) 53px,
+        var(--line) 54px
+    );
+}
+
+.catalog-shell.is-loading .loading-state {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    z-index: 1;
+    margin: 0;
+}
+
 .reference-link {
     display: block;
     min-height: 44px;
@@ -348,6 +370,12 @@ button {
 .loading-state {
     color: var(--muted);
     font-size: 0.78rem;
+}
+
+.song-artist {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .song-meta {
@@ -778,6 +806,10 @@ button {
         grid-template-columns: minmax(0, 1fr) 28px 18px;
         gap: 10px;
         min-height: 58px;
+    }
+
+    .catalog-shell.is-loading {
+        min-height: 5800px;
     }
 
     .song-meta {

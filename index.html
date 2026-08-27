@@ -26,7 +26,7 @@
             <form id="headerSearchForm" class="header-search" role="search" action="index.html" method="get">
                 <label for="searchInput" class="visually-hidden">Cari chord</label>
                 <span aria-hidden="true">⌕</span>
-                <input type="search" id="searchInput" name="q" placeholder="Search Chord" autocomplete="off" aria-controls="searchResults" aria-autocomplete="list" aria-expanded="false" aria-activedescendant="">
+                <input type="search" id="searchInput" name="q" role="combobox" placeholder="Search Chord" autocomplete="off" aria-controls="searchResults" aria-haspopup="listbox" aria-autocomplete="list" aria-expanded="false" aria-activedescendant="">
             </form>
             <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
                 <span class="icon-moon" aria-hidden="true">🌙</span><span class="icon-sun" aria-hidden="true">☀️</span>
@@ -43,7 +43,7 @@
 
     <section class="alphabet-section" id="daftar-isi" aria-label="Daftar artis berdasarkan abjad">
         <div class="container alphabet-nav">
-            <a href="#song-catalog" data-letter="0-9" aria-pressed="false">0-9</a><a href="#song-catalog" data-letter="A" aria-pressed="false">A</a><a href="#song-catalog" data-letter="B" aria-pressed="false">B</a><a href="#song-catalog" data-letter="C" aria-pressed="false">C</a><a href="#song-catalog" data-letter="D" aria-pressed="false">D</a><a href="#song-catalog" data-letter="E" aria-pressed="false">E</a><a href="#song-catalog" data-letter="F" aria-pressed="false">F</a><a href="#song-catalog" data-letter="G" aria-pressed="false">G</a><a href="#song-catalog" data-letter="H" aria-pressed="false">H</a><a href="#song-catalog" data-letter="I" aria-pressed="false">I</a><a href="#song-catalog" data-letter="J" aria-pressed="false">J</a><a href="#song-catalog" data-letter="K" aria-pressed="false">K</a><a href="#song-catalog" data-letter="L" aria-pressed="false">L</a><a href="#song-catalog" data-letter="M" aria-pressed="false">M</a><a href="#song-catalog" data-letter="N" aria-pressed="false">N</a><a href="#song-catalog" data-letter="O" aria-pressed="false">O</a><a href="#song-catalog" data-letter="P" aria-pressed="false">P</a><a href="#song-catalog" data-letter="Q" aria-pressed="false">Q</a><a href="#song-catalog" data-letter="R" aria-pressed="false">R</a><a href="#song-catalog" data-letter="S" aria-pressed="false">S</a><a href="#song-catalog" data-letter="T" aria-pressed="false">T</a><a href="#song-catalog" data-letter="U" aria-pressed="false">U</a><a href="#song-catalog" data-letter="V" aria-pressed="false">V</a><a href="#song-catalog" data-letter="W" aria-pressed="false">W</a><a href="#song-catalog" data-letter="X" aria-pressed="false">X</a><a href="#song-catalog" data-letter="Y" aria-pressed="false">Y</a><a href="#song-catalog" data-letter="Z" aria-pressed="false">Z</a>
+            <a href="#song-catalog" data-letter="0-9">0-9</a><a href="#song-catalog" data-letter="A">A</a><a href="#song-catalog" data-letter="B">B</a><a href="#song-catalog" data-letter="C">C</a><a href="#song-catalog" data-letter="D">D</a><a href="#song-catalog" data-letter="E">E</a><a href="#song-catalog" data-letter="F">F</a><a href="#song-catalog" data-letter="G">G</a><a href="#song-catalog" data-letter="H">H</a><a href="#song-catalog" data-letter="I">I</a><a href="#song-catalog" data-letter="J">J</a><a href="#song-catalog" data-letter="K">K</a><a href="#song-catalog" data-letter="L">L</a><a href="#song-catalog" data-letter="M">M</a><a href="#song-catalog" data-letter="N">N</a><a href="#song-catalog" data-letter="O">O</a><a href="#song-catalog" data-letter="P">P</a><a href="#song-catalog" data-letter="Q">Q</a><a href="#song-catalog" data-letter="R">R</a><a href="#song-catalog" data-letter="S">S</a><a href="#song-catalog" data-letter="T">T</a><a href="#song-catalog" data-letter="U">U</a><a href="#song-catalog" data-letter="V">V</a><a href="#song-catalog" data-letter="W">W</a><a href="#song-catalog" data-letter="X">X</a><a href="#song-catalog" data-letter="Y">Y</a><a href="#song-catalog" data-letter="Z">Z</a>
         </div>
     </section>
 
@@ -72,8 +72,8 @@
                     <button type="button" data-genre="Folk" aria-pressed="false">Folk</button>
                 </div>
                 <div id="searchResults" class="search-results" role="listbox" aria-label="Saran pencarian" aria-live="polite" aria-busy="false" hidden></div>
-                <div id="songList" class="link-list" aria-live="polite">
-                    <p class="loading-state">Memuat chord…</p>
+                <div id="songList" class="link-list catalog-shell is-loading" aria-live="polite" aria-busy="true">
+                    <p class="loading-state" role="status">Memuat chord…</p>
                 </div>
             </section>
         </section>
