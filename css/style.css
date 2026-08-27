@@ -201,7 +201,12 @@ button {
 }
 
 .alphabet-nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     flex: 0 0 auto;
+    min-width: 28px;
+    min-height: 28px;
     color: var(--text);
     font-size: 0.77rem;
     text-decoration: none;
