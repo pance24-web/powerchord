@@ -679,6 +679,7 @@ button:disabled:focus-visible {
     min-width: 0;
     overflow-x: auto;
     overscroll-behavior-x: contain;
+    min-height: 1100px;
     padding: 22px 0;
     font-family: "Courier New", Courier, monospace;
     font-size: 0.95rem;
@@ -797,6 +798,10 @@ button:disabled:focus-visible {
 
     .detail-primary .lirik-area {
         padding-top: 16px;
+    }
+
+    .lirik-area {
+        min-height: 1100px;
     }
 
     .footer-inner {
