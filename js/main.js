@@ -342,7 +342,7 @@ function initDetailPage() {
     titleElement.textContent = song.judul;
     document.title = `${song.judul} — Chord & Lirik PowerChord`;
     const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) canonical.href = getSongHref(song, getSongIndex(song));
+    if (canonical) canonical.href = new URL(getSongHref(song, getSongIndex(song)), window.location.href).href;
     const artistElement = document.getElementById('artisLagu');
     if (artistElement) artistElement.textContent = song.artis;
     const meta = document.querySelectorAll('.detail-meta span');

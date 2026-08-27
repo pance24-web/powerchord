@@ -9,6 +9,7 @@
     --muted: #656565;
     --line: #e5e5e5;
     --accent: #c87522;
+    --accent-button: #a65b14;
     --accent-dark: #a65b14;
     --soft: #fafafa;
     --container: 1180px;
@@ -880,8 +881,8 @@ button {
 .genre-filters button:hover,
 .genre-filters button:focus-visible,
 .genre-filters button.active {
-    border-color: var(--accent);
-    background: var(--accent);
+    border-color: var(--accent-button);
+    background: var(--accent-button);
     color: #fff;
     outline: 0;
 }
