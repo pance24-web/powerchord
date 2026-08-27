@@ -301,8 +301,7 @@ async function loadSongs() {
         state.songs = data;
         if (document.getElementById('songList')) filterHomepage();
         initDetailPage();
-    } catch (error) {
-        console.error(error);
+    } catch {
         const target = document.getElementById('songList') || document.getElementById('lirik');
         if (target) target.textContent = 'Gagal memuat data lagu.';
     }
