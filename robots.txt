@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Set the production sitemap URL when a canonical domain is configured.
-# Sitemap: https://example.com/sitemap.xml
+Sitemap: https://powerchord.pages.dev/sitemap.xml
