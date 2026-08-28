@@ -1,6 +1,7 @@
 import {
     filterSongs,
     getDifficulty,
+    normalizeSearchQuery,
     getSongHref,
     parseSongReference,
     transposeChord,
@@ -113,7 +114,7 @@ function renderSearchResults(filtered) {
     results.replaceChildren();
     state.activeSuggestion = -1;
     input?.setAttribute('aria-activedescendant', '');
-    if (state.searchQuery.length < 2) {
+    if (normalizeSearchQuery(state.searchQuery).length < 2) {
         closeSearchResults();
         return;
     }
@@ -148,7 +149,7 @@ function filterHomepage() {
     renderReferenceList(document.getElementById('popularSongList'), state.songs.slice(0, 5));
     const latestCount = document.getElementById('latestCount');
     if (latestCount) latestCount.textContent = `${filtered.length} lagu`;
-    if (state.searchQuery.length >= 2) renderSearchResults(filtered);
+    if (normalizeSearchQuery(state.searchQuery).length >= 2) renderSearchResults(filtered);
     else closeSearchResults();
 }
 
@@ -262,15 +263,14 @@ function initHomepageInteractions() {
             input.setAttribute('aria-activedescendant', options[state.activeSuggestion].id);
             return;
         }
-        if (event.key === 'Enter' && state.activeSuggestion >= 0 && options[state.activeSuggestion]) {
+        if (event.key === 'Enter' && options.length) {
             event.preventDefault();
-            options[state.activeSuggestion].click();
+            const selectedIndex = state.activeSuggestion >= 0 ? state.activeSuggestion : 0;
+            options[selectedIndex].click();
             return;
         }
         if (event.key === 'Escape') {
-            input.value = '';
-            state.searchQuery = '';
-            filterHomepage();
+            event.preventDefault();
             closeSearchResults();
         }
     });

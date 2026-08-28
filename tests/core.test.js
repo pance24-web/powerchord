@@ -5,6 +5,9 @@ import { test } from 'node:test';
 import {
     filterSongs,
     getDifficulty,
+    normalizeSearchQuery,
+    rankSong,
+    searchSongs,
     getSongHref,
     parseSongReference,
     transposeChord,
@@ -34,6 +37,19 @@ test('filterSongs searches title and artist and applies genre', () => {
     assert.equal(filterSongs(songs, 'slank').length, 2);
     assert.equal(filterSongs(songs, '', 'Pop').length, 61);
     assert.equal(filterSongs(songs, 'komang', 'Rock').length, 0);
+});
+
+test('search normalizes whitespace and matches all 100 songs deterministically', () => {
+    assert.equal(normalizeSearchQuery('  SLaNk   terlalu  '), 'slank terlalu');
+    assert.equal(searchSongs(songs, 'slank terlalu').length, 3);
+    assert.equal(searchSongs(songs, 'slank terlalu').map((song) => song.id).join(','), 'terlalu-lama-vierra,ku-tak-bisa-slank,virus-slank');
+});
+
+test('search ranks exact title before title, artist, and partial matches', () => {
+    assert.equal(rankSong(songs.find((song) => song.judul === 'Komang'), 'komang').matchType, 'exact-title');
+    assert.equal(rankSong(songs.find((song) => song.id === 'ku-tak-bisa-slank'), 'slank').matchType, 'artist');
+    assert.equal(searchSongs(songs, 'komang')[0].id, 'komang-raim-laode');
+    assert.equal(searchSongs(songs, 'komnag')[0].id, 'komang-raim-laode');
 });
 
 test('getDifficulty derives difficulty from unique chords', () => {
