@@ -19,15 +19,16 @@
         <div class="container header-inner">
             <a href="index.html" class="logo" aria-label="PowerChord Home"><img class="logo-mark" src="asset/PowerChord-logo.webp" alt="" width="32" height="32"><span>PowerChord</span></a>
             <nav class="desktop-nav" aria-label="Navigasi utama">
-                <a href="index.html">Home</a>
-                <a class="active" href="detail.html?id=komang-raim-laode">Transpose Chord</a>
-                <a href="index.html#song-catalog">Katalog</a>
-                <a href="index.html#daftar-isi">Daftar Isi</a>
+                <a href="index.html">🏠 Beranda</a>
+                <a href="index.html#song-catalog">📚 Daftar Lagu</a>
+                <a href="artists.html">🎤 Artis</a>
+                <a href="about.html">Tentang</a>
+                <a href="contact.html">Kontak</a>
             </nav>
             <form class="header-search" role="search" action="index.html">
                 <label for="detailSearch" class="visually-hidden">Cari chord</label>
                 <span aria-hidden="true">⌕</span>
-                <input type="search" id="detailSearch" name="q" placeholder="Search Chord">
+                <input type="search" id="detailSearch" name="q" placeholder="🔍 Cari judul atau artis...">
             </form>
             <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
                 <span class="icon-moon" aria-hidden="true">🌙</span><span class="icon-sun" aria-hidden="true">☀️</span>
@@ -35,10 +36,11 @@
             <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Buka menu">☰</button>
         </div>
         <nav id="mobileNav" class="mobile-nav container" aria-label="Navigasi mobile" hidden>
-            <a href="index.html">Home</a>
-            <a href="detail.html?id=komang-raim-laode">Transpose Chord</a>
-            <a href="index.html#song-catalog">Katalog</a>
-            <a href="index.html#daftar-isi">Daftar Isi</a>
+            <a href="index.html">🏠 Beranda</a>
+            <a href="index.html#song-catalog">📚 Daftar Lagu</a>
+            <a href="artists.html">🎤 Artis</a>
+            <a href="about.html">Tentang</a>
+            <a href="contact.html">Kontak</a>
         </nav>
     </header>
 
@@ -51,7 +53,10 @@
 
     <main class="container detail-layout">
         <section class="detail-primary">
-            <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><span>Chord</span></nav>
+            <!-- Breadcrumb 4 Level (BARU) -->
+            <nav class="breadcrumb" id="dynamicBreadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">🏠 Beranda</a><span>/</span><span id="breadcrumbGenre">🏷️ Genre</span><span>/</span><span id="breadcrumbArtist">🎤 Artis</span><span>/</span><span id="breadcrumbSong">🎵 Lagu</span>
+            </nav>
             <h1 id="judulLagu">Memuat lagu…</h1>
             <p id="artisLagu" class="detail-artist"></p>
             <div class="detail-meta" aria-label="Metadata lagu">
@@ -105,11 +110,17 @@
     </footer>
 
     <nav class="mobile-bottom-nav" aria-label="Navigasi cepat mobile">
-        <a href="index.html">Home</a>
-        <a class="active" href="detail.html?id=komang-raim-laode">Transpose Chord</a>
-        <a href="index.html#song-catalog">Katalog</a>
-        <a href="index.html#daftar-isi">Daftar Isi</a>
+        <a href="index.html">🏠 Beranda</a>
+        <a href="index.html#song-catalog">📚 Daftar Lagu</a>
+        <a href="artists.html">🎤 Artis</a>
+        <a href="about.html">Tentang</a>
+        <a href="contact.html">Kontak</a>
     </nav>
+
+    <!-- Sticky Back Button (BARU) -->
+    <button id="stickyBackButton" class="sticky-back-button" type="button" aria-label="Kembali ke daftar lagu">
+        ⬅️ Kembali ke Daftar Lagu
+    </button>
 
     <script type="module" src="js/main.js" defer></script>
 </body>

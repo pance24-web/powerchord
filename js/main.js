@@ -441,6 +441,13 @@ function initDetailPage() {
     if (meta[0]) meta[0].textContent = getDifficulty(song);
     if (meta[1]) meta[1].textContent = song.genre || 'Guitar';
     if (meta[2]) meta[2].textContent = `Original key: ${song.kunci || 'C'}`;
+    
+    // Update Breadcrumb (BARU)
+    updateBreadcrumb(song);
+    
+    // Setup Sticky Back Button (BARU)
+    setupStickyBackButton();
+    
     const relatedSongs = state.songs
         .filter((candidate) => candidate !== song && candidate.genre === song.genre)
         .slice(0, 5);
@@ -555,7 +562,234 @@ function initDetailPage() {
     });
 }
 
+// Update Breadcrumb (BARU)
+function updateBreadcrumb(song) {
+    const breadcrumbGenre = document.getElementById('breadcrumbGenre');
+    const breadcrumbArtist = document.getElementById('breadcrumbArtist');
+    const breadcrumbSong = document.getElementById('breadcrumbSong');
+    
+    if (breadcrumbGenre && song.genre) {
+        breadcrumbGenre.textContent = `🏷️ ${song.genre}`;
+        breadcrumbGenre.closest('.breadcrumb').querySelector('a[href="index.html"]').nextElementSibling.nextElementSibling.outerHTML = 
+            `<a href="index.html?genre=${encodeURIComponent(song.genre.toLowerCase())}#song-catalog">🏷️ ${song.genre}</a>`;
+    }
+    
+    if (breadcrumbArtist) {
+        breadcrumbArtist.textContent = `🎤 ${song.artis}`;
+        // Replace the span with a link to artists page
+        const artistLink = document.createElement('a');
+        artistLink.href = `artists.html?artist=${encodeURIComponent(song.artis)}`;
+        artistLink.textContent = `🎤 ${song.artis}`;
+        breadcrumbArtist.replaceWith(artistLink);
+    }
+    
+    if (breadcrumbSong) {
+        breadcrumbSong.textContent = `🎵 ${song.judul}`;
+    }
+}
+
+// Setup Sticky Back Button (BARU)
+function setupStickyBackButton() {
+    const stickyButton = document.getElementById('stickyBackButton');
+    if (!stickyButton) return;
+    
+    // Get the referring letter from URL or default to current song's first letter
+    const params = new URLSearchParams(window.location.search);
+    const songId = params.get('id');
+    let backLink = 'index.html#song-catalog';
+    
+    if (songId) {
+        const song = parseSongReference(songId, state.songs);
+        if (song) {
+            const firstLetter = song.artis.trim().charAt(0).toUpperCase();
+            const letterParam = /\d/.test(firstLetter) ? '0-9' : firstLetter;
+            backLink = `index.html?letter=${letterParam}#song-catalog`;
+        }
+    }
+    
+    stickyButton.addEventListener('click', () => {
+        window.location.href = backLink;
+    });
+    
+    // Show/hide based on scroll position
+    function handleScroll() {
+        if (window.scrollY > 300) {
+            stickyButton.style.display = 'inline-flex';
+        } else {
+            stickyButton.style.display = 'none';
+        }
+    }
+    
+    // Initial check
+    handleScroll();
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', handleScroll, { passive: true });
+}
+
+// Render Artists Page (BARU)
+function renderArtistsPage() {
+    const container = document.getElementById('artistsList');
+    const artistCountEl = document.getElementById('artistCount');
+    const totalArtistsEl = document.getElementById('totalArtists');
+    const totalSongsEl = document.getElementById('totalSongs');
+    
+    if (!container || !state.songs.length) return;
+    
+    // Build artist map
+    const artistMap = new Map();
+    state.songs.forEach((song) => {
+        const artistName = song.artis.trim();
+        if (!artistMap.has(artistName)) {
+            artistMap.set(artistName, []);
+        }
+        artistMap.get(artistName).push(song);
+    });
+    
+    // Update stats
+    if (totalArtistsEl) totalArtistsEl.textContent = artistMap.size;
+    if (totalSongsEl) totalSongsEl.textContent = state.songs.length;
+    
+    // Get filter letter from URL or default
+    const params = new URLSearchParams(window.location.search);
+    const artistParam = params.get('artist');
+    let activeLetter = params.get('letter') || 'all';
+    let searchQuery = artistParam || '';
+    
+    // Filter artists
+    let filteredArtists = [...artistMap.entries()];
+    
+    if (activeLetter !== 'all') {
+        filteredArtists = filteredArtists.filter(([name]) => {
+            const firstLetter = name.trim().charAt(0).toUpperCase();
+            if (activeLetter === '0-9') return /\d/.test(firstLetter);
+            return firstLetter === activeLetter;
+        });
+    }
+    
+    if (searchQuery) {
+        filteredArtists = filteredArtists.filter(([name]) => 
+            name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    }
+    
+    // Sort alphabetically
+    filteredArtists.sort((a, b) => a[0].localeCompare(b[0]));
+    
+    // Update count
+    if (artistCountEl) {
+        artistCountEl.textContent = `${filteredArtists.length} artis`;
+    }
+    
+    // Render list
+    container.replaceChildren();
+    
+    if (!filteredArtists.length) {
+        const empty = document.createElement('p');
+        empty.className = 'loading-state';
+        empty.textContent = 'Artis tidak ditemukan.';
+        container.appendChild(empty);
+        return;
+    }
+    
+    filteredArtists.forEach(([artistName, songs]) => {
+        const item = document.createElement('div');
+        item.className = 'artist-list-item';
+        
+        const info = document.createElement('div');
+        info.className = 'artist-info-main';
+        
+        const link = document.createElement('a');
+        link.className = 'artist-name-link';
+        link.href = `index.html?q=${encodeURIComponent(artistName)}#song-catalog`;
+        link.textContent = artistName;
+        
+        const countLabel = document.createElement('span');
+        countLabel.className = 'artist-song-count-label';
+        countLabel.textContent = `${songs.length} lagu`;
+        
+        info.append(link, countLabel);
+        
+        const viewLink = document.createElement('a');
+        viewLink.className = 'view-songs-link';
+        viewLink.href = `index.html?q=${encodeURIComponent(artistName)}#song-catalog`;
+        viewLink.textContent = 'Lihat Lagu →';
+        
+        item.append(info, viewLink);
+        container.appendChild(item);
+    });
+}
+
+// Init Artists Page Interactions (BARU)
+function initArtistsPageInteractions() {
+    const container = document.getElementById('artistsList');
+    if (!container) return;
+    
+    // Letter filter
+    document.querySelectorAll('.artist-alphabet-nav [data-letter]').forEach((button) => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const letter = button.dataset.letter;
+            
+            // Update active state
+            document.querySelectorAll('.artist-alphabet-nav [data-letter]').forEach((btn) => {
+                btn.classList.toggle('active', btn.dataset.letter === letter);
+            });
+            
+            // Reload with new letter
+            const url = new URL(window.location);
+            if (letter === 'all') {
+                url.searchParams.delete('letter');
+            } else {
+                url.searchParams.set('letter', letter);
+            }
+            url.searchParams.delete('artist');
+            window.history.pushState({}, '', url);
+            renderArtistsPage();
+        });
+    });
+    
+    // Search box
+    const searchInput = document.getElementById('artistSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim();
+            const url = new URL(window.location);
+            if (query) {
+                url.searchParams.set('artist', query);
+                url.searchParams.delete('letter');
+                document.querySelectorAll('.artist-alphabet-nav [data-letter]').forEach((btn) => {
+                    btn.classList.toggle('active', false);
+                });
+            } else {
+                url.searchParams.delete('artist');
+                document.querySelectorAll('.artist-alphabet-nav [data-letter="all"]').forEach((btn) => {
+                    btn.classList.toggle('active', true);
+                });
+            }
+            window.history.pushState({}, '', url);
+            renderArtistsPage();
+        });
+    }
+    
+    renderArtistsPage();
+}
+
 initTheme();
 initMobileMenu();
 initHomepageInteractions();
 loadSongs();
+
+// Init Artists Page (call after songs are loaded)
+document.addEventListener('DOMContentLoaded', () => {
+    const artistsList = document.getElementById('artistsList');
+    if (artistsList) {
+        // Wait for songs to load, then render artists page
+        const checkAndInit = setInterval(() => {
+            if (state.songs.length > 0) {
+                clearInterval(checkAndInit);
+                initArtistsPageInteractions();
+            }
+        }, 100);
+    }
+});
