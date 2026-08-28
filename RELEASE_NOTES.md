@@ -1,10 +1,21 @@
 # PowerChord — Release Notes
 
-**Release:** Accessibility, Responsive Layout, dan CLS Stabilization  
-**Tanggal:** 27 Agustus 2026  
-**Branch:** `main`  
-**Commit terbaru:** `ab38286` — `Reduce layout shift on song detail page`  
+**Release:** `v0.1.1` — Accessibility, Responsive Layout, dan CLS Stabilization
+**Tanggal:** 28 Agustus 2026
+**Branch:** `main`
+**Commit terbaru sebelum tag:** `6427c42` — `Add release notes`
 **Repository:** `pance24-web/powerchord`
+
+## Status triase bug
+
+| Prioritas | Kriteria | Status release v0.1.1 |
+|---|---|---|
+| P0 — Critical | Website crash, lagu tidak bisa dibuka, search tidak bekerja, JS error fatal, data tidak loading | **Selesai dan lulus smoke test** |
+| P1 — High | Mobile rusak, transpose salah, autoscroll bermasalah, filter tidak bekerja | **Selesai dan lulus pengujian interaktif** |
+| P2 — Medium | UI tidak konsisten, spacing, typography, minor interaction | **Selesai** |
+| P3 — Low | Cosmetic issue dan enhancement yang aman untuk release | **Selesai untuk scope release** |
+
+Tidak ditemukan blocker P0 atau P1. Homepage, halaman detail, search, filter, transpose, autoscroll, data loading, dan navigasi telah diverifikasi pada environment pengujian.
 
 ## Ringkasan release
 
