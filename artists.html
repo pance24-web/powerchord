@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Artis - PowerChord</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html">🎸 PowerChord</a></h1>
+            <input type="text" id="search-input" placeholder="🔍 Cari judul atau artis..." onkeypress="if(event.key==='Enter')window.location.href='index.html?search='+this.value">
+            <button id="dark-mode-toggle" style="background:none;border:none;font-size:24px;cursor:pointer;">🌙</button>
+            <nav>
+                <a href="index.html">🏠 Beranda</a>
+                <a href="index.html">📚 Daftar Lagu</a>
+                <a href="artists.html">🎤 Artis</a>
+                <a href="#tentang">Tentang</a>
+                <a href="#kontak">Kontak</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 style="margin-top: 20px;">🎤 Daftar Artis</h2>
+        <p style="color:#888;margin-bottom:10px;">Klik huruf untuk langsung scroll, atau cari artis di atas.</p>
+
+        <!-- Filter Abjad (BARU) -->
+        <div class="alphabet-filter" id="alphabet-filter-artist">
+            <!-- Diisi oleh JS -->
+        </div>
+
+        <!-- Daftar Artis (BARU) -->
+        <div id="artists-container">
+            <p style="padding:20px;color:#888;">Memuat data artis...</p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
