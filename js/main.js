@@ -222,27 +222,16 @@ function renderArtistsList() {
 }
 
 function renderPopularSongs() {
-    const containerMain = document.getElementById('popularSongsList');
     const containerSidebar = document.getElementById('popularSongsListSidebar');
-    if ((!containerMain && !containerSidebar) || !state.songs.length) return;
+    if (!containerSidebar || !state.songs.length) return;
 
     const topSongs = state.songs.slice(0, 4);
     
-    // Render di main container jika ada (untuk layout lama)
-    if (containerMain) {
-        containerMain.replaceChildren();
-        topSongs.forEach((song, index) => {
-            containerMain.appendChild(renderPopularSongRow(song, index));
-        });
-    }
-    
-    // Render di sidebar container jika ada (untuk layout baru)
-    if (containerSidebar) {
-        containerSidebar.replaceChildren();
-        topSongs.forEach((song, index) => {
-            containerSidebar.appendChild(renderPopularSongRow(song, index));
-        });
-    }
+    // Render di sidebar container
+    containerSidebar.replaceChildren();
+    topSongs.forEach((song, index) => {
+        containerSidebar.appendChild(renderPopularSongRow(song, index));
+    });
 }
 
 function filterHomepage() {
