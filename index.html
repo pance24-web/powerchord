@@ -19,10 +19,11 @@
         <div class="container header-inner">
             <a href="index.html" class="logo" aria-label="PowerChord Home"><img class="logo-mark" src="asset/PowerChord-logo.webp" alt="" width="32" height="32"><span>PowerChord</span></a>
             <nav class="desktop-nav" aria-label="Navigasi utama">
-                <a class="active" href="index.html">Home</a>
-                <a href="detail.html?id=komang-raim-laode">Transpose Chord</a>
-                <a href="#song-catalog">Katalog</a>
-                <a href="#daftar-isi">Daftar Isi</a>
+                <a class="active" href="index.html">Beranda</a>
+                <a href="#song-catalog">Daftar Lagu</a>
+                <a href="#artists">Artis</a>
+                <a href="about.html">Tentang</a>
+                <a href="contact.html">Kontak</a>
             </nav>
             <form id="headerSearchForm" class="header-search" role="search" action="index.html" method="get">
                 <label for="searchInput" class="visually-hidden">Cari chord</label>
@@ -35,16 +36,27 @@
             <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Buka menu">☰</button>
         </div>
         <nav id="mobileNav" class="mobile-nav container" aria-label="Navigasi mobile" hidden>
-            <a href="index.html">Home</a>
-            <a href="detail.html?id=komang-raim-laode">Transpose Chord</a>
-            <a href="#song-catalog">Katalog</a>
-            <a href="#daftar-isi">Daftar Isi</a>
+            <a href="index.html">Beranda</a>
+            <a href="#song-catalog">Daftar Lagu</a>
+            <a href="#artists">Artis</a>
+            <a href="about.html">Tentang</a>
+            <a href="contact.html">Kontak</a>
         </nav>
     </header>
 
     <section class="alphabet-section" id="daftar-isi" aria-label="Daftar artis berdasarkan abjad">
         <div class="container alphabet-nav">
             <a href="#song-catalog" data-letter="0-9">0-9</a><a href="#song-catalog" data-letter="A">A</a><a href="#song-catalog" data-letter="B">B</a><a href="#song-catalog" data-letter="C">C</a><a href="#song-catalog" data-letter="D">D</a><a href="#song-catalog" data-letter="E">E</a><a href="#song-catalog" data-letter="F">F</a><a href="#song-catalog" data-letter="G">G</a><a href="#song-catalog" data-letter="H">H</a><a href="#song-catalog" data-letter="I">I</a><a href="#song-catalog" data-letter="J">J</a><a href="#song-catalog" data-letter="K">K</a><a href="#song-catalog" data-letter="L">L</a><a href="#song-catalog" data-letter="M">M</a><a href="#song-catalog" data-letter="N">N</a><a href="#song-catalog" data-letter="O">O</a><a href="#song-catalog" data-letter="P">P</a><a href="#song-catalog" data-letter="Q">Q</a><a href="#song-catalog" data-letter="R">R</a><a href="#song-catalog" data-letter="S">S</a><a href="#song-catalog" data-letter="T">T</a><a href="#song-catalog" data-letter="U">U</a><a href="#song-catalog" data-letter="V">V</a><a href="#song-catalog" data-letter="W">W</a><a href="#song-catalog" data-letter="X">X</a><a href="#song-catalog" data-letter="Y">Y</a><a href="#song-catalog" data-letter="Z">Z</a>
+        </div>
+    </section>
+
+    <!-- Section Artis (BARU) -->
+    <section class="artists-section" id="artists" aria-label="Daftar artis">
+        <div class="container">
+            <h2>🎤 Artis</h2>
+            <div id="artistsList" class="artists-grid" aria-live="polite">
+                <p class="loading-state">Memuat daftar artis…</p>
+            </div>
         </div>
     </section>
 
@@ -60,6 +72,8 @@
                     <h2 id="latest-title">Katalog Chord</h2>
                     <span class="result-count" id="latestCount" aria-live="polite">0 lagu</span>
                 </div>
+                
+                <!-- Filter Genre -->
                 <div class="genre-filters" aria-label="Filter genre">
                     <button type="button" data-genre="All" class="active" aria-pressed="true">Semua</button>
                     <button type="button" data-genre="Pop" aria-pressed="false">Pop</button>
@@ -72,6 +86,23 @@
                     <button type="button" data-genre="Ska" aria-pressed="false">Ska</button>
                     <button type="button" data-genre="Folk" aria-pressed="false">Folk</button>
                 </div>
+
+                <!-- Lagu Populer (BARU) -->
+                <section class="popular-section" aria-labelledby="popular-section-title">
+                    <div class="section-header-with-link">
+                        <h3 id="popular-section-title">🔥 Lagu Populer</h3>
+                        <a href="#song-catalog" class="view-all-link">Lihat Semua →</a>
+                    </div>
+                    <div id="popularSongsList" class="popular-songs-list" aria-live="polite">
+                        <p class="loading-state">Memuat lagu populer…</p>
+                    </div>
+                </section>
+
+                <!-- Daftar Lagu A-Z -->
+                <div class="alphabet-filter-header">
+                    <h3>📖 Daftar Lagu (A-Z)</h3>
+                </div>
+                
                 <div id="searchResults" class="search-results" role="listbox" aria-label="Saran pencarian" aria-live="polite" aria-busy="false" hidden></div>
                 <div id="songList" class="link-list catalog-shell is-loading" aria-live="polite" aria-busy="true">
                     <p class="loading-state" role="status">Memuat chord…</p>
@@ -83,10 +114,6 @@
             <section class="sidebar-block" aria-labelledby="new-title">
                 <h2 id="new-title">Chord Baru</h2>
                 <div id="newSongList" class="sidebar-list"></div>
-            </section>
-            <section class="sidebar-block" aria-labelledby="popular-title">
-                <h2 id="popular-title">Paling Dicari</h2>
-                <div id="popularSongList" class="sidebar-list"></div>
             </section>
         </aside>
     </main>
@@ -105,10 +132,11 @@
     </footer>
 
     <nav class="mobile-bottom-nav" aria-label="Navigasi cepat mobile">
-        <a class="active" href="index.html">Home</a>
-        <a href="detail.html?id=komang-raim-laode">Transpose Chord</a>
-        <a href="#song-catalog">Katalog</a>
-        <a href="#daftar-isi">Daftar Isi</a>
+        <a class="active" href="index.html">Beranda</a>
+        <a href="#song-catalog">Daftar Lagu</a>
+        <a href="#artists">Artis</a>
+        <a href="about.html">Tentang</a>
+        <a href="contact.html">Kontak</a>
     </nav>
 
     <script type="module" src="js/main.js" defer></script>
