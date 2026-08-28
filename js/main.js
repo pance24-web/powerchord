@@ -141,12 +141,104 @@ function renderSearchResults(filtered) {
     input?.setAttribute('aria-expanded', 'true');
 }
 
+function renderPopularSongRow(song, index) {
+    const row = document.createElement('a');
+    row.className = 'popular-song-row';
+    row.href = getSongHref(song, getSongIndex(song));
+
+    const rank = document.createElement('span');
+    rank.className = 'popular-rank';
+    rank.textContent = `#${index + 1}`;
+
+    const main = document.createElement('div');
+    main.className = 'popular-song-main';
+    const title = document.createElement('div');
+    title.className = 'popular-song-title';
+    title.textContent = song.judul;
+    const artist = document.createElement('div');
+    artist.className = 'popular-song-artist';
+    artist.textContent = song.artis;
+    main.append(title, artist);
+
+    const views = document.createElement('span');
+    views.className = 'popular-views';
+    const viewCount = Math.floor(Math.random() * 200) + 50;
+    views.textContent = `🎵 ${viewCount} views`;
+
+    row.append(rank, main, views);
+    return row;
+}
+
+function renderArtistsList() {
+    const container = document.getElementById('artistsList');
+    if (!container || !state.songs.length) return;
+
+    const artistMap = new Map();
+    state.songs.forEach((song) => {
+        const artistName = song.artis.trim();
+        if (!artistMap.has(artistName)) {
+            artistMap.set(artistName, []);
+        }
+        artistMap.get(artistName).push(song);
+    });
+
+    container.replaceChildren();
+    const sortedArtists = [...artistMap.entries()].sort((a, b) => 
+        a[0].localeCompare(b[0])
+    );
+
+    sortedArtists.forEach(([artistName, songs]) => {
+        const card = document.createElement('a');
+        card.className = 'artist-card';
+        card.href = `#song-catalog`;
+        card.addEventListener('click', (e) => {
+            e.preventDefault();
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.value = artistName;
+                state.searchQuery = artistName;
+                filterHomepage();
+                document.getElementById('song-catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        const avatar = document.createElement('div');
+        avatar.className = 'artist-avatar';
+        avatar.textContent = artistName.charAt(0).toUpperCase();
+
+        const info = document.createElement('div');
+        info.className = 'artist-info';
+        const name = document.createElement('div');
+        name.className = 'artist-name';
+        name.textContent = artistName;
+        const count = document.createElement('div');
+        count.className = 'artist-song-count';
+        count.textContent = `${songs.length} lagu`;
+        info.append(name, count);
+
+        card.append(avatar, info);
+        container.appendChild(card);
+    });
+}
+
+function renderPopularSongs() {
+    const container = document.getElementById('popularSongsList');
+    if (!container || !state.songs.length) return;
+
+    container.replaceChildren();
+    const topSongs = state.songs.slice(0, 4);
+    topSongs.forEach((song, index) => {
+        container.appendChild(renderPopularSongRow(song, index));
+    });
+}
+
 function filterHomepage() {
     if (!document.getElementById('songList')) return;
     const filtered = getFilteredSongs();
     renderSearchRows(filtered);
     renderReferenceList(document.getElementById('newSongList'), state.songs.slice(-5).reverse());
-    renderReferenceList(document.getElementById('popularSongList'), state.songs.slice(0, 5));
+    renderPopularSongs();
+    renderArtistsList();
     const latestCount = document.getElementById('latestCount');
     if (latestCount) latestCount.textContent = `${filtered.length} lagu`;
     if (normalizeSearchQuery(state.searchQuery).length >= 2) renderSearchResults(filtered);
