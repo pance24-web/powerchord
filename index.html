@@ -59,19 +59,6 @@
         </div>
     </section>
 
-    <!-- Lagu Populer (BARU) -->
-    <section class="popular-section" aria-labelledby="popular-section-title">
-        <div class="container">
-            <div class="section-header-with-link">
-                <h2 id="popular-section-title">🔥 Lagu Populer</h2>
-                <a href="#song-catalog" class="view-all-link">Lihat Semua →</a>
-            </div>
-            <div id="popularSongsList" class="popular-songs-list" aria-live="polite">
-                <p class="loading-state">Memuat lagu populer…</p>
-            </div>
-        </div>
-    </section>
-
     <section class="alphabet-section" id="daftar-isi" aria-label="Daftar lagu berdasarkan abjad">
         <div class="container">
             <h2 class="section-subtitle">📖 Daftar Lagu (A-Z)</h2>
@@ -106,6 +93,15 @@
             <section class="sidebar-block" aria-labelledby="new-title">
                 <h2 id="new-title">Chord Baru</h2>
                 <div id="newSongList" class="sidebar-list"></div>
+            </section>
+            
+            <!-- Lagu Populer (BARU) - Dipindah ke bawah Chord Baru -->
+            <section class="sidebar-block popular-section-sidebar" aria-labelledby="popular-sidebar-title">
+                <h2 id="popular-sidebar-title">🔥 Lagu Populer</h2>
+                <div id="popularSongsListSidebar" class="sidebar-list" aria-live="polite">
+                    <p class="loading-state">Memuat lagu populer…</p>
+                </div>
+                <a href="#song-catalog" class="view-all-link-sidebar">Lihat Semua →</a>
             </section>
         </aside>
     </main>
