@@ -19,16 +19,16 @@
         <div class="container header-inner">
             <a href="index.html" class="logo" aria-label="PowerChord Home"><img class="logo-mark" src="asset/PowerChord-logo.webp" alt="" width="32" height="32"><span>PowerChord</span></a>
             <nav class="desktop-nav" aria-label="Navigasi utama">
-                <a class="active" href="index.html">Beranda</a>
-                <a href="#song-catalog">Daftar Lagu</a>
-                <a href="#artists">Artis</a>
+                <a class="active" href="index.html">🏠 Beranda</a>
+                <a href="#song-catalog">📚 Daftar Lagu</a>
+                <a href="artists.html">🎤 Artis</a>
                 <a href="about.html">Tentang</a>
                 <a href="contact.html">Kontak</a>
             </nav>
             <form id="headerSearchForm" class="header-search" role="search" action="index.html" method="get">
                 <label for="searchInput" class="visually-hidden">Cari chord</label>
                 <span aria-hidden="true">⌕</span>
-                <input type="search" id="searchInput" name="q" role="combobox" placeholder="Search Chord" autocomplete="off" aria-controls="searchResults" aria-haspopup="listbox" aria-autocomplete="list" aria-expanded="false" aria-activedescendant="">
+                <input type="search" id="searchInput" name="q" role="combobox" placeholder="🔍 Cari judul atau artis..." autocomplete="off" aria-controls="searchResults" aria-haspopup="listbox" aria-autocomplete="list" aria-expanded="false" aria-activedescendant="">
             </form>
             <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
                 <span class="icon-moon" aria-hidden="true">🌙</span><span class="icon-sun" aria-hidden="true">☀️</span>
@@ -36,26 +36,38 @@
             <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Buka menu">☰</button>
         </div>
         <nav id="mobileNav" class="mobile-nav container" aria-label="Navigasi mobile" hidden>
-            <a href="index.html">Beranda</a>
-            <a href="#song-catalog">Daftar Lagu</a>
-            <a href="#artists">Artis</a>
+            <a href="index.html">🏠 Beranda</a>
+            <a href="#song-catalog">📚 Daftar Lagu</a>
+            <a href="artists.html">🎤 Artis</a>
             <a href="about.html">Tentang</a>
             <a href="contact.html">Kontak</a>
         </nav>
     </header>
 
-    <section class="alphabet-section" id="daftar-isi" aria-label="Daftar artis berdasarkan abjad">
-        <div class="container alphabet-nav">
-            <a href="#song-catalog" data-letter="0-9">0-9</a><a href="#song-catalog" data-letter="A">A</a><a href="#song-catalog" data-letter="B">B</a><a href="#song-catalog" data-letter="C">C</a><a href="#song-catalog" data-letter="D">D</a><a href="#song-catalog" data-letter="E">E</a><a href="#song-catalog" data-letter="F">F</a><a href="#song-catalog" data-letter="G">G</a><a href="#song-catalog" data-letter="H">H</a><a href="#song-catalog" data-letter="I">I</a><a href="#song-catalog" data-letter="J">J</a><a href="#song-catalog" data-letter="K">K</a><a href="#song-catalog" data-letter="L">L</a><a href="#song-catalog" data-letter="M">M</a><a href="#song-catalog" data-letter="N">N</a><a href="#song-catalog" data-letter="O">O</a><a href="#song-catalog" data-letter="P">P</a><a href="#song-catalog" data-letter="Q">Q</a><a href="#song-catalog" data-letter="R">R</a><a href="#song-catalog" data-letter="S">S</a><a href="#song-catalog" data-letter="T">T</a><a href="#song-catalog" data-letter="U">U</a><a href="#song-catalog" data-letter="V">V</a><a href="#song-catalog" data-letter="W">W</a><a href="#song-catalog" data-letter="X">X</a><a href="#song-catalog" data-letter="Y">Y</a><a href="#song-catalog" data-letter="Z">Z</a>
+    <section class="genre-filter-section" aria-label="Filter genre">
+        <div class="container">
+            <h2 class="section-subtitle">🎯 Filter Genre:</h2>
+            <div class="genre-filters" aria-label="Filter genre">
+                <button type="button" data-genre="All" class="active" aria-pressed="true">Semua</button>
+                <button type="button" data-genre="Pop" aria-pressed="false">Pop</button>
+                <button type="button" data-genre="Rock" aria-pressed="false">Rock</button>
+                <button type="button" data-genre="Dangdut" aria-pressed="false">Dangdut</button>
+                <button type="button" data-genre="Indie" aria-pressed="false">Indie</button>
+                <button type="button" data-genre="Reggae" aria-pressed="false">Reggae</button>
+                <button type="button" data-genre="Minang" aria-pressed="false">Minang</button>
+                <button type="button" data-genre="Melayu" aria-pressed="false">Melayu</button>
+                <button type="button" data-genre="Pop Rock" aria-pressed="false">Pop Rock</button>
+                <button type="button" data-genre="Ska" aria-pressed="false">Ska</button>
+                <button type="button" data-genre="Folk" aria-pressed="false">Folk</button>
+            </div>
         </div>
     </section>
 
-    <!-- Section Artis (BARU) -->
-    <section class="artists-section" id="artists" aria-label="Daftar artis">
+    <section class="alphabet-section" id="daftar-isi" aria-label="Daftar lagu berdasarkan abjad">
         <div class="container">
-            <h2>🎤 Artis</h2>
-            <div id="artistsList" class="artists-grid" aria-live="polite">
-                <p class="loading-state">Memuat daftar artis…</p>
+            <h2 class="section-subtitle">📖 Daftar Lagu (A-Z)</h2>
+            <div class="alphabet-nav">
+                <a href="#song-catalog" data-letter="0-9">0-9</a><a href="#song-catalog" data-letter="A">A</a><a href="#song-catalog" data-letter="B">B</a><a href="#song-catalog" data-letter="C">C</a><a href="#song-catalog" data-letter="D">D</a><a href="#song-catalog" data-letter="E">E</a><a href="#song-catalog" data-letter="F">F</a><a href="#song-catalog" data-letter="G">G</a><a href="#song-catalog" data-letter="H">H</a><a href="#song-catalog" data-letter="I">I</a><a href="#song-catalog" data-letter="J">J</a><a href="#song-catalog" data-letter="K">K</a><a href="#song-catalog" data-letter="L">L</a><a href="#song-catalog" data-letter="M">M</a><a href="#song-catalog" data-letter="N">N</a><a href="#song-catalog" data-letter="O">O</a><a href="#song-catalog" data-letter="P">P</a><a href="#song-catalog" data-letter="Q">Q</a><a href="#song-catalog" data-letter="R">R</a><a href="#song-catalog" data-letter="S">S</a><a href="#song-catalog" data-letter="T">T</a><a href="#song-catalog" data-letter="U">U</a><a href="#song-catalog" data-letter="V">V</a><a href="#song-catalog" data-letter="W">W</a><a href="#song-catalog" data-letter="X">X</a><a href="#song-catalog" data-letter="Y">Y</a><a href="#song-catalog" data-letter="Z">Z</a>
             </div>
         </div>
     </section>
@@ -69,40 +81,11 @@
 
             <section class="content-block" id="song-catalog" aria-labelledby="latest-title">
                 <div class="section-heading">
-                    <h2 id="latest-title">Katalog Chord</h2>
+                    <h2 id="latest-title">📋 Katalog Chord</h2>
                     <span class="result-count" id="latestCount" aria-live="polite">0 lagu</span>
                 </div>
                 
-                <!-- Filter Genre -->
-                <div class="genre-filters" aria-label="Filter genre">
-                    <button type="button" data-genre="All" class="active" aria-pressed="true">Semua</button>
-                    <button type="button" data-genre="Pop" aria-pressed="false">Pop</button>
-                    <button type="button" data-genre="Rock" aria-pressed="false">Rock</button>
-                    <button type="button" data-genre="Dangdut" aria-pressed="false">Dangdut</button>
-                    <button type="button" data-genre="Indie" aria-pressed="false">Indie</button>
-                    <button type="button" data-genre="Reggae" aria-pressed="false">Reggae</button>
-                    <button type="button" data-genre="Minang" aria-pressed="false">Minang</button>
-                    <button type="button" data-genre="Melayu" aria-pressed="false">Melayu</button>
-                    <button type="button" data-genre="Ska" aria-pressed="false">Ska</button>
-                    <button type="button" data-genre="Folk" aria-pressed="false">Folk</button>
-                </div>
-
-                <!-- Lagu Populer (BARU) -->
-                <section class="popular-section" aria-labelledby="popular-section-title">
-                    <div class="section-header-with-link">
-                        <h3 id="popular-section-title">🔥 Lagu Populer</h3>
-                        <a href="#song-catalog" class="view-all-link">Lihat Semua →</a>
-                    </div>
-                    <div id="popularSongsList" class="popular-songs-list" aria-live="polite">
-                        <p class="loading-state">Memuat lagu populer…</p>
-                    </div>
-                </section>
-
                 <!-- Daftar Lagu A-Z -->
-                <div class="alphabet-filter-header">
-                    <h3>📖 Daftar Lagu (A-Z)</h3>
-                </div>
-                
                 <div id="searchResults" class="search-results" role="listbox" aria-label="Saran pencarian" aria-live="polite" aria-busy="false" hidden></div>
                 <div id="songList" class="link-list catalog-shell is-loading" aria-live="polite" aria-busy="true">
                     <p class="loading-state" role="status">Memuat chord…</p>
@@ -114,6 +97,15 @@
             <section class="sidebar-block" aria-labelledby="new-title">
                 <h2 id="new-title">Chord Baru</h2>
                 <div id="newSongList" class="sidebar-list"></div>
+            </section>
+            
+            <!-- Lagu Populer (BARU) - Dipindah ke bawah Chord Baru -->
+            <section class="sidebar-block popular-section-sidebar" aria-labelledby="popular-sidebar-title">
+                <h2 id="popular-sidebar-title">🔥 Lagu Populer</h2>
+                <div id="popularSongsListSidebar" class="sidebar-list" aria-live="polite">
+                    <p class="loading-state">Memuat lagu populer…</p>
+                </div>
+                <a href="#song-catalog" class="view-all-link-sidebar">Lihat Semua →</a>
             </section>
         </aside>
     </main>
@@ -132,9 +124,9 @@
     </footer>
 
     <nav class="mobile-bottom-nav" aria-label="Navigasi cepat mobile">
-        <a class="active" href="index.html">Beranda</a>
-        <a href="#song-catalog">Daftar Lagu</a>
-        <a href="#artists">Artis</a>
+        <a class="active" href="index.html">🏠 Beranda</a>
+        <a href="#song-catalog">📚 Daftar Lagu</a>
+        <a href="artists.html">🎤 Artis</a>
         <a href="about.html">Tentang</a>
         <a href="contact.html">Kontak</a>
     </nav>
