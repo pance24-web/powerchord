@@ -1,36 +1,5 @@
-# Node/npm
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+(css/style.css is just a source file modification, no build artifacts, dependencies, or temp files in the changes)
 
-# Environment and secrets
-.env
-.env.*
-!.env.example
+```css
 
-# Python tooling
-__pycache__/
-*.py[cod]
-.venv/
-venv/
-.pytest_cache/
-.mypy_cache/
-
-# OS/editor artifacts
-.DS_Store
-Thumbs.db
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json
-
-# Build and coverage output
-dist/
-build/
-coverage/
-.nyc_output/
-
-# Local reports and temporary files
-*.log
-.tmp/
+```
