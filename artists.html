@@ -1,42 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Artis - PowerChord</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Daftar artis dan musisi di PowerChord.">
+    <meta name="theme-color" content="#c87522">
+    <meta property="og:title" content="Daftar Artis — PowerChord">
+    <meta property="og:description" content="Temukan chord gitar dari artis favoritmu di PowerChord.">
+    <meta property="og:type" content="website">
+    <title>🎤 Daftar Artis — PowerChord</title>
+    <link rel="canonical" href="https://powerchord.pages.dev/artists.html">
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/webp" href="asset/PowerChord-favicon.webp">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1><a href="index.html">🎸 PowerChord</a></h1>
-            <input type="text" id="search-input" placeholder="🔍 Cari judul atau artis..." onkeypress="if(event.key==='Enter')window.location.href='index.html?search='+this.value">
-            <button id="dark-mode-toggle" style="background:none;border:none;font-size:24px;cursor:pointer;">🌙</button>
-            <nav>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo" aria-label="PowerChord Home"><img class="logo-mark" src="asset/PowerChord-logo.webp" alt="" width="32" height="32"><span>PowerChord</span></a>
+            <nav class="desktop-nav" aria-label="Navigasi utama">
                 <a href="index.html">🏠 Beranda</a>
-                <a href="index.html">📚 Daftar Lagu</a>
-                <a href="artists.html">🎤 Artis</a>
-                <a href="#tentang">Tentang</a>
-                <a href="#kontak">Kontak</a>
+                <a href="index.html#song-catalog">📚 Daftar Lagu</a>
+                <a href="artists.html" class="active">🎤 Artis</a>
+                <a href="about.html">Tentang</a>
+                <a href="contact.html">Kontak</a>
             </nav>
+            <form id="headerSearchForm" class="header-search" role="search" action="index.html" method="get">
+                <label for="searchInput" class="visually-hidden">Cari chord</label>
+                <span aria-hidden="true">⌕</span>
+                <input type="search" id="searchInput" name="q" role="combobox" placeholder="🔍 Cari judul atau artis..." autocomplete="off" aria-controls="searchResults" aria-haspopup="listbox" aria-autocomplete="list" aria-expanded="false" aria-activedescendant="">
+            </form>
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
+                <span class="icon-moon" aria-hidden="true">🌙</span><span class="icon-sun" aria-hidden="true">☀️</span>
+            </button>
+            <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Buka menu">☰</button>
         </div>
+        <nav id="mobileNav" class="mobile-nav container" aria-label="Navigasi mobile" hidden>
+            <a href="index.html">🏠 Beranda</a>
+            <a href="index.html#song-catalog">📚 Daftar Lagu</a>
+            <a href="artists.html" class="active">🎤 Artis</a>
+            <a href="about.html">Tentang</a>
+            <a href="contact.html">Kontak</a>
+        </nav>
     </header>
 
-    <main class="container">
-        <h2 style="margin-top: 20px;">🎤 Daftar Artis</h2>
-        <p style="color:#888;margin-bottom:10px;">Klik huruf untuk langsung scroll, atau cari artis di atas.</p>
+    <main class="container artists-layout">
+        <section class="artists-primary">
+            <header class="intro-block">
+                <h1>🎤 Daftar Artis</h1>
+                <p>Temukan chord gitar dari artis dan musisi favoritmu. Klik nama artis untuk melihat semua lagunya.</p>
+            </header>
 
-        <!-- Filter Abjad (BARU) -->
-        <div class="alphabet-filter" id="alphabet-filter-artist">
-            <!-- Diisi oleh JS -->
-        </div>
+            <!-- Filter Abjad Artis -->
+            <section class="content-block" aria-labelledby="artist-filter-title">
+                <div class="section-heading">
+                    <h2 id="artist-filter-title">Filter Artis</h2>
+                    <span class="result-count" id="artistCount" aria-live="polite">0 artis</span>
+                </div>
+                
+                <div class="alphabet-nav artist-alphabet-nav">
+                    <a href="#" data-letter="all" class="active">SEMUA</a>
+                    <a href="#" data-letter="A">A</a><a href="#" data-letter="B">B</a><a href="#" data-letter="C">C</a><a href="#" data-letter="D">D</a><a href="#" data-letter="E">E</a><a href="#" data-letter="F">F</a><a href="#" data-letter="G">G</a><a href="#" data-letter="H">H</a><a href="#" data-letter="I">I</a><a href="#" data-letter="J">J</a><a href="#" data-letter="K">K</a><a href="#" data-letter="L">L</a><a href="#" data-letter="M">M</a><a href="#" data-letter="N">N</a><a href="#" data-letter="O">O</a><a href="#" data-letter="P">P</a><a href="#" data-letter="Q">Q</a><a href="#" data-letter="R">R</a><a href="#" data-letter="S">S</a><a href="#" data-letter="T">T</a><a href="#" data-letter="U">U</a><a href="#" data-letter="V">V</a><a href="#" data-letter="W">W</a><a href="#" data-letter="X">X</a><a href="#" data-letter="Y">Y</a><a href="#" data-letter="Z">Z</a>
+                </div>
 
-        <!-- Daftar Artis (BARU) -->
-        <div id="artists-container">
-            <p style="padding:20px;color:#888;">Memuat data artis...</p>
-        </div>
+                <!-- Search box khusus artis -->
+                <div class="artist-search-box">
+                    <label for="artistSearch" class="visually-hidden">Cari artis...</label>
+                    <input type="search" id="artistSearch" placeholder="🔍 Cari artis...">
+                </div>
+
+                <!-- Daftar Artis -->
+                <div id="artistsList" class="artists-list-container" aria-live="polite">
+                    <p class="loading-state">Memuat daftar artis…</p>
+                </div>
+            </section>
+        </section>
+
+        <aside class="sidebar" aria-label="Informasi tambahan">
+            <section class="sidebar-block">
+                <h2 id="stats-title">📊 Statistik</h2>
+                <div class="stats-list">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Artis</span>
+                        <span class="stat-value" id="totalArtists">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Lagu</span>
+                        <span class="stat-value" id="totalSongs">0</span>
+                    </div>
+                </div>
+            </section>
+        </aside>
     </main>
 
-    <script src="script.js"></script>
+    <footer class="footer">
+        <div class="container footer-inner">
+            <span>© 2026 PowerChord</span>
+            <nav aria-label="Tautan footer">
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="disclaimer.html">Disclaimer</a>
+                <a href="dmca.html">DMCA</a>
+            </nav>
+        </div>
+    </footer>
+
+    <nav class="mobile-bottom-nav" aria-label="Navigasi cepat mobile">
+        <a href="index.html">🏠 Beranda</a>
+        <a href="index.html#song-catalog">📚 Daftar Lagu</a>
+        <a href="artists.html" class="active">🎤 Artis</a>
+        <a href="about.html">Tentang</a>
+        <a href="contact.html">Kontak</a>
+    </nav>
+
+    <script type="module" src="js/main.js" defer></script>
 </body>
 </html>
