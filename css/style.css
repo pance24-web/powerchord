@@ -230,11 +230,15 @@ button:disabled:focus-visible {
 /* --- HAMBURGER (selalu tampil di semua layar) --- */
 .hamburger {
     display: block;
+    flex-shrink: 0;
     border: 0;
     background: transparent;
     color: var(--text);
     padding: 8px;
-    font-size: 1.25rem;
+    font-size: 1.4rem;
+    line-height: 1;
+    min-width: 36px;
+    text-align: center;
 }
 .hamburger:hover,
 .hamburger:focus-visible {
