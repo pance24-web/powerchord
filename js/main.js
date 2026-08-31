@@ -217,11 +217,10 @@ function initTheme() {
     } catch (error) {
         console.warn('Preferensi tema tidak dapat dibaca.', error);
     }
-
-    const systemDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+    // DEFAULT: DARK MODE (premium)
     const initialTheme = storedTheme === 'dark' || storedTheme === 'light'
         ? storedTheme
-        : (systemDark ? 'dark' : 'light');
+        : 'dark';
 
     const applyTheme = (theme) => {
         document.documentElement.dataset.theme = theme;
@@ -388,7 +387,7 @@ function initDetailPage() {
     if (meta[0]) meta[0].textContent = getDifficulty(song);
     if (meta[1]) meta[1].textContent = song.genre || 'Guitar';
     if (meta[2]) meta[2].textContent = `Original key: ${song.kunci || 'C'}`;
-    
+
     const relatedSongs = state.songs
         .filter((candidate) => candidate !== song && candidate.genre === song.genre)
         .slice(0, 5);
@@ -503,6 +502,39 @@ function initDetailPage() {
     });
 }
 
+// --- DRAWER FUNCTIONS ---
+window.toggleDrawer = function() {
+    document.getElementById('drawer').classList.toggle('open');
+    document.getElementById('drawerOverlay').classList.toggle('open');
+};
+
+window.closeDrawer = function() {
+    document.getElementById('drawer').classList.remove('open');
+    document.getElementById('drawerOverlay').classList.remove('open');
+};
+
+window.handleDrawerSearch = function(value) {
+    const homeInput = document.getElementById('searchInput');
+    if (homeInput) {
+        homeInput.value = value;
+        const event = new Event('input', { bubbles: true });
+        homeInput.dispatchEvent(event);
+        // Jika pencarian aktif, tutup drawer agar fokus ke konten
+        if (value.length >= 2) closeDrawer();
+    }
+};
+
+// Event listener untuk search di drawer (dipasang di DOMContentLoaded)
+document.addEventListener('DOMContentLoaded', function() {
+    const drawerSearch = document.getElementById('drawerSearchInput');
+    if (drawerSearch) {
+        drawerSearch.addEventListener('input', function(e) {
+            window.handleDrawerSearch(e.target.value);
+        });
+    }
+});
+
+// Inisialisasi
 initTheme();
 initMobileMenu();
 initHomepageInteractions();
