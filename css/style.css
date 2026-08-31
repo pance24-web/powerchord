@@ -226,7 +226,8 @@ button:disabled:focus-visible {
     font-size: 0.75rem;
     color: var(--muted);
 }
-
+.drawer .logo {gap: 10px
+}
 /* --- HAMBURGER (selalu tampil di semua layar) --- */
 .hamburger {
     display: block;
@@ -268,13 +269,28 @@ button:disabled:focus-visible {
 .logo {
     display: inline-flex;
     align-items: center;
-    gap: 9px;
+    gap: 10px;
     flex: 0 0 auto;
     color: var(--text);
     font-size: 1.34rem;
     font-weight: 700;
     letter-spacing: -0.04em;
     text-decoration: none;
+}
+.logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
+}
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+}
+.logo-text span {
+    color: var(--accent);
 }
 .logo i {
     color: var(--accent);
