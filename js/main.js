@@ -67,7 +67,7 @@ function renderLatestSongRow(song) {
 
 function matchesLetter(song) {
     if (!state.activeLetter) return true;
-    const firstLetter = song.artis.trim().charAt(0).toUpperCase();
+    const firstLetter = song.judul.trim().charAt(0).toUpperCase(); // FIX: judul, bukan artis
     if (state.activeLetter === '0-9') return /\d/.test(firstLetter);
     return firstLetter === state.activeLetter;
 }
@@ -141,6 +141,9 @@ function renderSearchResults(filtered) {
     input?.setAttribute('aria-expanded', 'true');
 }
 
+// FIX-003: Popular songs berdasarkan field "popular: true" di JSON,
+// fallback ke 4 lagu pertama jika tidak ada yang ditandai.
+// Hapus Math.random() views — tidak ada data palsu.
 function renderPopularSongRow(song, index) {
     const row = document.createElement('a');
     row.className = 'popular-song-row';
@@ -160,12 +163,11 @@ function renderPopularSongRow(song, index) {
     artist.textContent = song.artis;
     main.append(title, artist);
 
-    const views = document.createElement('span');
-    views.className = 'popular-views';
-    const viewCount = Math.floor(Math.random() * 200) + 50;
-    views.textContent = `🎵 ${viewCount} views`;
+    const genre = document.createElement('span');
+    genre.className = 'popular-genre';
+    genre.textContent = song.genre || 'Pop';
 
-    row.append(rank, main, views);
+    row.append(rank, main, genre);
     return row;
 }
 
@@ -173,8 +175,14 @@ function renderPopularSongs() {
     const container = document.getElementById('popularSongsList');
     if (!container || !state.songs.length) return;
 
+    // FIX-003: Cari lagu yang ditandai popular: true
+    // Jika tidak ada, fallback ke 4 lagu pertama
+    const markedPopular = state.songs.filter((song) => song.popular === true);
+    const topSongs = markedPopular.length >= 4
+        ? markedPopular.slice(0, 4)
+        : state.songs.slice(0, 4);
+
     container.replaceChildren();
-    const topSongs = state.songs.slice(0, 4);
     topSongs.forEach((song, index) => {
         container.appendChild(renderPopularSongRow(song, index));
     });
@@ -217,7 +225,6 @@ function initTheme() {
     } catch (error) {
         console.warn('Preferensi tema tidak dapat dibaca.', error);
     }
-    // DEFAULT: DARK MODE (premium)
     const initialTheme = storedTheme === 'dark' || storedTheme === 'light'
         ? storedTheme
         : 'dark';
@@ -243,22 +250,9 @@ function initTheme() {
     });
 }
 
-function initMobileMenu() {
-    const button = document.querySelector('.mobile-menu-button');
-    const nav = document.getElementById('mobileNav');
-    if (!button || !nav) return;
-    button.addEventListener('click', () => {
-        const open = button.getAttribute('aria-expanded') === 'true';
-        button.setAttribute('aria-expanded', String(!open));
-        button.setAttribute('aria-label', open ? 'Buka menu' : 'Tutup menu');
-        nav.hidden = open;
-    });
-    nav.addEventListener('click', () => {
-        button.setAttribute('aria-expanded', 'false');
-        button.setAttribute('aria-label', 'Buka menu');
-        nav.hidden = true;
-    });
-}
+// FIX-004: initMobileMenu() dihapus — elemen yang dicari tidak ada di HTML.
+// Drawer dihandle via window.toggleDrawer / window.closeDrawer di bawah.
+// Hamburger button tetap pakai onclick di HTML untuk kompatibilitas.
 
 function initHomepageInteractions() {
     const input = document.getElementById('searchInput');
@@ -283,6 +277,7 @@ function initHomepageInteractions() {
         input.setAttribute('aria-activedescendant', '');
         filterHomepage();
     });
+
     input.addEventListener('keydown', (event) => {
         const results = document.getElementById('searchResults');
         const options = results ? [...results.querySelectorAll('[role="option"]')] : [];
@@ -312,6 +307,7 @@ function initHomepageInteractions() {
             closeSearchResults();
         }
     });
+
     form?.addEventListener('submit', (event) => {
         event.preventDefault();
         filterHomepage();
@@ -344,31 +340,41 @@ function initHomepageInteractions() {
     });
 }
 
+// FIX-001 + FIX-002: loadSongs() sekarang dipanggil di inisialisasi,
+// dan initDetailPage() hanya dipanggil jika elemen detail ada di halaman.
 async function loadSongs() {
     const needsSongData = document.getElementById('songList') || document.getElementById('judulLagu');
     if (!needsSongData) return;
 
     try {
         const response = await fetch('data/songs.json');
-        if (!response.ok) throw new Error('Gagal memuat data lagu');
+        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
         const data = await response.json();
         if (!Array.isArray(data)) throw new Error('Format data lagu tidak valid');
         state.songs = data;
+
         if (document.getElementById('songList')) filterHomepage();
-        initDetailPage();
-    } catch {
+
+        // FIX-001: Hanya jalankan initDetailPage() jika elemen detail ada
+        if (document.getElementById('judulLagu')) initDetailPage();
+
+    } catch (error) {
+        // FIX (AUDIT-006): Error sekarang di-log, tidak dibuang
+        console.error('Gagal memuat data lagu:', error);
         const songList = document.getElementById('songList');
         const target = songList || document.getElementById('lirik');
         if (songList) markCatalogReady(songList);
-        if (target) target.textContent = 'Gagal memuat data lagu.';
+        if (target) target.textContent = 'Gagal memuat data lagu. Silakan refresh halaman.';
     }
 }
 
 function initDetailPage() {
     const titleElement = document.getElementById('judulLagu');
     if (!titleElement) return;
+
     const reference = new URLSearchParams(window.location.search).get('id');
     const song = parseSongReference(reference, state.songs);
+
     if (!song) {
         titleElement.textContent = 'Lagu tidak ditemukan';
         const artist = document.getElementById('artisLagu');
@@ -379,14 +385,22 @@ function initDetailPage() {
 
     titleElement.textContent = song.judul;
     document.title = `${song.judul} — Chord & Lirik PowerChord`;
+
+    const breadcrumb = document.getElementById('breadcrumbSong');
+    if (breadcrumb) breadcrumb.textContent = song.judul;
+
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.href = new URL(getSongHref(song, getSongIndex(song)), window.location.href).href;
+
     const artistElement = document.getElementById('artisLagu');
     if (artistElement) artistElement.textContent = song.artis;
-    const meta = document.querySelectorAll('.detail-meta span');
-    if (meta[0]) meta[0].textContent = getDifficulty(song);
-    if (meta[1]) meta[1].textContent = song.genre || 'Guitar';
-    if (meta[2]) meta[2].textContent = `Original key: ${song.kunci || 'C'}`;
+
+    const difficultyEl = document.getElementById('difficulty');
+    const genreEl = document.getElementById('genre');
+    const originalKeyEl = document.getElementById('originalKey');
+    if (difficultyEl) difficultyEl.textContent = `🎸 ${getDifficulty(song)}`;
+    if (genreEl) genreEl.textContent = song.genre || 'Guitar';
+    if (originalKeyEl) originalKeyEl.textContent = `Original key: ${song.kunci || 'C'}`;
 
     const relatedSongs = state.songs
         .filter((candidate) => candidate !== song && candidate.genre === song.genre)
@@ -421,6 +435,7 @@ function initDetailPage() {
     };
 
     renderLyrics();
+
     document.getElementById('plus')?.addEventListener('click', () => {
         offset = (offset + 1) % 12;
         renderLyrics();
@@ -483,6 +498,7 @@ function initDetailPage() {
         }
         frame = requestAnimationFrame(scrollFrame);
     }
+
     scrollButton?.addEventListener('click', () => {
         if (scrolling) stopScroll();
         else {
@@ -503,39 +519,35 @@ function initDetailPage() {
 }
 
 // --- DRAWER FUNCTIONS ---
-window.toggleDrawer = function() {
-    document.getElementById('drawer').classList.toggle('open');
-    document.getElementById('drawerOverlay').classList.toggle('open');
+window.toggleDrawer = function () {
+    document.getElementById('drawer')?.classList.toggle('open');
+    document.getElementById('drawerOverlay')?.classList.toggle('open');
 };
 
-window.closeDrawer = function() {
-    document.getElementById('drawer').classList.remove('open');
-    document.getElementById('drawerOverlay').classList.remove('open');
+window.closeDrawer = function () {
+    document.getElementById('drawer')?.classList.remove('open');
+    document.getElementById('drawerOverlay')?.classList.remove('open');
 };
 
-window.handleDrawerSearch = function(value) {
+window.handleDrawerSearch = function (value) {
     const homeInput = document.getElementById('searchInput');
     if (homeInput) {
         homeInput.value = value;
-        const event = new Event('input', { bubbles: true });
-        homeInput.dispatchEvent(event);
-        // Jika pencarian aktif, tutup drawer agar fokus ke konten
+        homeInput.dispatchEvent(new Event('input', { bubbles: true }));
         if (value.length >= 2) closeDrawer();
     }
 };
 
-// Event listener untuk search di drawer (dipasang di DOMContentLoaded)
-document.addEventListener('DOMContentLoaded', function() {
+// Event listener drawer search
+document.addEventListener('DOMContentLoaded', () => {
     const drawerSearch = document.getElementById('drawerSearchInput');
-    if (drawerSearch) {
-        drawerSearch.addEventListener('input', function(e) {
-            window.handleDrawerSearch(e.target.value);
-        });
-    }
+    drawerSearch?.addEventListener('input', (e) => {
+        window.handleDrawerSearch(e.target.value);
+    });
 });
 
-// Inisialisasi
+// --- INISIALISASI ---
+// FIX-002: loadSongs() sekarang dipanggil di sini
 initTheme();
-initMobileMenu();
 initHomepageInteractions();
 loadSongs();
