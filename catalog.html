@@ -4,62 +4,171 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Katalog lengkap chord gitar dasar dan lirik lagu mudah dimainkan di PowerChord.">
-    <meta name="theme-color" content="#c87522">
+    <meta name="theme-color" content="#F97316">
     <meta property="og:title" content="Katalog Chord Lagu Terlengkap — PowerChord">
     <meta property="og:description" content="Cari dan temukan chord gitar lagu favoritmu dari berbagai genre dan artis.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://powerchord.pages.dev/catalog.html">
+    <meta property="og:image" content="https://powerchord.pages.dev/asset/PowerChord-logo.webp">
     <title>Katalog Chord Kunci Gitar & Lirik Lagu — PowerChord</title>
     <link rel="canonical" href="https://powerchord.pages.dev/catalog.html">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/webp" href="asset/PowerChord-favicon.webp">
 </head>
 <body>
-    <header class="header">
-        <div class="container header-inner">
-            <a href="index.html" class="logo" aria-label="PowerChord Home"><img class="logo-mark" src="asset/PowerChord-logo.webp" alt="" width="32" height="32"><span>PowerChord</span></a>
-            <nav class="desktop-nav" aria-label="Navigasi utama">
-                <a href="index.html">🏠 Beranda</a>
-                <a class="active" href="catalog.html">📚 Daftar Lagu</a>
-                <a href="artists.html">🎤 Artis</a>
-            </nav>
-            <form id="headerSearchForm" class="header-search" role="search" action="catalog.html" method="get">
-                <label for="searchInput" class="visually-hidden">Cari chord</label>
-                <span aria-hidden="true">⌕</span>
-                <input type="search" id="searchInput" name="q" role="combobox" placeholder="🔍 Cari judul atau artis..." autocomplete="off" aria-controls="searchResults" aria-haspopup="listbox" aria-autocomplete="list" aria-expanded="false" aria-activedescendant="">
-            </form>
-            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
-                <span class="icon-moon" aria-hidden="true">🌙</span><span class="icon-sun" aria-hidden="true">☀️</span>
-            </button>
-            <button class="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Buka menu">☰</button>
-        </div>
-        <nav id="mobileNav" class="mobile-nav container" aria-label="Navigasi mobile" hidden>
-            <a href="index.html">🏠 Beranda</a>
-            <a href="catalog.html" class="active">📚 Daftar Lagu</a>
-            <a href="artists.html">🎤 Artis</a>
-        </nav>
-    </header>
 
-    <section class="genre-filter-section" aria-label="Filter genre">
-        <div class="container">
-            <h2 class="section-subtitle">🎯 Filter Genre:</h2>
-            <div class="genre-filters" aria-label="Filter genre">
-                <button type="button" data-genre="All" class="active" aria-pressed="true">Semua</button>
-                <button type="button" data-genre="Pop" aria-pressed="false">Pop</button>
-                <button type="button" data-genre="Rock" aria-pressed="false">Rock</button>
-                <button type="button" data-genre="Dangdut" aria-pressed="false">Dangdut</button>
-                <button type="button" data-genre="Indie" aria-pressed="false">Indie</button>
-                <button type="button" data-genre="Reggae" aria-pressed="false">Reggae</button>
-                <button type="button" data-genre="Minang" aria-pressed="false">Minang</button>
-                <button type="button" data-genre="Melayu" aria-pressed="false">Melayu</button>
-                <button type="button" data-genre="Pop Rock" aria-pressed="false">Pop Rock</button>
-                <button type="button" data-genre="Ska" aria-pressed="false">Ska</button>
-                <button type="button" data-genre="Folk" aria-pressed="false">Folk</button>
+<div class="app-wrapper">
+
+    <!-- DRAWER / SIDEBAR -->
+   <div class="drawer-overlay" id="drawerOverlay"></div>
+    <aside class="drawer" id="drawer" role="navigation" aria-label="Navigasi utama">
+        <div class="drawer-header">
+            <div class="logo"><i class="fas fa-guitar"></i>Power<span>Chord</span></div>
+            <button class="drawer-close" id="drawerClose" aria-label="Tutup menu">&times;</button>
+        </div>
+        <div class="drawer-search">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Cari lagu atau artis..." id="drawerSearchInput" />
             </div>
         </div>
-    </section>
+        <nav class="drawer-nav">
+            <a href="index.html"><i class="fas fa-home"></i> Beranda</a>
+            <a class="active" href="catalog.html"><i class="fas fa-book"></i> Daftar Lagu</a>
+            <a href="artists.html"><i class="fas fa-microphone"></i> Artis</a>
+            <hr>
+            <a href="about.html"><i class="fas fa-info-circle"></i> Tentang</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Kontak</a>
+        </nav>
+        <div class="drawer-footer">v2.0 &bull; PowerChord</div>
+    </aside>
 
-    <section class="alphabet-section" id="daftar-isi" aria-label="Daftar lagu berdasarkan abjad">
-        <div class="container">
-            <h2 class="section-subtitle">📖 Pilih Abjad Huruf Depan</h2>
-            <div class="alphabet-nav">
-                <a href="catalog.html?letter=0-9" data-letter="0-9">0-9</a><a href="catalog.html?letter=A" data-letter="A">A</a><a href="catalog.html?letter=B" data-letter="B">B</a><a href="catalog.html?letter=C" data-letter="C">C</a><a href="catalog.html?letter=D" data-letter="D">D</a><a href="catalog.html?letter=E" data-letter="E">E</a><a href="catalog.html?letter=F" data-letter="F">F</a><a href="catalog.html?letter=G" data-letter="G">G</a><a href="catalog.html?letter=H" data-letter="H">H</a><a href="catalog.html?letter=I" data-letter="I">I</a><a href="catalog.html?letter=J" data-letter="J">J</a><a href="catalog.html?letter=K" data-letter="K">K</a><a href="catalog.html?letter=L" data-letter="L">L</a><a href="
+    <!-- KONTEN UTAMA -->
+    <div class="main-wrapper">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="container header-inner">
+                <button class="hamburger" id="hamburgerBtn" aria-label="Buka menu">
+                <i class="fas fa-bars"></i>
+                </button>
+                <a href="index.html" class="logo" aria-label="PowerChord Home">
+                    <i class="fas fa-guitar"></i> Power<span>Chord</span>
+                </a>
+                <form id="headerSearchForm" class="header-search" role="search">
+                    <label for="searchInput" class="visually-hidden">Cari chord</label>
+                    <span aria-hidden="true">⌕</span>
+                    <input type="search" id="searchInput" name="q" role="combobox"
+                        placeholder="🔍 Cari judul atau artis..."
+                        autocomplete="off"
+                        aria-controls="searchResults"
+                        aria-haspopup="listbox"
+                        aria-autocomplete="list"
+                        aria-expanded="false"
+                        aria-activedescendant="">
+                </form>
+                <button id="themeToggle" class="theme-toggle" type="button"
+                    aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
+                    <span class="icon-moon" aria-hidden="true">🌙</span>
+                    <span class="icon-sun" aria-hidden="true">☀️</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- FILTER GENRE -->
+        <section class="genre-filter-section" aria-label="Filter genre">
+            <div class="container">
+                <h2 class="section-subtitle">🎯 Filter Genre:</h2>
+                <div class="genre-filters">
+                    <button type="button" data-genre="All" class="active" aria-pressed="true">Semua</button>
+                    <button type="button" data-genre="Pop" aria-pressed="false">Pop</button>
+                    <button type="button" data-genre="Rock" aria-pressed="false">Rock</button>
+                    <button type="button" data-genre="Dangdut" aria-pressed="false">Dangdut</button>
+                    <button type="button" data-genre="Indie" aria-pressed="false">Indie</button>
+                    <button type="button" data-genre="Reggae" aria-pressed="false">Reggae</button>
+                    <button type="button" data-genre="Minang" aria-pressed="false">Minang</button>
+                    <button type="button" data-genre="Melayu" aria-pressed="false">Melayu</button>
+                    <button type="button" data-genre="Pop Rock" aria-pressed="false">Pop Rock</button>
+                    <button type="button" data-genre="Ska" aria-pressed="false">Ska</button>
+                    <button type="button" data-genre="Folk" aria-pressed="false">Folk</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- NAVIGASI ALFABET -->
+        <section class="alphabet-section" id="daftar-isi" aria-label="Daftar lagu berdasarkan abjad">
+            <div class="container">
+                <h2 class="section-subtitle">📖 Pilih Abjad Huruf Depan</h2>
+                <div class="alphabet-nav">
+                    <a href="#song-catalog" data-letter="0-9">0-9</a>
+                    <a href="#song-catalog" data-letter="A">A</a>
+                    <a href="#song-catalog" data-letter="B">B</a>
+                    <a href="#song-catalog" data-letter="C">C</a>
+                    <a href="#song-catalog" data-letter="D">D</a>
+                    <a href="#song-catalog" data-letter="E">E</a>
+                    <a href="#song-catalog" data-letter="F">F</a>
+                    <a href="#song-catalog" data-letter="G">G</a>
+                    <a href="#song-catalog" data-letter="H">H</a>
+                    <a href="#song-catalog" data-letter="I">I</a>
+                    <a href="#song-catalog" data-letter="J">J</a>
+                    <a href="#song-catalog" data-letter="K">K</a>
+                    <a href="#song-catalog" data-letter="L">L</a>
+                    <a href="#song-catalog" data-letter="M">M</a>
+                    <a href="#song-catalog" data-letter="N">N</a>
+                    <a href="#song-catalog" data-letter="O">O</a>
+                    <a href="#song-catalog" data-letter="P">P</a>
+                    <a href="#song-catalog" data-letter="Q">Q</a>
+                    <a href="#song-catalog" data-letter="R">R</a>
+                    <a href="#song-catalog" data-letter="S">S</a>
+                    <a href="#song-catalog" data-letter="T">T</a>
+                    <a href="#song-catalog" data-letter="U">U</a>
+                    <a href="#song-catalog" data-letter="V">V</a>
+                    <a href="#song-catalog" data-letter="W">W</a>
+                    <a href="#song-catalog" data-letter="X">X</a>
+                    <a href="#song-catalog" data-letter="Y">Y</a>
+                    <a href="#song-catalog" data-letter="Z">Z</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- KATALOG LAGU -->
+        <main class="container home-layout">
+            <section class="primary-column">
+                <header class="intro-block">
+                    <h1>Katalog Chord Kunci Gitar</h1>
+                    <p>Temukan chord gitar dan lirik lagu favoritmu. Lengkap, akurat, dan mudah dimainkan.</p>
+                </header>
+                <section class="content-block" id="song-catalog">
+                    <div class="section-heading">
+                        <h2>📋 Semua Lagu</h2>
+                        <span class="result-count" id="latestCount">Memuat...</span>
+                    </div>
+                    <div id="searchResults" class="search-results" hidden></div>
+                    <div id="songList" class="link-list catalog-shell is-loading" aria-busy="true">
+                        <p class="loading-state" role="status">Memuat daftar lagu…</p>
+                    </div>
+                </section>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container footer-inner">
+                <span>© 2026 PowerChord</span>
+                <nav aria-label="Tautan footer">
+                    <a href="about.html">Tentang Kami</a>
+                    <a href="contact.html">Kontak</a>
+                    <a href="privacy.html">Privasi</a>
+                    <a href="disclaimer.html">Disclaimer</a>
+                    <a href="dmca.html">DMCA</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div><!-- /.main-wrapper -->
+</div><!-- /.app-wrapper -->
+
+<script type="module" src="js/main.js" defer></script>
+</body>
+</html>

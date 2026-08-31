@@ -22,12 +22,12 @@
     <aside class="drawer" id="drawer" role="navigation" aria-label="Navigasi utama">
         <div class="drawer-header">
             <div class="logo"><i class="fas fa-guitar"></i>Power<span>Chord</span></div>
-            <button class="drawer-close" onclick="closeDrawer()" aria-label="Tutup menu">&times;</button>
+            <button class="drawer-close" id="drawerClose" aria-label="Tutup menu">&times;</button>
         </div>
         <div class="drawer-search">
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Cari lagu atau artis..." id="drawerSearchInput" oninput="handleDrawerSearch(this.value)" />
+                <input type="text" placeholder="Cari lagu atau artis..." id="drawerSearchInput" />
             </div>
         </div>
         <nav class="drawer-nav">
@@ -43,13 +43,13 @@
     </aside>
 
     <!-- OVERLAY UNTUK MOBILE -->
-    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
 
     <!-- KONTEN UTAMA -->
     <div class="main-wrapper">
         <header class="header">
             <div class="container header-inner">
-                <button class="hamburger" id="hamburgerBtn" onclick="toggleDrawer()" aria-label="Buka menu">
+                <button class="hamburger" id="hamburgerBtn" aria-label="Buka menu">
                     <i class="fas fa-bars"></i>
                 </button>
                 <a href="index.html" class="logo" aria-label="PowerChord Home">

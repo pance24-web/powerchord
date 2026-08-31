@@ -368,6 +368,18 @@ async function loadSongs() {
     }
 }
 
+// Tambahkan fungsi ini di main.js
+function initDrawer() {
+    document.getElementById('hamburgerBtn')
+        ?.addEventListener('click', () => window.toggleDrawer());
+    document.getElementById('drawerClose')
+        ?.addEventListener('click', () => window.closeDrawer());
+    document.getElementById('drawerOverlay')
+        ?.addEventListener('click', () => window.closeDrawer());
+    document.getElementById('drawerSearchInput')
+        ?.addEventListener('input', (e) => window.handleDrawerSearch(e.target.value));
+}
+
 function initDetailPage() {
     const titleElement = document.getElementById('judulLagu');
     if (!titleElement) return;
@@ -549,5 +561,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- INISIALISASI ---
 // FIX-002: loadSongs() sekarang dipanggil di sini
 initTheme();
+initDrawer();
 initHomepageInteractions();
 loadSongs();
