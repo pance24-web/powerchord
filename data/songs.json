@@ -34,7 +34,8 @@
         "teks": "dengan hidupmu"
       }
     ],
-    "id": "komang-raim-laode"
+    "id": "komang-raim-laode",
+    "popular": true
   },
   {
     "judul": "Rayuan Perempuan Gila",
@@ -59,7 +60,8 @@
         "teks": "yang telah kulewati"
       }
     ],
-    "id": "rayuan-perempuan-gila-nadin-amizah"
+    "id": "rayuan-perempuan-gila-nadin-amizah",
+    "popular": true
   },
   {
     "judul": "Dan...",
@@ -84,7 +86,8 @@
         "teks": "dari hidupmu"
       }
     ],
-    "id": "dan-sheila-on-7"
+    "id": "dan-sheila-on-7",
+    "popular": true
   },
   {
     "judul": "Cundamani",
@@ -109,7 +112,8 @@
         "teks": "kabeh bakal dadi geger"
       }
     ],
-    "id": "cundamani-denny-caknan"
+    "id": "cundamani-denny-caknan",
+    "popular": true
   },
   {
     "judul": "Mimpi Yang Sempurna",
