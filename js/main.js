@@ -67,7 +67,7 @@ function renderLatestSongRow(song) {
 
 function matchesLetter(song) {
     if (!state.activeLetter) return true;
-    const firstLetter = song.judul.trim().charAt(0).toUpperCase(); // FIX: judul, bukan artis
+    const firstLetter = song.judul.trim().charAt(0).toUpperCase();
     if (state.activeLetter === '0-9') return /\d/.test(firstLetter);
     return firstLetter === state.activeLetter;
 }
@@ -141,9 +141,6 @@ function renderSearchResults(filtered) {
     input?.setAttribute('aria-expanded', 'true');
 }
 
-// FIX-003: Popular songs berdasarkan field "popular: true" di JSON,
-// fallback ke 4 lagu pertama jika tidak ada yang ditandai.
-// Hapus Math.random() views — tidak ada data palsu.
 function renderPopularSongRow(song, index) {
     const row = document.createElement('a');
     row.className = 'popular-song-row';
@@ -175,8 +172,6 @@ function renderPopularSongs() {
     const container = document.getElementById('popularSongsList');
     if (!container || !state.songs.length) return;
 
-    // FIX-003: Cari lagu yang ditandai popular: true
-    // Jika tidak ada, fallback ke 4 lagu pertama
     const markedPopular = state.songs.filter((song) => song.popular === true);
     const topSongs = markedPopular.length >= 4
         ? markedPopular.slice(0, 4)
@@ -249,10 +244,6 @@ function initTheme() {
         }
     });
 }
-
-// FIX-004: initMobileMenu() dihapus — elemen yang dicari tidak ada di HTML.
-// Drawer dihandle via window.toggleDrawer / window.closeDrawer di bawah.
-// Hamburger button tetap pakai onclick di HTML untuk kompatibilitas.
 
 function initHomepageInteractions() {
     const input = document.getElementById('searchInput');
@@ -340,44 +331,40 @@ function initHomepageInteractions() {
     });
 }
 
-// FIX-001 + FIX-002: loadSongs() sekarang dipanggil di inisialisasi,
-// dan initDetailPage() hanya dipanggil jika elemen detail ada di halaman.
 async function loadSongs() {
     const needsSongData = document.getElementById('songList') || document.getElementById('judulLagu');
     if (!needsSongData) return;
 
     try {
-        const response = await fetch('data/songs.json');
+        // ENTERPRISE FIX: Tambahkan timeout 10 detik untuk mencegah hanging pada jaringan lambat
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+        const response = await fetch('data/songs.json', { signal: controller.signal });
+        clearTimeout(timeoutId);
+
         if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
         const data = await response.json();
         if (!Array.isArray(data)) throw new Error('Format data lagu tidak valid');
         state.songs = data;
 
         if (document.getElementById('songList')) filterHomepage();
-
-        // FIX-001: Hanya jalankan initDetailPage() jika elemen detail ada
         if (document.getElementById('judulLagu')) initDetailPage();
 
     } catch (error) {
-        // FIX (AUDIT-006): Error sekarang di-log, tidak dibuang
         console.error('Gagal memuat data lagu:', error);
         const songList = document.getElementById('songList');
         const target = songList || document.getElementById('lirik');
         if (songList) markCatalogReady(songList);
-        if (target) target.textContent = 'Gagal memuat data lagu. Silakan refresh halaman.';
+        if (target) target.textContent = 'Gagal memuat data lagu. Silakan periksa koneksi internet Anda dan refresh halaman.';
     }
 }
 
-// Tambahkan fungsi ini di main.js
 function initDrawer() {
-    document.getElementById('hamburgerBtn')
-        ?.addEventListener('click', () => window.toggleDrawer());
-    document.getElementById('drawerClose')
-        ?.addEventListener('click', () => window.closeDrawer());
-    document.getElementById('drawerOverlay')
-        ?.addEventListener('click', () => window.closeDrawer());
-    document.getElementById('drawerSearchInput')
-        ?.addEventListener('input', (e) => window.handleDrawerSearch(e.target.value));
+    document.getElementById('hamburgerBtn')?.addEventListener('click', () => window.toggleDrawer());
+    document.getElementById('drawerClose')?.addEventListener('click', () => window.closeDrawer());
+    document.getElementById('drawerOverlay')?.addEventListener('click', () => window.closeDrawer());
+    document.getElementById('drawerSearchInput')?.addEventListener('input', (e) => window.handleDrawerSearch(e.target.value));
 }
 
 function initDetailPage() {
@@ -546,20 +533,11 @@ window.handleDrawerSearch = function (value) {
     if (homeInput) {
         homeInput.value = value;
         homeInput.dispatchEvent(new Event('input', { bubbles: true }));
-        if (value.length >= 2) closeDrawer();
+        if (value.length >= 2) window.closeDrawer();
     }
 };
 
-// Event listener drawer search
-document.addEventListener('DOMContentLoaded', () => {
-    const drawerSearch = document.getElementById('drawerSearchInput');
-    drawerSearch?.addEventListener('input', (e) => {
-        window.handleDrawerSearch(e.target.value);
-    });
-});
-
 // --- INISIALISASI ---
-// FIX-002: loadSongs() sekarang dipanggil di sini
 initTheme();
 initDrawer();
 initHomepageInteractions();
