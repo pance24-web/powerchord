@@ -186,13 +186,26 @@ function renderPopularSongs() {
 function filterHomepage() {
     if (!document.getElementById('songList')) return;
     const filtered = getFilteredSongs();
+    
+    // CRITICAL: Render langsung (user lagi nunggu ini)
     renderSearchRows(filtered);
-    renderReferenceList(document.getElementById('newSongList'), state.songs.slice(-5).reverse());
-    renderPopularSongs();
     const latestCount = document.getElementById('latestCount');
     if (latestCount) latestCount.textContent = `${filtered.length} lagu`;
     if (normalizeSearchQuery(state.searchQuery).length >= 2) renderSearchResults(filtered);
     else closeSearchResults();
+    
+    // NON-CRITICAL: Render saat browser idle (PERF-006)
+    const renderNonCritical = () => {
+        renderReferenceList(document.getElementById('newSongList'), state.songs.slice(-5).reverse());
+        renderPopularSongs();
+    };
+    
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(renderNonCritical, { timeout: 2000 });
+    } else {
+        // Fallback untuk browser lama
+        setTimeout(renderNonCritical, 0);
+    }
 }
 
 function updateLetterLinkState(activeValue) {
@@ -262,11 +275,20 @@ function initHomepageInteractions() {
         updateLetterLinkState(state.activeLetter);
     }
 
+    let searchDebounceTimer = null;
+
     input.addEventListener('input', () => {
         state.searchQuery = input.value.trim();
         state.activeSuggestion = -1;
         input.setAttribute('aria-activedescendant', '');
-        filterHomepage();
+        
+        // Clear timer sebelumnya
+        if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+        
+        // Tunggu 300ms setelah user berhenti mengetik
+        searchDebounceTimer = setTimeout(() => {
+            filterHomepage();
+        }, 300);
     });
 
     input.addEventListener('keydown', (event) => {
