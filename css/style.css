@@ -572,8 +572,7 @@ button:disabled:focus-visible {
 }
 
 .catalog-shell.is-loading {
-    position: relative;
-    min-height: 5400px;
+    min-height: 400px; /* Ukuran realistis untuk skeleton */
     overflow: hidden;
     background: repeating-linear-gradient(
         to bottom,
@@ -582,6 +581,13 @@ button:disabled:focus-visible {
         var(--line) 53px,
         var(--line) 54px
     );
+    animation: pulse 1.5s infinite ease-in-out; /* Efek berkedip halus */
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
 }
 .catalog-shell.is-loading .loading-state {
     position: absolute;
