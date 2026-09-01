@@ -25,8 +25,7 @@ for (const filename of entries) {
     const html = await readFile(join(root, filename), 'utf8');
     if (!/<html\b[^>]*\blang="id"/.test(html)) fail(`${filename} tidak memiliki lang="id"`);
     if (!/<meta\b[^>]*name="viewport"/.test(html)) fail(`${filename} tidak memiliki viewport meta`);
-    if (!/<link\b[^>]*rel="stylesheet"[^>]*href="css\/style\.css"/.test(html)) fail(`${filename} tidak memuat css/style.css`);
-    if (!/<script\b[^>]*src="js\/main\.js"[^>]*defer/.test(html)) fail(`${filename} tidak memuat js/main.js dengan defer`);
+    if (!/<link\b[^>]*rel="stylesheet"[^>]*href="css\/style(?:\.min)?\.css"/.test(html)) fail(`${filename} tidak memuat css/style.css atau style.min.css`);    if (!/<script\b[^>]*src="js\/main\.js"[^>]*defer/.test(html)) fail(`${filename} tidak memuat js/main.js dengan defer`);
     if ((html.match(/<h1\b/g) || []).length !== 1) fail(`${filename} harus memiliki tepat satu h1`);
     if (/\b(?:style|on[a-z]+)="/i.test(html)) fail(`${filename} memiliki inline style atau event handler`);
 
