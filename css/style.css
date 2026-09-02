@@ -308,14 +308,12 @@ button:disabled:focus-visible {
     font-weight: 700;
     line-height: 1;
     white-space: nowrap;
+    color: var(--text);
 }
 .logo-text span {
     color: var(--accent);
 }
 .logo i {
-    color: var(--accent);
-}
-.logo span {
     color: var(--accent);
 }
 
