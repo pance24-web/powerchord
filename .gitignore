@@ -1,1 +1,22 @@
 Nothing needs to be added to .gitignore since the changes only include HTML, CSS, and JavaScript source files which should be tracked in version control.
+# Dependensi / Library
+node_modules/
+.npm/
+
+# File log & temporary
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Lingkungan Python (jika menggunakan virtualenv)
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# File konfigurasi lokal/rahasia
+.env
+.DS_Store
+Thumbs.db
