@@ -27,6 +27,8 @@
     <meta name="theme-color" content="#F97316" />
 </head>
 <body>
+    <!-- A11y-003: Skip to content link -->
+    <a href="#main-content" class="skip-link">Langsung ke konten utama</a>
     <!-- Indikator Online/Offline (PWA-008) -->
     <div id="offline-banner" class="offline-banner" hidden>
         ⚠️ Anda sedang offline. Menampilkan data yang di-cache.
@@ -83,7 +85,7 @@
             </header>
 
             <!-- KONTEN DETAIL -->
-            <main class="container detail-layout">
+            <main class="container detail-layout" id="main-content">
                 <!-- KOLOM UTAMA -->
                 <section class="detail-primary">
                     <!-- Breadcrumb -->

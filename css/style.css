@@ -88,6 +88,26 @@ button:disabled:focus-visible {
     transform: none;
 }
 
+/* --- SKIP LINK (a11y) --- */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent);
+    color: var(--on-accent);
+    padding: 8px 16px;
+    z-index: 10000;
+    text-decoration: none;
+    font-weight: bold;
+    transition: top 0.2s;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
 /* --- LAYOUT UTAMA --- */
 .app-wrapper {
     display: flex;
