@@ -125,11 +125,13 @@ export function filterSongs(songs, query = '', activeGenre = 'All') {
 
 export function transposeChord(chord, offset = 0) {
     if (typeof chord !== 'string' || !chord) return '';
+    if (offset === 0) return chord;
     return chord.replace(/[A-G](?:#|b)?/g, (root) => {
         const normalized = ENHARMONIC[root] || root;
         const rootIndex = CHROMATIC.indexOf(normalized);
         if (rootIndex < 0) return root;
-        return CHROMATIC[(rootIndex + offset + 12) % 12];
+        const newIndex = (rootIndex + (offset % 12) + 12) % 12;
+        return CHROMATIC[newIndex];
     });
 }
 

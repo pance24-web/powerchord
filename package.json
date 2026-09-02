@@ -9,6 +9,7 @@
     "dev": "npx -y serve . -p 8080",
     "start": "npx -y serve . -p 8080",
     "check": "node --check js/main.js && node --check js/core.js && node --check scripts/check_static_site.mjs && python3 scripts/validate_data.py && npm run verify:static",
+    "pretest": "npm run minify:css",
     "test": "node --test tests/*.test.js",
     "verify:static": "node scripts/check_static_site.mjs",
     "minify:css": "cleancss -o css/style.min.css css/style.css",

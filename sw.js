@@ -1,5 +1,5 @@
-// PowerChord Service Worker - v3 (Fixed Redirect Issue)
-const CACHE_VERSION = 'powerchord-v3'; // Naikkan versi agar cache lama dihapus
+// PowerChord Service Worker - v4 (Network First Data Cache)
+const CACHE_VERSION = 'powerchord-v4'; // Naikkan versi agar cache lama dihapus
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const DATA_CACHE = `data-${CACHE_VERSION}`;
 
@@ -14,8 +14,7 @@ const STATIC_ASSETS = [
   '/manifest.json',
   '/asset/PowerChord-logo.webp',
   '/asset/favicon.webp',
-  '/asset/favicon.png',
-  '/data/songs.json'
+  '/asset/favicon.png'
 ];
 
 // Install: Cache SEMUA aset penting
@@ -54,27 +53,24 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   
-  // 1. Data API (songs.json) → Cache First, fallback Network
+  // 1. Data API (songs.json) → Network First, fallback Cache
   if (url.pathname.includes('songs.json')) {
     event.respondWith(
-      caches.match(event.request).then((cached) => {
-        if (cached) {
-          const fetchPromise = fetch(event.request.url, { redirect: 'follow' }).then((response) => {
-            if (response.ok) {
-              const responseClone = response.clone();
-              caches.open(DATA_CACHE).then((cache) => {
-                cache.put(event.request, responseClone);
-              });
-            }
-            return response;
-          }).catch(() => cached);
-          
-          return cached;
-        }
-        return fetch(event.request.url, { redirect: 'follow' }).catch(() => {
-          return new Response(JSON.stringify([]), { headers: { 'Content-Type': 'application/json' } });
-        });
-      })
+      fetch(event.request.url, { redirect: 'follow' })
+        .then((response) => {
+          if (response.ok) {
+            const responseClone = response.clone();
+            caches.open(DATA_CACHE).then((cache) => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          return caches.match(event.request).then((cached) => {
+            return cached || new Response(JSON.stringify([]), { headers: { 'Content-Type': 'application/json' } });
+          });
+        })
     );
     return;
   }

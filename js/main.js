@@ -194,17 +194,16 @@ function filterHomepage() {
     if (normalizeSearchQuery(state.searchQuery).length >= 2) renderSearchResults(filtered);
     else closeSearchResults();
     
-    // NON-CRITICAL: Render saat browser idle (PERF-006)
+    // NON-CRITICAL: Render saat browser idle dengan fallback aman (PERF-006)
     const renderNonCritical = () => {
         renderReferenceList(document.getElementById('newSongList'), state.songs.slice(-5).reverse());
         renderPopularSongs();
     };
-    
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(renderNonCritical, { timeout: 2000 });
+
+    if (typeof window.requestIdleCallback === 'function') {
+        window.requestIdleCallback(renderNonCritical);
     } else {
-        // Fallback untuk browser lama
-        setTimeout(renderNonCritical, 0);
+        setTimeout(renderNonCritical, 1);
     }
 }
 
