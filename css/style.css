@@ -659,19 +659,21 @@ button:disabled:focus-visible {
     font-weight: 700;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #E8E8E8;
 }
-.song-artist,
+.song-artist {
+    color: #AAAAAA;
+    font-size: 0.78rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .song-key,
 .song-arrow,
 .result-count,
 .loading-state {
     color: var(--muted);
     font-size: 0.78rem;
-}
-.song-artist {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 .song-meta {
     width: fit-content;
