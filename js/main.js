@@ -558,8 +558,42 @@ window.handleDrawerSearch = function (value) {
         if (value.length >= 2) window.closeDrawer();
     }
 };
+// --- SERVICE WORKER REGISTRATION (PWA) ---
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then((registration) => {
+        console.log('[SW] Registered with scope:', registration.scope);
+      })
+      .catch((error) => {
+        console.warn('[SW] Registration failed:', error);
+      });
+  });
+}
+// --- PWA OFFLINE INDICATOR (PWA-008) ---
+function initOfflineIndicator() {
+    const banner = document.getElementById('offline-banner');
+    if (!banner) return;
 
+    const showOffline = () => {
+        banner.hidden = false;
+        document.body.classList.add('has-offline-banner');
+    };
+
+    const showOnline = () => {
+        banner.hidden = true;
+        document.body.classList.remove('has-offline-banner');
+    };
+
+    // Cek status awal saat halaman dimuat
+    if (!navigator.onLine) showOffline();
+
+    // Dengarkan perubahan jaringan
+    window.addEventListener('offline', showOffline);
+    window.addEventListener('online', showOnline);
+}
 // --- INISIALISASI ---
+initOfflineIndicator();
 initTheme();
 initDrawer();
 initHomepageInteractions();

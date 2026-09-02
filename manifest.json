@@ -1,0 +1,23 @@
+{
+  "name": "PowerChord - Chord Gitar & Lirik",
+  "short_name": "PowerChord",
+  "description": "Katalog chord gitar dan lirik lagu lengkap dengan fitur transpose dan autoscroll.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#F97316",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "asset/favicon.webp",
+      "sizes": "64x64",
+      "type": "image/webp"
+    },
+    {
+      "src": "asset/PowerChord-logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ]
+}

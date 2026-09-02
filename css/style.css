@@ -1084,3 +1084,24 @@ button:disabled:focus-visible {
 [data-theme="dark"] .theme-toggle .icon-sun {
     display: inline;
 }
+/* PWA-008: Offline Indicator Styles */
+.offline-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ef4444; /* Merah untuk warning */
+    color: white;
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 9999; /* Pastikan selalu di paling atas */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Saat muncul, geser sedikit ke bawah agar tidak tertutup header (jika header fixed) */
+body.has-offline-banner .header {
+    margin-top: 36px; /* Sesuaikan dengan tinggi banner */
+}

@@ -23,9 +23,14 @@
     
     <link rel="stylesheet" href="css/style.min.css" />
     <link rel="icon" type="image/webp" href="asset/favicon.webp" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#F97316" />
 </head>
 <body>
-
+    <!-- Indikator Online/Offline (PWA-008) -->
+    <div id="offline-banner" class="offline-banner" hidden>
+        ⚠️ Anda sedang offline. Menampilkan data yang di-cache.
+    </div>
     <div class="app-wrapper">
         <!-- DRAWER / SIDEBAR -->
         <div class="drawer-overlay" id="drawerOverlay"></div>
