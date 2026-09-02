@@ -1,5 +1,5 @@
-// PowerChord Service Worker - v2 (Fixed)
-const CACHE_VERSION = 'powerchord-v2'; // ← Naikkan versi agar cache lama dihapus
+// PowerChord Service Worker - v3 (Fixed Redirect Issue)
+const CACHE_VERSION = 'powerchord-v3'; // Naikkan versi agar cache lama dihapus
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const DATA_CACHE = `data-${CACHE_VERSION}`;
 
@@ -15,10 +15,10 @@ const STATIC_ASSETS = [
   '/asset/PowerChord-logo.webp',
   '/asset/favicon.webp',
   '/asset/favicon.png',
-  '/data/songs.json' // ← TAMBAHKAN INI! Agar songs.json di-cache sejak awal
+  '/data/songs.json'
 ];
 
-// Install: Cache SEMUA aset penting termasuk songs.json
+// Install: Cache SEMUA aset penting
 self.addEventListener('install', (event) => {
   console.log('[SW] Installing...');
   event.waitUntil(
@@ -50,7 +50,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch: Strategi caching berdasarkan tipe
+// Fetch: Strategi caching dengan penanganan redirect yang aman
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   
@@ -59,8 +59,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       caches.match(event.request).then((cached) => {
         if (cached) {
-          // Update cache di background (stale-while-revalidate)
-          const fetchPromise = fetch(event.request).then((response) => {
+          const fetchPromise = fetch(event.request.url, { redirect: 'follow' }).then((response) => {
             if (response.ok) {
               const responseClone = response.clone();
               caches.open(DATA_CACHE).then((cache) => {
@@ -68,15 +67,12 @@ self.addEventListener('fetch', (event) => {
               });
             }
             return response;
-          }).catch(() => cached); // Jika fetch gagal, tetap return cached
+          }).catch(() => cached);
           
-          return cached; // Return cached langsung, update di background
+          return cached;
         }
-        // Jika tidak ada cache, fetch dari network
-        return fetch(event.request).catch(() => {
-          return new Response(JSON.stringify([]), {
-            headers: { 'Content-Type': 'application/json' }
-          });
+        return fetch(event.request.url, { redirect: 'follow' }).catch(() => {
+          return new Response(JSON.stringify([]), { headers: { 'Content-Type': 'application/json' } });
         });
       })
     );
@@ -87,16 +83,19 @@ self.addEventListener('fetch', (event) => {
   if (STATIC_ASSETS.some(asset => url.pathname === asset || url.pathname.endsWith('/' + asset.split('/').pop()))) {
     event.respondWith(
       caches.match(event.request).then((cached) => {
-        return cached || fetch(event.request);
+        return cached || fetch(event.request.url, { redirect: 'follow' });
       })
     );
     return;
   }
   
-  // 3. HTML pages → Network First, fallback Cache
+  // 3. HTML pages → Network First (dengan redirect: 'follow'), fallback Cache
   if (event.request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
-      fetch(event.request).catch(() => {
+      fetch(event.request.url, { 
+        headers: event.request.headers,
+        redirect: 'follow' // <-- INI YANG MEMPERBAIKI ERROR
+      }).catch(() => {
         return caches.match(event.request).then((cached) => {
           return cached || caches.match('/index.html');
         });
@@ -106,5 +105,5 @@ self.addEventListener('fetch', (event) => {
   }
   
   // 4. Default → Network
-  event.respondWith(fetch(event.request));
+  event.respondWith(fetch(event.request.url, { redirect: 'follow' }));
 });
