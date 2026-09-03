@@ -172,6 +172,12 @@ npm run db:seed
 
 Database menghasilkan dua tabel utama: `songs` menyimpan metadata lagu dan `song_lines` menyimpan baris chord/lirik dengan relasi satu-ke-banyak. Foreign key dengan `ON DELETE CASCADE` menjaga agar baris lirik tidak tertinggal ketika lagu dihapus. View `song_catalog` menyediakan katalog ringkas beserta jumlah baris lirik. File hasil generate berada di `database/powerchord.sqlite3` dan tidak digunakan langsung oleh halaman statis saat ini.
 
+### 6.2.2 Supabase production database
+
+Database production PowerChord menggunakan project Supabase pada region Asia Pacific Southeast (`ap-southeast-1`). Skema yang diterapkan tercatat di `database/supabase_schema.sql`, sedangkan `scripts/build_supabase_seed.py` membangun payload upsert dari `data/songs.json`. Data yang sudah dimigrasikan mencakup 7 lagu published dan 1 artis canonical; satu lagu draft yang sudah ada sebelumnya tetap dipertahankan.
+
+Tabel existing `public.artists` dan `public.songs` digunakan kembali. Kolom `genre` dan `source_id` ditambahkan ke `public.songs`, dengan unique index pada `source_id` agar seed dapat dijalankan ulang tanpa duplikasi. Frontend masih membaca JSON statis sampai integrasi Supabase client diaktifkan pada tahap berikutnya.
+
 ### 6.3. Keamanan & Integritas Data (Hasil Audit)
 
 - **XSS Prevention:** Seluruh input user dan data dinamis dirender menggunakan `textContent` atau DOM API, bukan `innerHTML`, untuk mencegah injeksi skrip.
