@@ -176,7 +176,7 @@ Database menghasilkan dua tabel utama: `songs` menyimpan metadata lagu dan `song
 
 Database production PowerChord menggunakan project Supabase pada region Asia Pacific Southeast (`ap-southeast-1`). Skema yang diterapkan tercatat di `database/supabase_schema.sql`, sedangkan `scripts/build_supabase_seed.py` membangun payload upsert dari `data/songs.json`. Data yang sudah dimigrasikan mencakup 7 lagu published dan 1 artis canonical; satu lagu draft yang sudah ada sebelumnya tetap dipertahankan.
 
-Tabel existing `public.artists` dan `public.songs` digunakan kembali. Kolom `genre` dan `source_id` ditambahkan ke `public.songs`, dengan unique index pada `source_id` agar seed dapat dijalankan ulang tanpa duplikasi. Frontend masih membaca JSON statis sampai integrasi Supabase client diaktifkan pada tahap berikutnya.
+Tabel existing `public.artists` dan `public.songs` digunakan kembali. Kolom `genre` dan `source_id` ditambahkan ke `public.songs`, dengan unique index pada `source_id` agar seed dapat dijalankan ulang tanpa duplikasi. Frontend kini membaca lagu published dari Supabase melalui `js/supabase.js`. Adapter tersebut menormalisasi respons `public.songs` ke format legacy yang digunakan UI, sedangkan `data/songs.json` tetap menjadi fallback apabila API Supabase tidak tersedia atau request mengalami timeout 10 detik. URL project dan publishable key digunakan hanya di frontend; tidak ada service-role secret yang dipublikasikan.
 
 ### 6.3. Keamanan & Integritas Data (Hasil Audit)
 

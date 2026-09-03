@@ -6,6 +6,7 @@ import {
     parseSongReference,
     transposeChord,
 } from './core.js';
+import { fetchSongsFromSupabase } from './supabase.js';
 
 const state = {
     searchQuery: '',
@@ -403,29 +404,34 @@ async function loadSongs() {
     const needsSongData = document.getElementById('songList') || document.getElementById('judulLagu');
     if (!needsSongData) return;
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
     try {
-        // ENTERPRISE FIX: Tambahkan timeout 10 detik untuk mencegah hanging pada jaringan lambat
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-        const response = await fetch('data/songs.json', { signal: controller.signal });
+        state.songs = await fetchSongsFromSupabase({ signal: controller.signal });
+        console.info(`Memuat ${state.songs.length} lagu dari Supabase`);
+    } catch (supabaseError) {
+        console.warn('Supabase tidak tersedia, menggunakan fallback JSON:', supabaseError);
+        try {
+            const response = await fetch('data/songs.json', { signal: controller.signal });
+            if (!response.ok) throw new Error(`Fallback HTTP error: ${response.status}`);
+            const data = await response.json();
+            if (!Array.isArray(data)) throw new Error('Format data lagu fallback tidak valid');
+            state.songs = data;
+        } catch (fallbackError) {
+            console.error('Gagal memuat data lagu:', fallbackError);
+            const songList = document.getElementById('songList');
+            const target = songList || document.getElementById('lirik');
+            if (songList) markCatalogReady(songList);
+            if (target) target.textContent = 'Gagal memuat data lagu. Silakan periksa koneksi internet Anda dan refresh halaman.';
+            return;
+        }
+    } finally {
         clearTimeout(timeoutId);
-
-        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-        const data = await response.json();
-        if (!Array.isArray(data)) throw new Error('Format data lagu tidak valid');
-        state.songs = data;
-
-        if (document.getElementById('songList')) filterHomepage();
-        if (document.getElementById('judulLagu')) initDetailPage();
-
-    } catch (error) {
-        console.error('Gagal memuat data lagu:', error);
-        const songList = document.getElementById('songList');
-        const target = songList || document.getElementById('lirik');
-        if (songList) markCatalogReady(songList);
-        if (target) target.textContent = 'Gagal memuat data lagu. Silakan periksa koneksi internet Anda dan refresh halaman.';
     }
+
+    if (document.getElementById('songList')) filterHomepage();
+    if (document.getElementById('judulLagu')) initDetailPage();
 }
 
 function initDrawer() {
