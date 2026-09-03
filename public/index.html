@@ -1,53 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Katalog lengkap chord gitar dasar dan lirik lagu mudah dimainkan di PowerChord.">
-    <meta name="theme-color" content="#F97316">
-    <meta property="og:title" content="Katalog Chord Lagu Terlengkap — PowerChord">
-    <meta property="og:description" content="Cari dan temukan chord gitar lagu favoritmu dari berbagai genre dan artis.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://powerchord.pages.dev/catalog.html">
-    <meta property="og:image" content="https://powerchord.pages.dev/asset/PowerChord-logo.webp">
-    <title>Katalog Chord Kunci Gitar & Lirik Lagu — PowerChord</title>
-    <link rel="canonical" href="https://powerchord.pages.dev/catalog.html">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/webp" href="asset/favicon.webp">
+    <base href="/">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="PowerChord menyediakan chord gitar dan lirik lagu Indonesia yang mudah dimainkan, lengkap dengan fitur transpose dan autoscroll." />
+    <meta name="theme-color" content="#F97316" />
+    <meta property="og:title" content="Chord Mudah Kunci Gitar & Lirik Lagu — PowerChord" />
+    <meta property="og:description" content="Temukan chord gitar dasar dan lirik lagu favoritmu di PowerChord." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://powerchord.pages.dev/" />
+    <meta property="og:image" content="https://powerchord.pages.dev/asset/PowerChord-logo.webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <title>Chord Mudah Kunci Gitar & Lirik Lagu — PowerChord</title>
+    <link rel="canonical" href="https://powerchord.pages.dev/" />
+    
+    <!-- Preconnect untuk performance -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    
+    <!-- Font Awesome dengan SRI -->
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
+          integrity="sha384-5e2ESR8Ycmos6g3gAKr1Jvwye8sW4U1u/cAKulfVJnkakCcMqhOudbtPnvJ+nbv7" 
+          crossorigin="anonymous" />
+    
+    <link rel="stylesheet" href="css/style.min.css" />
+    <link rel="icon" type="image/webp" href="asset/favicon.webp" />
+    <link rel="manifest" href="/manifest.json" />
 </head>
 <body>
-
+    <!-- A11y-003: Skip to content link -->
+    <a href="#main-content" class="skip-link">Langsung ke konten utama</a>
+<!-- Indikator Online/Offline (PWA-008) -->
+<div id="offline-banner" class="offline-banner" hidden>
+    ⚠️ Anda sedang offline. Menampilkan data yang di-cache.
+</div>
 <div class="app-wrapper">
-
-    <!-- DRAWER / SIDEBAR -->
-   <div class="drawer-overlay" id="drawerOverlay"></div>
+    <!-- SIDEBAR (Desktop) / DRAWER (Mobile) -->
     <aside class="drawer" id="drawer" role="navigation" aria-label="Navigasi utama">
         <div class="drawer-header">
-            <div class="logo"><i class="fas fa-guitar"></i><span class="logo-text">Power<span>Chord</span></span></div>
+            <img src="asset/PowerChord-logo.webp" alt="Logo PowerChord" class="logo-img" loading="lazy" />
+            <div class="logo-text">Power<span>Chord</span></div>
             <button class="drawer-close" id="drawerClose" aria-label="Tutup menu">&times;</button>
         </div>
         <div class="drawer-search">
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Cari lagu atau artis..." id="drawerSearchInput" />
+                <input type="text" placeholder="Cari lagu atau artis..." id="drawerSearchInput" aria-label="Cari lagu atau artis" />
             </div>
         </div>
         <nav class="drawer-nav">
-            <a href="index.html"><i class="fas fa-home"></i> Beranda</a>
-            <a class="active" href="catalog.html"><i class="fas fa-book"></i> Daftar Lagu</a>
+            <a class="active" href="/"><i class="fas fa-home"></i> Beranda</a>
+            <a href="catalog.html"><i class="fas fa-music"></i> Katalog</a>
             <a href="artists.html"><i class="fas fa-microphone"></i> Artis</a>
-            <hr>
+            <a href="collection.html"><i class="fas fa-star"></i> Koleksi Saya</a>
+            <a href="history.html"><i class="fas fa-clock"></i> Riwayat</a>
+            <hr />
+            <a href="#"><i class="fas fa-sliders-h"></i> Pengaturan</a>
             <a href="about.html"><i class="fas fa-info-circle"></i> Tentang</a>
-            <a href="contact.html"><i class="fas fa-envelope"></i> Kontak</a>
+            <a href="contact.html"><i class="fas fa-pen"></i> Request Chord</a>
         </nav>
         <div class="drawer-footer">v2.0 &bull; PowerChord</div>
     </aside>
 
+    <!-- OVERLAY UNTUK MOBILE -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
     <!-- KONTEN UTAMA -->
     <div class="main-wrapper">
-
-        <!-- HEADER -->
         <header class="header">
             <div class="container header-inner">
                 <button class="hamburger" id="hamburgerBtn" aria-label="Buka menu">☰</button>
@@ -57,47 +78,52 @@
                 <form id="headerSearchForm" class="header-search" role="search">
                     <label for="searchInput" class="visually-hidden">Cari chord</label>
                     <span aria-hidden="true">⌕</span>
-                    <input type="search" id="searchInput" name="q" role="combobox"
-                        placeholder="🔍 Cari judul atau artis..."
-                        autocomplete="off"
-                        aria-controls="searchResults"
-                        aria-haspopup="listbox"
-                        aria-autocomplete="list"
-                        aria-expanded="false"
-                        aria-activedescendant="">
+                    <input type="search" id="searchInput" name="q" placeholder="🔍 Cari judul atau artis..." autocomplete="off" />
                 </form>
-                <button id="themeToggle" class="theme-toggle" type="button"
-                    aria-label="Aktifkan mode gelap" aria-pressed="false" title="Aktifkan mode gelap">
+                <button id="themeToggle" class="theme-toggle" type="button" aria-label="Aktifkan mode gelap">
                     <span class="icon-moon" aria-hidden="true">🌙</span>
                     <span class="icon-sun" aria-hidden="true">☀️</span>
                 </button>
             </div>
         </header>
 
-        <!-- FILTER GENRE -->
+        <!-- Genre Filter -->
         <section class="genre-filter-section" aria-label="Filter genre">
             <div class="container">
                 <h2 class="section-subtitle">🎯 Filter Genre:</h2>
                 <div class="genre-filters">
-                    <button type="button" data-genre="All" class="active" aria-pressed="true">Semua</button>
-                    <button type="button" data-genre="Pop" aria-pressed="false">Pop</button>
-                    <button type="button" data-genre="Rock" aria-pressed="false">Rock</button>
-                    <button type="button" data-genre="Dangdut" aria-pressed="false">Dangdut</button>
-                    <button type="button" data-genre="Indie" aria-pressed="false">Indie</button>
-                    <button type="button" data-genre="Reggae" aria-pressed="false">Reggae</button>
-                    <button type="button" data-genre="Minang" aria-pressed="false">Minang</button>
-                    <button type="button" data-genre="Melayu" aria-pressed="false">Melayu</button>
-                    <button type="button" data-genre="Pop Rock" aria-pressed="false">Pop Rock</button>
-                    <button type="button" data-genre="Ska" aria-pressed="false">Ska</button>
-                    <button type="button" data-genre="Folk" aria-pressed="false">Folk</button>
+                    <button type="button" data-genre="All" class="active">Semua</button>
+                    <button type="button" data-genre="Pop">Pop</button>
+                    <button type="button" data-genre="Rock">Rock</button>
+                    <button type="button" data-genre="Dangdut">Dangdut</button>
+                    <button type="button" data-genre="Indie">Indie</button>
+                    <button type="button" data-genre="Reggae">Reggae</button>
+                    <button type="button" data-genre="Minang">Minang</button>
+                    <button type="button" data-genre="Melayu">Melayu</button>
+                    <button type="button" data-genre="Pop Rock">Pop Rock</button>
+                    <button type="button" data-genre="Ska">Ska</button>
+                    <button type="button" data-genre="Folk">Folk</button>
                 </div>
             </div>
         </section>
 
-        <!-- NAVIGASI ALFABET -->
-        <section class="alphabet-section" id="daftar-isi" aria-label="Daftar lagu berdasarkan abjad">
+        <!-- Lagu Populer -->
+        <section class="popular-section" aria-labelledby="popular-title">
             <div class="container">
-                <h2 class="section-subtitle">📖 Pilih Abjad Huruf Depan</h2>
+                <div class="section-header-with-link">
+                    <h2 id="popular-title">🔥 Lagu Populer</h2>
+                    <a href="catalog.html" class="view-all-link">Lihat Semua →</a>
+                </div>
+                <div id="popularSongsList" class="popular-songs-list">
+                    <p class="loading-state">Memuat lagu populer…</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alphabet Navigation -->
+        <section class="alphabet-section" aria-label="Daftar lagu berdasarkan abjad">
+            <div class="container">
+                <h2 class="section-subtitle">📖 Daftar Lagu (A-Z)</h2>
                 <div class="alphabet-nav">
                     <a href="#song-catalog" data-letter="0-9">0-9</a>
                     <a href="#song-catalog" data-letter="A">A</a>
@@ -130,27 +156,27 @@
             </div>
         </section>
 
-        <!-- KATALOG LAGU -->
-        <main class="container home-layout">
+        <!-- Katalog Lagu -->
+        <main class="container home-layout" id="main-content">
             <section class="primary-column">
                 <header class="intro-block">
-                    <h1>Katalog Chord Kunci Gitar</h1>
-                    <p>Temukan chord gitar dan lirik lagu favoritmu. Lengkap, akurat, dan mudah dimainkan.</p>
+                    <h1>Kumpulan Chord Kunci Gitar Dasar</h1>
+                    <p>Temukan chord gitar dan lirik lagu favoritmu di PowerChord. Lengkap, akurat, dan mudah dimainkan untuk pemula hingga mahir.</p>
                 </header>
                 <section class="content-block" id="song-catalog">
                     <div class="section-heading">
-                        <h2>📋 Semua Lagu</h2>
+                        <h2>📋 Katalog Chord</h2>
                         <span class="result-count" id="latestCount">Memuat...</span>
                     </div>
                     <div id="searchResults" class="search-results" hidden></div>
-                    <div id="songList" class="link-list catalog-shell is-loading" aria-busy="true">
+                    <div id="songList" class="link-list catalog-shell is-loading">
                         <p class="loading-state" role="status">Memuat daftar lagu…</p>
                     </div>
                 </section>
             </section>
         </main>
 
-        <!-- FOOTER -->
+        <!-- Footer -->
         <footer class="footer">
             <div class="footer-container">
                 <div class="footer-section">
@@ -188,9 +214,8 @@
                 </p>
             </div>
         </footer>
-
-    </div><!-- /.main-wrapper -->
-</div><!-- /.app-wrapper -->
+    </div>
+</div>
 
 <script type="module" src="js/main.js" defer></script>
 <script src="js/back-to-top.js"></script>
