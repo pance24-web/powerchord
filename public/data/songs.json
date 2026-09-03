@@ -1,0 +1,813 @@
+[
+  {
+    "id": "pupus-dewa-19",
+    "judul": "Pupus",
+    "artis": "Dewa 19",
+    "genre": "Rock",
+    "kunci": "G",
+    "lirik": [
+      {
+        "chord": "G",
+        "teks": "Aku tak mengerti"
+      },
+      {
+        "chord": "G/F#",
+        "teks": "Apa yang ku rasa"
+      },
+      {
+        "chord": "G/E",
+        "teks": "Rindu yang tak pernah"
+      },
+      {
+        "chord": "C",
+        "teks": "Begitu hebatnya"
+      },
+      {
+        "chord": "C/B",
+        "teks": "Aku mencintaimu lebih dari yang kau tahu"
+      },
+      {
+        "chord": "C",
+        "teks": "Meski kau tak'kan pernah tahu"
+      },
+      {
+        "chord": "G",
+        "teks": "Aku persembahkan hidupku untukmu"
+      },
+      {
+        "chord": "G/F#",
+        "teks": "Telah kurelakan hatiku padamu"
+      },
+      {
+        "chord": "C",
+        "teks": "Namun kau masih bisu"
+      },
+      {
+        "chord": "C/B",
+        "teks": "Diam seribu bahasa"
+      },
+      {
+        "chord": "Am",
+        "teks": "Dan hati kecilku bicara"
+      },
+      {
+        "chord": "G",
+        "teks": "Baru ku sadari"
+      },
+      {
+        "chord": "D/F#",
+        "teks": "Cintaku bertepuk sebelah tangan"
+      },
+      {
+        "chord": "C/E",
+        "teks": "Kau buat remuk seluruh hatiku"
+      },
+      {
+        "chord": "G",
+        "teks": "Semoga waktu akan mengilhami"
+      },
+      {
+        "chord": "G/F#",
+        "teks": "sisi hatimu yang beku"
+      },
+      {
+        "chord": "C",
+        "teks": "Semoga akan datang keajaiban"
+      },
+      {
+        "chord": "C/B",
+        "teks": "Hingga akhirnya kau pun mau"
+      },
+      {
+        "chord": "G",
+        "teks": "Aku mencintaimu"
+      },
+      {
+        "chord": "G",
+        "teks": "Lebih dari yang kau tahu"
+      },
+      {
+        "chord": "C",
+        "teks": "Meski kau tak'kan pernah tahu"
+      },
+      {
+        "chord": "G",
+        "teks": "Baru ku sadari"
+      },
+      {
+        "chord": "D/F#",
+        "teks": "Cintaku bertepuk sebelah tangan"
+      },
+      {
+        "chord": "C/E",
+        "teks": "Kau buat remuk seluruh hatiku"
+      },
+      {
+        "chord": "G",
+        "teks": "Baru ku sadari"
+      },
+      {
+        "chord": "D/F#",
+        "teks": "Cintaku bertepuk sebelah tangan"
+      },
+      {
+        "chord": "C/E",
+        "teks": "Kau buat remuk seluruh hatiku"
+      }
+    ]
+  },
+  {
+    "id": "arjuna-dewa-19",
+    "judul": "Arjuna",
+    "artis": "Dewa 19",
+    "genre": "Rock",
+    "kunci": "Gm",
+    "lirik": [
+      {
+        "chord": "Gm",
+        "teks": "Sudah kudaki gunung tertinggi"
+      },
+      {
+        "chord": "D/F#",
+        "teks": "Hanya untuk mencari dimana dirimu"
+      },
+      {
+        "chord": "Fm6",
+        "teks": "Sudah kujelajahi isi bumi"
+      },
+      {
+        "chord": "C/E",
+        "teks": "Hanya untuk dapat hidup bersamamu"
+      },
+      {
+        "chord": "Cm/Eb",
+        "teks": "Sudah kuarungi laut samudera"
+      },
+      {
+        "chord": "Gm/D",
+        "teks": "Hanya untuk mencari tempat berlabuhmu"
+      },
+      {
+        "chord": "Gm",
+        "teks": "Tapi semakin jauhku mencari cinta"
+      },
+      {
+        "chord": "D",
+        "teks": "Semakin aku tak mengerti"
+      },
+      {
+        "chord": "Gm",
+        "teks": "Akulah Arjuna"
+      },
+      {
+        "chord": "D/F#",
+        "teks": "yang mencari cinta"
+      },
+      {
+        "chord": "Fm6",
+        "teks": "Wahai wanita"
+      },
+      {
+        "chord": "C/E",
+        "teks": "cintailah aku"
+      },
+      {
+        "chord": "Gm",
+        "teks": "Mungkin kutemui cinta sejati"
+      },
+      {
+        "chord": "D/F#",
+        "teks": "Saat aku hembuskan nafas terakhirku"
+      },
+      {
+        "chord": "C/E",
+        "teks": "Mungkin cinta sejati memang tak ada"
+      },
+      {
+        "chord": "Cm/Eb",
+        "teks": "Dalam cerita kehidupan ini"
+      },
+      {
+        "chord": "Gm/D",
+        "teks": ""
+      }
+    ]
+  },
+  {
+    "id": "satu-dewa-19",
+    "judul": "Satu",
+    "artis": "Dewa 19",
+    "genre": "Rock",
+    "kunci": "G",
+    "lirik": [
+      {
+        "chord": "G",
+        "teks": "Aku ini adalah dirimu"
+      },
+      {
+        "chord": "C",
+        "teks": "Cinta ini adalah cintamu"
+      },
+      {
+        "chord": "G",
+        "teks": "Aku ini adalah dirimu"
+      },
+      {
+        "chord": "C",
+        "teks": "Jiwa ini adalah jiwamu"
+      },
+      {
+        "chord": "Bm",
+        "teks": "Rindu ini adalah rindumu"
+      },
+      {
+        "chord": "Am",
+        "teks": "Darah ini adalah darahmu"
+      },
+      {
+        "chord": "G",
+        "teks": "Tak ada yang lain"
+      },
+      {
+        "chord": "D",
+        "teks": "selain dirimu"
+      },
+      {
+        "chord": "Em",
+        "teks": "Yang selalu kupuja"
+      },
+      {
+        "chord": "Bm",
+        "teks": "wouwow"
+      },
+      {
+        "chord": "G",
+        "teks": "Ku sebut namamu"
+      },
+      {
+        "chord": "Bm",
+        "teks": "Di setiap hembusan nafasku"
+      },
+      {
+        "chord": "C",
+        "teks": "Ku sebut namamu"
+      },
+      {
+        "chord": "Cm",
+        "teks": "Ku sebut namamu"
+      },
+      {
+        "chord": "G",
+        "teks": "Dengan tangan-Mu aku menyentuh"
+      },
+      {
+        "chord": "C",
+        "teks": "Dengan kaki-Mu aku berjalan"
+      },
+      {
+        "chord": "G",
+        "teks": "Dengan mata-Mu aku memandang"
+      },
+      {
+        "chord": "C",
+        "teks": "Dengan telinga-Mu aku mendengar"
+      },
+      {
+        "chord": "Bm",
+        "teks": "Dengan lidah-Mu aku bicara"
+      },
+      {
+        "chord": "Am",
+        "teks": "Dengan hati-Mu aku merasa"
+      }
+    ]
+  },
+  {
+    "id": "dewi-dewa-19",
+    "judul": "Dewi",
+    "artis": "Dewa 19",
+    "genre": "Rock",
+    "kunci": "Am",
+    "lirik": [
+      {
+        "chord": "Am",
+        "teks": "Dewi aku mohon beri kesempatan"
+      },
+      {
+        "chord": "Dm",
+        "teks": "Tuk bisa menebus dosaku kepadamu"
+      },
+      {
+        "chord": "G",
+        "teks": "Maafkanlah aku yang menyakitimu"
+      },
+      {
+        "chord": "C",
+        "teks": "Aku tidak pernah menyangka bisa begini"
+      },
+      {
+        "chord": "E",
+        "teks": "Oh dewi, dengarkanlah"
+      },
+      {
+        "chord": "F",
+        "teks": "Dewi, kaulah hidupku"
+      },
+      {
+        "chord": "Em",
+        "teks": "Aku cinta padamu sampai mati"
+      },
+      {
+        "chord": "Gm",
+        "teks": "Dewi, belahlah dadaku"
+      },
+      {
+        "chord": "A",
+        "teks": "Agar kau tahu"
+      },
+      {
+        "chord": "Fm",
+        "teks": "agar kau mengerti"
+      },
+      {
+        "chord": "C",
+        "teks": "Semua terjadi begitu saja"
+      },
+      {
+        "chord": "Dm",
+        "teks": "Tak ada yang serius antara dia dan aku"
+      },
+      {
+        "chord": "G",
+        "teks": "Tidak ada cinta dan tidak ada hati"
+      },
+      {
+        "chord": "C",
+        "teks": "Hanya karena aku lelaki dan dia wanita"
+      },
+      {
+        "chord": "E",
+        "teks": "Oh dewi, dengarkanlah"
+      },
+      {
+        "chord": "F",
+        "teks": "Dewi, kaulah hidupku"
+      },
+      {
+        "chord": "Em",
+        "teks": "Aku cinta padamu sampai mati"
+      },
+      {
+        "chord": "Gm",
+        "teks": "Dewi, belahlah dadaku"
+      },
+      {
+        "chord": "A",
+        "teks": "Agar kau tahu"
+      },
+      {
+        "chord": "Fm",
+        "teks": "agar kau mengerti"
+      },
+      {
+        "chord": "Am",
+        "teks": "Oh dewi, dengarkanlah"
+      },
+      {
+        "chord": "Em",
+        "teks": "Dewi, kaulah hidupku"
+      },
+      {
+        "chord": "Gm",
+        "teks": "Aku cinta padamu sampai mati"
+      },
+      {
+        "chord": "A",
+        "teks": "Dewi, belahlah dadaku"
+      },
+      {
+        "chord": "Fm",
+        "teks": "Agar kau tahu"
+      },
+      {
+        "chord": "C",
+        "teks": "agar kau mengerti"
+      },
+      {
+        "chord": "F",
+        "teks": "wouo wouo wouo wouo"
+      },
+      {
+        "chord": "Em",
+        "teks": "Dewi, kaulah hidupku"
+      },
+      {
+        "chord": "G",
+        "teks": "Aku cinta padamu sampai mati"
+      },
+      {
+        "chord": "Dm",
+        "teks": "Dewi, belahlah dadaku"
+      },
+      {
+        "chord": "Fm",
+        "teks": "Agar kau tahu"
+      },
+      {
+        "chord": "C",
+        "teks": "agar kau mengerti"
+      },
+      {
+        "chord": "Am",
+        "teks": "Aku cinta padamu sampai mati"
+      },
+      {
+        "chord": "G",
+        "teks": "Dewi, belahlah dadaku"
+      },
+      {
+        "chord": "Fm",
+        "teks": "Agar kau tahu"
+      },
+      {
+        "chord": "Em",
+        "teks": "agar kau mengerti"
+      }
+    ]
+  },
+  {
+    "id": "risalah-hati-dewa-19",
+    "judul": "Risalah Hati",
+    "artis": "Dewa 19",
+    "genre": "Rock",
+    "kunci": "Am",
+    "lirik": [
+      {
+        "chord": "Am",
+        "teks": "Hidupku tanpa cintamu"
+      },
+      {
+        "chord": "Em",
+        "teks": "Bagai malam tanpa bintang"
+      },
+      {
+        "chord": "F",
+        "teks": "Cintaku tanpa sambutmu"
+      },
+      {
+        "chord": "G",
+        "teks": "Bagai panas tanpa hujan"
+      },
+      {
+        "chord": "F",
+        "teks": "Jiwaku berbisik lirih"
+      },
+      {
+        "chord": "Em",
+        "teks": "ku harus milikimu"
+      },
+      {
+        "chord": "Dm",
+        "teks": "Aku bisa membuatmu jatuh cinta kepadaku"
+      },
+      {
+        "chord": "Em",
+        "teks": "Meski kau tak cinta kepadaku"
+      },
+      {
+        "chord": "A",
+        "teks": "Beri sedikit waktu biar cinta datang"
+      },
+      {
+        "chord": "Dm",
+        "teks": "Karena telah terbiasa"
+      },
+      {
+        "chord": "Am",
+        "teks": "Simpan mawar yang ku beri"
+      },
+      {
+        "chord": "Em",
+        "teks": "Mungkin wanginya mengilhami"
+      },
+      {
+        "chord": "F",
+        "teks": "Sudikah dirimu untuk"
+      },
+      {
+        "chord": "G",
+        "teks": "Kenali aku dulu"
+      },
+      {
+        "chord": "F",
+        "teks": "Sebelum kau ludahi aku"
+      },
+      {
+        "chord": "Em",
+        "teks": "Sebelum kau robek hatiku"
+      },
+      {
+        "chord": "Dm",
+        "teks": "Aku bisa membuatmu jatuh cinta kepadaku"
+      },
+      {
+        "chord": "Em",
+        "teks": "Meski kau tak cinta kepadaku"
+      },
+      {
+        "chord": "A",
+        "teks": "Beri sedikit waktu biar cinta datang"
+      },
+      {
+        "chord": "Dm",
+        "teks": "Karena telah terbiasa"
+      },
+      {
+        "chord": "Gm",
+        "teks": "Aku bisa membuatmu jatuh cinta kepadaku"
+      },
+      {
+        "chord": "Em",
+        "teks": "Meski kau tak cinta"
+      },
+      {
+        "chord": "A",
+        "teks": "Aku bisa membuatmu jatuh cinta kepadaku"
+      },
+      {
+        "chord": "Dm",
+        "teks": "Meski kau tak cinta"
+      },
+      {
+        "chord": "Em",
+        "teks": "Beri sedikit waktu biar cinta datang"
+      },
+      {
+        "chord": "F",
+        "teks": "Karena telah terbiasa"
+      },
+      {
+        "chord": "Am",
+        "teks": "Hidupku tanpa cintamu"
+      },
+      {
+        "chord": "Em",
+        "teks": "Bagai malam tanpa bintang"
+      },
+      {
+        "chord": "F",
+        "teks": "Cinta tanpa sambutmu"
+      },
+      {
+        "chord": "Am",
+        "teks": "Bagai panas tanpa hujan"
+      }
+    ]
+  },
+  {
+    "id": "kangen-dewa-19",
+    "judul": "Kangen",
+    "artis": "Dewa 19",
+    "genre": "Rock",
+    "kunci": "D",
+    "lirik": [
+      {
+        "chord": "D",
+        "teks": "Ku terima suratmu"
+      },
+      {
+        "chord": "Bm",
+        "teks": "tlah ku baca dan aku mengerti"
+      },
+      {
+        "chord": "G",
+        "teks": "Betapa merindunya"
+      },
+      {
+        "chord": "A",
+        "teks": "dirimu akan hadirnya diriku"
+      },
+      {
+        "chord": "F#m",
+        "teks": "Di dalam hari-harimu"
+      },
+      {
+        "chord": "G",
+        "teks": "bersama lagi"
+      },
+      {
+        "chord": "Bm",
+        "teks": "Kau tanyakan padaku"
+      },
+      {
+        "chord": "G",
+        "teks": "kapan aku akan kembali lagi"
+      },
+      {
+        "chord": "A",
+        "teks": "Katamu kau tak kuasa"
+      },
+      {
+        "chord": "G",
+        "teks": "melawan gejolak di dalam dada"
+      },
+      {
+        "chord": "F#m",
+        "teks": "Yang membara menahan rasa"
+      },
+      {
+        "chord": "G",
+        "teks": "pertemuan kita nanti"
+      },
+      {
+        "chord": "Bm",
+        "teks": "Saat kau ada di sisiku"
+      },
+      {
+        "chord": "F#m",
+        "teks": "Semua kata rindumu semakin membuatku"
+      },
+      {
+        "chord": "G",
+        "teks": "Tak berdaya menahan rasa ingin jumpa"
+      },
+      {
+        "chord": "A",
+        "teks": "Percayalah padaku akupun rindu kamu"
+      },
+      {
+        "chord": "Bm",
+        "teks": "Ku akan pulang melepas semua kerinduan"
+      },
+      {
+        "chord": "A/C#",
+        "teks": "Yang terpendam"
+      },
+      {
+        "chord": "D",
+        "teks": "Kau tuliskan padaku"
+      },
+      {
+        "chord": "Bm",
+        "teks": "Kata cinta yang manis dalam suratmu"
+      },
+      {
+        "chord": "G",
+        "teks": "Kau katakan padaku"
+      },
+      {
+        "chord": "A",
+        "teks": "Saat ini ku ingin hangat pelukmu"
+      },
+      {
+        "chord": "F#m",
+        "teks": "Dan belai lembut kasihmu"
+      },
+      {
+        "chord": "G",
+        "teks": "Takkan ku lupa slamanya"
+      },
+      {
+        "chord": "Bm",
+        "teks": "Saat kau ada di sisiku"
+      },
+      {
+        "chord": "F#m",
+        "teks": "Semua kata rindumu semakin membuatku"
+      },
+      {
+        "chord": "G",
+        "teks": "Tak berdaya menahan rasa ingin jumpa"
+      },
+      {
+        "chord": "A",
+        "teks": "Percayalah padaku akupun rindu kamu"
+      },
+      {
+        "chord": "Bm",
+        "teks": "Ku akan pulang melepas semua kerinduan"
+      },
+      {
+        "chord": "A/C#",
+        "teks": "Yang terpendam"
+      },
+      {
+        "chord": "Em",
+        "teks": "Jangan katakan cinta menambah beban rasa"
+      },
+      {
+        "chord": "Bm",
+        "teks": "Sudah simpan saja sedihmu itu"
+      },
+      {
+        "chord": "Em",
+        "teks": "Ku akan datang"
+      },
+      {
+        "chord": "F#m",
+        "teks": "Dengan tangan-Mu aku menyentuh"
+      },
+      {
+        "chord": "G",
+        "teks": "Dengan kaki-Mu aku berjalan"
+      },
+      {
+        "chord": "A",
+        "teks": "Dengan mata-Mu aku memandang"
+      }
+    ]
+  },
+  {
+    "id": "aku-milikmu-dewa-19",
+    "judul": "Aku Milikmu",
+    "artis": "Dewa 19",
+    "genre": "Rock",
+    "kunci": "A",
+    "lirik": [
+      {
+        "chord": "A",
+        "teks": "Terdengar lirih bisikanmu diantara bayang-bayangmu"
+      },
+      {
+        "chord": "E",
+        "teks": "Terucap kata cinta yang dulu tersimpan"
+      },
+      {
+        "chord": "C#m",
+        "teks": "Dan tak mau pergi"
+      },
+      {
+        "chord": "B",
+        "teks": "Sekejap cinta yang terjalin dari sebuah cerita"
+      },
+      {
+        "chord": "E",
+        "teks": "Yang tak mungkin terlupa terukir di hati"
+      },
+      {
+        "chord": "C#m",
+        "teks": "Dan tak mau pergi"
+      },
+      {
+        "chord": "F#m",
+        "teks": "Mungkinkah kumiliki cinta seperti ini lagi"
+      },
+      {
+        "chord": "G#m",
+        "teks": "Jangan biarkan aku kehilangan dirimu"
+      },
+      {
+        "chord": "E",
+        "teks": "Coba dengarkanlah sumpahku janji suci dari hati"
+      },
+      {
+        "chord": "A",
+        "teks": "Aku cinta kamu"
+      },
+      {
+        "chord": "C#m",
+        "teks": "Jangan dengar kata mereka yang tak ingin kita satu"
+      },
+      {
+        "chord": "D",
+        "teks": "Yakinkan aku milikmu aku milikmu"
+      },
+      {
+        "chord": "A",
+        "teks": "Jalinan cinta tulus suci terpadu terikat erat"
+      },
+      {
+        "chord": "E",
+        "teks": "Jangan terpisah lagi waktu kan menguji"
+      },
+      {
+        "chord": "C#m",
+        "teks": "Cinta kita berdua"
+      },
+      {
+        "chord": "F#m",
+        "teks": "Mungkinkah kumiliki cinta seperti ini lagi"
+      },
+      {
+        "chord": "G#m",
+        "teks": "Jangan biarkan aku kehilangan dirimu"
+      },
+      {
+        "chord": "E",
+        "teks": "Coba dengarkanlah sumpahku janji suci dari hati"
+      },
+      {
+        "chord": "A",
+        "teks": "Aku cinta kamu"
+      },
+      {
+        "chord": "C#m",
+        "teks": "Jangan dengar kata mereka yang tak ingin kita satu"
+      },
+      {
+        "chord": "D",
+        "teks": "Yakinkan aku milikmu aku milikmu"
+      }
+    ]
+  }
+]

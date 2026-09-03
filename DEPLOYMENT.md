@@ -10,11 +10,11 @@ PowerChord adalah static HTML site tanpa framework dan tanpa build output terpis
 | Framework preset | None / no framework |
 | Root directory | `/` |
 | Build command | `npm run build` |
-| Build output directory | `/` |
+| Build output directory | `/public` |
 | Node.js version | 22 |
 | Python version | 3.12 untuk tooling CI |
 
-`npm run build` menjalankan quality check, static verifier, dan unit test. Karena source static berada di root, file HTML, CSS, JavaScript, JSON, favicon, `_headers`, dan `robots.txt` dipublikasikan dari root repository.
+`npm run build` menyiapkan asset runtime ke `public/`, menjalankan quality check, static verifier, dan unit test. Source canonical dataset tetap berada di `data/songs.json`, sedangkan Cloudflare Pages mempublikasikan hasil build dari `public/`, termasuk HTML, CSS, JavaScript, JSON, favicon, `_headers`, dan `robots.txt`.
 
 ## Local verification
 

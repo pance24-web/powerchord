@@ -11,7 +11,7 @@ import {
     getSongHref,
     parseSongReference,
     transposeChord,
-} from '../js/core.js';
+} from '../public/js/core.js';
 
 const songs = JSON.parse(await readFile(new URL('../data/songs.json', import.meta.url), 'utf8'));
 

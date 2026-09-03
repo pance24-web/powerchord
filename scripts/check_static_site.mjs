@@ -3,27 +3,28 @@ import { dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const publicRoot = resolve(root, 'public');
 const errors = [];
 const fail = (message) => {
     errors.push(message);
 };
 const exists = async (relativePath) => {
     try {
-        await access(join(root, relativePath));
+        await access(join(publicRoot, relativePath));
         return true;
     } catch {
         return false;
     }
 };
 
-const entries = (await readdir(root, { withFileTypes: true }))
+const entries = (await readdir(publicRoot, { withFileTypes: true }))
     .filter((entry) => entry.isFile() && extname(entry.name) === '.html')
     .map((entry) => entry.name)
     .sort();
 if (!entries.length) fail('tidak ada halaman HTML');
 
 for (const filename of entries) {
-    const html = await readFile(join(root, filename), 'utf8');
+    const html = await readFile(join(publicRoot, filename), 'utf8');
     if (!/<html\b[^>]*\blang="id"/.test(html)) fail(`${filename} tidak memiliki lang="id"`);
     if (!/<meta\b[^>]*name="viewport"/.test(html)) fail(`${filename} tidak memiliki viewport meta`);
     if (!/<link\b[^>]*rel="stylesheet"[^>]*href="css\/style(?:\.min)?\.css"/.test(html)) fail(`${filename} tidak memuat css/style.css atau style.min.css`);
@@ -45,11 +46,11 @@ if (!await exists('asset/favicon.webp')) fail('asset/favicon.webp tidak ditemuka
 if (!await exists('robots.txt')) fail('robots.txt tidak ditemukan');
 if (!await exists('_headers')) fail('_headers tidak ditemukan');
 
-const css = await readFile(join(root, 'css/style.css'), 'utf8');
+const css = await readFile(join(publicRoot, 'css/style.css'), 'utf8');
 if ((css.match(/{/g) || []).length !== (css.match(/}/g) || []).length) {
     fail('css/style.css memiliki kurung blok yang tidak seimbang');
 }
-const headers = await readFile(join(root, '_headers'), 'utf8');
+const headers = await readFile(join(publicRoot, '_headers'), 'utf8');
 for (const header of ['X-Content-Type-Options:', 'Referrer-Policy:', 'Content-Security-Policy:']) {
     if (!headers.includes(header)) fail(`_headers tidak memiliki ${header}`);
 }
