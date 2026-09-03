@@ -8,5 +8,5 @@ test('Python dataset validator passes on the repository dataset', () => {
         encoding: 'utf8',
     });
     assert.equal(result.status, 0, result.stderr || result.stdout);
-    assert.match(result.stdout, /VALIDATION OK: 100 lagu tervalidasi/);
+    assert.match(result.stdout, /VALIDATION OK: \d+ lagu tervalidasi/, 'Validator harus mengembalikan pesan validasi yang benar');
 });

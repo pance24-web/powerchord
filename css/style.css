@@ -755,29 +755,86 @@ button:disabled:focus-visible {
 
 /* --- FOOTER --- */
 .footer {
+    background-color: var(--surface);
     border-top: 1px solid var(--line);
-    color: var(--muted);
-    font-size: 0.78rem;
+    padding: 3rem 1rem 1rem;
+    margin-top: 4rem;
+    font-size: 0.9rem;
 }
-.footer-inner {
+
+.footer-container {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    min-height: 66px;
+    flex-direction: column;
 }
-.footer-inner nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 22px;
-}
-.footer-inner a {
-    color: var(--text);
-    text-decoration: none;
-}
-.footer-inner a:hover,
-.footer-inner a:focus-visible {
+
+.footer-brand {
     color: var(--accent);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.footer-description {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.footer-section h4 {
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 1rem 0 0.8rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+}
+
+.footer-copyright {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+.footer-copyright a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-copyright a:hover {
+    text-decoration: underline;
 }
 
 /* --- DETAIL PAGE --- */
@@ -982,6 +1039,17 @@ button:disabled:focus-visible {
     .home-layout {
         padding-top: 30px;
         padding-bottom: 80px;
+    }
+    .footer {
+        padding: 2rem 1rem 1rem;
+        margin-top: 3rem;
+    }
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .footer-brand {
+        font-size: 1.1rem;
     }
     .detail-layout {
         grid-template-columns: 1fr;

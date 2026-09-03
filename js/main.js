@@ -43,10 +43,14 @@ function renderLatestSongRow(song) {
     const title = document.createElement('span');
     title.className = 'song-title';
     title.textContent = song.judul;
-    const artist = document.createElement('span');
-    artist.className = 'song-artist';
-    artist.textContent = song.artis;
-    main.append(title, artist);
+    
+    const artistLink = document.createElement('a');
+    artistLink.className = 'song-artist';
+    artistLink.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
+    artistLink.textContent = song.artis;
+    artistLink.addEventListener('click', (e) => e.stopPropagation());
+    
+    main.append(title, artistLink);
 
     const difficulty = document.createElement('span');
     difficulty.className = 'song-meta';
@@ -130,6 +134,16 @@ function renderSearchResults(filtered) {
         option.addEventListener('click', closeSearchResults);
         results.appendChild(option);
     });
+    
+    if (filtered.length > 6) {
+        const seeAll = document.createElement('a');
+        seeAll.className = 'view-all-link';
+        seeAll.href = `catalog.html?q=${encodeURIComponent(state.searchQuery)}`;
+        seeAll.textContent = `Lihat Semua (${filtered.length}) →`;
+        seeAll.addEventListener('click', closeSearchResults);
+        results.appendChild(seeAll);
+    }
+    
     if (!filtered.length) {
         const empty = document.createElement('p');
         empty.className = 'search-empty';
@@ -155,10 +169,14 @@ function renderPopularSongRow(song, index) {
     const title = document.createElement('div');
     title.className = 'popular-song-title';
     title.textContent = song.judul;
-    const artist = document.createElement('div');
-    artist.className = 'popular-song-artist';
-    artist.textContent = song.artis;
-    main.append(title, artist);
+    
+    const artistLink = document.createElement('a');
+    artistLink.className = 'popular-song-artist';
+    artistLink.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
+    artistLink.textContent = song.artis;
+    artistLink.addEventListener('click', (e) => e.stopPropagation());
+    
+    main.append(title, artistLink);
 
     const genre = document.createElement('span');
     genre.className = 'popular-genre';
@@ -257,7 +275,7 @@ function initTheme() {
     });
 }
 
-function initHomepageInteractions() {
+function initSearchInteractions() {
     const input = document.getElementById('searchInput');
     const form = document.getElementById('headerSearchForm');
     if (!input) return;
@@ -286,7 +304,9 @@ function initHomepageInteractions() {
         
         // Tunggu 300ms setelah user berhenti mengetik
         searchDebounceTimer = setTimeout(() => {
-            filterHomepage();
+            if (document.getElementById('songList')) {
+                filterHomepage();
+            }
         }, 300);
     });
 
@@ -322,16 +342,43 @@ function initHomepageInteractions() {
 
     form?.addEventListener('submit', (event) => {
         event.preventDefault();
-        filterHomepage();
         closeSearchResults();
-        document.getElementById('song-catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Track pencarian
+        if (state.searchQuery.trim()) {
+            trackSearchQuery(state.searchQuery.trim());
+        }
+        
+        // Jika di catalog.html, update URL dengan parameter q=
+        if (window.location.pathname.includes('catalog.html')) {
+            const newUrl = new URL(window.location.href);
+            newUrl.searchParams.set('q', state.searchQuery);
+            window.history.pushState({}, '', newUrl);
+        } else {
+            filterHomepage();
+            document.getElementById('song-catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     });
 
     document.querySelectorAll('[data-genre]').forEach((button) => {
         button.addEventListener('click', () => {
-            state.activeGenre = button.dataset.genre || 'All';
-            updateFilterButtonState('[data-genre]', state.activeGenre, 'genre');
-            filterHomepage();
+            const genre = button.dataset.genre || 'All';
+            
+            // Jika di catalog.html, update URL dengan parameter genre=
+            if (window.location.pathname.includes('catalog.html')) {
+                const newUrl = new URL(window.location.href);
+                if (genre === 'All') {
+                    newUrl.searchParams.delete('genre');
+                } else {
+                    newUrl.searchParams.set('genre', genre);
+                }
+                window.location.href = newUrl;
+            } else {
+                // Jika di homepage, update state dan filter
+                state.activeGenre = genre;
+                updateFilterButtonState('[data-genre]', state.activeGenre, 'genre');
+                filterHomepage();
+            }
         });
     });
 
@@ -591,9 +638,227 @@ function initOfflineIndicator() {
     window.addEventListener('offline', showOffline);
     window.addEventListener('online', showOnline);
 }
+// --- COLLECTION & HISTORY FUNCTIONS ---
+function getFavorites() {
+    try {
+        const favorites = localStorage.getItem('powerchord_favorites');
+        return favorites ? JSON.parse(favorites) : [];
+    } catch (error) {
+        console.warn('Gagal membaca favorit:', error);
+        return [];
+    }
+}
+
+function getHistory() {
+    try {
+        const history = localStorage.getItem('powerchord_history');
+        return history ? JSON.parse(history) : [];
+    } catch (error) {
+        console.warn('Gagal membaca riwayat:', error);
+        return [];
+    }
+}
+
+function renderCollectionList() {
+    const container = document.getElementById('collectionList');
+    const emptyContainer = document.getElementById('emptyCollection');
+    const countElement = document.getElementById('collectionCount');
+    
+    if (!container) return;
+    
+    const favorites = getFavorites();
+    const songs = state.songs.filter(song => favorites.includes(song.id));
+    
+    if (countElement) {
+        countElement.textContent = `${songs.length} lagu`;
+    }
+    
+    if (songs.length === 0) {
+        container.hidden = true;
+        if (emptyContainer) emptyContainer.hidden = false;
+        return;
+    }
+    
+    container.hidden = false;
+    if (emptyContainer) emptyContainer.hidden = true;
+    container.replaceChildren();
+    
+    songs.forEach((song) => {
+        const row = document.createElement('a');
+        row.className = 'song-row';
+        row.href = getSongHref(song, getSongIndex(song));
+        
+        const main = document.createElement('span');
+        main.className = 'song-main';
+        const title = document.createElement('span');
+        title.className = 'song-title';
+        title.textContent = song.judul;
+        const artist = document.createElement('span');
+        artist.className = 'song-artist';
+        artist.textContent = song.artis;
+        main.append(title, artist);
+        
+        const difficulty = document.createElement('span');
+        difficulty.className = 'song-meta';
+        difficulty.textContent = getDifficulty(song);
+        
+        const key = document.createElement('span');
+        key.className = 'song-key';
+        key.textContent = song.kunci || '—';
+        
+        const arrow = document.createElement('span');
+        arrow.className = 'song-arrow';
+        arrow.textContent = '→';
+        arrow.setAttribute('aria-hidden', 'true');
+        
+        row.append(main, difficulty, key, arrow);
+        container.appendChild(row);
+    });
+}
+
+function renderHistoryList() {
+    const container = document.getElementById('historyList');
+    const emptyContainer = document.getElementById('emptyHistory');
+    const countElement = document.getElementById('historyCount');
+    
+    if (!container) return;
+    
+    const history = getHistory();
+    const songs = state.songs.filter(song => history.includes(song.id));
+    
+    if (countElement) {
+        countElement.textContent = `${songs.length} lagu`;
+    }
+    
+    if (songs.length === 0) {
+        container.hidden = true;
+        if (emptyContainer) emptyContainer.hidden = false;
+        return;
+    }
+    
+    container.hidden = false;
+    if (emptyContainer) emptyContainer.hidden = true;
+    container.replaceChildren();
+    
+    songs.forEach((song) => {
+        const row = document.createElement('a');
+        row.className = 'song-row';
+        row.href = getSongHref(song, getSongIndex(song));
+        
+        const main = document.createElement('span');
+        main.className = 'song-main';
+        const title = document.createElement('span');
+        title.className = 'song-title';
+        title.textContent = song.judul;
+        const artist = document.createElement('span');
+        artist.className = 'song-artist';
+        artist.textContent = song.artis;
+        main.append(title, artist);
+        
+        const difficulty = document.createElement('span');
+        difficulty.className = 'song-meta';
+        difficulty.textContent = getDifficulty(song);
+        
+        const key = document.createElement('span');
+        key.className = 'song-key';
+        key.textContent = song.kunci || '—';
+        
+        const arrow = document.createElement('span');
+        arrow.className = 'song-arrow';
+        arrow.textContent = '→';
+        arrow.setAttribute('aria-hidden', 'true');
+        
+        row.append(main, difficulty, key, arrow);
+        container.appendChild(row);
+    });
+}
+
+function initCollectionPage() {
+    if (!document.getElementById('collectionList')) return;
+    loadSongs().then(() => {
+        renderCollectionList();
+    });
+}
+
+function initHistoryPage() {
+    if (!document.getElementById('historyList')) return;
+    loadSongs().then(() => {
+        renderHistoryList();
+    });
+}
+
+function initCatalogPage() {
+    const songList = document.getElementById('songList');
+    if (!songList) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const genreParam = params.get('genre');
+    const artistParam = params.get('artist');
+    const queryParam = params.get('q');
+
+    if (genreParam) {
+        state.activeGenre = genreParam;
+        updateFilterButtonState('[data-genre]', state.activeGenre, 'genre');
+    }
+
+    if (artistParam) {
+        state.searchQuery = artistParam;
+        const input = document.getElementById('searchInput');
+        if (input) input.value = artistParam;
+    }
+
+    if (queryParam) {
+        state.searchQuery = queryParam;
+        const input = document.getElementById('searchInput');
+        if (input) input.value = queryParam;
+    }
+
+    loadSongs().then(() => {
+        filterHomepage();
+    });
+}
+
+// --- ANALYTICS & TRACKING ---
+function trackPageView() {
+    try {
+        const page = window.location.pathname.split('/').pop() || 'index.html';
+        const searchParams = window.location.search;
+        const fullPath = page + searchParams;
+        
+        // Simpan ke localStorage (untuk analytics sederhana)
+        const analytics = JSON.parse(localStorage.getItem('powerchord_analytics') || '[]');
+        analytics.push({
+            type: 'page_view',
+            page: fullPath,
+            timestamp: new Date().toISOString(),
+        });
+        localStorage.setItem('powerchord_analytics', JSON.stringify(analytics.slice(-100))); // Simpan 100 entry terakhir
+    } catch (error) {
+        console.warn('Gagal menyimpan analytics:', error);
+    }
+}
+
+function trackSearchQuery(query) {
+    try {
+        const analytics = JSON.parse(localStorage.getItem('powerchord_analytics') || '[]');
+        analytics.push({
+            type: 'search',
+            query: query,
+            timestamp: new Date().toISOString(),
+        });
+        localStorage.setItem('powerchord_analytics', JSON.stringify(analytics.slice(-100)));
+    } catch (error) {
+        console.warn('Gagal menyimpan analytics pencarian:', error);
+    }
+}
+
 // --- INISIALISASI ---
 initOfflineIndicator();
 initTheme();
 initDrawer();
-initHomepageInteractions();
+initSearchInteractions();
 loadSongs();
+initCollectionPage();
+initHistoryPage();
+initCatalogPage();
+trackPageView();

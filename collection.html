@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Katalog lengkap chord gitar dasar dan lirik lagu mudah dimainkan di PowerChord.">
+    <meta name="description" content="Koleksi chord gitar favoritmu yang disimpan di PowerChord.">
     <meta name="theme-color" content="#F97316">
-    <meta property="og:title" content="Katalog Chord Lagu Terlengkap — PowerChord">
-    <meta property="og:description" content="Cari dan temukan chord gitar lagu favoritmu dari berbagai genre dan artis.">
+    <meta property="og:title" content="Koleksi Chord Favorit — PowerChord">
+    <meta property="og:description" content="Lihat dan kelola koleksi chord gitar favoritmu yang tersimpan.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://powerchord.pages.dev/catalog.html">
+    <meta property="og:url" content="https://powerchord.pages.dev/collection.html">
     <meta property="og:image" content="https://powerchord.pages.dev/asset/PowerChord-logo.webp">
-    <title>Katalog Chord Kunci Gitar & Lirik Lagu — PowerChord</title>
-    <link rel="canonical" href="https://powerchord.pages.dev/catalog.html">
+    <title>Koleksi Saya — PowerChord</title>
+    <link rel="canonical" href="https://powerchord.pages.dev/collection.html">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/webp" href="asset/favicon.webp">
@@ -21,7 +21,7 @@
 <div class="app-wrapper">
 
     <!-- DRAWER / SIDEBAR -->
-   <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
     <aside class="drawer" id="drawer" role="navigation" aria-label="Navigasi utama">
         <div class="drawer-header">
             <div class="logo"><i class="fas fa-guitar"></i><span class="logo-text">Power<span>Chord</span></span></div>
@@ -35,8 +35,10 @@
         </div>
         <nav class="drawer-nav">
             <a href="index.html"><i class="fas fa-home"></i> Beranda</a>
-            <a class="active" href="catalog.html"><i class="fas fa-book"></i> Daftar Lagu</a>
+            <a href="catalog.html"><i class="fas fa-book"></i> Daftar Lagu</a>
             <a href="artists.html"><i class="fas fa-microphone"></i> Artis</a>
+            <a class="active" href="collection.html"><i class="fas fa-star"></i> Koleksi Saya</a>
+            <a href="history.html"><i class="fas fa-clock"></i> Riwayat</a>
             <hr>
             <a href="about.html"><i class="fas fa-info-circle"></i> Tentang</a>
             <a href="contact.html"><i class="fas fa-envelope"></i> Kontak</a>
@@ -74,77 +76,25 @@
             </div>
         </header>
 
-        <!-- FILTER GENRE -->
-        <section class="genre-filter-section" aria-label="Filter genre">
-            <div class="container">
-                <h2 class="section-subtitle">🎯 Filter Genre:</h2>
-                <div class="genre-filters">
-                    <button type="button" data-genre="All" class="active" aria-pressed="true">Semua</button>
-                    <button type="button" data-genre="Pop" aria-pressed="false">Pop</button>
-                    <button type="button" data-genre="Rock" aria-pressed="false">Rock</button>
-                    <button type="button" data-genre="Dangdut" aria-pressed="false">Dangdut</button>
-                    <button type="button" data-genre="Indie" aria-pressed="false">Indie</button>
-                    <button type="button" data-genre="Reggae" aria-pressed="false">Reggae</button>
-                    <button type="button" data-genre="Minang" aria-pressed="false">Minang</button>
-                    <button type="button" data-genre="Melayu" aria-pressed="false">Melayu</button>
-                    <button type="button" data-genre="Pop Rock" aria-pressed="false">Pop Rock</button>
-                    <button type="button" data-genre="Ska" aria-pressed="false">Ska</button>
-                    <button type="button" data-genre="Folk" aria-pressed="false">Folk</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- NAVIGASI ALFABET -->
-        <section class="alphabet-section" id="daftar-isi" aria-label="Daftar lagu berdasarkan abjad">
-            <div class="container">
-                <h2 class="section-subtitle">📖 Pilih Abjad Huruf Depan</h2>
-                <div class="alphabet-nav">
-                    <a href="#song-catalog" data-letter="0-9">0-9</a>
-                    <a href="#song-catalog" data-letter="A">A</a>
-                    <a href="#song-catalog" data-letter="B">B</a>
-                    <a href="#song-catalog" data-letter="C">C</a>
-                    <a href="#song-catalog" data-letter="D">D</a>
-                    <a href="#song-catalog" data-letter="E">E</a>
-                    <a href="#song-catalog" data-letter="F">F</a>
-                    <a href="#song-catalog" data-letter="G">G</a>
-                    <a href="#song-catalog" data-letter="H">H</a>
-                    <a href="#song-catalog" data-letter="I">I</a>
-                    <a href="#song-catalog" data-letter="J">J</a>
-                    <a href="#song-catalog" data-letter="K">K</a>
-                    <a href="#song-catalog" data-letter="L">L</a>
-                    <a href="#song-catalog" data-letter="M">M</a>
-                    <a href="#song-catalog" data-letter="N">N</a>
-                    <a href="#song-catalog" data-letter="O">O</a>
-                    <a href="#song-catalog" data-letter="P">P</a>
-                    <a href="#song-catalog" data-letter="Q">Q</a>
-                    <a href="#song-catalog" data-letter="R">R</a>
-                    <a href="#song-catalog" data-letter="S">S</a>
-                    <a href="#song-catalog" data-letter="T">T</a>
-                    <a href="#song-catalog" data-letter="U">U</a>
-                    <a href="#song-catalog" data-letter="V">V</a>
-                    <a href="#song-catalog" data-letter="W">W</a>
-                    <a href="#song-catalog" data-letter="X">X</a>
-                    <a href="#song-catalog" data-letter="Y">Y</a>
-                    <a href="#song-catalog" data-letter="Z">Z</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- KATALOG LAGU -->
+        <!-- KONTEN KOLEKSI -->
         <main class="container home-layout">
             <section class="primary-column">
                 <header class="intro-block">
-                    <h1>Katalog Chord Kunci Gitar</h1>
-                    <p>Temukan chord gitar dan lirik lagu favoritmu. Lengkap, akurat, dan mudah dimainkan.</p>
+                    <h1>Koleksi Saya</h1>
+                    <p>Lagu-lagu favoritmu yang tersimpan. Tambahkan lagu ke koleksi dengan mengklik ikon bintang (⭐) di halaman detail lagu.</p>
                 </header>
-                <section class="content-block" id="song-catalog">
+                <section class="content-block" id="collection-catalog">
                     <div class="section-heading">
-                        <h2>📋 Semua Lagu</h2>
-                        <span class="result-count" id="latestCount">Memuat...</span>
+                        <h2>🌟 Daftar Koleksi</h2>
+                        <span class="result-count" id="collectionCount">Memuat...</span>
                     </div>
-                    <div id="searchResults" class="search-results" hidden></div>
-                    <div id="songList" class="link-list catalog-shell is-loading" aria-busy="true">
-                        <p class="loading-state" role="status">Memuat daftar lagu…</p>
+                    <div id="collectionList" class="link-list catalog-shell is-loading" aria-busy="true">
+                        <p class="loading-state" role="status">Memuat koleksi...</p>
+                    </div>
+                    <div id="emptyCollection" class="empty-state" hidden>
+                        <i class="fas fa-star empty-icon"></i>
+                        <h3>Koleksi Kosong</h3>
+                        <p>Belum ada lagu di koleksi. Mulai jelajahi <a href="catalog.html">katalog lagu</a> dan tambahkan lagu favoritmu!</p>
                     </div>
                 </section>
             </section>

@@ -3,8 +3,9 @@ import { dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const errors = [];
 const fail = (message) => {
-    throw new Error(`STATIC VALIDATION FAILED: ${message}`);
+    errors.push(message);
 };
 const exists = async (relativePath) => {
     try {
@@ -25,7 +26,8 @@ for (const filename of entries) {
     const html = await readFile(join(root, filename), 'utf8');
     if (!/<html\b[^>]*\blang="id"/.test(html)) fail(`${filename} tidak memiliki lang="id"`);
     if (!/<meta\b[^>]*name="viewport"/.test(html)) fail(`${filename} tidak memiliki viewport meta`);
-    if (!/<link\b[^>]*rel="stylesheet"[^>]*href="css\/style(?:\.min)?\.css"/.test(html)) fail(`${filename} tidak memuat css/style.css atau style.min.css`);    if (!/<script\b[^>]*src="js\/main\.js"[^>]*defer/.test(html)) fail(`${filename} tidak memuat js/main.js dengan defer`);
+    if (!/<link\b[^>]*rel="stylesheet"[^>]*href="css\/style(?:\.min)?\.css"/.test(html)) fail(`${filename} tidak memuat css/style.css atau style.min.css`);
+    if (!/<script\b[^>]*src="js\/main\.js"[^>]*defer/.test(html)) fail(`${filename} tidak memuat js/main.js dengan defer`);
     if ((html.match(/<h1\b/g) || []).length !== 1) fail(`${filename} harus memiliki tepat satu h1`);
     if (/\b(?:style|on[a-z]+)="/i.test(html)) fail(`${filename} memiliki inline style atau event handler`);
 
@@ -39,7 +41,7 @@ for (const filename of entries) {
 }
 
 if (!await exists('data/songs.json')) fail('data/songs.json tidak ditemukan');
-if (!await exists('asset/favicon.png')) fail('asset/favicon.png tidak ditemukan');
+if (!await exists('asset/favicon.webp')) fail('asset/favicon.webp tidak ditemukan');
 if (!await exists('robots.txt')) fail('robots.txt tidak ditemukan');
 if (!await exists('_headers')) fail('_headers tidak ditemukan');
 
@@ -51,4 +53,9 @@ const headers = await readFile(join(root, '_headers'), 'utf8');
 for (const header of ['X-Content-Type-Options:', 'Referrer-Policy:', 'Content-Security-Policy:']) {
     if (!headers.includes(header)) fail(`_headers tidak memiliki ${header}`);
 }
+
+if (errors.length > 0) {
+    throw new Error(`STATIC VALIDATION FAILED:\n${errors.map((error) => `  - ${error}`).join('\n')}`);
+}
+
 console.log(`STATIC CHECK OK: ${entries.length} halaman HTML, CSS, data, asset, dan security config tervalidasi`);
