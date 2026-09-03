@@ -14,7 +14,8 @@
     "verify:static": "node scripts/check_static_site.mjs",
     "minify:css": "cleancss -o css/style.min.css css/style.css",
     "build": "npm run minify:css && npm run check && npm test",
-    "optimize:assets": "python3 scripts/optimize_assets.py"
+    "optimize:assets": "python3 scripts/optimize_assets.py",
+    "db:seed": "python3 scripts/seed_database.py"
   },
   "engines": {
     "node": ">=20",

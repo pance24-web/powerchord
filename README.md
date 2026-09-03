@@ -160,6 +160,18 @@ npm run build
 
 `npm run build` menjalankan syntax check JavaScript, validasi dataset, static verifier untuk HTML/asset/reference, dan unit test. `npm run check` dapat digunakan untuk quality check cepat. Untuk deployment Cloudflare Pages, lihat [`DEPLOYMENT.md`](DEPLOYMENT.md). Tidak diperlukan backend server atau environment variable runtime.
 
+### 6.2.1 Database lokal
+
+Dataset canonical tetap berada di `data/songs.json` agar situs statis dapat memuat data tanpa backend. Untuk kebutuhan query terstruktur, analisis, atau integrasi backend pada tahap berikutnya, repositori menyediakan skema SQLite di `database/schema.sql` dan skrip seed di `scripts/seed_database.py`.
+
+Buat atau segarkan database lokal dengan:
+
+```bash
+npm run db:seed
+```
+
+Database menghasilkan dua tabel utama: `songs` menyimpan metadata lagu dan `song_lines` menyimpan baris chord/lirik dengan relasi satu-ke-banyak. Foreign key dengan `ON DELETE CASCADE` menjaga agar baris lirik tidak tertinggal ketika lagu dihapus. View `song_catalog` menyediakan katalog ringkas beserta jumlah baris lirik. File hasil generate berada di `database/powerchord.sqlite3` dan tidak digunakan langsung oleh halaman statis saat ini.
+
 ### 6.3. Keamanan & Integritas Data (Hasil Audit)
 
 - **XSS Prevention:** Seluruh input user dan data dinamis dirender menggunakan `textContent` atau DOM API, bukan `innerHTML`, untuk mencegah injeksi skrip.
