@@ -1,0 +1,7 @@
+# Cloudflare Pages deployment configuration.
+# Keep the build output explicit so Pages publishes the generated static site.
+pages_build_output_dir = "public"
+compatibility_date = "2026-09-05"
+
+[vars]
+# Runtime configuration is intentionally empty; public Supabase settings remain in the frontend adapter.
