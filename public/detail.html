@@ -133,6 +133,14 @@
 
                 <!-- SIDEBAR KANAN (untuk halaman detail) -->
                 <aside class="detail-sidebar" aria-label="Informasi tambahan">
+                    <!-- Diagram Chord Lagu Ini -->
+                    <section class="sidebar-block" id="chordDiagramsSection" aria-labelledby="chord-diagrams-title">
+                        <h2 id="chord-diagrams-title">🎸 Diagram Kunci</h2>
+                        <div id="chordDiagramsContainer" class="chord-diagrams-grid" aria-live="polite">
+                            <p class="loading-state">Memuat diagram…</p>
+                        </div>
+                    </section>
+
                     <section class="sidebar-block" aria-labelledby="related-title">
                         <h2 id="related-title">🎵 Lagu Terkait</h2>
                         <div id="relatedSongs" class="sidebar-list">
@@ -140,6 +148,17 @@
                         </div>
                     </section>
                 </aside>
+
+                <!-- Modal Preview Chord Cepat -->
+                <dialog id="chordModal" class="chord-modal" aria-labelledby="chordModalTitle">
+                    <div class="chord-modal-content">
+                        <div class="chord-modal-header">
+                            <h3 id="chordModalTitle">Diagram Kunci</h3>
+                            <button id="closeChordModal" type="button" class="btn-close-modal" aria-label="Tutup dialog">✕</button>
+                        </div>
+                        <div id="chordModalBody" class="chord-modal-body"></div>
+                    </div>
+                </dialog>
             </main>
 
             <!-- Footer -->

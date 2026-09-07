@@ -7,6 +7,7 @@ import {
     transposeChord,
 } from './core.js';
 import { fetchSongsFromSupabase } from './supabase.js';
+import { generateChordSVG, extractSongChords } from './chord-diagram.js';
 
 const state = {
     searchQuery: '',
@@ -489,6 +490,42 @@ function initDetailPage() {
     const keyDisplay = document.getElementById('keyNow');
     if (keyDisplay) keyDisplay.textContent = originalKey;
 
+    // --- Chord Modal ---
+    const chordModal = document.getElementById('chordModal');
+    const chordModalBody = document.getElementById('chordModalBody');
+    const chordModalTitle = document.getElementById('chordModalTitle');
+    document.getElementById('closeChordModal')?.addEventListener('click', () => chordModal?.close());
+    chordModal?.addEventListener('click', (e) => { if (e.target === chordModal) chordModal.close(); });
+
+    function openChordModal(chordName) {
+        if (!chordModal || !chordModalBody) return;
+        if (chordModalTitle) chordModalTitle.textContent = `Kunci: ${chordName}`;
+        chordModalBody.innerHTML = generateChordSVG(chordName, { width: 160, height: 180 });
+        chordModal.showModal();
+    }
+
+    // --- Render Diagram Chord Grid ---
+    function renderChordDiagrams() {
+        const container = document.getElementById('chordDiagramsContainer');
+        if (!container) return;
+        const rawChords = extractSongChords(song.lirik);
+        const transposedChords = rawChords.map((c) => transposeChord(c, offset) || c);
+        if (!transposedChords.length) {
+            container.replaceChildren();
+            return;
+        }
+        container.replaceChildren();
+        transposedChords.forEach((chordName) => {
+            const card = document.createElement('button');
+            card.className = 'chord-card';
+            card.type = 'button';
+            card.setAttribute('aria-label', `Lihat diagram kunci ${chordName}`);
+            card.innerHTML = generateChordSVG(chordName, { width: 100, height: 120 });
+            card.addEventListener('click', () => openChordModal(chordName));
+            container.appendChild(card);
+        });
+    }
+
     function renderLyrics() {
         const container = document.getElementById('lirik');
         if (!container) return;
@@ -496,9 +533,19 @@ function initDetailPage() {
         (Array.isArray(song.lirik) ? song.lirik : []).forEach((line) => {
             const row = document.createElement('div');
             row.className = 'baris-lirik';
-            const chord = document.createElement('span');
+            const transposedChord = transposeChord(line.chord, offset) || '';
+            const chord = document.createElement('button');
             chord.className = 'chord-lirik';
-            chord.textContent = transposeChord(line.chord, offset) || '\u00A0';
+            chord.type = 'button';
+            chord.textContent = transposedChord || '\u00A0';
+            if (transposedChord) {
+                chord.setAttribute('title', `Lihat diagram kunci ${transposedChord}`);
+                chord.setAttribute('aria-label', `Kunci ${transposedChord} — klik untuk diagram`);
+                chord.addEventListener('click', () => openChordModal(transposedChord));
+            } else {
+                chord.setAttribute('aria-hidden', 'true');
+                chord.style.pointerEvents = 'none';
+            }
             const text = document.createElement('span');
             text.className = 'teks-lirik';
             text.textContent = line.teks;
@@ -512,21 +559,25 @@ function initDetailPage() {
     };
 
     renderLyrics();
+    renderChordDiagrams();
 
     document.getElementById('plus')?.addEventListener('click', () => {
         offset = (offset + 1) % 12;
         renderLyrics();
         updateTransposedKey();
+        renderChordDiagrams();
     });
     document.getElementById('minus')?.addEventListener('click', () => {
         offset = (offset - 1 + 12) % 12;
         renderLyrics();
         updateTransposedKey();
+        renderChordDiagrams();
     });
     document.getElementById('reset')?.addEventListener('click', () => {
         offset = 0;
         renderLyrics();
         updateTransposedKey();
+        renderChordDiagrams();
     });
 
     const scrollButton = document.getElementById('toggleScroll');
