@@ -404,16 +404,18 @@ async function loadSongs() {
     const needsSongData = document.getElementById('songList') || document.getElementById('judulLagu');
     if (!needsSongData) return;
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const supabaseController = new AbortController();
+    const supabaseTimeoutId = setTimeout(() => supabaseController.abort(), 10000);
 
     try {
-        state.songs = await fetchSongsFromSupabase({ signal: controller.signal });
+        state.songs = await fetchSongsFromSupabase({ signal: supabaseController.signal });
         console.info(`Memuat ${state.songs.length} lagu dari Supabase`);
     } catch (supabaseError) {
         console.warn('Supabase tidak tersedia, menggunakan fallback JSON:', supabaseError);
+        const fallbackController = new AbortController();
+        const fallbackTimeoutId = setTimeout(() => fallbackController.abort(), 10000);
         try {
-            const response = await fetch('data/songs.json', { signal: controller.signal });
+            const response = await fetch('data/songs.json', { signal: fallbackController.signal });
             if (!response.ok) throw new Error(`Fallback HTTP error: ${response.status}`);
             const data = await response.json();
             if (!Array.isArray(data)) throw new Error('Format data lagu fallback tidak valid');
@@ -425,9 +427,11 @@ async function loadSongs() {
             if (songList) markCatalogReady(songList);
             if (target) target.textContent = 'Gagal memuat data lagu. Silakan periksa koneksi internet Anda dan refresh halaman.';
             return;
+        } finally {
+            clearTimeout(fallbackTimeoutId);
         }
     } finally {
-        clearTimeout(timeoutId);
+        clearTimeout(supabaseTimeoutId);
     }
 
     if (document.getElementById('songList')) filterHomepage();
