@@ -22,7 +22,8 @@ const staticFiles = [
   { from: 'data/songs.json', to: 'data/songs.json' },
   { from: 'robots.txt', to: 'robots.txt' },
   { from: '_headers', to: '_headers' },
-  { from: 'manifest.json', to: 'manifest.json' }
+  { from: 'manifest.json', to: 'manifest.json' },
+  { from: 'sw.js', to: 'sw.js' }
 ];
 
 for (const { from, to } of staticFiles) {
