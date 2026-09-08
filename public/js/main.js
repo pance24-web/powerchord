@@ -529,7 +529,7 @@ function initDetailPage() {
     function openChordModal(chordName) {
         if (!chordModal || !chordModalBody) return;
         if (chordModalTitle) chordModalTitle.textContent = `Kunci: ${chordName}`;
-        chordModalBody.innerHTML = generateChordSVG(chordName, { width: 160, height: 180 });
+        chordModalBody.innerHTML = generateChordSVG(chordName, { width: 180, height: 220 });
         chordModal.showModal();
     }
 
@@ -549,7 +549,7 @@ function initDetailPage() {
             card.className = 'chord-card';
             card.type = 'button';
             card.setAttribute('aria-label', `Lihat diagram kunci ${chordName}`);
-            card.innerHTML = generateChordSVG(chordName, { width: 100, height: 120 });
+            card.innerHTML = generateChordSVG(chordName, { width: 118, height: 158 });
             card.addEventListener('click', () => openChordModal(chordName));
             container.appendChild(card);
         });

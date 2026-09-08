@@ -1013,26 +1013,38 @@ button:disabled:focus-visible {
 .diagram-fret,
 .diagram-nut {
     stroke: var(--muted);
-    stroke-width: 1.2;
+    stroke-width: 1.4;
+    vector-effect: non-scaling-stroke;
 }
 .diagram-nut {
     stroke: var(--text);
-    stroke-width: 4;
+    stroke-width: 4.5;
+    stroke-linecap: round;
+}
+.diagram-barre {
+    stroke: var(--accent);
+    stroke-width: 8;
+    stroke-linecap: round;
+    opacity: 0.95;
 }
 .diagram-dot {
     fill: var(--accent);
     stroke: var(--accent-dark);
-    stroke-width: 1;
+    stroke-width: 1.2;
 }
 .diagram-finger {
-    fill: #121212;
-    font: 700 10px Arial, sans-serif;
+    fill: #fff;
+    font: 700 9px Arial, sans-serif;
 }
 .diagram-marker,
 .diagram-fret-label,
 .diagram-muted {
     fill: var(--muted);
-    font: 12px "Courier New", monospace;
+    font: 700 11px Arial, sans-serif;
+}
+.diagram-fret-label {
+    fill: var(--accent-dark);
+    font-size: 10px;
 }
 .diagram-note {
     margin: 0;
@@ -1084,17 +1096,17 @@ button:disabled:focus-visible {
 .chord-diagrams-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    padding: 10px 0;
+    gap: 10px;
+    padding: 12px 0;
 }
 
 .chord-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4px;
+    padding: 7px 5px 5px;
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: 4px;
     background: var(--surface);
     cursor: pointer;
     transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;

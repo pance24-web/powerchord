@@ -100,19 +100,23 @@ export function getChordDefinition(chordName) {
 export function generateChordSVG(chordName, options = {}) {
   const chord = getChordDefinition(chordName);
   const width = options.width || 120;
-  const height = options.height || 140;
+  const height = options.height || 160;
+
+  const escape = (value) => String(value).replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[character]));
 
   if (!chord) {
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" class="chord-diagram-svg chord-unknown" aria-label="Diagram chord ${chordName}">
-      <text x="${width/2}" y="${height/2}" text-anchor="middle" font-size="12" fill="currentColor">${chordName}</text>
+      <text x="${width/2}" y="${height/2}" text-anchor="middle" class="diagram-title">${escape(chordName)}</text>
     </svg>`;
   }
 
-  const numFrets = 4;
+  const numFrets = 5;
   const numStrings = 6;
   const marginX = 24;
-  const marginTop = 36;
-  const marginBottom = 18;
+  const marginTop = 42;
+  const marginBottom = 16;
   const fretboardWidth = width - (marginX * 2);
   const fretboardHeight = height - marginTop - marginBottom;
   const stringSpacing = fretboardWidth / (numStrings - 1);
@@ -123,38 +127,36 @@ export function generateChordSVG(chordName, options = {}) {
 
   let svgContent = '';
 
-  svgContent += `<text x="${width / 2}" y="18" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="currentColor">${chord.name}</text>`;
+  svgContent += `<text x="${width / 2}" y="17" text-anchor="middle" class="diagram-title">${escape(chord.name)}</text>`;
+
+  // ChordTela-style string status row: X = muted, O = open.
+  chord.frets.forEach((fret, stringIdx) => {
+    const x = marginX + (stringIdx * stringSpacing);
+    const marker = fret === -1 ? '×' : fret === 0 ? 'O' : '';
+    if (marker) {
+      svgContent += `<text x="${x}" y="31" text-anchor="middle" class="diagram-muted">${marker}</text>`;
+    }
+  });
 
   if (!isNut) {
-    svgContent += `<text x="${marginX - 8}" y="${marginTop + fretSpacing * 0.7}" text-anchor="end" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="currentColor">${baseFret}fr</text>`;
+    svgContent += `<text x="${marginX - 9}" y="${marginTop + fretSpacing * 0.7}" text-anchor="end" class="diagram-fret-label">${baseFret}fr</text>`;
   }
 
   if (isNut) {
-    svgContent += `<line x1="${marginX}" y1="${marginTop}" x2="${width - marginX}" y2="${marginTop}" stroke="currentColor" stroke-width="4" stroke-linecap="round" />`;
+    svgContent += `<line class="diagram-nut" x1="${marginX}" y1="${marginTop}" x2="${width - marginX}" y2="${marginTop}" />`;
   } else {
-    svgContent += `<line x1="${marginX}" y1="${marginTop}" x2="${width - marginX}" y2="${marginTop}" stroke="currentColor" stroke-width="1.5" />`;
+    svgContent += `<line class="diagram-fret" x1="${marginX}" y1="${marginTop}" x2="${width - marginX}" y2="${marginTop}" />`;
   }
 
   for (let i = 1; i <= numFrets; i++) {
     const y = marginTop + (i * fretSpacing);
-    svgContent += `<line x1="${marginX}" y1="${y}" x2="${width - marginX}" y2="${y}" stroke="currentColor" stroke-width="1" opacity="0.6" />`;
+    svgContent += `<line class="diagram-fret" x1="${marginX}" y1="${y}" x2="${width - marginX}" y2="${y}" />`;
   }
 
   for (let s = 0; s < numStrings; s++) {
     const x = marginX + (s * stringSpacing);
-    const strokeWidth = 1 + (0.3 * (5 - s));
-    svgContent += `<line x1="${x}" y1="${marginTop}" x2="${x}" y2="${marginTop + fretboardHeight}" stroke="currentColor" stroke-width="${strokeWidth}" opacity="0.8" />`;
+    svgContent += `<line class="diagram-string" x1="${x}" y1="${marginTop}" x2="${x}" y2="${marginTop + fretboardHeight}" />`;
   }
-
-  chord.frets.forEach((fret, stringIdx) => {
-    const x = marginX + (stringIdx * stringSpacing);
-    const y = marginTop - 8;
-    if (fret === -1) {
-      svgContent += `<text x="${x}" y="${y}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="currentColor">✕</text>`;
-    } else if (fret === 0) {
-      svgContent += `<circle cx="${x}" cy="${y - 3}" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5" />`;
-    }
-  });
 
   if (Array.isArray(chord.barres)) {
     chord.barres.forEach((barreFret) => {
@@ -171,7 +173,7 @@ export function generateChordSVG(chordName, options = {}) {
         });
         const x1 = marginX + (firstStr * stringSpacing);
         const x2 = marginX + (lastStr * stringSpacing);
-        svgContent += `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="var(--accent, #F97316)" stroke-width="8" stroke-linecap="round" opacity="0.9" />`;
+        svgContent += `<line class="diagram-barre" x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" />`;
       }
     });
   }
@@ -184,9 +186,9 @@ export function generateChordSVG(chordName, options = {}) {
         const cy = marginTop + (relFret - 0.5) * fretSpacing;
         const finger = chord.fingers ? chord.fingers[stringIdx] : null;
 
-        svgContent += `<circle cx="${cx}" cy="${cy}" r="5.5" fill="var(--accent, #F97316)" />`;
+        svgContent += `<circle class="diagram-dot" cx="${cx}" cy="${cy}" r="6" />`;
         if (finger && finger > 0) {
-          svgContent += `<text x="${cx}" y="${cy + 3.5}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" font-weight="700" fill="#FFFFFF">${finger}</text>`;
+          svgContent += `<text x="${cx}" y="${cy + 3.5}" text-anchor="middle" class="diagram-finger">${finger}</text>`;
         }
       }
     }
