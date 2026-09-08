@@ -536,13 +536,34 @@ function initDetailPage() {
     // --- Render Diagram Chord Grid ---
     function renderChordDiagrams() {
         const container = document.getElementById('chordDiagramsContainer');
-        if (!container) return;
+        const preview = document.getElementById('chordDiagram');
+        const picker = document.getElementById('diagramChord');
         const rawChords = extractSongChords(song.lirik);
         const transposedChords = rawChords.map((c) => transposeChord(c, offset) || c);
         if (!transposedChords.length) {
-            container.replaceChildren();
+            container?.replaceChildren();
+            if (preview) preview.textContent = 'Diagram chord tidak tersedia.';
             return;
         }
+        if (picker) {
+            const current = picker.value;
+            picker.replaceChildren();
+            transposedChords.forEach((chordName) => {
+                const option = document.createElement('option');
+                option.value = chordName;
+                option.textContent = chordName;
+                picker.appendChild(option);
+            });
+            picker.value = transposedChords.includes(current) ? current : transposedChords[0];
+            if (!picker.dataset.bound) {
+                picker.addEventListener('change', () => {
+                    if (preview) preview.innerHTML = generateChordSVG(picker.value, { width: 180, height: 220 });
+                });
+                picker.dataset.bound = 'true';
+            }
+        }
+        if (preview) preview.innerHTML = generateChordSVG(picker?.value || transposedChords[0], { width: 180, height: 220 });
+        if (!container) return;
         container.replaceChildren();
         transposedChords.forEach((chordName) => {
             const card = document.createElement('button');
@@ -550,7 +571,11 @@ function initDetailPage() {
             card.type = 'button';
             card.setAttribute('aria-label', `Lihat diagram kunci ${chordName}`);
             card.innerHTML = generateChordSVG(chordName, { width: 118, height: 158 });
-            card.addEventListener('click', () => openChordModal(chordName));
+            card.addEventListener('click', () => {
+                if (picker) picker.value = chordName;
+                if (preview) preview.innerHTML = generateChordSVG(chordName, { width: 180, height: 220 });
+                openChordModal(chordName);
+            });
             container.appendChild(card);
         });
     }
