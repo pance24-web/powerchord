@@ -1,5 +1,8 @@
-const SUPABASE_URL = 'https://mddtzwkrhftfwsyeykps.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_QJLr7f5-rtpKtZwF6FPntQ_JsdyHM0i';
+// Ambil Supabase URL dan Key dari environment variable
+// Untuk deployment di Cloudflare Pages, set environment variable:
+// SUPABASE_URL dan SUPABASE_PUBLISHABLE_KEY
+const SUPABASE_URL = import.meta.env?.SUPABASE_URL || 'https://mddtzwkrhftfwsyeykps.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = import.meta.env?.SUPABASE_PUBLISHABLE_KEY || '';
 
 function parseSongContent(content) {
     return String(content || '').split(/\r?\n/).reduce((lines, rawLine) => {
@@ -25,6 +28,11 @@ function normalizeSong(row) {
 }
 
 export async function fetchSongsFromSupabase({ signal } = {}) {
+    // Jika key tidak tersedia, lempar error untuk trigger fallback
+    if (!SUPABASE_PUBLISHABLE_KEY) {
+        throw new Error('Supabase publishable key tidak tersedia');
+    }
+    
     const params = new URLSearchParams({
         select: 'source_id,title,slug,original_key,content,genre,artists!inner(name)',
         status: 'eq.published',

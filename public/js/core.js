@@ -1,4 +1,5 @@
 export const CHROMATIC = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+export const OCTAVE_SIZE = CHROMATIC.length;
 
 const ENHARMONIC = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };
 
@@ -173,7 +174,7 @@ export function transposeChord(chord, offset = 0) {
         const normalized = ENHARMONIC[root] || root;
         const rootIndex = CHROMATIC.indexOf(normalized);
         if (rootIndex < 0) return root;
-        const newIndex = (rootIndex + (offset % 12) + 12) % 12;
+        const newIndex = (rootIndex + (offset % OCTAVE_SIZE) + OCTAVE_SIZE) % OCTAVE_SIZE;
         return CHROMATIC[newIndex];
     });
 }
