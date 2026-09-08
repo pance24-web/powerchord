@@ -1,5 +1,5 @@
-// PowerChord Service Worker - v8
-const CACHE_VERSION = 'powerchord-v8';
+// PowerChord Service Worker - v9
+const CACHE_VERSION = 'powerchord-v9';
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const DATA_CACHE = `data-${CACHE_VERSION}`;
 
