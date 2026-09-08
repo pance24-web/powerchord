@@ -2,6 +2,34 @@ export const CHROMATIC = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 
 
 const ENHARMONIC = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };
 
+const E_SHAPES = {
+    major: [0, 2, 2, 1, 0, 0],
+    minor: [0, 2, 2, 0, 0, 0],
+};
+
+export function getChordShape(symbol) {
+    if (typeof symbol !== 'string' || !symbol.trim()) return null;
+    const match = symbol.trim().match(/^([A-G](?:#|b)?)(m|min)?(?:aj|ajor)?(7|sus2|sus4|dim|aug)?(?:\/([A-G](?:#|b)?))?$/i);
+    if (!match) return null;
+    const root = ENHARMONIC[match[1]] || match[1];
+    const rootIndex = CHROMATIC.indexOf(root);
+    if (rootIndex < 0) return null;
+    const quality = match[2] ? 'minor' : 'major';
+    const suffix = (match[3] || '').toLowerCase();
+    if (suffix && !['7', 'sus2', 'sus4'].includes(suffix)) return null;
+    const baseShape = E_SHAPES[quality];
+    const fret = root === 'E' ? 1 : ((rootIndex - 5 + 12) % 12) + 1;
+    return {
+        root,
+        quality,
+        suffix,
+        baseFret: fret,
+        positions: [...baseShape],
+        label: symbol.trim(),
+        note: suffix ? 'Diagram dasar mayor/minor; variasi akor ditampilkan sebagai bentuk terdekat.' : '',
+    };
+}
+
 export function getSongId(song, index = 0) {
     return typeof song?.id === 'string' && song.id ? song.id : `song-${index}`;
 }

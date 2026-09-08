@@ -5,6 +5,7 @@ import {
     getSongHref,
     parseSongReference,
     transposeChord,
+    getChordShape,
 } from './core.js';
 import { fetchSongsFromSupabase } from './supabase.js';
 
@@ -489,6 +490,73 @@ function initDetailPage() {
     const keyDisplay = document.getElementById('keyNow');
     if (keyDisplay) keyDisplay.textContent = originalKey;
 
+    const chordSymbols = [...new Set((song.lirik || [])
+        .map((line) => line?.chord?.trim())
+        .filter(Boolean))];
+    const diagramSelect = document.getElementById('diagramChord');
+    const diagramContainer = document.getElementById('chordDiagram');
+    const diagramNote = document.getElementById('diagramNote');
+    chordSymbols.forEach((symbol) => {
+        const option = document.createElement('option');
+        option.value = symbol;
+        option.textContent = symbol;
+        diagramSelect?.appendChild(option);
+    });
+
+    function renderChordDiagram() {
+        if (!diagramContainer || !diagramSelect) return;
+        const selected = transposeChord(diagramSelect.value, offset);
+        const shape = getChordShape(selected);
+        diagramContainer.replaceChildren();
+        if (!shape) {
+            diagramContainer.textContent = `Diagram untuk ${selected || 'chord ini'} belum tersedia.`;
+            if (diagramNote) diagramNote.textContent = 'Pilih chord mayor atau minor untuk melihat bentuk fretboard.';
+            return;
+        }
+
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 190 205');
+        svg.setAttribute('focusable', 'false');
+        svg.setAttribute('aria-hidden', 'true');
+        const add = (name, attrs) => {
+            const element = document.createElementNS('http://www.w3.org/2000/svg', name);
+            Object.entries(attrs).forEach(([key, value]) => element.setAttribute(key, value));
+            svg.appendChild(element);
+            return element;
+        };
+        const left = 28;
+        const top = 35;
+        const stringGap = 26;
+        const fretGap = 27;
+        add('text', { x: 95, y: 18, class: 'diagram-title', 'text-anchor': 'middle' }).textContent = selected;
+        for (let string = 0; string < 6; string += 1) {
+            const x = left + string * stringGap;
+            add('line', { x1: x, y1: top, x2: x, y2: top + fretGap * 5, class: 'diagram-string' });
+            const position = shape.positions[string];
+            const isOpen = position === 0 && shape.baseFret === 1;
+            add('text', { x, y: 190, class: 'diagram-marker', 'text-anchor': 'middle' }).textContent = isOpen ? '○' : '';
+            if (!isOpen) {
+                const effectivePosition = position === 0 && shape.baseFret > 1 ? 1 : position;
+                const absoluteFret = shape.baseFret === 1 ? effectivePosition : shape.baseFret + effectivePosition - 1;
+                const relativeFret = absoluteFret - shape.baseFret + 1;
+                if (relativeFret >= 1 && relativeFret <= 5) add('circle', { cx: x, cy: top + (relativeFret - 0.5) * fretGap, r: 8, class: 'diagram-dot' });
+            }
+        }
+        for (let fret = 0; fret <= 5; fret += 1) {
+            const y = top + fret * fretGap;
+            add('line', { x1: left, y1: y, x2: left + stringGap * 5, y2: y, class: fret === 0 ? 'diagram-nut' : 'diagram-fret' });
+        }
+        if (shape.baseFret > 1) {
+            add('text', { x: 8, y: top + 18, class: 'diagram-fret-label', 'text-anchor': 'middle' }).textContent = `${shape.baseFret}fr`;
+        }
+        diagramContainer.appendChild(svg);
+        if (diagramNote) diagramNote.textContent = shape.note || 'Titik menunjukkan posisi jari. Senar dibaca dari kiri ke kanan: E rendah sampai E tinggi.';
+        diagramContainer.setAttribute('aria-label', `Diagram chord ${selected}, posisi mulai fret ${shape.baseFret}`);
+    }
+
+    diagramSelect?.addEventListener('change', renderChordDiagram);
+    if (diagramSelect?.options.length) renderChordDiagram();
+
     function renderLyrics() {
         const container = document.getElementById('lirik');
         if (!container) return;
@@ -517,16 +585,19 @@ function initDetailPage() {
         offset = (offset + 1) % 12;
         renderLyrics();
         updateTransposedKey();
+        renderChordDiagram();
     });
     document.getElementById('minus')?.addEventListener('click', () => {
         offset = (offset - 1 + 12) % 12;
         renderLyrics();
         updateTransposedKey();
+        renderChordDiagram();
     });
     document.getElementById('reset')?.addEventListener('click', () => {
         offset = 0;
         renderLyrics();
         updateTransposedKey();
+        renderChordDiagram();
     });
 
     const scrollButton = document.getElementById('toggleScroll');
