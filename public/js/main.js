@@ -369,11 +369,20 @@ function initSearchInteractions() {
             trackSearchQuery(state.searchQuery.trim());
         }
         
-        // Jika di catalog.html, update URL dengan parameter q=
-        if (window.location.pathname.includes('catalog.html')) {
+        const isCatalogPage = window.location.pathname.endsWith('/catalog')
+            || window.location.pathname.includes('catalog.html');
+        const isDetailPage = window.location.pathname.endsWith('/detail')
+            || window.location.pathname.includes('detail.html');
+        // Di katalog, update URL; dari detail, buka halaman katalog.
+        if (isCatalogPage) {
             const newUrl = new URL(window.location.href);
             newUrl.searchParams.set('q', state.searchQuery);
             window.history.pushState({}, '', newUrl);
+            initCatalogPage();
+        } else if (isDetailPage) {
+            const newUrl = new URL('/catalog', window.location.origin);
+            if (state.searchQuery.trim()) newUrl.searchParams.set('q', state.searchQuery.trim());
+            window.location.assign(newUrl.href);
         } else {
             filterHomepage();
             document.getElementById('song-catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -385,7 +394,9 @@ function initSearchInteractions() {
             const genre = button.dataset.genre || 'All';
             
             // Jika di catalog.html, update URL dengan parameter genre=
-            if (window.location.pathname.includes('catalog.html')) {
+            const isCatalogPage = window.location.pathname.endsWith('/catalog')
+                || window.location.pathname.includes('catalog.html');
+            if (isCatalogPage) {
                 const newUrl = new URL(window.location.href);
                 if (genre === 'All') {
                     newUrl.searchParams.delete('genre');
