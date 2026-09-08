@@ -1,11 +1,11 @@
-// PowerChord Service Worker - v6
-const CACHE_VERSION = 'powerchord-v6';
+// PowerChord Service Worker - v7
+const CACHE_VERSION = 'powerchord-v7';
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const DATA_CACHE = `data-${CACHE_VERSION}`;
 
 const STATIC_ASSETS = [
-  '/index.html',
-  '/detail.html',
+  '/',
+  '/detail',
   '/css/style.min.css',
   '/css/style.css',
   '/js/main.js',
@@ -22,6 +22,19 @@ const fetchFollowingRedirect = (request) => fetch(new Request(request.url, {
   redirect: 'follow',
   cache: request.cache,
 }));
+
+const getCanonicalNavigationRequest = (request) => {
+  const url = new URL(request.url);
+  if (url.pathname === '/index.html') url.pathname = '/';
+  else if (url.pathname.endsWith('.html')) url.pathname = url.pathname.slice(0, -5);
+  return new Request(url, {
+    method: 'GET',
+    headers: request.headers,
+    credentials: request.credentials,
+    redirect: 'follow',
+    cache: request.cache,
+  });
+};
 
 // Install: Cache SEMUA aset penting
 self.addEventListener('install', (event) => {
@@ -106,7 +119,7 @@ self.addEventListener('fetch', (event) => {
   // 3. HTML navigation pages → Network First, fallback Cache
   if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
-      fetchFollowingRedirect(event.request).catch(() => {
+      fetchFollowingRedirect(getCanonicalNavigationRequest(event.request)).catch(() => {
         return caches.match(event.request).then((cached) => {
           return cached || caches.match('/index.html');
         });
