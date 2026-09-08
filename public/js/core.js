@@ -2,6 +2,49 @@ export const CHROMATIC = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 
 
 const ENHARMONIC = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };
 
+const STANDARD_SHAPES = {
+    A: { baseFret: 1, positions: ['x', 0, 2, 2, 2, 0], fingers: ['', '', 1, 2, 3, ''] },
+    Am: { baseFret: 1, positions: ['x', 0, 2, 2, 1, 0], fingers: ['', '', 2, 3, 1, ''] },
+    B: { baseFret: 2, positions: ['x', 1, 3, 3, 3, 1], fingers: ['', 1, 2, 3, 4, 1] },
+    Bm: { baseFret: 2, positions: ['x', 1, 3, 3, 2, 1], fingers: ['', 1, 3, 4, 2, 1] },
+    C: { baseFret: 1, positions: ['x', 3, 2, 0, 1, 0], fingers: ['', 3, 2, '', 1, ''] },
+    Cm: { baseFret: 3, positions: ['x', 1, 3, 3, 2, 1], fingers: ['', 1, 3, 4, 2, 1] },
+    D: { baseFret: 1, positions: ['x', 'x', 0, 2, 3, 2], fingers: ['', '', '', 1, 3, 2] },
+    Dm: { baseFret: 1, positions: ['x', 'x', 0, 2, 3, 1], fingers: ['', '', '', 2, 3, 1] },
+    E: { baseFret: 1, positions: [0, 2, 2, 1, 0, 0], fingers: ['', 2, 3, 1, '', ''] },
+    Em: { baseFret: 1, positions: [0, 2, 2, 0, 0, 0], fingers: ['', 2, 3, '', '', ''] },
+    F: { baseFret: 1, positions: [1, 3, 3, 2, 1, 1], fingers: [1, 3, 4, 2, 1, 1] },
+    Fm: { baseFret: 1, positions: [1, 3, 3, 1, 1, 1], fingers: [1, 3, 4, 1, 1, 1] },
+    G: { baseFret: 1, positions: [3, 2, 0, 0, 0, 3], fingers: [2, 1, '', '', '', 3] },
+    Gm: { baseFret: 3, positions: [1, 3, 3, 1, 1, 1], fingers: [1, 3, 4, 1, 1, 1] },
+};
+
+export function getChordShape(symbol) {
+    if (typeof symbol !== 'string' || !symbol.trim()) return null;
+    const match = symbol.trim().match(/^([A-G](?:#|b)?)(m|min)?(?:aj|ajor)?(7|sus2|sus4|dim|aug)?(?:\/([A-G](?:#|b)?))?$/i);
+    if (!match) return null;
+    const root = ENHARMONIC[match[1]] || match[1];
+    const rootIndex = CHROMATIC.indexOf(root);
+    if (rootIndex < 0) return null;
+    const quality = match[2] ? 'minor' : 'major';
+    const suffix = (match[3] || '').toLowerCase();
+    if (suffix && !['7', 'sus2', 'sus4'].includes(suffix)) return null;
+    const normalized = `${root}${quality === 'minor' ? 'm' : ''}`;
+    const standard = STANDARD_SHAPES[normalized];
+    const fret = standard?.baseFret || (root === 'E' ? 1 : ((rootIndex - 5 + 12) % 12) + 1);
+    const positions = standard?.positions || (quality === 'minor' ? [0, 2, 2, 0, 0, 0] : [0, 2, 2, 1, 0, 0]);
+    return {
+        root,
+        quality,
+        suffix,
+        baseFret: fret,
+        positions: [...positions],
+        fingers: [...(standard?.fingers || ['', '', '', '', '', ''])],
+        label: symbol.trim(),
+        note: suffix ? 'Diagram dasar mayor/minor; variasi akor ditampilkan sebagai bentuk terdekat.' : '',
+    };
+}
+
 export function getSongId(song, index = 0) {
     return typeof song?.id === 'string' && song.id ? song.id : `song-${index}`;
 }

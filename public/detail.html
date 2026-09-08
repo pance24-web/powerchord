@@ -125,6 +125,20 @@
                         </div>
                     </div>
 
+                    <section class="chord-diagram-panel" aria-labelledby="diagram-title">
+                        <div class="diagram-heading">
+                            <div>
+                                <p class="eyebrow">Panduan jari</p>
+                                <h2 id="diagram-title">Diagram chord</h2>
+                            </div>
+                            <label class="diagram-picker-label" for="diagramChord">Pilih chord
+                                <select id="diagramChord" aria-label="Pilih chord untuk melihat diagram"></select>
+                            </label>
+                        </div>
+                        <div id="chordDiagram" class="chord-diagram" role="img" aria-live="polite" aria-label="Diagram chord"></div>
+                        <p id="diagramNote" class="diagram-note">Titik menunjukkan posisi jari. Senar dibaca dari kiri ke kanan: E rendah sampai E tinggi.</p>
+                    </section>
+
                     <!-- Lirik & Chord -->
                     <div id="lirik" class="lirik-area" aria-live="polite">
                         <p class="loading-state">Memuat lirik…</p>
