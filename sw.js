@@ -1,10 +1,9 @@
-// PowerChord Service Worker - v5
-const CACHE_VERSION = 'powerchord-v5';
+// PowerChord Service Worker - v6
+const CACHE_VERSION = 'powerchord-v6';
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const DATA_CACHE = `data-${CACHE_VERSION}`;
 
 const STATIC_ASSETS = [
-  '/',
   '/index.html',
   '/detail.html',
   '/css/style.min.css',
@@ -14,8 +13,9 @@ const STATIC_ASSETS = [
   '/manifest.json',
   '/asset/PowerChord-logo.webp',
   '/asset/favicon.webp',
-  '/asset/favicon.png'
 ];
+
+const fetchFollowingRedirect = (request) => fetch(new Request(request, { redirect: 'follow' }));
 
 // Install: Cache SEMUA aset penting
 self.addEventListener('install', (event) => {
@@ -23,7 +23,11 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
       console.log('[SW] Caching static assets');
-      return cache.addAll(STATIC_ASSETS);
+      return Promise.all(STATIC_ASSETS.map(async (asset) => {
+        const response = await fetchFollowingRedirect(new Request(asset, { cache: 'no-cache' }));
+        if (!response.ok || response.redirected) return;
+        await cache.put(asset, response);
+      }));
     }).catch((err) => {
       console.warn('[SW] Failed to cache some assets:', err);
     })
@@ -64,9 +68,9 @@ self.addEventListener('fetch', (event) => {
   // 1. Data API (songs.json) → Network First, fallback Cache
   if (url.pathname.includes('songs.json')) {
     event.respondWith(
-      fetch(event.request)
+      fetchFollowingRedirect(event.request)
         .then((response) => {
-          if (response.ok) {
+          if (response.ok && !response.redirected) {
             const responseClone = response.clone();
             caches.open(DATA_CACHE).then((cache) => {
               cache.put(event.request, responseClone);
@@ -87,7 +91,7 @@ self.addEventListener('fetch', (event) => {
   if (STATIC_ASSETS.some(asset => url.pathname === asset || url.pathname.endsWith('/' + asset.split('/').pop()))) {
     event.respondWith(
       caches.match(event.request).then((cached) => {
-        return cached || fetch(event.request);
+        return cached || fetchFollowingRedirect(event.request);
       })
     );
     return;
@@ -96,7 +100,7 @@ self.addEventListener('fetch', (event) => {
   // 3. HTML navigation pages → Network First, fallback Cache
   if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
-      fetch(event.request).catch(() => {
+      fetchFollowingRedirect(event.request).catch(() => {
         return caches.match(event.request).then((cached) => {
           return cached || caches.match('/index.html');
         });
@@ -106,5 +110,5 @@ self.addEventListener('fetch', (event) => {
   }
 
   // 4. Default same-origin request
-  event.respondWith(fetch(event.request));
+  event.respondWith(fetchFollowingRedirect(event.request));
 });
