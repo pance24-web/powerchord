@@ -533,13 +533,21 @@ function initDetailPage() {
             const x = left + string * stringGap;
             add('line', { x1: x, y1: top, x2: x, y2: top + fretGap * 5, class: 'diagram-string' });
             const position = shape.positions[string];
+            if (position === 'x') {
+                add('text', { x, y: top - 9, class: 'diagram-muted', 'text-anchor': 'middle' }).textContent = '×';
+                return;
+            }
             const isOpen = position === 0 && shape.baseFret === 1;
-            add('text', { x, y: 190, class: 'diagram-marker', 'text-anchor': 'middle' }).textContent = isOpen ? '○' : '';
+            if (isOpen) add('text', { x, y: top - 9, class: 'diagram-marker', 'text-anchor': 'middle' }).textContent = '○';
             if (!isOpen) {
                 const effectivePosition = position === 0 && shape.baseFret > 1 ? 1 : position;
                 const absoluteFret = shape.baseFret === 1 ? effectivePosition : shape.baseFret + effectivePosition - 1;
                 const relativeFret = absoluteFret - shape.baseFret + 1;
-                if (relativeFret >= 1 && relativeFret <= 5) add('circle', { cx: x, cy: top + (relativeFret - 0.5) * fretGap, r: 8, class: 'diagram-dot' });
+                if (relativeFret >= 1 && relativeFret <= 5) {
+                    add('circle', { cx: x, cy: top + (relativeFret - 0.5) * fretGap, r: 8, class: 'diagram-dot' });
+                    const finger = shape.fingers?.[string];
+                    if (finger) add('text', { x, y: top + (relativeFret - 0.5) * fretGap + 4, class: 'diagram-finger', 'text-anchor': 'middle' }).textContent = finger;
+                }
             }
         }
         for (let fret = 0; fret <= 5; fret += 1) {

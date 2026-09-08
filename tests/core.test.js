@@ -109,12 +109,12 @@ test('getChordShape parses major, minor, and transposed chord symbols', () => {
     const cMajor = getChordShape('C');
     assert.equal(cMajor.root, 'C');
     assert.equal(cMajor.quality, 'major');
-    assert.ok(cMajor.baseFret > 1, 'C mayor harus menggunakan bentuk barre E di fret atas');
+    assert.equal(cMajor.baseFret, 1, 'C mayor harus menggunakan posisi open chord standar');
 
     const aMinor = getChordShape('Am');
     assert.equal(aMinor.root, 'A');
     assert.equal(aMinor.quality, 'minor');
-    assert.deepEqual(aMinor.positions, [0, 2, 2, 0, 0, 0]);
+    assert.deepEqual(aMinor.positions, ['x', 0, 2, 2, 1, 0]);
 
     assert.equal(getChordShape('C/Eb').root, 'C', 'Bass note slash chord tidak mengubah bentuk utama');
     assert.equal(getChordShape('H'), null, 'Simbol chord tidak valid harus ditolak');

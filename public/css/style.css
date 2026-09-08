@@ -1024,8 +1024,13 @@ button:disabled:focus-visible {
     stroke: var(--accent-dark);
     stroke-width: 1;
 }
+.diagram-finger {
+    fill: #121212;
+    font: 700 10px Arial, sans-serif;
+}
 .diagram-marker,
-.diagram-fret-label {
+.diagram-fret-label,
+.diagram-muted {
     fill: var(--muted);
     font: 12px "Courier New", monospace;
 }
