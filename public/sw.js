@@ -15,7 +15,13 @@ const STATIC_ASSETS = [
   '/asset/favicon.webp',
 ];
 
-const fetchFollowingRedirect = (request) => fetch(new Request(request, { redirect: 'follow' }));
+const fetchFollowingRedirect = (request) => fetch(new Request(request.url, {
+  method: request.method,
+  headers: request.headers,
+  credentials: request.credentials,
+  redirect: 'follow',
+  cache: request.cache,
+}));
 
 // Install: Cache SEMUA aset penting
 self.addEventListener('install', (event) => {
