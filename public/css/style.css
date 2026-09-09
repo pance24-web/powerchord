@@ -1131,6 +1131,20 @@ button:disabled:focus-visible {
     color: var(--text);
 }
 
+.chord-card svg {
+    display: block;
+    width: 118px;
+    height: 158px;
+    color: var(--text);
+}
+
+.chord-tooltip svg {
+    display: block;
+    width: 90px;
+    height: 110px;
+    color: var(--text);
+}
+
 /* Chord label di lirik: interaktif (button) */
 .chord-lirik {
     display: inline-block;

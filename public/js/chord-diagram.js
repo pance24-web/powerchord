@@ -96,31 +96,47 @@ function fallbackChordSVG(chordName, chord, options) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" aria-label="${escapeXml(chordName)} chord diagram"><title>${escapeXml(chordName)}</title><text x="${width / 2}" y="${height - 1}" text-anchor="middle">${escapeXml(chordName)}</text><g stroke="currentColor" fill="currentColor" stroke-width="1">${frets}${strings}</g></svg>`;
 }
 
+function toSvguitarChord(chord) {
+  const fingers = chord.strings.flatMap((fret, index) => {
+    const stringNumber = chord.strings.length - index;
+    if (fret === null) return [[stringNumber, 'x']];
+    if (fret === 0) return [[stringNumber, 0]];
+    const finger = chord.fingers[index];
+    return [[stringNumber, fret, finger ?? undefined]];
+  });
+  const barres = chord.barre
+    ? [{ fromString: chord.strings.length, toString: 1, fret: chord.barre }]
+    : [];
+  return { fingers, barres };
+}
+
 export function generateChordSVG(chordName, options = {}) {
   const chord = getChordDefinition(chordName);
   if (!chord) {
     return `<span style="font-size:10px;color:var(--muted)">Chord "${escapeXml(chordName)}" tidak ditemukan</span>`;
   }
 
-  const config = {
-    strings: chord.strings,
-    fingers: chord.fingers,
-    barre: chord.barre,
-    width: options.width || 90,
-    height: options.height || 110,
-    showTitle: false,
-    showFretNumbers: false,
-    ...options
-  };
-  const svguitar = globalThis.SVGuitar;
-  if (svguitar?.ChordDiagram) {
+  const svguitar = globalThis.svguitar;
+  if (svguitar?.SVGuitarChord) {
     try {
-      return new svguitar.ChordDiagram(config).render();
+      const { fingers, barres } = toSvguitarChord(chord);
+      const chart = new svguitar.SVGuitarChord();
+      chart
+        .configure({
+          ...options,
+          title: chord.name,
+          color: 'currentColor',
+          backgroundColor: 'none',
+          noPosition: true,
+        })
+        .chord({ fingers, barres })
+        .draw();
+      return chart.toSvg();
     } catch (error) {
       console.error('Error rendering chord diagram:', error);
     }
   }
-  return fallbackChordSVG(chord.name, chord, config);
+  return fallbackChordSVG(chord.name, chord, options);
 }
 
 export function extractSongChords(lirikList = []) {

@@ -39,6 +39,44 @@ test('generateChordSVG outputs valid SVG string', () => {
   assert.ok(svg.includes('circle'), 'SVG harus merender titik jari/senar terbuka');
 });
 
+test('generateChordSVG adapts data to the SVGuitar v2 browser API', () => {
+  const previous = globalThis.svguitar;
+  let receivedChord;
+  let receivedConfig;
+  class FakeSVGuitarChord {
+    configure(config) {
+      receivedConfig = config;
+      return this;
+    }
+
+    chord(chord) {
+      receivedChord = chord;
+      return this;
+    }
+
+    draw() {
+      return this;
+    }
+
+    toSvg() {
+      return '<svg data-rendered-by="svguitar"></svg>';
+    }
+  }
+
+  globalThis.svguitar = { SVGuitarChord: FakeSVGuitarChord };
+  try {
+    const svg = generateChordSVG('Am');
+    assert.match(svg, /data-rendered-by="svguitar"/);
+    assert.equal(receivedConfig.title, 'Am');
+    assert.deepEqual(receivedChord.fingers, [
+      [6, 0], [5, 1, 1], [4, 2, 4], [3, 2, 3], [2, 0], [1, 'x']
+    ]);
+    assert.deepEqual(receivedChord.barres, []);
+  } finally {
+    globalThis.svguitar = previous;
+  }
+});
+
 test('extractSongChords extracts unique chords from lyrics', () => {
   const lirik = [
     { chord: 'G D Em', teks: 'Baris satu' },
