@@ -1,80 +1,61 @@
-// PowerChord Chord Diagram Generator (using svguitar)
-// Format svguitar: { strings: [fretE, fretA, fretD, fretG, fretB, fretE], fingers: [finger1, finger2, ...], barre: fretNumber }
-// Senar: [E (rendah), A, D, G, B, E (tinggi)]
+// PowerChord Chord Diagram Generator (using svguitar v2.6.0)
+// Format svguitar v2.x: { strings: [fret1, fret2, fret3, fret4, fret5, fret6], fingers: [finger1, finger2, ...], barre: fretNumber }
+// Senar: [E tinggi (1), B (2), G (3), D (4), A (5), E rendah (6)]
+// Note: null = muted string, 0 = open string
+// IMPORTANT: svguitar uses strings in order: [e, B, G, D, A, E] (high to low)
 
-// Chord Database untuk svguitar
-// Format: { strings: [fretE, fretA, fretD, fretG, fretB, fretE], fingers: [jari1, jari2, ...], barre: fretBarre (opsional) }
+// Chord Database untuk svguitar v2.6.0
 export const CHORD_DATABASE = {
   // --- CHORD NATURAL MAJOR & MINOR & 7th ---
-  'C': { strings: [0, 3, 2, 0, 1, 0], fingers: [0, 3, 2, 0, 1, 0], barre: null },
-  'Cm': { strings: [0, 3, 5, 5, 4, 3], fingers: [0, 1, 3, 4, 2, 1], barre: 3 },
-  'C7': { strings: [0, 3, 2, 3, 1, 0], fingers: [0, 3, 2, 4, 1, 0], barre: null },
-  'Cmaj7': { strings: [0, 3, 2, 0, 0, 0], fingers: [0, 3, 2, 0, 0, 0], barre: null },
-  'C#': { strings: [1, 4, 6, 6, 6, 4], fingers: [1, 1, 2, 3, 4, 1], barre: 4 },
-  'C#m': { strings: [1, 4, 6, 6, 5, 4], fingers: [1, 1, 3, 4, 2, 1], barre: 4 },
+  // C: e=0, B=1, G=0, D=2, A=3, E=X
+  'C': { strings: [0, 1, 0, 2, 3, null], fingers: [null, 1, null, 2, 3, null], barre: null },
+  // Cm: e=3, B=4, G=5, D=5, A=3, E=X, barre=3
+  'Cm': { strings: [3, 4, 5, 5, 3, null], fingers: [1, 2, 3, 4, 1, null], barre: 3 },
+  // C7: e=0, B=1, G=3, D=2, A=3, E=X
+  'C7': { strings: [0, 1, 3, 2, 3, null], fingers: [null, 1, 4, 2, 3, null], barre: null },
+  // Cmaj7: e=0, B=0, G=0, D=2, A=3, E=X
+  'Cmaj7': { strings: [0, 0, 0, 2, 3, null], fingers: [null, null, null, 2, 3, null], barre: null },
   
-  'D': { strings: [2, 3, 2, 0, 0, 0], fingers: [0, 1, 3, 0, 0, 0], barre: null },
-  'Dm': { strings: [1, 3, 2, 0, 0, 0], fingers: [0, 1, 3, 0, 0, 0], barre: null },
-  'D7': { strings: [2, 3, 2, 0, 1, 0], fingers: [0, 1, 2, 0, 3, 0], barre: null },
-  'Dmaj7': { strings: [2, 3, 2, 0, 2, 0], fingers: [0, 1, 2, 0, 3, 0], barre: null },
-  'D#': { strings: [3, 6, 4, 1, 1, 1], fingers: [1, 1, 2, 3, 1, 1], barre: 6 },
-  'D#m': { strings: [3, 6, 4, 1, 2, 1], fingers: [1, 1, 3, 2, 4, 1], barre: 6 },
+  // D: e=2, B=3, G=2, D=0, A=X, E=X
+  'D': { strings: [2, 3, 2, 0, null, null], fingers: [3, 1, 2, null, null, null], barre: null },
+  // Dm: e=1, B=3, G=2, D=0, A=X, E=X
+  'Dm': { strings: [1, 3, 2, 0, null, null], fingers: [1, 3, 2, null, null, null], barre: null },
+  // D7: e=2, B=1, G=2, D=0, A=X, E=X
+  'D7': { strings: [2, 1, 2, 0, null, null], fingers: [3, 1, 2, null, null, null], barre: null },
   
-  'E': { strings: [0, 2, 2, 1, 0, 0], fingers: [0, 2, 3, 1, 0, 0], barre: null },
-  'Em': { strings: [0, 2, 2, 0, 0, 0], fingers: [0, 2, 3, 0, 0, 0], barre: null },
-  'E7': { strings: [0, 2, 0, 1, 0, 0], fingers: [0, 2, 0, 1, 0, 0], barre: null },
-  'Em7': { strings: [0, 2, 0, 0, 0, 0], fingers: [0, 2, 0, 0, 0, 0], barre: null },
+  // E: e=0, B=0, G=1, D=2, A=2, E=0
+  'E': { strings: [0, 0, 1, 2, 2, 0], fingers: [null, null, 1, 3, 2, null], barre: null },
+  // Em: e=0, B=0, G=0, D=2, A=2, E=0
+  'Em': { strings: [0, 0, 0, 2, 2, 0], fingers: [null, null, null, 2, 3, null], barre: null },
+  // E7: e=0, B=0, G=1, D=0, A=2, E=0
+  'E7': { strings: [0, 0, 1, 0, 2, 0], fingers: [null, null, 1, null, 2, null], barre: null },
   
-  'F': { strings: [1, 3, 3, 2, 1, 1], fingers: [1, 3, 4, 2, 1, 1], barre: 1 },
-  'Fm': { strings: [1, 3, 3, 1, 1, 1], fingers: [1, 3, 4, 1, 1, 1], barre: 1 },
-  'F7': { strings: [1, 3, 1, 2, 1, 1], fingers: [1, 3, 1, 2, 1, 1], barre: 1 },
-  'Fmaj7': { strings: [1, 3, 2, 0, 1, 0], fingers: [1, 3, 2, 0, 1, 0], barre: null },
-  'F#': { strings: [2, 4, 4, 3, 2, 2], fingers: [1, 3, 4, 2, 1, 1], barre: 2 },
-  'F#m': { strings: [2, 4, 4, 2, 2, 2], fingers: [1, 3, 4, 1, 1, 1], barre: 2 },
-  'F#7': { strings: [2, 4, 2, 3, 2, 2], fingers: [1, 3, 1, 2, 1, 1], barre: 2 },
+  // F: e=1, B=1, G=2, D=3, A=3, E=1, barre=1
+  'F': { strings: [1, 1, 2, 3, 3, 1], fingers: [1, 1, 2, 4, 3, 1], barre: 1 },
+  // Fm: e=1, B=1, G=1, D=3, A=3, E=1, barre=1
+  'Fm': { strings: [1, 1, 1, 3, 3, 1], fingers: [1, 1, 1, 4, 3, 1], barre: 1 },
   
-  'G': { strings: [3, 2, 0, 0, 0, 3], fingers: [2, 1, 0, 0, 0, 3], barre: null },
-  'Gm': { strings: [3, 5, 5, 3, 3, 3], fingers: [1, 3, 4, 1, 1, 1], barre: 3 },
-  'G7': { strings: [3, 2, 0, 0, 0, 1], fingers: [3, 2, 0, 0, 0, 1], barre: null },
-  'Gmaj7': { strings: [3, 2, 0, 0, 0, 2], fingers: [2, 1, 0, 0, 0, 4], barre: null },
-  'G#': { strings: [4, 6, 6, 5, 4, 4], fingers: [1, 3, 4, 2, 1, 1], barre: 4 },
-  'G#m': { strings: [4, 6, 6, 4, 4, 4], fingers: [1, 3, 4, 1, 1, 1], barre: 4 },
+  // G: e=3, B=0, G=0, D=0, A=2, E=3
+  'G': { strings: [3, 0, 0, 0, 2, 3], fingers: [3, null, null, null, 1, 2], barre: null },
+  // Gm: e=3, B=3, G=3, D=3, A=5, E=3, barre=3
+  'Gm': { strings: [3, 3, 3, 3, 5, 3], fingers: [1, 1, 1, 1, 3, 1], barre: 3 },
   
-  'A': { strings: [0, 0, 2, 2, 2, 0], fingers: [0, 0, 1, 2, 3, 0], barre: null },
-  'Am': { strings: [0, 0, 2, 2, 1, 0], fingers: [0, 0, 2, 3, 1, 0], barre: null },
-  'A7': { strings: [0, 0, 2, 0, 2, 0], fingers: [0, 0, 2, 0, 3, 0], barre: null },
-  'Am7': { strings: [0, 0, 2, 0, 1, 0], fingers: [0, 0, 2, 0, 1, 0], barre: null },
-  'A#': { strings: [1, 1, 3, 3, 3, 1], fingers: [1, 1, 2, 3, 4, 1], barre: 1 },
-  'A#m': { strings: [1, 1, 3, 3, 2, 1], fingers: [1, 1, 3, 4, 2, 1], barre: 1 },
+  // A: e=0, B=2, G=2, D=2, A=0, E=X
+  'A': { strings: [0, 2, 2, 2, 0, null], fingers: [null, 3, 2, 1, null, null], barre: null },
+  // Am: e=0, B=1, G=2, D=2, A=0, E=X
+  'Am': { strings: [0, 1, 2, 2, 0, null], fingers: [null, 1, 4, 3, null, null], barre: null },
   
-  'Bb': { strings: [1, 1, 3, 3, 3, 1], fingers: [1, 1, 2, 3, 4, 1], barre: 1 },
-  'Bbm': { strings: [1, 1, 3, 3, 2, 1], fingers: [1, 1, 3, 4, 2, 1], barre: 1 },
-  'B': { strings: [2, 2, 4, 4, 4, 2], fingers: [1, 1, 2, 3, 4, 1], barre: 2 },
-  'Bm': { strings: [2, 2, 4, 4, 3, 2], fingers: [1, 1, 3, 4, 2, 1], barre: 2 },
-  'B7': { strings: [2, 2, 1, 2, 0, 2], fingers: [1, 2, 1, 3, 0, 4], barre: null },
-  
-  // --- CHORD 7th & EXTENDED ---
-  'Cadd9': { strings: [0, 3, 2, 0, 3, 0], fingers: [0, 3, 2, 0, 4, 0], barre: null },
-  'Dsus2': { strings: [0, 0, 2, 2, 0, 0], fingers: [0, 0, 1, 2, 0, 0], barre: null },
-  'Dsus4': { strings: [0, 0, 2, 2, 3, 0], fingers: [0, 0, 1, 2, 4, 0], barre: null },
-  'Asus2': { strings: [0, 0, 2, 2, 0, 0], fingers: [0, 0, 1, 2, 0, 0], barre: null },
-  'Asus4': { strings: [0, 0, 2, 2, 3, 0], fingers: [0, 0, 1, 2, 4, 0], barre: null },
-  'Esus4': { strings: [0, 2, 2, 2, 0, 0], fingers: [0, 2, 3, 4, 0, 0], barre: null },
-  
-  // --- CHORD MINOR 7th & MAJOR 7th ---
-  'Cm7': { strings: [0, 3, 5, 3, 4, 3], fingers: [0, 1, 3, 2, 4, 1], barre: 3 },
-  'Dm7': { strings: [1, 3, 2, 0, 1, 1], fingers: [1, 3, 2, 0, 1, 1], barre: null },
-  'Em7': { strings: [0, 2, 0, 0, 0, 0], fingers: [0, 2, 0, 0, 0, 0], barre: null },
-  'Gm7': { strings: [3, 5, 5, 3, 3, 3], fingers: [1, 3, 4, 1, 1, 1], barre: 3 },
-  'Am7': { strings: [0, 0, 2, 0, 1, 0], fingers: [0, 0, 2, 0, 1, 0], barre: null },
-  'Bm7': { strings: [2, 2, 4, 4, 3, 2], fingers: [1, 1, 3, 4, 2, 1], barre: 2 },
+  // B: e=2, B=4, G=4, D=4, A=2, E=X, barre=2
+  'B': { strings: [2, 4, 4, 4, 2, null], fingers: [1, 4, 3, 2, 1, null], barre: 2 },
+  // Bm: e=2, B=3, G=4, D=4, A=2, E=X, barre=2
+  'Bm': { strings: [2, 3, 4, 4, 2, null], fingers: [1, 2, 4, 3, 1, null], barre: 2 },
 };
 
 // Enharmonic Aliases (chord yang sama dengan nama berbeda)
 const ENHARMONIC_ALIASES = {
   'Db': 'C#', 'Dbm': 'C#m', 'Eb': 'D#', 'Ebm': 'D#m',
   'Gb': 'F#', 'Gbm': 'F#m', 'Ab': 'G#', 'Abm': 'G#m',
-  'A#': 'Bb', 'A#m': 'Bbm', 'Bb': 'A#', 'Bbm': 'A#m'
+  'A#': 'Bb', 'A#m': 'Bbm'
 };
 
 // Dapatkan definisi chord (dengan enharmonic aliases)
@@ -114,30 +95,6 @@ export function getChordDefinition(chordName) {
   }
   
   return null;
-}
-
-// Generate SVG chord diagram menggunakan svguitar
-export function generateChordSVG(chordName, options = {}) {
-  const chord = getChordDefinition(chordName);
-  if (!chord) {
-    return `<span style="font-size:10px;color:var(--muted)">Chord "${chordName}" tidak ditemukan</span>`;
-  }
-  
-  // Konfigurasi default svguitar
-  const config = {
-    strings: chord.strings,
-    fingers: chord.fingers,
-    barre: chord.barre,
-    width: options.width || 90,
-    height: options.height || 110,
-    showTitle: false,
-    showFretNumbers: false,
-    ...options
-  };
-  
-  // Buat diagram chord menggunakan svguitar
-  const diagram = new window.SVGuitar.ChordDiagram(config);
-  return diagram.render();
 }
 
 // Ekstrak chord dari lirik

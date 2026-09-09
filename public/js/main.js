@@ -18,24 +18,30 @@ function generateChordSVG(chordName, options = {}) {
     return `<span style="font-size:10px;color:var(--muted)">Chord "${chordName}" tidak ditemukan</span>`;
   }
   
+  // Konfigurasi untuk svguitar v2.x
+  // Format strings: [e, B, G, D, A, E] (high to low)
+  // null = muted, 0 = open
   const config = {
     strings: chord.strings,
     fingers: chord.fingers,
     barre: chord.barre,
     width: options.width || 90,
     height: options.height || 110,
-    showTitle: false,
-    showFretNumbers: false,
     ...options
   };
   
   // Pastikan SVGuitar sudah dimuat
-  if (typeof window.SVGuitar === 'undefined') {
+  if (typeof SVGuitar === 'undefined') {
     return `<span style="font-size:10px;color:var(--muted)">Memuat library chord...</span>`;
   }
   
-  const diagram = new window.SVGuitar.ChordDiagram(config);
-  return diagram.render();
+  try {
+    const diagram = new SVGuitar.ChordDiagram(config);
+    return diagram.render();
+  } catch (error) {
+    console.error('Error rendering chord diagram:', error);
+    return `<span style="font-size:10px;color:var(--muted)">Error: ${error.message}</span>`;
+  }
 }
 
 const state = {
@@ -565,7 +571,7 @@ function initDetailPage() {
             card.type = 'button';
             card.setAttribute('aria-label', `Lihat diagram kunci ${chordName}`);
             card.setAttribute('data-chord', chordName);
-            card.innerHTML = generateChordSVG(chordName, { width: 118, height: 158, showTitle: false });
+            card.innerHTML = generateChordSVG(chordName, { width: 118, height: 158 });
             container.appendChild(card);
         });
     }
@@ -1049,7 +1055,7 @@ function showChordTooltip(chordName, event) {
     if (!chordDef) {
         chordTooltip.innerHTML = `<span style="font-size:10px;color:var(--muted)">Chord "${chordName}" tidak ditemukan</span>`;
     } else {
-        chordTooltip.innerHTML = generateChordSVG(chordName, { width: 90, height: 110, showTitle: false });
+        chordTooltip.innerHTML = generateChordSVG(chordName, { width: 90, height: 110 });
     }
     
     chordTooltip.setAttribute('aria-hidden', 'false');
