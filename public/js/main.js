@@ -9,7 +9,34 @@ import {
     OCTAVE_SIZE,
 } from './core.js';
 import { fetchSongsFromSupabase } from './supabase.js';
-import { generateChordSVG, extractSongChords } from './chord-diagram.js';
+import { CHORD_DATABASE, extractSongChords, getChordDefinition } from './chord-diagram.js';
+
+// Fungsi untuk generate SVG chord menggunakan svguitar
+function generateChordSVG(chordName, options = {}) {
+  const chord = getChordDefinition(chordName);
+  if (!chord) {
+    return `<span style="font-size:10px;color:var(--muted)">Chord "${chordName}" tidak ditemukan</span>`;
+  }
+  
+  const config = {
+    strings: chord.strings,
+    fingers: chord.fingers,
+    barre: chord.barre,
+    width: options.width || 90,
+    height: options.height || 110,
+    showTitle: false,
+    showFretNumbers: false,
+    ...options
+  };
+  
+  // Pastikan SVGuitar sudah dimuat
+  if (typeof window.SVGuitar === 'undefined') {
+    return `<span style="font-size:10px;color:var(--muted)">Memuat library chord...</span>`;
+  }
+  
+  const diagram = new window.SVGuitar.ChordDiagram(config);
+  return diagram.render();
+}
 
 const state = {
     searchQuery: '',
@@ -519,19 +546,7 @@ function initDetailPage() {
     const keyDisplay = document.getElementById('keyNow');
     if (keyDisplay) keyDisplay.textContent = originalKey;
 
-    // --- Chord Modal ---
-    const chordModal = document.getElementById('chordModal');
-    const chordModalBody = document.getElementById('chordModalBody');
-    const chordModalTitle = document.getElementById('chordModalTitle');
-    document.getElementById('closeChordModal')?.addEventListener('click', () => chordModal?.close());
-    chordModal?.addEventListener('click', (e) => { if (e.target === chordModal) chordModal.close(); });
 
-    function openChordModal(chordName) {
-        if (!chordModal || !chordModalBody) return;
-        if (chordModalTitle) chordModalTitle.textContent = `Kunci: ${chordName}`;
-        chordModalBody.innerHTML = generateChordSVG(chordName, { width: 180, height: 220 });
-        chordModal.showModal();
-    }
 
     // --- Render Diagram Chord Grid ---
     function renderChordDiagrams() {
@@ -549,8 +564,8 @@ function initDetailPage() {
             card.className = 'chord-card';
             card.type = 'button';
             card.setAttribute('aria-label', `Lihat diagram kunci ${chordName}`);
-            card.innerHTML = generateChordSVG(chordName, { width: 118, height: 158 });
-            card.addEventListener('click', () => openChordModal(chordName));
+            card.setAttribute('data-chord', chordName);
+            card.innerHTML = generateChordSVG(chordName, { width: 118, height: 158, showTitle: false });
             container.appendChild(card);
         });
     }
@@ -568,8 +583,8 @@ function initDetailPage() {
             chord.textContent = transposedChord || '\u00A0';
             if (transposedChord) {
                 chord.setAttribute('title', `Lihat diagram kunci ${transposedChord}`);
-                chord.setAttribute('aria-label', `Kunci ${transposedChord} — klik untuk diagram`);
-                chord.addEventListener('click', () => openChordModal(transposedChord));
+                chord.setAttribute('aria-label', `Kunci ${transposedChord} — hover untuk diagram`);
+                chord.setAttribute('data-chord', transposedChord);
             } else {
                 chord.setAttribute('aria-hidden', 'true');
                 chord.style.pointerEvents = 'none';
@@ -588,6 +603,9 @@ function initDetailPage() {
 
     renderLyrics();
     renderChordDiagrams();
+    
+    // Setup hover elements setelah lirik dan chord diagrams dirender
+    setTimeout(setupChordHoverElements, 100);
 
     document.getElementById('plus')?.addEventListener('click', () => {
         offset = (offset + 1) % OCTAVE_SIZE;
@@ -941,11 +959,121 @@ function trackSearchQuery(query) {
     }
 }
 
+// --- CHORD TOOLTIP (Global) ---
+// Buat elemen tooltip chord (1x saja)
+let chordTooltip = null;
+function initChordTooltip() {
+    if (chordTooltip) return; // Sudah diinisialisasi
+    chordTooltip = document.createElement('div');
+    chordTooltip.className = 'chord-tooltip';
+    chordTooltip.setAttribute('aria-hidden', 'true');
+    chordTooltip.setAttribute('role', 'tooltip');
+    document.body.appendChild(chordTooltip);
+
+    // Tutup tooltip saat klik di luar chord
+    document.addEventListener('click', () => {
+        if (chordTooltip) chordTooltip.setAttribute('aria-hidden', 'true');
+    });
+
+    // Tutup tooltip saat scroll
+    window.addEventListener('scroll', () => {
+        if (chordTooltip) chordTooltip.setAttribute('aria-hidden', 'true');
+    });
+
+    // Tambahkan event hover untuk semua elemen chord di halaman
+    function setupChordHoverElements() {
+        // Untuk chord di lirik (detail.html)
+        document.querySelectorAll('.chord-lirik[data-chord]').forEach((chordEl) => {
+            const chordName = chordEl.getAttribute('data-chord');
+            if (!chordName) return;
+            
+            // Pastikan chordName valid
+            const chordDef = getChordDefinition(chordName);
+            if (!chordDef) return;
+            
+            chordEl.addEventListener('mouseenter', (e) => {
+                showChordTooltip(chordName, e);
+            });
+            chordEl.addEventListener('mouseleave', () => {
+                hideChordTooltip();
+            });
+        });
+
+        // Untuk chord card (di chord diagrams grid)
+        document.querySelectorAll('.chord-card[data-chord]').forEach((card) => {
+            const chordName = card.getAttribute('data-chord');
+            if (!chordName) return;
+
+            // Pastikan chordName valid
+            const chordDef = getChordDefinition(chordName);
+            if (!chordDef) return;
+
+            card.addEventListener('mouseenter', (e) => {
+                showChordTooltip(chordName, e);
+            });
+            card.addEventListener('mouseleave', () => {
+                hideChordTooltip();
+            });
+        });
+
+        // Untuk elemen chord di katalog/daftar lagu (jika ada)
+        document.querySelectorAll('.song-key:not([hidden])').forEach((el) => {
+            const chordName = el.textContent.trim();
+            if (!chordName || chordName === '—') return;
+            
+            // Pastikan chordName valid
+            const chordDef = getChordDefinition(chordName);
+            if (!chordDef) return;
+            
+            el.addEventListener('mouseenter', (e) => {
+                showChordTooltip(chordName, e);
+            });
+            el.addEventListener('mouseleave', () => {
+                hideChordTooltip();
+            });
+        });
+    }
+
+    // Setup hover elements sekarang dan setelah DOM berubah (misal: AJAX)
+    setupChordHoverElements();
+    
+    // Setup ulang setelah 500ms (untuk halaman yang memuat data secara dinamis)
+    setTimeout(setupChordHoverElements, 500);
+}
+
+function showChordTooltip(chordName, event) {
+    if (!chordTooltip) initChordTooltip();
+    
+    // Pastikan chordName valid
+    const chordDef = getChordDefinition(chordName);
+    if (!chordDef) {
+        chordTooltip.innerHTML = `<span style="font-size:10px;color:var(--muted)">Chord "${chordName}" tidak ditemukan</span>`;
+    } else {
+        chordTooltip.innerHTML = generateChordSVG(chordName, { width: 90, height: 110, showTitle: false });
+    }
+    
+    chordTooltip.setAttribute('aria-hidden', 'false');
+    
+    // Posisikan tooltip di dekat kursor (di atas)
+    const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const x = event.clientX + scrollX + 10;
+    const y = event.clientY + scrollY - 130; // 130px agar tidak menutupi cursor
+    
+    chordTooltip.style.left = `${x}px`;
+    chordTooltip.style.top = `${y}px`;
+}
+
+function hideChordTooltip() {
+    if (chordTooltip) chordTooltip.setAttribute('aria-hidden', 'true');
+}
+
 // --- INISIALISASI ---
 initOfflineIndicator();
 initTheme();
 initDrawer();
 initSearchInteractions();
+initChordTooltip(); // Inisialisasi tooltip chord
 loadSongs();
 initCollectionPage();
 initHistoryPage();
