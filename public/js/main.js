@@ -9,40 +9,12 @@ import {
     OCTAVE_SIZE,
 } from './core.js';
 import { fetchSongsFromSupabase } from './supabase.js';
-import { CHORD_DATABASE, extractSongChords, getChordDefinition } from './chord-diagram.js';
-
-// Fungsi untuk generate SVG chord menggunakan svguitar
-function generateChordSVG(chordName, options = {}) {
-  const chord = getChordDefinition(chordName);
-  if (!chord) {
-    return `<span style="font-size:10px;color:var(--muted)">Chord "${chordName}" tidak ditemukan</span>`;
-  }
-  
-  // Konfigurasi untuk svguitar v2.x
-  // Format strings: [e, B, G, D, A, E] (high to low)
-  // null = muted, 0 = open
-  const config = {
-    strings: chord.strings,
-    fingers: chord.fingers,
-    barre: chord.barre,
-    width: options.width || 90,
-    height: options.height || 110,
-    ...options
-  };
-  
-  // Pastikan SVGuitar sudah dimuat
-  if (typeof SVGuitar === 'undefined') {
-    return `<span style="font-size:10px;color:var(--muted)">Memuat library chord...</span>`;
-  }
-  
-  try {
-    const diagram = new SVGuitar.ChordDiagram(config);
-    return diagram.render();
-  } catch (error) {
-    console.error('Error rendering chord diagram:', error);
-    return `<span style="font-size:10px;color:var(--muted)">Error: ${error.message}</span>`;
-  }
-}
+import {
+    CHORD_DATABASE,
+    extractSongChords,
+    getChordDefinition,
+    generateChordSVG,
+} from './chord-diagram.js';
 
 const state = {
     searchQuery: '',
