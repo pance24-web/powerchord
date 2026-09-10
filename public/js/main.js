@@ -529,21 +529,28 @@ function initDetailPage() {
         (Array.isArray(song.lirik) ? song.lirik : []).forEach((line) => {
             const row = document.createElement('div');
             row.className = 'baris-lirik';
-            const transposedChord = transposeChord(line.chord, offset) || '';
-            const chord = document.createElement('button');
-            chord.className = 'chord-lirik';
-            chord.type = 'button';
-            chord.textContent = transposedChord || '\u00A0';
-            if (transposedChord) {
-                chord.setAttribute('data-chord', transposedChord);
-            } else {
-                chord.setAttribute('aria-hidden', 'true');
-                chord.style.pointerEvents = 'none';
-            }
+            const chordGroup = document.createElement('span');
+            chordGroup.className = 'chord-group';
+            const chordNames = String(line.chord || '').trim().split(/\s+/).filter(Boolean);
+            if (!chordNames.length) chordNames.push('');
+            chordNames.forEach((chordName) => {
+                const transposedChord = transposeChord(chordName, offset) || '';
+                const chord = document.createElement('button');
+                chord.className = 'chord-lirik';
+                chord.type = 'button';
+                chord.textContent = transposedChord || '\u00A0';
+                if (transposedChord) {
+                    chord.setAttribute('data-chord', transposedChord);
+                } else {
+                    chord.setAttribute('aria-hidden', 'true');
+                    chord.style.pointerEvents = 'none';
+                }
+                chordGroup.appendChild(chord);
+            });
             const text = document.createElement('span');
             text.className = 'teks-lirik';
             text.textContent = line.teks;
-            row.append(chord, text);
+            row.append(chordGroup, text);
             container.appendChild(row);
         });
     }

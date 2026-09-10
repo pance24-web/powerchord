@@ -1012,6 +1012,12 @@ button:disabled:focus-visible {
     gap: 4px;
     min-width: fit-content;
 }
+.chord-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 1.3em;
+}
 .chord-lirik {
     display: block;
     min-height: 1.3em;
