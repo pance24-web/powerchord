@@ -1042,10 +1042,10 @@ button:disabled:focus-visible {
 .chord-lirik {
     display: inline-block;
     min-height: 1.2em;
-    padding: 1px 4px;
-    border: 1px solid color-mix(in srgb, var(--accent-dark) 35%, var(--line));
-    border-radius: 3px;
-    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
     color: var(--accent-dark);
     font-size: 0.82rem;
     font-weight: 700;
@@ -1055,18 +1055,21 @@ button:disabled:focus-visible {
     cursor: pointer;
     font-family: inherit;
     text-align: left;
-    border-radius: 3px;
-    transition: color 0.12s, background 0.12s, border-color 0.12s, text-decoration 0.12s;
+    transition: color 0.12s, text-decoration 0.12s;
 }
 
 .chord-lirik:hover,
 .chord-lirik:focus-visible {
-    border-color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 22%, var(--surface));
+    background: transparent;
     color: var(--accent-dark);
     text-decoration: underline;
     text-underline-offset: 2px;
     outline: none;
+}
+
+.chord-lirik:focus-visible {
+    outline: 1px dotted var(--accent);
+    outline-offset: 3px;
 }
 
 
