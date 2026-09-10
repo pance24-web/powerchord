@@ -188,3 +188,105 @@ export function parseSongReference(value, songs) {
     if (/^\d+$/.test(reference)) return songs[Number(reference)] || null;
     return null;
 }
+
+// Kumpulan akor terbuka / mudah (open easy chords) yang ramah pemula tanpa barre
+export const OPEN_EASY_CHORDS = new Set([
+    'C', 'G', 'D', 'A', 'E',
+    'Am', 'Em', 'Dm',
+    'C7', 'G7', 'D7', 'A7', 'E7',
+    'Cmaj7', 'Gmaj7', 'Amaj7',
+    'Asus2', 'Asus4', 'Dsus2', 'Dsus4', 'Esus4'
+]);
+
+/**
+ * Menilai tingkat kemudahan suatu chord (skor lebih tinggi = lebih mudah)
+ */
+export function rateChordEase(chord) {
+    if (!chord || typeof chord !== 'string') return 0;
+    const clean = chord.trim().split('/')[0]; // evaluasi root chord tanpa slash bass
+    if (OPEN_EASY_CHORDS.has(clean)) return 3; // Open chord santai
+    // F atau Bm adalah barre umum pemula tapi masih standar
+    if (clean === 'F' || clean === 'Bm' || clean === 'B7') return 1;
+    // Chord yang memiliki accidental tajam / barre berat (C#m, G#m, F#m, D#, Bb, dll)
+    if (clean.includes('#') || clean.includes('b')) return 0;
+    return 1;
+}
+
+/**
+ * Menganalisis progresi akor dan menyarankan posisi fret capo terbaik (1 s/d maxFret)
+ * agar akor yang dimainkan menjadi bentuk open chords yang mudah.
+ *
+ * @param {string[]} chords - Daftar nama akor dalam lagu
+ * @param {string} originalKey - Nada dasar lagu
+ * @param {number} maxFret - Batas maksimal fret capo (default: 7)
+ * @returns {object} { bestFret, playedKey, suggestions, isAlreadyOptimal }
+ */
+export function suggestCapo(chords = [], originalKey = 'C', maxFret = 7) {
+    const uniqueChords = Array.from(new Set(
+        (Array.isArray(chords) ? chords : [])
+            .map((c) => (typeof c === 'string' ? c.trim() : ''))
+            .filter(Boolean)
+    ));
+
+    if (!uniqueChords.length) {
+        return {
+            bestFret: 0,
+            playedKey: originalKey,
+            isAlreadyOptimal: true,
+            suggestions: []
+        };
+    }
+
+    const calcScore = (chordList) => {
+        return chordList.reduce((acc, c) => acc + rateChordEase(c), 0);
+    };
+
+    const baseScore = calcScore(uniqueChords);
+    const results = [];
+
+    // Fret 0 (tanpa capo)
+    results.push({
+        fret: 0,
+        playedKey: originalKey,
+        score: baseScore,
+        chords: [...uniqueChords],
+        easyPercentage: Math.round((uniqueChords.filter(c => rateChordEase(c) >= 3).length / uniqueChords.length) * 100)
+    });
+
+    for (let fret = 1; fret <= maxFret; fret++) {
+        // Jika kita pasang Capo di fret X, akor yang dimainkan jari = transpose -X
+        const playedChords = uniqueChords.map((c) => transposeChord(c, -fret));
+        const playedKey = transposeChord(originalKey, -fret);
+        const score = calcScore(playedChords);
+        const easyCount = playedChords.filter((c) => rateChordEase(c) >= 3).length;
+        const easyPercentage = Math.round((easyCount / playedChords.length) * 100);
+
+        results.push({
+            fret,
+            playedKey,
+            score,
+            chords: playedChords,
+            easyPercentage
+        });
+    }
+
+    // Urutkan berdasarkan skor tertinggi, lalu easyPercentage tertinggi, lalu fret terendah
+    const candidateRank = [...results.slice(1)].sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        if (b.easyPercentage !== a.easyPercentage) return b.easyPercentage - a.easyPercentage;
+        return a.fret - b.fret;
+    });
+
+    const best = candidateRank[0];
+    // Dikatakan perlu saran capo jika capo menghasilkan perbaikan skor signifikan dibandingkan tanpa capo
+    const isBeneficial = best && (best.score > baseScore || (best.score === baseScore && best.easyPercentage > results[0].easyPercentage + 20));
+
+    return {
+        bestFret: isBeneficial ? best.fret : 0,
+        playedKey: isBeneficial ? best.playedKey : originalKey,
+        isAlreadyOptimal: !isBeneficial,
+        baseScore,
+        suggestions: results
+    };
+}
+

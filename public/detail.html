@@ -50,13 +50,14 @@
                 </div>
             </div>
             <nav class="drawer-nav">
-                <a data-page="home" href="index.html"><i class="fas fa-home"></i> Beranda</a>
-                <a data-page="library" href="#"><i class="fas fa-star"></i> Koleksi Saya</a>
-                <a data-page="history" href="#"><i class="fas fa-clock"></i> Riwayat</a>
+                <a href="index.html"><i class="fas fa-home"></i> Beranda</a>
+                <a href="catalog.html"><i class="fas fa-music"></i> Katalog</a>
+                <a href="artists.html"><i class="fas fa-microphone"></i> Artis</a>
+                <a href="collection.html"><i class="fas fa-star"></i> Koleksi Saya</a>
+                <a href="history.html"><i class="fas fa-clock"></i> Riwayat</a>
                 <hr />
-                <a data-page="settings" href="#"><i class="fas fa-sliders-h"></i> Pengaturan</a>
-                <a data-page="about" href="#"><i class="fas fa-info-circle"></i> Tentang</a>
-                <a data-page="request" href="#"><i class="fas fa-pen"></i> Request Chord</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> Tentang</a>
+                <a href="contact.html"><i class="fas fa-pen"></i> Request Chord</a>
             </nav>
             <div class="drawer-footer">v2.0 &bull; PowerChord</div>
         </aside>
@@ -114,6 +115,13 @@
                             <span id="keyNow">C</span>
                             <button id="plus" aria-label="Naikkan kunci">+</button>
                             <button id="reset" aria-label="Reset kunci">↺</button>
+                        </div>
+                        <div class="capo-box" id="capoBox">
+                            <span class="capo-label"><i class="fas fa-sliders-h" aria-hidden="true"></i> Capo:</span>
+                            <span id="capoStatus" class="capo-status">Standar</span>
+                            <button id="btnCapoSuggest" class="btn-capo" type="button" aria-label="Gunakan rekomendasi Capo" hidden>
+                                <span class="capo-action-text">Saran: Fret 2 (G)</span>
+                            </button>
                         </div>
                         <div class="autoscroll-box">
                             <button id="toggleScroll" class="btn-scroll" aria-pressed="false">▶ Autoscroll</button>

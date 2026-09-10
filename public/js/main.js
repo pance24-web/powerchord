@@ -7,6 +7,7 @@ import {
     transposeChord,
     getChordShape,
     OCTAVE_SIZE,
+    suggestCapo,
 } from './core.js';
 import { fetchSongsFromSupabase } from './supabase.js';
 import {
@@ -577,31 +578,102 @@ function initDetailPage() {
 
     const updateTransposedKey = () => {
         if (keyDisplay) keyDisplay.textContent = transposeChord(originalKey, offset);
+        updateCapoUI();
     };
+
+    // --- Capo Suggestion Logic ---
+    const capoBox = document.getElementById('capoBox');
+    const capoStatus = document.getElementById('capoStatus');
+    const btnCapoSuggest = document.getElementById('btnCapoSuggest');
+    let activeCapoFret = 0;
+
+    function updateCapoUI() {
+        if (!capoBox || !btnCapoSuggest || !capoStatus) return;
+        const currentChords = extractSongChords(song.lirik);
+        const currentTransposedChords = currentChords.map((c) => transposeChord(c, offset) || c);
+        const currentKey = transposeChord(originalKey, offset);
+
+        const suggestion = suggestCapo(currentTransposedChords, currentKey, 7);
+
+        if (activeCapoFret > 0) {
+            capoStatus.textContent = `Fret ${activeCapoFret}`;
+            capoStatus.classList.add('active');
+            btnCapoSuggest.hidden = false;
+            btnCapoSuggest.classList.add('applied');
+            btnCapoSuggest.querySelector('.capo-action-text').textContent = '✕ Lepas Capo';
+            btnCapoSuggest.setAttribute('aria-label', 'Lepas capo dan kembali ke akor standar');
+        } else {
+            capoStatus.textContent = 'Standar';
+            capoStatus.classList.remove('active');
+            btnCapoSuggest.classList.remove('applied');
+
+            if (!suggestion.isAlreadyOptimal && suggestion.bestFret > 0) {
+                btnCapoSuggest.hidden = false;
+                const actionText = btnCapoSuggest.querySelector('.capo-action-text');
+                if (actionText) {
+                    actionText.textContent = `Saran: Fret ${suggestion.bestFret} (${suggestion.playedKey})`;
+                }
+                btnCapoSuggest.setAttribute(
+                    'aria-label',
+                    `Pasang Capo di Fret ${suggestion.bestFret} untuk memainkan bentuk akor ${suggestion.playedKey}`
+                );
+                btnCapoSuggest.dataset.fret = suggestion.bestFret;
+            } else {
+                btnCapoSuggest.hidden = true;
+            }
+        }
+    }
+
+    btnCapoSuggest?.addEventListener('click', () => {
+        if (activeCapoFret > 0) {
+            // Lepas capo -> kembalikan offset ke posisi semula
+            offset = (offset + activeCapoFret) % OCTAVE_SIZE;
+            activeCapoFret = 0;
+        } else {
+            // Pasang capo yang disarankan
+            const targetFret = parseInt(btnCapoSuggest.dataset.fret, 10);
+            if (!isNaN(targetFret) && targetFret > 0) {
+                activeCapoFret = targetFret;
+                // Saat pasang capo fret X, akor yang dimainkan jari turun X semitone
+                offset = (offset - targetFret + OCTAVE_SIZE) % OCTAVE_SIZE;
+            }
+        }
+        renderLyrics();
+        updateTransposedKey();
+        renderChordDiagrams();
+        setTimeout(setupChordHoverElements, 100);
+    });
 
     renderLyrics();
     renderChordDiagrams();
+    updateCapoUI();
     
     // Setup hover elements setelah lirik dan chord diagrams dirender
     setTimeout(setupChordHoverElements, 100);
 
     document.getElementById('plus')?.addEventListener('click', () => {
         offset = (offset + 1) % OCTAVE_SIZE;
+        activeCapoFret = 0;
         renderLyrics();
         updateTransposedKey();
         renderChordDiagrams();
+        setTimeout(setupChordHoverElements, 100);
     });
     document.getElementById('minus')?.addEventListener('click', () => {
         offset = (offset - 1 + OCTAVE_SIZE) % OCTAVE_SIZE;
+        activeCapoFret = 0;
         renderLyrics();
         updateTransposedKey();
         renderChordDiagrams();
+        setTimeout(setupChordHoverElements, 100);
     });
     document.getElementById('reset')?.addEventListener('click', () => {
         offset = 0;
+        activeCapoFret = 0;
         renderLyrics();
         updateTransposedKey();
         renderChordDiagrams();
+        setTimeout(setupChordHoverElements, 100);
     });
 
     const scrollButton = document.getElementById('toggleScroll');

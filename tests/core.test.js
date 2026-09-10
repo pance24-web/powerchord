@@ -12,6 +12,8 @@ import {
     parseSongReference,
     transposeChord,
     getChordShape,
+    suggestCapo,
+    rateChordEase,
 } from '../public/js/core.js';
 
 const songs = JSON.parse(await readFile(new URL('../data/songs.json', import.meta.url), 'utf8'));
@@ -119,3 +121,20 @@ test('getChordShape parses major, minor, and transposed chord symbols', () => {
     assert.equal(getChordShape('C/Eb').root, 'C', 'Bass note slash chord tidak mengubah bentuk utama');
     assert.equal(getChordShape('H'), null, 'Simbol chord tidak valid harus ditolak');
 });
+
+test('suggestCapo recommends easy open chords for barre-heavy songs', () => {
+    // Kasus lagu di kunci F dengan akor [F, Bb, C, Dm]
+    // Jika pasang Capo fret 1 -> dimainkan [E, A, B, C#m]
+    // Jika pasang Capo fret 3 -> dimainkan [D, G, A, Bm] (3 open chords D, G, A!)
+    // Atau Capo fret 5 -> dimainkan [C, F, G, Am]
+    const suggestionF = suggestCapo(['F', 'Bb', 'C', 'Dm'], 'F');
+    assert.ok(suggestionF.bestFret > 0, 'Harus menyarankan capo untuk lagu penuh barre di nada F');
+    assert.ok([3, 5].includes(suggestionF.bestFret), 'Rekomendasi terbaik harus fret 3 (bentuk D) atau fret 5 (bentuk C)');
+    assert.equal(suggestionF.isAlreadyOptimal, false);
+
+    // Kasus lagu yang sudah sangat mudah (C, G, Am, F atau C, G, Am, Em)
+    const easySong = suggestCapo(['C', 'G', 'Am', 'Em'], 'C');
+    assert.equal(easySong.bestFret, 0, 'Lagu yang sudah menggunakan open chords C-G-Am-Em tidak perlu dipaksa capo');
+    assert.equal(easySong.isAlreadyOptimal, true);
+});
+
