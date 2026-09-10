@@ -1,4 +1,267 @@
-undefined
+export const CHROMATIC = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+export const OCTAVE_SIZE = CHROMATIC.length;
+
+const ENHARMONIC = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };
+
+export function extractSongChords(lirik) {
+    const chords = new Set(
+        (Array.isArray(lirik) ? lirik : [])
+            .map((line) => typeof line?.chord === 'string' ? line.chord.trim() : '')
+            .filter(Boolean),
+    );
+    return Array.from(chords);
+}
+
+export function getSongId(song, index = 0) {
+    return typeof song?.id === 'string' && song.id ? song.id : `song-${index}`;
+}
+
+export function getSongHref(song, index = 0) {
+    return `detail.html?id=${encodeURIComponent(getSongId(song, index))}`;
+}
+
+export function getDifficulty(song) {
+    const chords = new Set(
+        (Array.isArray(song?.lirik) ? song.lirik : [])
+            .map((line) => typeof line?.chord === 'string' ? line.chord.trim() : '')
+            .filter(Boolean),
+    );
+    if (chords.size <= 4) return 'Easy';
+    if (chords.size <= 7) return 'Intermediate';
+    return 'Advanced';
+}
+
+export function matchesGenre(song, activeGenre = 'All') {
+    if (activeGenre === 'All') return true;
+    const genre = typeof song?.genre === 'string' ? song.genre.toLowerCase() : '';
+    return genre.includes(activeGenre.toLowerCase());
+}
+
+export function normalizeSearchQuery(value = '') {
+    return String(value ?? '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, ' ')
+        .replace(/\s+/g, ' ');
+}
+
+function editDistance(left, right) {
+    const previous = Array.from({ length: right.length + 1 }, (_, index) => index);
+    for (let row = 1; row <= left.length; row += 1) {
+        const current = [row];
+        for (let column = 1; column <= right.length; column += 1) {
+            const cost = left[row - 1] === right[column - 1] ? 0 : 1;
+     
+       current[column] = Math.min(
+                current[column - 1] + 1,
+                previous[column] + 1,
+                previous[column - 1] + cost,
+            );
+            if (row > 1 && column > 1
+                && left[row - 1] === right[column - 2]
+                && left[row - 2] === right[column - 1]) {
+                current[column] = Math.min(current[column], previous[column - 2] + 1);
+            }
+        }
+        for (let column = 0; column <= right.length; column += 1) previous[column] = current[column];
+    }
+    return previous[right.length];
+}
+
+function hasAdjacentTransposition(left, right) {
+    if (left.length !== right.length) return false;
+    for (let index = 0; index < left.length - 1; index += 1) {
+        if (left[index] === right[index + 1]
+            && left[index + 1] === right[index]
+            && left.slice(0, index) === right.slice(0, index)
+            && left.slice(index + 2) === right.slice(index + 2)) return true;
+    }
+    return false;
+}
+
+function tokenMatches(queryTokens, fieldTokens) {
+    return queryTokens.filter((queryToken) => fieldTokens.some((fieldToken) => {
+        if (fieldToken.includes(queryToken)) return true;
+        if (queryToken.length < 4 || fieldToken.length < 4) return false;
+        return editDistance(queryToken, fieldToken) <= 1 || hasAdjacentTransposition(queryToken, fieldToken);
+    })).length;
+}
+
+export function rankSong(song, query = '') {
+    const normalizedQuery = normalizeSearchQuery(query);
+    if (!normalizedQuery) return { score: 0, matchType: 'all' };
+    const title = normalizeSearchQuery(song?.judul);
+    const artist = normalizeSearchQuery(song?.artis);
+    const queryTokens = normalizedQuery.split(' ').filter(Boolean);
+    const titleTokens = title.split(' ').filter(Boolean);
+    const artistTokens = artist.split(' ').filter(Boolean);
+    const titleMatches = tokenMatches(queryTokens, titleTokens);
+    const artistMatches = tokenMa
+tches(queryTokens, artistTokens);
+    const exactTitle = title === normalizedQuery;
+    const titlePhrase = title.includes(normalizedQuery);
+    const artistPhrase = artist.includes(normalizedQuery);
+    const allTitleTokens = titleMatches === queryTokens.length;
+    const allArtistTokens = artistMatches === queryTokens.length;
+    const typoTitle = titleMatches > 0 && titleMatches === queryTokens.length && !titlePhrase;
+    const typoArtist = artistMatches > 0 && artistMatches === queryTokens.length && !artistPhrase;
+
+    if (exactTitle) return { score: 0, matchType: 'exact-title' };
+    if (titlePhrase) return { score: 100, matchType: 'title' };
+    if (allTitleTokens) return { score: typoTitle ? 180 : 120, matchType: typoTitle ? 'title-typo' : 'title' };
+    if (artistPhrase) return { score: 200, matchType: 'artist' };
+    if (allArtistTokens) return { score: typoArtist ? 280 : 220, matchType: typoArtist ? 'artist-typo' : 'artist' };
+    if (titleMatches > 0) return { score: 320 - titleMatches, matchType: 'partial-title' };
+    if (artistMatches > 0) return { score: 420 - artistMatches, matchType: 'partial-artist' };
+    return { score: 999, matchType: 'none' };
+}
+
+export function searchSongs(songs, query = '', activeGenre = 'All') {
+    const normalizedQuery = normalizeSearchQuery(query);
+    return songs
+        .filter((song) => matchesGenre(song, activeGenre))
+        .map((song, index) => ({ song, index, ranking: rankSong(song, normalizedQuery) }))
+        .filter(({ ranking }) => !normalizedQuery || ranking.matchType !== 'none')
+        .sort((left, right) => left.ranking.score - right.ranking.score
+            || normalizeSearchQuery(left.song.judul).localeCompare(normalizeSearchQuery(right.song.judul))
+            || normalizeSearchQuery(left.song.artis).localeCompare(normalizeSearchQuery(right.song.artis))
+            || left.index - right.index)
+        .map(({ song }) => song);
+}
+
+export function filterSongs(songs, query
+ = '', activeGenre = 'All') {
+    return searchSongs(songs, query, activeGenre);
+}
+
+export function transposeChord(chord, offset = 0) {
+    if (typeof chord !== 'string' || !chord) return '';
+    if (offset === 0) return chord;
+    return chord.replace(/[A-G](?:#|b)?/g, (root) => {
+        const normalized = ENHARMONIC[root] || root;
+        const rootIndex = CHROMATIC.indexOf(normalized);
+        if (rootIndex < 0) return root;
+        const newIndex = (rootIndex + (offset % OCTAVE_SIZE) + OCTAVE_SIZE) % OCTAVE_SIZE;
+        return CHROMATIC[newIndex];
+    });
+}
+
+export function parseSongReference(value, songs) {
+    if (!Array.isArray(songs)) return null;
+    const reference = String(value ?? '').trim();
+    if (!reference) return null;
+    const byId = songs.find((song) => song?.id === reference);
+    if (byId) return byId;
+    if (/^\d+$/.test(reference)) return songs[Number(reference)] || null;
+    return null;
+}
+
+// Kumpulan akor terbuka / mudah (open easy chords) yang ramah pemula tanpa barre
+export const OPEN_EASY_CHORDS = new Set([
+    'C', 'G', 'D', 'A', 'E',
+    'Am', 'Em', 'Dm',
+    'C7', 'G7', 'D7', 'A7', 'E7',
+    'Cmaj7', 'Gmaj7', 'Amaj7',
+    'Asus2', 'Asus4', 'Dsus2', 'Dsus4', 'Esus4'
+]);
+
+/**
+ * Menilai tingkat kemudahan suatu chord (skor lebih tinggi = lebih mudah)
+ */
+export function rateChordEase(chord) {
+    if (!chord || typeof chord !== 'string') return 0;
+    const clean = chord.trim().split('/')[0]; // evaluasi root chord tanpa slash bass
+    if (OPEN_EASY_CHORDS.has(clean)) return 3; // Open chord santai
+    // F atau Bm adalah barre umum pemula tapi masih standar
+    if (clean === 'F' || clean === 'Bm' || clean === 'B7') return 1;
+    // Chord yang memiliki accidental tajam / barre berat (C#m, G#m, F#m, D#, Bb, dll)
+    if (clean.includes('#') || clean.includes('b')) return 0;
+    return 1;
+}
+
+/**
+ * Menganalisis progresi akor dan menyarankan posisi fret capo terbaik (1 s/d maxFret)
+ * ag
+ar akor yang dimainkan menjadi bentuk open chords yang mudah.
+ *
+ * @param {string[]} chords - Daftar nama akor dalam lagu
+ * @param {string} originalKey - Nada dasar lagu
+ * @param {number} maxFret - Batas maksimal fret capo (default: 7)
+ * @returns {object} { bestFret, playedKey, suggestions, isAlreadyOptimal }
+ */
+export function suggestCapo(chords = [], originalKey = 'C', maxFret = 7) {
+    const uniqueChords = Array.from(new Set(
+        (Array.isArray(chords) ? chords : [])
+            .map((c) => (typeof c === 'string' ? c.trim() : ''))
+            .filter(Boolean)
+    ));
+
+    if (!uniqueChords.length) {
+        return {
+            bestFret: 0,
+            playedKey: originalKey,
+            isAlreadyOptimal: true,
+            suggestions: []
+        };
+    }
+
+    const calcScore = (chordList) => {
+        return chordList.reduce((acc, c) => acc + rateChordEase(c), 0);
+    };
+
+    const baseScore = calcScore(uniqueChords);
+    const results = [];
+
+    // Fret 0 (tanpa capo)
+    results.push({
+        fret: 0,
+        playedKey: originalKey,
+        score: baseScore,
+        chords: [...uniqueChords],
+        easyPercentage: Math.round((uniqueChords.filter(c => rateChordEase(c) >= 3).length / uniqueChords.length) * 100)
+    });
+
+    for (let fret = 1; fret <= maxFret; fret++) {
+        // Jika kita pasang Capo di fret X, akor yang dimainkan jari = transpose -X
+        const playedChords = uniqueChords.map((c) => transposeChord(c, -fret));
+        const playedKey = transposeChord(originalKey, -fret);
+        const score = calcScore(playedChords);
+        const easyCount = playedChords.filter((c) => rateChordEase(c) >= 3).length;
+        const easyPercentage = Math.round((easyCount / playedChords.length) * 100);
+
+        results.push({
+            fret,
+            playedKey,
+            score,
+            chords: playedChords,
+            easyPercentage
+        });
+    }
+
+    // Urutkan berdasarkan skor 
+tertinggi, lalu easyPercentage tertinggi, lalu fret terendah
+    const candidateRank = [...results.slice(1)].sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        if (b.easyPercentage !== a.easyPercentage) return b.easyPercentage - a.easyPercentage;
+        return a.fret - b.fret;
+    });
+
+    const best = candidateRank[0];
+    // Dikatakan perlu saran capo jika capo menghasilkan perbaikan skor signifikan dibandingkan tanpa capo
+    const isBeneficial = best && (best.score > baseScore || (best.score === baseScore && best.easyPercentage > results[0].easyPercentage + 20));
+
+    return {
+        bestFret: isBeneficial ? best.fret : 0,
+        playedKey: isBeneficial ? best.playedKey : originalKey,
+        isAlreadyOptimal: !isBeneficial,
+        baseScore,
+        suggestions: results
+    };
+}
+
+
 
 /**
  * Parses a chord symbol and returns its shape (root, quality, fret positions, etc.)
@@ -11,12 +274,16 @@ export function getChordShape(chordSymbol) {
     const cleanSymbol = chordSymbol.trim();
     if (!cleanSymbol) return null;
 
+    // Handle slash chords (e.g., C/Eb) - extract the main chord before the slash
+    const slashIndex = cleanSymbol.indexOf('/');
+    const mainChord = slashIndex > 0 ? cleanSymbol.substring(0, slashIndex) : cleanSymbol;
+
     // Check for invalid root notes (e.g., 'H')
-    const rootMatch = cleanSymbol.match(/^[A-G](?:#|b)?/);
+    const rootMatch = mainChord.match(/^[A-G](?:#|b)?/);
     if (!rootMatch) return null;
 
     const root = rootMatch[0];
-    const quality = cleanSymbol.includes('m') ? 'minor' : 'major';
+    const quality = mainChord.includes('m') ? 'minor' : 'major';
 
     // Default positions for common open chords
     const chordPositions = {
@@ -31,13 +298,13 @@ export function getChordShape(chordSymbol) {
     };
 
     // Lookup the chord in the predefined shapes
-    const shape = chordPositions[cleanSymbol];
+    const shape = chordPositions[mainChord];
     if (shape) return shape;
 
     // Default fallback for unknown chords
     return {
         root,
-        quality: cleanSymbol.includes('m') ? 'minor' : 'major',
+        quality: mainChord.includes('m') ? 'minor' : 'major',
         baseFret: 1,
         positions: ['x', 0, 0, 0, 0, 0]
     };
