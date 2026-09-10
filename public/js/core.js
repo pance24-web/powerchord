@@ -98,8 +98,7 @@ export function rankSong(song, query = '') {
     const titleTokens = title.split(' ').filter(Boolean);
     const artistTokens = artist.split(' ').filter(Boolean);
     const titleMatches = tokenMatches(queryTokens, titleTokens);
-    const artistMatches = tokenMa
-tches(queryTokens, artistTokens);
+    const artistMatches = tokenMatches(queryTokens, artistTokens);
     const exactTitle = title === normalizedQuery;
     const titlePhrase = title.includes(normalizedQuery);
     const artistPhrase = artist.includes(normalizedQuery);
@@ -131,8 +130,7 @@ export function searchSongs(songs, query = '', activeGenre = 'All') {
         .map(({ song }) => song);
 }
 
-export function filterSongs(songs, query
- = '', activeGenre = 'All') {
+export function filterSongs(songs, query = '', activeGenre = 'All') {
     return searchSongs(songs, query, activeGenre);
 }
 
@@ -183,8 +181,7 @@ export function rateChordEase(chord) {
 
 /**
  * Menganalisis progresi akor dan menyarankan posisi fret capo terbaik (1 s/d maxFret)
- * ag
-ar akor yang dimainkan menjadi bentuk open chords yang mudah.
+ * agar akor yang dimainkan menjadi bentuk open chords yang mudah.
  *
  * @param {string[]} chords - Daftar nama akor dalam lagu
  * @param {string} originalKey - Nada dasar lagu
@@ -240,8 +237,7 @@ export function suggestCapo(chords = [], originalKey = 'C', maxFret = 7) {
         });
     }
 
-    // Urutkan berdasarkan skor 
-tertinggi, lalu easyPercentage tertinggi, lalu fret terendah
+    // Urutkan berdasarkan skor tertinggi, lalu easyPercentage tertinggi, lalu fret terendah
     const candidateRank = [...results.slice(1)].sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
         if (b.easyPercentage !== a.easyPercentage) return b.easyPercentage - a.easyPercentage;
