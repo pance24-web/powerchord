@@ -1062,5 +1062,102 @@
         "teks": ""
       }
     ]
+  },
+  {
+    "id": "mati-muda-kelompok-penerbang-roket",
+    "judul": "Mati Muda",
+    "artis": "Kelompok Penerbang Roket",
+    "genre": "Rock",
+    "kunci": "E5",
+    "lirik": [
+      {
+        "chord": "E5 D5 E5 G5",
+        "teks": ""
+      },
+      {
+        "chord": "E5 D5 E5 G5",
+        "teks": ""
+      },
+      {
+        "chord": "E5",
+        "teks": "Berseragam berlaga jagoan"
+      },
+      {
+        "chord": "D5 E5 G5",
+        "teks": "Mau jadi apa?"
+      },
+      {
+        "chord": "E5",
+        "teks": "Seperti tentara kau menyerang"
+      },
+      {
+        "chord": "D5 E5 G5",
+        "teks": "Dan akhirnya celaka!"
+      },
+      {
+        "chord": "C5 G5 D5 A5",
+        "teks": "Mati... Muda..."
+      },
+      {
+        "chord": "E5",
+        "teks": "Impian harapan orang tua"
+      },
+      {
+        "chord": "D5 E5 G5",
+        "teks": "Musnah begitu saja!"
+      },
+      {
+        "chord": "E5",
+        "teks": "Nyawa-nyawa penerus bangsa"
+      },
+      {
+        "chord": "D5 E5 G5",
+        "teks": "Tidak ada harganya!"
+      },
+      {
+        "chord": "C5 G5 D5 A5",
+        "teks": "Mati... Muda"
+      },
+      {
+        "chord": "C5 G5 D5 A5",
+        "teks": "Mati... Muda..."
+      },
+      {
+        "chord": "E5",
+        "teks": "Parapapa papa papa!"
+      },
+      {
+        "chord": "D5 G5",
+        "teks": "Papara para papa papa papa!"
+      },
+      {
+        "chord": "E5",
+        "teks": "Papara para papa papa papa!"
+      },
+      {
+        "chord": "D5 G5",
+        "teks": "Papara para papa papa papa!"
+      },
+      {
+        "chord": "E5",
+        "teks": "Paparapa!"
+      },
+      {
+        "chord": "C5 G5 D5 A5",
+        "teks": "Mati... Muda..."
+      },
+      {
+        "chord": "C5 G5 D5 A5",
+        "teks": "Mati... Muda..."
+      },
+      {
+        "chord": "C5 G5 D5 A5",
+        "teks": "Mati... Muda..."
+      },
+      {
+        "chord": "C5 G5 D5 A5",
+        "teks": "Mati... Muda..."
+      }
+    ]
   }
 ]
