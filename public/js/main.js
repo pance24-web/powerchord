@@ -1097,21 +1097,37 @@ function showChordTooltip(chordName, event) {
     // Pastikan chordName valid
     const chordDef = getChordDefinition(chordName);
     if (!chordDef) {
-        chordTooltip.innerHTML = `<span style="font-size:10px;color:var(--muted)">Chord "${chordName}" tidak ditemukan</span>`;
+        chordTooltip.innerHTML = `<span style="font-size:11px;color:var(--muted);padding:4px">Chord "${chordName}" tidak ditemukan</span>`;
     } else {
-        chordTooltip.innerHTML = generateChordSVG(chordName, { width: 90, height: 110 });
+        chordTooltip.innerHTML = generateChordSVG(chordName, { width: 110, height: 135 });
     }
     
     chordTooltip.setAttribute('aria-hidden', 'false');
-    
-    // Posisikan tooltip di dekat kursor (di atas)
+
+    // Posisikan tooltip secara akurat di atas elemen chord
+    const target = event.currentTarget || event.target;
+    const rect = target.getBoundingClientRect();
+    const tooltipWidth = 130;
+    const tooltipHeight = 160;
+
     const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-    const x = event.clientX + scrollX + 10;
-    const y = event.clientY + scrollY - 130; // 130px agar tidak menutupi cursor
-    
-    chordTooltip.style.left = `${x}px`;
-    chordTooltip.style.top = `${y}px`;
+
+    // Centered horizontal terhadap target
+    let left = rect.left + scrollX + (rect.width / 2) - (tooltipWidth / 2);
+    // Di atas target
+    let top = rect.top + scrollY - tooltipHeight - 8;
+
+    // Jika mepet ke atas layar, tampilkan di bawah target
+    if (rect.top < tooltipHeight + 10) {
+        top = rect.bottom + scrollY + 8;
+    }
+
+    // Hindari overflow kiri atau kanan layar
+    left = Math.max(12, Math.min(left, window.innerWidth - tooltipWidth - 16));
+
+    chordTooltip.style.left = `${Math.round(left)}px`;
+    chordTooltip.style.top = `${Math.round(top)}px`;
 }
 
 function hideChordTooltip() {

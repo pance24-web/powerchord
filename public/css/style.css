@@ -1181,8 +1181,8 @@ button:disabled:focus-visible {
 
 .chord-tooltip svg {
     display: block;
-    width: 90px;
-    height: 110px;
+    width: 110px;
+    height: 135px;
     color: var(--text);
 }
 
@@ -1234,25 +1234,32 @@ button:disabled:focus-visible {
     backdrop-filter: blur(3px);
 }
 
-/* Chord Tooltip (Hover) */
-.chord-modal.chord-tooltip {
-    position: fixed;
+/* Chord Floating Tooltip (Hover) */
+.chord-tooltip {
+    position: absolute;
     display: none;
     z-index: 10000;
     pointer-events: none;
     top: 0;
     left: 0;
-    transform: translateY(-10px);
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 10px 6px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(249, 115, 22, 0.2);
+    transform: translateY(6px);
     opacity: 0;
-    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-    max-width: 280px;
+    transition: opacity 0.16s ease-out, transform 0.16s ease-out;
+    max-width: 200px;
 }
 
-.chord-modal.chord-tooltip[aria-hidden="false"] {
-    display: block;
+.chord-tooltip[aria-hidden="false"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     transform: translateY(0);
     opacity: 1;
-    pointer-events: auto;
 }
 
 /* Pastikan chord-lirik tetap bisa dihover */
