@@ -44,6 +44,48 @@ function setLocalStorage(key, value) {
     }
 }
 
+const FAVORITES_STORAGE_KEY = 'powerchord_favorites';
+const HISTORY_STORAGE_KEY = 'powerchord_history';
+const MAX_HISTORY_ITEMS = 50;
+
+function getStoredIdList(key) {
+    try {
+        const rawValue = getLocalStorage(key, '[]');
+        const parsed = JSON.parse(rawValue);
+        return Array.isArray(parsed)
+            ? parsed.filter((value) => typeof value === 'string' && value.trim())
+            : [];
+    } catch (error) {
+        console.warn(`Gagal membaca daftar tersimpan "${key}":`, error);
+        return [];
+    }
+}
+
+function saveStoredIdList(key, ids) {
+    return setLocalStorage(key, JSON.stringify(ids));
+}
+
+function addToHistory(songId) {
+    if (typeof songId !== 'string' || !songId) return;
+    const history = getStoredIdList(HISTORY_STORAGE_KEY).filter((id) => id !== songId);
+    history.unshift(songId);
+    saveStoredIdList(HISTORY_STORAGE_KEY, history.slice(0, MAX_HISTORY_ITEMS));
+}
+
+function isFavorite(songId) {
+    return getStoredIdList(FAVORITES_STORAGE_KEY).includes(songId);
+}
+
+function toggleFavorite(songId) {
+    if (typeof songId !== 'string' || !songId) return false;
+    const favorites = getStoredIdList(FAVORITES_STORAGE_KEY);
+    const index = favorites.indexOf(songId);
+    if (index >= 0) favorites.splice(index, 1);
+    else favorites.push(songId);
+    saveStoredIdList(FAVORITES_STORAGE_KEY, favorites);
+    return index < 0;
+}
+
 function getSongIndex(song) {
     return state.songs.indexOf(song);
 }
@@ -63,21 +105,20 @@ function renderReferenceList(container, items) {
 }
 
 function renderLatestSongRow(song) {
-    const row = document.createElement('a');
+    const row = document.createElement('div');
     row.className = 'song-row';
-    row.href = getSongHref(song, getSongIndex(song));
 
     const main = document.createElement('span');
     main.className = 'song-main';
-    const title = document.createElement('span');
+    const title = document.createElement('a');
     title.className = 'song-title';
+    title.href = getSongHref(song, getSongIndex(song));
     title.textContent = song.judul;
 
     const artistLink = document.createElement('a');
     artistLink.className = 'song-artist';
     artistLink.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
     artistLink.textContent = song.artis;
-    artistLink.addEventListener('click', (e) => e.stopPropagation());
 
     main.append(title, artistLink);
 
@@ -512,6 +553,24 @@ function initDetailPage() {
     const artistElement = document.getElementById('artisLagu');
     if (artistElement) artistElement.textContent = song.artis;
 
+    addToHistory(song.id);
+    const favoriteButton = document.getElementById('toggleFavorite');
+    const updateFavoriteButton = () => {
+        const favorite = isFavorite(song.id);
+        if (!favoriteButton) return;
+        favoriteButton.textContent = favorite ? '★ Tersimpan' : '☆ Simpan';
+        favoriteButton.setAttribute('aria-pressed', String(favorite));
+        favoriteButton.setAttribute('aria-label', favorite
+            ? `Hapus ${song.judul} dari koleksi`
+            : `Simpan ${song.judul} ke koleksi`);
+        favoriteButton.classList.toggle('is-favorite', favorite);
+    };
+    favoriteButton?.addEventListener('click', () => {
+        toggleFavorite(song.id);
+        updateFavoriteButton();
+    });
+    updateFavoriteButton();
+
     const difficultyEl = document.getElementById('difficulty');
     const genreEl = document.getElementById('genre');
     const originalKeyEl = document.getElementById('originalKey');
@@ -774,23 +833,11 @@ function initOfflineIndicator() {
 }
 // --- COLLECTION & HISTORY FUNCTIONS ---
 function getFavorites() {
-    try {
-        const favorites = localStorage.getItem('powerchord_favorites');
-        return favorites ? JSON.parse(favorites) : [];
-    } catch (error) {
-        console.warn('Gagal membaca favorit:', error);
-        return [];
-    }
+    return getStoredIdList(FAVORITES_STORAGE_KEY);
 }
 
 function getHistory() {
-    try {
-        const history = localStorage.getItem('powerchord_history');
-        return history ? JSON.parse(history) : [];
-    } catch (error) {
-        console.warn('Gagal membaca riwayat:', error);
-        return [];
-    }
+    return getStoredIdList(HISTORY_STORAGE_KEY);
 }
 
 function renderCollectionList() {

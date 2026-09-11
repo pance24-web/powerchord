@@ -651,7 +651,7 @@ button:disabled:focus-visible {
     transition: background-color 0.16s ease, transform 0.16s ease, padding 0.16s ease;
 }
 .song-row:hover,
-.song-row:focus-visible {
+.song-row:focus-within {
     background: var(--soft);
     transform: translateX(4px);
     outline: 2px solid var(--accent);
@@ -667,6 +667,7 @@ button:disabled:focus-visible {
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--text);
+    text-decoration: none;
 }
 .song-artist {
     color: var(--muted);
@@ -914,7 +915,8 @@ button:disabled:focus-visible {
 }
 .transpose-box,
 .capo-box,
-.autoscroll-box {
+.autoscroll-box,
+.favorite-box {
     display: flex;
     align-items: center;
     gap: 9px;
@@ -923,6 +925,24 @@ button:disabled:focus-visible {
 }
 .capo-box {
     padding: 0 4px;
+}
+.btn-favorite {
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--surface);
+    color: var(--text);
+    padding: 4px 8px;
+}
+.btn-favorite:hover,
+.btn-favorite:focus-visible,
+.btn-favorite.is-favorite {
+    border-color: var(--accent);
+    color: var(--accent-dark);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+.btn-favorite.is-favorite {
+    background: rgba(249, 115, 22, 0.08);
 }
 .capo-status {
     font-weight: 600;
