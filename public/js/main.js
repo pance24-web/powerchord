@@ -185,9 +185,8 @@ function renderSearchResults(filtered) {
 }
 
 function renderPopularSongRow(song, index) {
-    const row = document.createElement('a');
+    const row = document.createElement('div');
     row.className = 'popular-song-row';
-    row.href = getSongHref(song, getSongIndex(song));
 
     const rank = document.createElement('span');
     rank.className = 'popular-rank';
@@ -195,15 +194,15 @@ function renderPopularSongRow(song, index) {
 
     const main = document.createElement('div');
     main.className = 'popular-song-main';
-    const title = document.createElement('div');
+    const title = document.createElement('a');
     title.className = 'popular-song-title';
+    title.href = getSongHref(song, getSongIndex(song));
     title.textContent = song.judul;
 
     const artistLink = document.createElement('a');
     artistLink.className = 'popular-song-artist';
     artistLink.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
     artistLink.textContent = song.artis;
-    artistLink.addEventListener('click', (e) => e.stopPropagation());
 
     main.append(title, artistLink);
 
@@ -430,9 +429,17 @@ function initSearchInteractions() {
     });
 }
 
-async function loadSongs() {
-    const needsSongData = document.getElementById('songList') || document.getElementById('judulLagu');
-    if (!needsSongData) return;
+let songsPromise;
+
+function loadSongs() {
+    const needsSongData = document.getElementById('songList')
+        || document.getElementById('judulLagu')
+        || document.getElementById('collectionList')
+        || document.getElementById('historyList');
+    if (!needsSongData) return Promise.resolve();
+    if (songsPromise) return songsPromise;
+
+    songsPromise = (async () => {
 
     const supabaseController = new AbortController();
     const supabaseTimeoutId = setTimeout(() => supabaseController.abort(), NETWORK_TIMEOUT_MS);
@@ -466,6 +473,9 @@ async function loadSongs() {
 
     if (document.getElementById('songList')) filterHomepage();
     if (document.getElementById('judulLagu')) initDetailPage();
+    })();
+
+    return songsPromise;
 }
 
 function initDrawer() {

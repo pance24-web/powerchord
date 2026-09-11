@@ -464,7 +464,7 @@ button:disabled:focus-visible {
     transition: transform 160ms ease-out, border-color 160ms ease-out;
 }
 .popular-song-row:hover,
-.popular-song-row:focus-visible {
+.popular-song-row:focus-within {
     transform: translateX(4px);
     border-color: var(--accent);
 }
@@ -480,11 +480,14 @@ button:disabled:focus-visible {
     overflow: hidden;
 }
 .popular-song-title {
+    display: block;
     font-weight: 600;
     font-size: 0.9rem;
+    color: inherit;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-decoration: none;
 }
 .popular-song-artist {
     font-size: 0.8rem;
