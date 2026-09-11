@@ -47,14 +47,21 @@ export function normalizeSearchQuery(value = '') {
         .replace(/\s+/g, ' ');
 }
 
+const editDistanceCache = new Map();
+const MAX_CACHE_SIZE = 5000;
+
 function editDistance(left, right) {
+    if (left === right) return 0;
+    const cacheKey = left < right ? (left + '|' + right) : (right + '|' + left);
+    const cached = editDistanceCache.get(cacheKey);
+    if (cached !== undefined) return cached;
+
     const previous = Array.from({ length: right.length + 1 }, (_, index) => index);
     for (let row = 1; row <= left.length; row += 1) {
         const current = [row];
         for (let column = 1; column <= right.length; column += 1) {
             const cost = left[row - 1] === right[column - 1] ? 0 : 1;
-     
-       current[column] = Math.min(
+            current[column] = Math.min(
                 current[column - 1] + 1,
                 previous[column] + 1,
                 previous[column - 1] + cost,
@@ -67,7 +74,14 @@ function editDistance(left, right) {
         }
         for (let column = 0; column <= right.length; column += 1) previous[column] = current[column];
     }
-    return previous[right.length];
+
+    const result = previous[right.length];
+    if (editDistanceCache.size >= MAX_CACHE_SIZE) {
+        const keysToDelete = Array.from(editDistanceCache.keys()).slice(0, 1000);
+        keysToDelete.forEach((k) => editDistanceCache.delete(k));
+    }
+    editDistanceCache.set(cacheKey, result);
+    return result;
 }
 
 function hasAdjacentTransposition(left, right) {
@@ -281,16 +295,54 @@ export function getChordShape(chordSymbol) {
     const root = rootMatch[0];
     const quality = mainChord.includes('m') ? 'minor' : 'major';
 
-    // Default positions for common open chords
+    // Extended positions for open and common barre chords
     const chordPositions = {
+        // Open major chords
         'C': { root: 'C', quality: 'major', baseFret: 1, positions: ['x', 3, 2, 0, 1, 0] },
-        'G': { root: 'G', quality: 'major', baseFret: 3, positions: ['3', 2, 0, 0, 0, 3] },
-        'D': { root: 'D', quality: 'major', baseFret: 2, positions: ['x', 'x', 0, 2, 3, 2] },
-        'A': { root: 'A', quality: 'major', baseFret: 0, positions: ['x', 0, 2, 2, 2, 0] },
-        'E': { root: 'E', quality: 'major', baseFret: 0, positions: ['0', 2, 2, 1, 0, 0] },
-        'Am': { root: 'A', quality: 'minor', baseFret: 0, positions: ['x', 0, 2, 2, 1, 0] },
-        'Em': { root: 'E', quality: 'minor', baseFret: 0, positions: ['0', 2, 2, 0, 0, 0] },
+        'G': { root: 'G', quality: 'major', baseFret: 1, positions: [3, 2, 0, 0, 0, 3] },
+        'D': { root: 'D', quality: 'major', baseFret: 1, positions: ['x', 'x', 0, 2, 3, 2] },
+        'A': { root: 'A', quality: 'major', baseFret: 1, positions: ['x', 0, 2, 2, 2, 0] },
+        'E': { root: 'E', quality: 'major', baseFret: 1, positions: [0, 2, 2, 1, 0, 0] },
+
+        // Common Barre major chords
+        'F': { root: 'F', quality: 'major', baseFret: 1, positions: [1, 3, 3, 2, 1, 1] },
+        'B': { root: 'B', quality: 'major', baseFret: 2, positions: ['x', 2, 4, 4, 4, 2] },
+        'F#': { root: 'F#', quality: 'major', baseFret: 2, positions: [2, 4, 4, 3, 2, 2] },
+        'Gb': { root: 'Gb', quality: 'major', baseFret: 2, positions: [2, 4, 4, 3, 2, 2] },
+        'Bb': { root: 'Bb', quality: 'major', baseFret: 1, positions: ['x', 1, 3, 3, 3, 1] },
+        'A#': { root: 'A#', quality: 'major', baseFret: 1, positions: ['x', 1, 3, 3, 3, 1] },
+        'Ab': { root: 'Ab', quality: 'major', baseFret: 4, positions: [4, 6, 6, 5, 4, 4] },
+        'G#': { root: 'G#', quality: 'major', baseFret: 4, positions: [4, 6, 6, 5, 4, 4] },
+        'Eb': { root: 'Eb', quality: 'major', baseFret: 6, positions: ['x', 6, 8, 8, 8, 6] },
+        'D#': { root: 'D#', quality: 'major', baseFret: 6, positions: ['x', 6, 8, 8, 8, 6] },
+
+        // Open minor chords
+        'Am': { root: 'A', quality: 'minor', baseFret: 1, positions: ['x', 0, 2, 2, 1, 0] },
+        'Em': { root: 'E', quality: 'minor', baseFret: 1, positions: [0, 2, 2, 0, 0, 0] },
         'Dm': { root: 'D', quality: 'minor', baseFret: 1, positions: ['x', 'x', 0, 2, 3, 1] },
+
+        // Common Barre minor chords
+        'Bm': { root: 'B', quality: 'minor', baseFret: 2, positions: ['x', 2, 4, 4, 3, 2] },
+        'Fm': { root: 'F', quality: 'minor', baseFret: 1, positions: [1, 3, 3, 1, 1, 1] },
+        'F#m': { root: 'F#', quality: 'minor', baseFret: 2, positions: [2, 4, 4, 2, 2, 2] },
+        'G#m': { root: 'G#', quality: 'minor', baseFret: 4, positions: [4, 6, 6, 4, 4, 4] },
+        'Abm': { root: 'Ab', quality: 'minor', baseFret: 4, positions: [4, 6, 6, 4, 4, 4] },
+        'C#m': { root: 'C#', quality: 'minor', baseFret: 4, positions: ['x', 4, 6, 6, 5, 4] },
+        'Dbm': { root: 'Db', quality: 'minor', baseFret: 4, positions: ['x', 4, 6, 6, 5, 4] },
+        'Ebm': { root: 'Eb', quality: 'minor', baseFret: 6, positions: ['x', 6, 8, 8, 7, 6] },
+        'D#m': { root: 'D#', quality: 'minor', baseFret: 6, positions: ['x', 6, 8, 8, 7, 6] },
+        'Bbm': { root: 'Bb', quality: 'minor', baseFret: 1, positions: ['x', 1, 3, 3, 2, 1] },
+        'A#m': { root: 'A#', quality: 'minor', baseFret: 1, positions: ['x', 1, 3, 3, 2, 1] },
+        'Cm': { root: 'C', quality: 'minor', baseFret: 3, positions: ['x', 3, 5, 5, 4, 3] },
+        'Gm': { root: 'G', quality: 'minor', baseFret: 3, positions: [3, 5, 5, 3, 3, 3] },
+
+        // Common 7th chords
+        'C7': { root: 'C', quality: 'dominant7', baseFret: 1, positions: ['x', 3, 2, 3, 1, 0] },
+        'G7': { root: 'G', quality: 'dominant7', baseFret: 1, positions: [3, 2, 0, 0, 0, 1] },
+        'D7': { root: 'D', quality: 'dominant7', baseFret: 1, positions: ['x', 'x', 0, 2, 1, 2] },
+        'A7': { root: 'A', quality: 'dominant7', baseFret: 1, positions: ['x', 0, 2, 0, 2, 0] },
+        'E7': { root: 'E', quality: 'dominant7', baseFret: 1, positions: [0, 2, 0, 1, 0, 0] },
+        'B7': { root: 'B', quality: 'dominant7', baseFret: 1, positions: ['x', 2, 1, 2, 0, 2] },
     };
 
     // Lookup the chord in the predefined shapes
@@ -305,3 +357,4 @@ export function getChordShape(chordSymbol) {
         positions: ['x', 0, 0, 0, 0, 0]
     };
 }
+

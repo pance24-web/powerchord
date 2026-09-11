@@ -120,6 +120,14 @@ test('getChordShape parses major, minor, and transposed chord symbols', () => {
 
     assert.equal(getChordShape('C/Eb').root, 'C', 'Bass note slash chord tidak mengubah bentuk utama');
     assert.equal(getChordShape('H'), null, 'Simbol chord tidak valid harus ditolak');
+
+    const fMajor = getChordShape('F');
+    assert.equal(fMajor.root, 'F');
+    assert.deepEqual(fMajor.positions, [1, 3, 3, 2, 1, 1], 'F barre chord harus memiliki posisi fret yang tepat');
+
+    const bMinor = getChordShape('Bm');
+    assert.equal(bMinor.root, 'B');
+    assert.deepEqual(bMinor.positions, ['x', 2, 4, 4, 3, 2], 'Bm barre chord harus memiliki posisi fret yang tepat');
 });
 
 test('suggestCapo recommends easy open chords for barre-heavy songs', () => {

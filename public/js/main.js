@@ -104,23 +104,40 @@ function renderReferenceList(container, items) {
     items.forEach((item) => container.appendChild(makeReferenceLink(item)));
 }
 
-function renderLatestSongRow(song) {
-    const row = document.createElement('div');
+function renderSongRow(song, { asLink = false } = {}) {
+    const row = document.createElement(asLink ? 'a' : 'div');
     row.className = 'song-row';
+    if (asLink) {
+        row.href = getSongHref(song, getSongIndex(song));
+    }
 
     const main = document.createElement('span');
     main.className = 'song-main';
-    const title = document.createElement('a');
-    title.className = 'song-title';
-    title.href = getSongHref(song, getSongIndex(song));
-    title.textContent = song.judul;
 
-    const artistLink = document.createElement('a');
-    artistLink.className = 'song-artist';
-    artistLink.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
-    artistLink.textContent = song.artis;
+    let title;
+    let artist;
 
-    main.append(title, artistLink);
+    if (asLink) {
+        title = document.createElement('span');
+        title.className = 'song-title';
+        title.textContent = song.judul;
+
+        artist = document.createElement('span');
+        artist.className = 'song-artist';
+        artist.textContent = song.artis;
+    } else {
+        title = document.createElement('a');
+        title.className = 'song-title';
+        title.href = getSongHref(song, getSongIndex(song));
+        title.textContent = song.judul;
+
+        artist = document.createElement('a');
+        artist.className = 'song-artist';
+        artist.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
+        artist.textContent = song.artis;
+    }
+
+    main.append(title, artist);
 
     const difficulty = document.createElement('span');
     difficulty.className = 'song-meta';
@@ -137,6 +154,10 @@ function renderLatestSongRow(song) {
 
     row.append(main, difficulty, key, arrow);
     return row;
+}
+
+function renderLatestSongRow(song) {
+    return renderSongRow(song, { asLink: false });
 }
 
 function matchesLetter(song) {
@@ -865,35 +886,7 @@ function renderCollectionList() {
     container.replaceChildren();
 
     songs.forEach((song) => {
-        const row = document.createElement('a');
-        row.className = 'song-row';
-        row.href = getSongHref(song, getSongIndex(song));
-
-        const main = document.createElement('span');
-        main.className = 'song-main';
-        const title = document.createElement('span');
-        title.className = 'song-title';
-        title.textContent = song.judul;
-        const artist = document.createElement('span');
-        artist.className = 'song-artist';
-        artist.textContent = song.artis;
-        main.append(title, artist);
-
-        const difficulty = document.createElement('span');
-        difficulty.className = 'song-meta';
-        difficulty.textContent = getDifficulty(song);
-
-        const key = document.createElement('span');
-        key.className = 'song-key';
-        key.textContent = song.kunci || '—';
-
-        const arrow = document.createElement('span');
-        arrow.className = 'song-arrow';
-        arrow.textContent = '→';
-        arrow.setAttribute('aria-hidden', 'true');
-
-        row.append(main, difficulty, key, arrow);
-        container.appendChild(row);
+        container.appendChild(renderSongRow(song, { asLink: true }));
     });
 }
 
@@ -922,35 +915,7 @@ function renderHistoryList() {
     container.replaceChildren();
 
     songs.forEach((song) => {
-        const row = document.createElement('a');
-        row.className = 'song-row';
-        row.href = getSongHref(song, getSongIndex(song));
-
-        const main = document.createElement('span');
-        main.className = 'song-main';
-        const title = document.createElement('span');
-        title.className = 'song-title';
-        title.textContent = song.judul;
-        const artist = document.createElement('span');
-        artist.className = 'song-artist';
-        artist.textContent = song.artis;
-        main.append(title, artist);
-
-        const difficulty = document.createElement('span');
-        difficulty.className = 'song-meta';
-        difficulty.textContent = getDifficulty(song);
-
-        const key = document.createElement('span');
-        key.className = 'song-key';
-        key.textContent = song.kunci || '—';
-
-        const arrow = document.createElement('span');
-        arrow.className = 'song-arrow';
-        arrow.textContent = '→';
-        arrow.setAttribute('aria-hidden', 'true');
-
-        row.append(main, difficulty, key, arrow);
-        container.appendChild(row);
+        container.appendChild(renderSongRow(song, { asLink: true }));
     });
 }
 
@@ -1008,6 +973,11 @@ function trackPageView() {
 
         // Simpan ke localStorage (untuk analytics sederhana)
         const analytics = JSON.parse(localStorage.getItem('powerchord_analytics') || '[]');
+        const lastEntry = analytics[analytics.length - 1];
+        if (lastEntry?.type === 'page_view' && lastEntry?.page === fullPath) {
+            return; // Hindari duplikasi halaman yang sama berturut-turut
+        }
+
         analytics.push({
             type: 'page_view',
             page: fullPath,
@@ -1020,11 +990,19 @@ function trackPageView() {
 }
 
 function trackSearchQuery(query) {
+    const trimmed = typeof query === 'string' ? query.trim() : '';
+    if (!trimmed) return;
+
     try {
         const analytics = JSON.parse(localStorage.getItem('powerchord_analytics') || '[]');
+        const lastEntry = analytics[analytics.length - 1];
+        if (lastEntry?.type === 'search' && lastEntry?.query === trimmed) {
+            return; // Hindari spam kata kunci yang sama berturut-turut
+        }
+
         analytics.push({
             type: 'search',
-            query: query,
+            query: trimmed,
             timestamp: new Date().toISOString(),
         });
         localStorage.setItem('powerchord_analytics', JSON.stringify(analytics.slice(-100)));

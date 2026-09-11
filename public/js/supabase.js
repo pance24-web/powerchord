@@ -17,17 +17,41 @@ function parseSongContent(content) {
 }
 
 function normalizeSong(row) {
+    if (!row || typeof row !== 'object') return null;
+
+    const id = typeof row.source_id === 'string' && row.source_id.trim()
+        ? row.source_id.trim()
+        : (typeof row.slug === 'string' && row.slug.trim() ? row.slug.trim() : '');
+
+    const judul = typeof row.title === 'string' ? row.title.trim() : '';
+    if (!id || !judul) return null;
+
+    const artis = typeof row.artists?.name === 'string' && row.artists.name.trim()
+        ? row.artists.name.trim()
+        : 'Unknown Artist';
+
+    const genre = typeof row.genre === 'string' && row.genre.trim()
+        ? row.genre.trim()
+        : 'Uncategorized';
+
+    const kunci = typeof row.original_key === 'string' && row.original_key.trim()
+        ? row.original_key.trim()
+        : 'C';
+
+    const lirik = parseSongContent(row.content);
+    if (!lirik.length) return null;
+
     return {
-        id: row.source_id || row.slug,
-        judul: row.title,
-        artis: row.artists?.name || 'Unknown Artist',
-        genre: row.genre || 'Uncategorized',
-        kunci: row.original_key || 'C',
-        lirik: parseSongContent(row.content),
+        id,
+        judul,
+        artis,
+        genre,
+        kunci,
+        lirik,
     };
 }
 
-export async function fetchSongsFromSupabase({ signal } = {}) {
+export async function fetchSongsFromSupabase({ signal, limit = 500 } = {}) {
     // Jika key tidak tersedia, lempar error untuk trigger fallback
     if (!SUPABASE_PUBLISHABLE_KEY) {
         throw new Error('Supabase publishable key tidak tersedia');
@@ -37,6 +61,7 @@ export async function fetchSongsFromSupabase({ signal } = {}) {
         select: 'source_id,title,slug,original_key,content,genre,artists!inner(name)',
         status: 'eq.published',
         order: 'title.asc',
+        limit: String(Number.isInteger(limit) && limit > 0 ? limit : 500),
     });
     const response = await fetch(`${SUPABASE_URL}/rest/v1/songs?${params}`, {
         signal,
@@ -48,5 +73,6 @@ export async function fetchSongsFromSupabase({ signal } = {}) {
     if (!response.ok) throw new Error(`Supabase HTTP error: ${response.status}`);
     const data = await response.json();
     if (!Array.isArray(data)) throw new Error('Format data Supabase tidak valid');
-    return data.map(normalizeSong).filter((song) => song.id && song.judul && song.lirik.length);
+    return data.map(normalizeSong).filter(Boolean);
 }
+
