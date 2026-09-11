@@ -70,16 +70,15 @@ function renderLatestSongRow(song) {
     const main = document.createElement('span');
     main.className = 'song-main';
     const title = document.createElement('span');
-    titl
-e.className = 'song-title';
+    title.className = 'song-title';
     title.textContent = song.judul;
-    
+
     const artistLink = document.createElement('a');
     artistLink.className = 'song-artist';
     artistLink.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
     artistLink.textContent = song.artis;
     artistLink.addEventListener('click', (e) => e.stopPropagation());
-    
+
     main.append(title, artistLink);
 
     const difficulty = document.createElement('span');
@@ -129,8 +128,7 @@ function renderSearchRows(filtered) {
         return;
     }
     filtered.forEach((song) => container.appendChild(renderLatestSongRow(song)));
-    if (ready) ma
-rkCatalogReady(container);
+    if (ready) markCatalogReady(container);
 }
 
 function closeSearchResults() {
@@ -165,7 +163,7 @@ function renderSearchResults(filtered) {
         option.addEventListener('click', closeSearchResults);
         results.appendChild(option);
     });
-    
+
     if (filtered.length > 6) {
         const seeAll = document.createElement('a');
         seeAll.className = 'view-all-link';
@@ -174,7 +172,7 @@ function renderSearchResults(filtered) {
         seeAll.addEventListener('click', closeSearchResults);
         results.appendChild(seeAll);
     }
-    
+
     if (!filtered.length) {
         const empty = document.createElement('p');
         empty.className = 'search-empty';
@@ -183,8 +181,7 @@ function renderSearchResults(filtered) {
         results.appendChild(empty);
     }
     results.hidden = false;
-    input?.s
-etAttribute('aria-expanded', 'true');
+    input?.setAttribute('aria-expanded', 'true');
 }
 
 function renderPopularSongRow(song, index) {
@@ -201,13 +198,13 @@ function renderPopularSongRow(song, index) {
     const title = document.createElement('div');
     title.className = 'popular-song-title';
     title.textContent = song.judul;
-    
+
     const artistLink = document.createElement('a');
     artistLink.className = 'popular-song-artist';
     artistLink.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
     artistLink.textContent = song.artis;
     artistLink.addEventListener('click', (e) => e.stopPropagation());
-    
+
     main.append(title, artistLink);
 
     const genre = document.createElement('span');
@@ -236,15 +233,14 @@ function renderPopularSongs() {
 function filterHomepage() {
     if (!document.getElementById('songList')) return;
     const filtered = getFilteredSongs();
-    
+
     // CRITICAL: Render langsung (user lagi nunggu ini)
     renderSearchRows(filtered);
     const latestCount = document.getElementById('latestCount');
     if (latestCount) latestCount.textContent = `${filtered.length} lagu`;
-    if (normalizeSearchQuery(state.searchQuery)
-.length >= 2) renderSearchResults(filtered);
+    if (normalizeSearchQuery(state.searchQuery).length >= 2) renderSearchResults(filtered);
     else closeSearchResults();
-    
+
     // NON-CRITICAL: Render saat browser idle dengan fallback aman (PERF-006)
     const renderNonCritical = () => {
         renderReferenceList(document.getElementById('newSongList'), state.songs.slice(-5).reverse());
@@ -264,34 +260,6 @@ function updateLetterLinkState(activeValue) {
         link.classList.toggle('active', isActive);
         if (isActive) link.setAttribute('aria-current', 'true');
         else link.removeAttribute('aria-current');
-    });
-}
-
-
-// P0 FIX: Initialize genre filter buttons on page load
-function initGenreFilter() {
-    updateFilterButtonState('[data-genre]', state.activeGenre, 'genre');
-    
-    document.querySelectorAll('[data-genre]').forEach((button) => {
-        button.addEventListener('click', () => {
-            const genre = button.dataset.genre || 'All';
-            
-            const isCatalogPage = window.location.pathname.endsWith('/catalog')
-                || window.location.pathname.includes('catalog.html');
-            if (isCatalogPage) {
-                const newUrl = new URL(window.location.href);
-                if (genre === 'All') {
-                    newUrl.searchParams.delete('genre');
-                } else {
-                    newUrl.searchParams.set('genre', genre);
-                }
-                window.location.href = newUrl;
-            } else {
-                state.activeGenre = genre;
-                updateFilterButtonState('[data-genre]', state.activeGenre, 'genre');
-                filterHomepage();
-            }
-        });
     });
 }
 
@@ -321,8 +289,7 @@ function initTheme() {
 
     applyTheme(initialTheme);
     button?.addEventListener('click', () => {
-        const nextTheme = document.documen
-tElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
         applyTheme(nextTheme);
         setLocalStorage('powerchord-theme', nextTheme);
     });
@@ -351,10 +318,10 @@ function initSearchInteractions() {
         state.searchQuery = input.value.trim();
         state.activeSuggestion = -1;
         input.setAttribute('aria-activedescendant', '');
-        
+
         // Clear timer sebelumnya
         if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
-        
+
         // Tunggu 300ms setelah user berhenti mengetik
         searchDebounceTimer = setTimeout(() => {
             if (document.getElementById('songList')) {
@@ -373,8 +340,7 @@ function initSearchInteractions() {
                 state.activeSuggestion = event.key === 'ArrowDown' ? 0 : options.length - 1;
             } else {
                 const direction = event.key === 'ArrowDown' ? 1 : -1;
-                state.activeSuggestion = (state.activeSug
-gestion + direction + options.length) % options.length;
+                state.activeSuggestion = (state.activeSuggestion + direction + options.length) % options.length;
             }
             options.forEach((option, index) => {
                 option.setAttribute('aria-selected', String(index === state.activeSuggestion));
@@ -397,12 +363,12 @@ gestion + direction + options.length) % options.length;
     form?.addEventListener('submit', (event) => {
         event.preventDefault();
         closeSearchResults();
-        
+
         // Track pencarian
         if (state.searchQuery.trim()) {
             trackSearchQuery(state.searchQuery.trim());
         }
-        
+
         const isCatalogPage = window.location.pathname.endsWith('/catalog')
             || window.location.pathname.includes('catalog.html');
         const isDetailPage = window.location.pathname.endsWith('/detail')
@@ -420,14 +386,13 @@ gestion + direction + options.length) % options.length;
         } else {
             filterHomepage();
             document.getElementById('song-catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-     
-   }
+        }
     });
 
     document.querySelectorAll('[data-genre]').forEach((button) => {
         button.addEventListener('click', () => {
             const genre = button.dataset.genre || 'All';
-            
+
             // Jika di catalog.html, update URL dengan parameter genre=
             const isCatalogPage = window.location.pathname.endsWith('/catalog')
                 || window.location.pathname.includes('catalog.html');
@@ -469,8 +434,7 @@ async function loadSongs() {
     const needsSongData = document.getElementById('songList') || document.getElementById('judulLagu');
     if (!needsSongData) return;
 
-    const supabaseController
- = new AbortController();
+    const supabaseController = new AbortController();
     const supabaseTimeoutId = setTimeout(() => supabaseController.abort(), NETWORK_TIMEOUT_MS);
 
     try {
@@ -481,24 +445,7 @@ async function loadSongs() {
         const fallbackController = new AbortController();
         const fallbackTimeoutId = setTimeout(() => fallbackController.abort(), NETWORK_TIMEOUT_MS);
         try {
-            // P0 FIX: Coba beberapa path fallback
-            let response;
-            const fallbackPaths = ['/data/songs.json', 'data/songs.json'];
-            
-            for (const path of fallbackPaths) {
-                try {
-                    response = await fetch(path, { signal: fallbackController.signal });
-                    if (response.ok) break;
-                } catch (e) {
-                    // Coba path berikutnya
-                }
-            }
-            
-            if (!response || !response.ok) {
-                throw new Error('Semua fallback gagal');
-            }
-            
-            const data = await response.json();
+            const response = await fetch('data/songs.json', { signal: fallbackController.signal });
             if (!response.ok) throw new Error(`Fallback HTTP error: ${response.status}`);
             const data = await response.json();
             if (!Array.isArray(data)) throw new Error('Format data lagu fallback tidak valid');
@@ -525,8 +472,7 @@ function initDrawer() {
     document.getElementById('hamburgerBtn')?.addEventListener('click', () => window.toggleDrawer());
     document.getElementById('drawerClose')?.addEventListener('click', () => window.closeDrawer());
     document.getElementById('drawerOverlay')?.addEventListener('click', () => window.closeDrawer());
-  
-  document.getElementById('drawerSearchInput')?.addEventListener('input', (e) => window.handleDrawerSearch(e.target.value));
+    document.getElementById('drawerSearchInput')?.addEventListener('input', (e) => window.handleDrawerSearch(e.target.value));
 }
 
 function initDetailPage() {
@@ -571,8 +517,7 @@ function initDetailPage() {
     let offset = 0;
     const originalKey = song.kunci || 'C';
     const keyDisplay = document.getElementById('keyNow');
-    if (keyDisplay) k
-eyDisplay.textContent = originalKey;
+    if (keyDisplay) keyDisplay.textContent = originalKey;
 
 
 
@@ -622,7 +567,6 @@ eyDisplay.textContent = originalKey;
     let activeCapoFret = 0;
 
     function updateCapoUI() {
-
         if (!capoBox || !btnCapoSuggest || !capoStatus) return;
         const currentChords = extractSongChords(song.lirik);
         const currentTransposedChords = currentChords.map((c) => transposeChord(c, offset) || c);
@@ -665,8 +609,7 @@ eyDisplay.textContent = originalKey;
             offset = (offset + activeCapoFret) % OCTAVE_SIZE;
             activeCapoFret = 0;
         } else {
-            // 
-Pasang capo yang disarankan
+            // Pasang capo yang disarankan
             const targetFret = parseInt(btnCapoSuggest.dataset.fret, 10);
             if (!isNaN(targetFret) && targetFret > 0) {
                 activeCapoFret = targetFret;
@@ -721,8 +664,7 @@ Pasang capo yang disarankan
         if (frame !== null) cancelAnimationFrame(frame);
         frame = null;
         lastTime = 0;
-        up
-dateScrollButton();
+        updateScrollButton();
     }
     function syncMotionPreference() {
         const reducedMotion = prefersReducedMotion.matches;
@@ -781,8 +723,7 @@ window.closeDrawer = function () {
 window.handleDrawerSearch = function (value) {
     const homeInput = document.getElementById('searchInput');
     if (homeInput) {
-        homeIn
-put.value = value;
+        homeInput.value = value;
         homeInput.dispatchEvent(new Event('input', { bubbles: true }));
         if (value.length >= 2) window.closeDrawer();
     }
@@ -846,32 +787,31 @@ function renderCollectionList() {
     const container = document.getElementById('collectionList');
     const emptyContainer = document.getElementById('emptyCollection');
     const countElement = document.getElementById('collectionCount');
- 
-   
+
     if (!container) return;
-    
+
     const favorites = getFavorites();
     const songs = state.songs.filter(song => favorites.includes(song.id));
-    
+
     if (countElement) {
         countElement.textContent = `${songs.length} lagu`;
     }
-    
+
     if (songs.length === 0) {
         container.hidden = true;
         if (emptyContainer) emptyContainer.hidden = false;
         return;
     }
-    
+
     container.hidden = false;
     if (emptyContainer) emptyContainer.hidden = true;
     container.replaceChildren();
-    
+
     songs.forEach((song) => {
         const row = document.createElement('a');
         row.className = 'song-row';
         row.href = getSongHref(song, getSongIndex(song));
-        
+
         const main = document.createElement('span');
         main.className = 'song-main';
         const title = document.createElement('span');
@@ -881,20 +821,20 @@ function renderCollectionList() {
         artist.className = 'song-artist';
         artist.textContent = song.artis;
         main.append(title, artist);
-        
+
         const difficulty = document.createElement('span');
         difficulty.className = 'song-meta';
         difficulty.textContent = getDifficulty(song);
-        
+
         const key = document.createElement('span');
         key.className = 'song-key';
         key.textContent = song.kunci || '—';
-        
+
         const arrow = document.createElement('span');
         arrow.className = 'song-arrow';
         arrow.textContent = '→';
         arrow.setAttribute('aria-hidden', 'true');
-        
+
         row.append(main, difficulty, key, arrow);
         container.appendChild(row);
     });
@@ -904,34 +844,147 @@ function renderHistoryList() {
     const container = document.getElementById('historyList');
     const emptyContainer = document.getElementById('emptyHistory');
     const countElement = document.getElementById('historyCount');
-    
-    if (!container) return;
-    
-    const history = getHistory();
 
+    if (!container) return;
+
+    const history = getHistory();
     const songs = state.songs.filter(song => history.includes(song.id));
-    
+
     if (countElement) {
         countElement.textContent = `${songs.length} lagu`;
     }
-    
+
     if (songs.length === 0) {
         container.hidden = true;
         if (emptyContainer) emptyContainer.hidden = false;
         return;
     }
-    
+
     container.hidden = false;
     if (emptyContainer) emptyContainer.hidden = true;
     container.replaceChildren();
-    
+
     songs.forEach((song) => {
         const row = document.createElement('a');
         row.className = 'song-row';
         row.href = getSongHref(song, getSongIndex(song));
-        
+
         const main = document.createElement('span');
         main.className = 'song-main';
-        const title = document.crea
+        const title = document.createElement('span');
+        title.className = 'song-title';
+        title.textContent = song.judul;
+        const artist = document.createElement('span');
+        artist.className = 'song-artist';
+        artist.textContent = song.artis;
+        main.append(title, artist);
 
-... [Content truncated]
+        const difficulty = document.createElement('span');
+        difficulty.className = 'song-meta';
+        difficulty.textContent = getDifficulty(song);
+
+        const key = document.createElement('span');
+        key.className = 'song-key';
+        key.textContent = song.kunci || '—';
+
+        const arrow = document.createElement('span');
+        arrow.className = 'song-arrow';
+        arrow.textContent = '→';
+        arrow.setAttribute('aria-hidden', 'true');
+
+        row.append(main, difficulty, key, arrow);
+        container.appendChild(row);
+    });
+}
+
+function initCollectionPage() {
+    if (!document.getElementById('collectionList')) return;
+    loadSongs().then(() => {
+        renderCollectionList();
+    });
+}
+
+function initHistoryPage() {
+    if (!document.getElementById('historyList')) return;
+    loadSongs().then(() => {
+        renderHistoryList();
+    });
+}
+
+function initCatalogPage() {
+    const songList = document.getElementById('songList');
+    if (!songList) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const genreParam = params.get('genre');
+    const artistParam = params.get('artist');
+    const queryParam = params.get('q');
+
+    if (genreParam) {
+        state.activeGenre = genreParam;
+        updateFilterButtonState('[data-genre]', state.activeGenre, 'genre');
+    }
+
+    if (artistParam) {
+        state.searchQuery = artistParam;
+        const input = document.getElementById('searchInput');
+        if (input) input.value = artistParam;
+    }
+
+    if (queryParam) {
+        state.searchQuery = queryParam;
+        const input = document.getElementById('searchInput');
+        if (input) input.value = queryParam;
+    }
+
+    loadSongs().then(() => {
+        filterHomepage();
+    });
+}
+
+// --- ANALYTICS & TRACKING ---
+function trackPageView() {
+    try {
+        const page = window.location.pathname.split('/').pop() || 'index.html';
+        const searchParams = window.location.search;
+        const fullPath = page + searchParams;
+
+        // Simpan ke localStorage (untuk analytics sederhana)
+        const analytics = JSON.parse(localStorage.getItem('powerchord_analytics') || '[]');
+        analytics.push({
+            type: 'page_view',
+            page: fullPath,
+            timestamp: new Date().toISOString(),
+        });
+        localStorage.setItem('powerchord_analytics', JSON.stringify(analytics.slice(-100))); // Simpan 100 entry terakhir
+    } catch (error) {
+        console.warn('Gagal menyimpan analytics:', error);
+    }
+}
+
+function trackSearchQuery(query) {
+    try {
+        const analytics = JSON.parse(localStorage.getItem('powerchord_analytics') || '[]');
+        analytics.push({
+            type: 'search',
+            query: query,
+            timestamp: new Date().toISOString(),
+        });
+        localStorage.setItem('powerchord_analytics', JSON.stringify(analytics.slice(-100)));
+    } catch (error) {
+        console.warn('Gagal menyimpan analytics pencarian:', error);
+    }
+}
+
+
+
+// --- INISIALISASI ---
+initOfflineIndicator();
+initTheme();
+initDrawer();
+initSearchInteractions();
+loadSongs();
+initCollectionPage();
+initHistoryPage();
+initCatalogPage();
+trackPageView();
