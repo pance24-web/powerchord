@@ -1310,3 +1310,70 @@ button:disabled:focus-visible {
 body.has-offline-banner .header {
     margin-top: 36px; /* Sesuaikan dengan tinggi banner */
 }
+
+/* Detail reader: layout fokus lirik seperti tampilan reader gelap */
+.detail-page .detail-layout {
+    display: block;
+    width: min(100% - 40px, 760px);
+    padding-top: 34px;
+    padding-bottom: 120px;
+}
+.detail-page .detail-primary {
+    max-width: 540px;
+    margin: 0 auto;
+}
+.detail-page .detail-sidebar {
+    display: none;
+}
+.detail-page .breadcrumb {
+    opacity: 0.7;
+}
+.detail-page .detail-meta {
+    margin-bottom: 22px;
+}
+.detail-page .control-bar {
+    gap: 10px 14px;
+    border-top-color: transparent;
+    border-bottom-color: var(--line);
+}
+.detail-page .lirik-area {
+    max-width: 520px;
+    margin: 32px auto 0;
+    padding: 12px 0 80px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.55;
+}
+.detail-page .baris-lirik {
+    gap: 3px;
+    margin-bottom: 28px;
+}
+.detail-page .chord-group {
+    gap: 8px;
+    min-height: 1.1em;
+}
+.detail-page .chord-lirik {
+    min-height: 1.1em;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+.detail-page .teks-lirik {
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+}
+html[data-theme="dark"] .detail-page {
+    background: #0b0b0b;
+}
+html[data-theme="dark"] .detail-page .header {
+    background: #0b0b0b;
+    border-bottom-color: #1d1d1d;
+}
+html[data-theme="dark"] .detail-page .chord-lirik {
+    color: #8d8d8d;
+}
+html[data-theme="dark"] .detail-page .teks-lirik {
+    color: #eeeeee;
+}
