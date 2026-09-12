@@ -19,6 +19,13 @@ const state = {
     songs: [],
 };
 
+const debugLog = (...args) => {
+    if (globalThis.__POWERCHORD_DEBUG__ === true) globalThis.console?.info(...args);
+};
+const debugWarn = (...args) => {
+    if (globalThis.__POWERCHORD_DEBUG__ === true) globalThis.console?.warn(...args);
+};
+
 // --- Configuration Constants ---
 const NETWORK_TIMEOUT_MS = 10000; // 10 detik timeout untuk fetch
 
@@ -29,7 +36,7 @@ function getLocalStorage(key, defaultValue = null) {
         const value = localStorage.getItem(key);
         return value !== null ? value : defaultValue;
     } catch (error) {
-        console.warn(`Tidak dapat membaca localStorage untuk key "${key}":`, error);
+        debugWarn(`Tidak dapat membaca localStorage untuk key "${key}":`, error);
         return defaultValue;
     }
 }
@@ -39,7 +46,7 @@ function setLocalStorage(key, value) {
         localStorage.setItem(key, value);
         return true;
     } catch (error) {
-        console.warn(`Tidak dapat menyimpan ke localStorage untuk key "${key}":`, error);
+        debugWarn(`Tidak dapat menyimpan ke localStorage untuk key "${key}":`, error);
         return false;
     }
 }
@@ -47,6 +54,10 @@ function setLocalStorage(key, value) {
 const FAVORITES_STORAGE_KEY = 'powerchord_favorites';
 const HISTORY_STORAGE_KEY = 'powerchord_history';
 const MAX_HISTORY_ITEMS = 50;
+const ANALYTICS_STORAGE_KEY = 'powerchord_analytics';
+const MAX_ANALYTICS_ITEMS = 100;
+const MAX_ANALYTICS_QUERY_LENGTH = 200;
+const ANALYTICS_DEDUP_WINDOW_MS = 1000;
 
 function getStoredIdList(key) {
     try {
@@ -56,13 +67,39 @@ function getStoredIdList(key) {
             ? parsed.filter((value) => typeof value === 'string' && value.trim())
             : [];
     } catch (error) {
-        console.warn(`Gagal membaca daftar tersimpan "${key}":`, error);
+        debugWarn(`Gagal membaca daftar tersimpan "${key}":`, error);
         return [];
     }
 }
 
 function saveStoredIdList(key, ids) {
     return setLocalStorage(key, JSON.stringify(ids));
+}
+
+function readAnalytics() {
+    try {
+        const parsed = JSON.parse(getLocalStorage(ANALYTICS_STORAGE_KEY, '[]'));
+        return Array.isArray(parsed) ? parsed.slice(-MAX_ANALYTICS_ITEMS) : [];
+    } catch (error) {
+        debugWarn('Gagal membaca analytics:', error);
+        return [];
+    }
+}
+
+function appendAnalyticsEntry(entry) {
+    const analytics = readAnalytics();
+    const lastEntry = analytics[analytics.length - 1];
+    const lastTimestamp = Date.parse(lastEntry?.timestamp || '');
+    const entryTimestamp = Date.parse(entry.timestamp);
+    const sameEvent = entry.type === lastEntry?.type
+        && (entry.page === lastEntry?.page || entry.query === lastEntry?.query);
+    if (sameEvent && Number.isFinite(lastTimestamp)
+        && entryTimestamp - lastTimestamp < ANALYTICS_DEDUP_WINDOW_MS) {
+        return;
+    }
+
+    analytics.push(entry);
+    setLocalStorage(ANALYTICS_STORAGE_KEY, JSON.stringify(analytics.slice(-MAX_ANALYTICS_ITEMS)));
 }
 
 function addToHistory(songId) {
@@ -508,9 +545,9 @@ function loadSongs() {
 
     try {
         state.songs = await fetchSongsFromSupabase({ signal: supabaseController.signal });
-        console.info(`Memuat ${state.songs.length} lagu dari Supabase`);
+        debugLog(`Memuat ${state.songs.length} lagu dari Supabase`);
     } catch (supabaseError) {
-        console.warn('Supabase tidak tersedia, menggunakan fallback JSON:', supabaseError);
+        debugWarn('Supabase tidak tersedia, menggunakan fallback JSON:', supabaseError);
         const fallbackController = new AbortController();
         const fallbackTimeoutId = setTimeout(() => fallbackController.abort(), NETWORK_TIMEOUT_MS);
         try {
@@ -823,10 +860,10 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
       .then((registration) => {
-        console.log('[SW] Registered with scope:', registration.scope);
+        debugLog('[SW] Registered with scope:', registration.scope);
       })
       .catch((error) => {
-        console.warn('[SW] Registration failed:', error);
+        debugWarn('[SW] Registration failed:', error);
       });
   });
 }
@@ -971,43 +1008,30 @@ function trackPageView() {
         const searchParams = window.location.search;
         const fullPath = page + searchParams;
 
-        // Simpan ke localStorage (untuk analytics sederhana)
-        const analytics = JSON.parse(localStorage.getItem('powerchord_analytics') || '[]');
-        const lastEntry = analytics[analytics.length - 1];
-        if (lastEntry?.type === 'page_view' && lastEntry?.page === fullPath) {
-            return; // Hindari duplikasi halaman yang sama berturut-turut
-        }
-
-        analytics.push({
+        appendAnalyticsEntry({
             type: 'page_view',
             page: fullPath,
             timestamp: new Date().toISOString(),
         });
-        localStorage.setItem('powerchord_analytics', JSON.stringify(analytics.slice(-100))); // Simpan 100 entry terakhir
     } catch (error) {
-        console.warn('Gagal menyimpan analytics:', error);
+        debugWarn('Gagal menyimpan analytics:', error);
     }
 }
 
 function trackSearchQuery(query) {
-    const trimmed = typeof query === 'string' ? query.trim() : '';
+    const trimmed = typeof query === 'string'
+        ? query.trim().slice(0, MAX_ANALYTICS_QUERY_LENGTH)
+        : '';
     if (!trimmed) return;
 
     try {
-        const analytics = JSON.parse(localStorage.getItem('powerchord_analytics') || '[]');
-        const lastEntry = analytics[analytics.length - 1];
-        if (lastEntry?.type === 'search' && lastEntry?.query === trimmed) {
-            return; // Hindari spam kata kunci yang sama berturut-turut
-        }
-
-        analytics.push({
+        appendAnalyticsEntry({
             type: 'search',
             query: trimmed,
             timestamp: new Date().toISOString(),
         });
-        localStorage.setItem('powerchord_analytics', JSON.stringify(analytics.slice(-100)));
     } catch (error) {
-        console.warn('Gagal menyimpan analytics pencarian:', error);
+        debugWarn('Gagal menyimpan analytics pencarian:', error);
     }
 }
 

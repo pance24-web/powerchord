@@ -1,5 +1,11 @@
 // PowerChord Service Worker - v12
 const CACHE_VERSION = 'powerchord-v12';
+const swDebug = (...args) => {
+  if (self.__POWERCHORD_DEBUG__ === true) self.console?.info(...args);
+};
+const swWarn = (...args) => {
+  if (self.__POWERCHORD_DEBUG__ === true) self.console?.warn(...args);
+};
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const DATA_CACHE = `data-${CACHE_VERSION}`;
 
@@ -38,17 +44,17 @@ const getCanonicalNavigationRequest = (request) => {
 
 // Install: Cache SEMUA aset penting
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing...');
+  swDebug('[SW] Installing...');
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
-      console.log('[SW] Caching static assets');
+      swDebug('[SW] Caching static assets');
       return Promise.all(STATIC_ASSETS.map(async (asset) => {
         const response = await fetchFollowingRedirect(new Request(asset, { cache: 'no-cache' }));
         if (!response.ok || response.redirected) return;
         await cache.put(asset, response);
       }));
     }).catch((err) => {
-      console.warn('[SW] Failed to cache some assets:', err);
+      swWarn('[SW] Failed to cache some assets:', err);
     })
   );
   self.skipWaiting();
@@ -56,14 +62,14 @@ self.addEventListener('install', (event) => {
 
 // Activate: Hapus cache lama
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating...');
+  swDebug('[SW] Activating...');
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames
           .filter((name) => name !== STATIC_CACHE && name !== DATA_CACHE)
           .map((name) => {
-            console.log('[SW] Deleting old cache:', name);
+            swDebug('[SW] Deleting old cache:', name);
             return caches.delete(name);
           })
       );

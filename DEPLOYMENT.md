@@ -26,6 +26,20 @@ npm run dev
 
 Kemudian buka `http://localhost:8080/` dan `http://localhost:8080/detail.html?id=komang-raim-laode`.
 
+## Supabase RLS integration test
+
+Repository menyediakan test read-only yang memanggil REST API Supabase menggunakan publishable/anon key. Test ini memastikan endpoint publik `songs` tidak mengembalikan baris selain `published`, filter status unpublished menghasilkan array kosong, dan endpoint `artists` tetap dapat dibaca untuk kebutuhan katalog.
+
+Jalankan dengan environment variable yang tidak disimpan di repository:
+
+```bash
+SUPABASE_URL="https://your-project.supabase.co" \
+SUPABASE_PUBLISHABLE_KEY="your-anon-or-publishable-key" \
+npm run test:rls
+```
+
+Test tidak melakukan `INSERT`, `UPDATE`, atau `DELETE`. Jika environment variable belum tersedia, test dilewati dengan pesan yang jelas sehingga `npm test` lokal tetap dapat berjalan tanpa koneksi database. Pada CI, simpan kedua nilai tersebut sebagai encrypted secrets dan jadikan `npm run test:rls` sebagai job terpisah dari unit test lokal.
+
 ## Release policy
 
 Pull request harus lulus workflow CI sebelum merge ke `main`. Deployment production hanya berasal dari `main`. Preview deployment dapat digunakan untuk memeriksa perubahan UI sebelum merge.
