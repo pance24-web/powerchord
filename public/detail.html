@@ -159,6 +159,16 @@
 
             </main>
 
+            <div id="chordModal" class="chord-modal" hidden>
+                <div class="chord-modal-backdrop" data-chord-modal-close></div>
+                <section class="chord-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="chordModalTitle">
+                    <button id="closeChordModal" class="chord-modal-close" type="button" aria-label="Tutup diagram chord">×</button>
+                    <h2 id="chordModalTitle">Diagram Chord</h2>
+                    <p id="chordModalSubtitle" class="chord-modal-subtitle"></p>
+                    <div id="chordDiagram" class="chord-diagram" aria-live="polite"></div>
+                </section>
+            </div>
+
             <!-- Footer -->
             <footer class="footer">
                 <div class="footer-container">

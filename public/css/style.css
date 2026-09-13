@@ -1377,3 +1377,102 @@ html[data-theme="dark"] .detail-page .chord-lirik {
 html[data-theme="dark"] .detail-page .teks-lirik {
     color: #eeeeee;
 }
+
+.chord-modal[hidden] {
+    display: none;
+}
+.chord-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+.chord-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(2px);
+}
+.chord-modal-dialog {
+    position: relative;
+    width: min(100%, 360px);
+    padding: 24px 24px 28px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+    text-align: center;
+}
+.chord-modal-dialog h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.5rem;
+}
+.chord-modal-subtitle {
+    margin: 5px 0 0;
+    color: var(--muted);
+    font-size: 0.78rem;
+}
+.chord-modal-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--muted);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+}
+.chord-modal-close:hover,
+.chord-modal-close:focus-visible {
+    background: var(--soft);
+    color: var(--text);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+.chord-diagram {
+    display: grid;
+    place-items: center;
+    min-height: 300px;
+    margin-top: 12px;
+}
+.chord-diagram svg {
+    display: block;
+    width: min(100%, 300px);
+    height: auto;
+    overflow: visible;
+}
+.diagram-string,
+.diagram-fret,
+.diagram-nut {
+    stroke: var(--muted);
+    stroke-width: 1.5;
+}
+.diagram-nut {
+    stroke: var(--text);
+    stroke-width: 5;
+}
+.diagram-dot {
+    fill: var(--accent);
+}
+.diagram-muted,
+.diagram-open,
+.diagram-fret-label {
+    fill: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+.diagram-fret-label {
+    fill: var(--muted);
+    font-size: 12px;
+    text-anchor: start;
+}

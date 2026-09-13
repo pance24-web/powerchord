@@ -8,6 +8,7 @@ import {
     extractSongChords,
     OCTAVE_SIZE,
     suggestCapo,
+    getChordShape,
 } from './core.js';
 import { fetchSongsFromSupabase } from './supabase.js';
 
@@ -144,53 +145,125 @@ function renderReferenceList(container, items) {
 function renderSongRow(song, { asLink = false } = {}) {
     const row = document.createElement(asLink ? 'a' : 'div');
     row.className = 'song-row';
-    if (asLink) {
-        row.href = getSongHref(song, getSongIndex(song));
-    }
+    if (asLink) row.href = getSongHref(song, getSongIndex(song));
 
     const main = document.createElement('span');
     main.className = 'song-main';
-
-    let title;
-    let artist;
-
-    if (asLink) {
-        title = document.createElement('span');
-        title.className = 'song-title';
-        title.textContent = song.judul;
-
-        artist = document.createElement('span');
-        artist.className = 'song-artist';
-        artist.textContent = song.artis;
-    } else {
-        title = document.createElement('a');
-        title.className = 'song-title';
-        title.href = getSongHref(song, getSongIndex(song));
-        title.textContent = song.judul;
-
-        artist = document.createElement('a');
-        artist.className = 'song-artist';
-        artist.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
-        artist.textContent = song.artis;
-    }
-
+    const title = document.createElement(asLink ? 'span' : 'a');
+    title.className = 'song-title';
+    if (!asLink) title.href = getSongHref(song, getSongIndex(song));
+    title.textContent = song.judul;
+    const artist = document.createElement(asLink ? 'span' : 'a');
+    artist.className = 'song-artist';
+    if (!asLink) artist.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
+    artist.textContent = song.artis;
     main.append(title, artist);
 
     const difficulty = document.createElement('span');
     difficulty.className = 'song-meta';
     difficulty.textContent = getDifficulty(song);
-
     const key = document.createElement('span');
     key.className = 'song-key';
     key.textContent = song.kunci || '—';
-
     const arrow = document.createElement('span');
     arrow.className = 'song-arrow';
     arrow.textContent = '→';
     arrow.setAttribute('aria-hidden', 'true');
-
     row.append(main, difficulty, key, arrow);
     return row;
+}
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+let activeChordTrigger = null;
+
+function createSvgElement(name, attributes = {}) {
+    const element = document.createElementNS(SVG_NS, name);
+    Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, value));
+    return element;
+}
+
+function renderChordDiagram(container, shape) {
+    if (!container || !shape) return;
+    container.replaceChildren();
+    const svg = createSvgElement('svg', {
+        viewBox: '0 0 300 300', role: 'img',
+        'aria-label': `Diagram chord ${shape.root} ${shape.quality}`,
+    });
+    const title = createSvgElement('title');
+    title.textContent = `Diagram chord ${shape.root}`;
+    svg.appendChild(title);
+    const left = 62;
+    const top = 70;
+    const stringGap = 36;
+    const fretGap = 38;
+    const fretCount = 5;
+    const baseFret = Number(shape.baseFret) > 0 ? Number(shape.baseFret) : 1;
+    const fretLabel = createSvgElement('text', { x: 22, y: 105, class: 'diagram-fret-label' });
+    fretLabel.textContent = baseFret > 1 ? `${baseFret}fr` : '1';
+    svg.appendChild(fretLabel);
+    for (let stringIndex = 0; stringIndex < 6; stringIndex += 1) {
+        const x = left + stringIndex * stringGap;
+        svg.appendChild(createSvgElement('line', {
+            x1: x, y1: top, x2: x, y2: top + fretCount * fretGap,
+            class: 'diagram-string',
+        }));
+        const marker = String(shape.positions?.[stringIndex] ?? 'x');
+        const markerText = createSvgElement('text', {
+            x, y: 48, class: marker === 'x' ? 'diagram-muted' : 'diagram-open',
+        });
+        markerText.textContent = marker === 'x' ? '×' : marker === '0' ? '○' : '';
+        svg.appendChild(markerText);
+    }
+    for (let fretIndex = 0; fretIndex <= fretCount; fretIndex += 1) {
+        const y = top + fretIndex * fretGap;
+        svg.appendChild(createSvgElement('line', {
+            x1: left, y1: y, x2: left + 5 * stringGap, y2: y,
+            class: fretIndex === 0 && baseFret === 1 ? 'diagram-nut' : 'diagram-fret',
+        }));
+    }
+    shape.positions?.forEach((position, stringIndex) => {
+        const fret = Number(position);
+        if (!Number.isFinite(fret) || fret <= 0) return;
+        svg.appendChild(createSvgElement('circle', {
+            cx: left + stringIndex * stringGap,
+            cy: top + (fret - 0.5) * fretGap,
+            r: 10,
+            class: 'diagram-dot',
+        }));
+    });
+    container.appendChild(svg);
+}
+
+function initChordDiagramModal() {
+    const modal = document.getElementById('chordModal');
+    const closeButton = document.getElementById('closeChordModal');
+    const diagram = document.getElementById('chordDiagram');
+    const title = document.getElementById('chordModalTitle');
+    const subtitle = document.getElementById('chordModalSubtitle');
+    if (!modal || !closeButton || !diagram || !title || !subtitle || modal.dataset.initialized) return;
+    const closeModal = () => {
+        modal.hidden = true;
+        diagram.replaceChildren();
+        activeChordTrigger?.focus();
+        activeChordTrigger = null;
+    };
+    const openModal = (symbol, trigger) => {
+        const shape = getChordShape(symbol);
+        if (!shape) return;
+        activeChordTrigger = trigger;
+        title.textContent = symbol;
+        subtitle.textContent = `${shape.quality === 'minor' ? 'Minor' : 'Major'} · Senar dari E rendah ke e tinggi`;
+        renderChordDiagram(diagram, shape);
+        modal.hidden = false;
+        closeButton.focus();
+    };
+    modal.dataset.initialized = 'true';
+    closeButton.addEventListener('click', closeModal);
+    modal.querySelector('[data-chord-modal-close]')?.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !modal.hidden) closeModal();
+    });
+    window.openChordDiagram = openModal;
 }
 
 function renderLatestSongRow(song) {
@@ -599,6 +672,8 @@ function initDetailPage() {
         return;
     }
 
+    initChordDiagramModal();
+
     titleElement.textContent = song.judul;
     document.title = `${song.judul} — Chord & Lirik PowerChord`;
 
@@ -668,6 +743,8 @@ function initDetailPage() {
                 chord.textContent = transposedChord || '\u00A0';
                 if (transposedChord) {
                     chord.setAttribute('data-chord', transposedChord);
+                    chord.setAttribute('aria-label', `Lihat diagram chord ${transposedChord}`);
+                    chord.addEventListener('click', () => window.openChordDiagram?.(transposedChord, chord));
                 } else {
                     chord.setAttribute('aria-hidden', 'true');
                     chord.style.pointerEvents = 'none';

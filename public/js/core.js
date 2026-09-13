@@ -357,4 +357,3 @@ export function getChordShape(chordSymbol) {
         positions: ['x', 0, 0, 0, 0, 0]
     };
 }
-
