@@ -37,7 +37,8 @@ for (const { from, to } of staticFiles) {
 // Salin file HTML, CSS, JS, dan asset dari root ke public/ jika ada
 const filesToCopy = [
   'index.html', 'about.html', 'artists.html', 'catalog.html', 'collection.html',
-  'contact.html', 'detail.html', 'disclaimer.html', 'dmca.html', 'history.html', 'privacy.html'
+  'contact.html', 'detail.html', 'disclaimer.html', 'dmca.html', 'history.html', 'privacy.html',
+  'google714df8a9089590e1.html'
 ];
 
 for (const file of filesToCopy) {

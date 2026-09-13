@@ -19,6 +19,7 @@ const exists = async (relativePath) => {
 
 const entries = (await readdir(publicRoot, { withFileTypes: true }))
     .filter((entry) => entry.isFile() && extname(entry.name) === '.html')
+    .filter((entry) => entry.name !== 'google714df8a9089590e1.html')
     .map((entry) => entry.name)
     .sort();
 if (!entries.length) fail('tidak ada halaman HTML');
