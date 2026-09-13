@@ -1248,5 +1248,126 @@
         "teks": ""
       }
     ]
+  },
+  {
+    "id": "roda-gila-kelompok-penerbang-roket",
+    "judul": "Roda Gila",
+    "artis": "Kelompok Penerbang Roket",
+    "genre": "Rock",
+    "kunci": "E",
+    "lirik": [
+      {
+        "chord": "",
+        "teks": "[Intro]"
+      },
+      {
+        "chord": "E G A E",
+        "teks": "(4x)"
+      },
+      {
+        "chord": "",
+        "teks": "[Verse 1]"
+      },
+      {
+        "chord": "E",
+        "teks": "Kehidupan di dunia"
+      },
+      {
+        "chord": "G A",
+        "teks": "Banyak cara terlupa"
+      },
+      {
+        "chord": "E",
+        "teks": "Kita manusia yang punya akal pikiran"
+      },
+      {
+        "chord": "",
+        "teks": "[Pre-Chorus]"
+      },
+      {
+        "chord": "C D",
+        "teks": "Jangan gentar, bernyali besar"
+      },
+      {
+        "chord": "",
+        "teks": "[Chorus]"
+      },
+      {
+        "chord": "E G A",
+        "teks": "Roda kencang melaju berani"
+      },
+      {
+        "chord": "E G A",
+        "teks": "Melesat gila kejar cahaya"
+      },
+      {
+        "chord": "E G A",
+        "teks": "Membakar panas, tubuh berapi"
+      },
+      {
+        "chord": "C D E",
+        "teks": "Terus berputar tak henti-henti"
+      },
+      {
+        "chord": "",
+        "teks": "[Interlude]"
+      },
+      {
+        "chord": "E G A E",
+        "teks": "(2x)"
+      },
+      {
+        "chord": "",
+        "teks": "[Verse 2]"
+      },
+      {
+        "chord": "E",
+        "teks": "Kehidupan di jalanan"
+      },
+      {
+        "chord": "G A",
+        "teks": "Dihadang dan terhalang"
+      },
+      {
+        "chord": "E",
+        "teks": "Rintangan yang besar selalu diterjang"
+      },
+      {
+        "chord": "",
+        "teks": "[Pre-Chorus]"
+      },
+      {
+        "chord": "C D",
+        "teks": "Jangan gentar, bernyali besar"
+      },
+      {
+        "chord": "",
+        "teks": "[Chorus]"
+      },
+      {
+        "chord": "E G A",
+        "teks": "Roda kencang melaju berani"
+      },
+      {
+        "chord": "E G A",
+        "teks": "Melesat gila kejar cahaya"
+      },
+      {
+        "chord": "E G A",
+        "teks": "Membakar panas, tubuh berapi"
+      },
+      {
+        "chord": "C D E",
+        "teks": "Terus berputar tak henti-henti"
+      },
+      {
+        "chord": "",
+        "teks": "[Outro / Solo]"
+      },
+      {
+        "chord": "E G A E",
+        "teks": ""
+      }
+    ]
   }
 ]
