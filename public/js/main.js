@@ -224,9 +224,11 @@ function renderChordDiagram(container, shape) {
     shape.positions?.forEach((position, stringIndex) => {
         const fret = Number(position);
         if (!Number.isFinite(fret) || fret <= 0) return;
+        const relativeFret = baseFret > 1 ? fret - baseFret + 1 : fret;
+        if (relativeFret < 1 || relativeFret > fretCount) return;
         svg.appendChild(createSvgElement('circle', {
             cx: left + stringIndex * stringGap,
-            cy: top + (fret - 0.5) * fretGap,
+            cy: top + (relativeFret - 0.5) * fretGap,
             r: 10,
             class: 'diagram-dot',
         }));
