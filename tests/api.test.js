@@ -3,7 +3,9 @@ import { readFile } from 'node:fs/promises';
 import { test } from 'node:test';
 import { onRequestGet as listSongs } from '../functions/api/songs.js';
 import { onRequestGet as getSong } from '../functions/api/songs/[id].js';
+import { onRequestPatch as moderateSong } from '../functions/api/songs/[id].js';
 import { onRequestPost as addFavorite } from '../functions/api/favorites.js';
+import { onRequestPost as submitSong } from '../functions/api/songs.js';
 
 const dataset = await readFile(new URL('../data/songs.json', import.meta.url), 'utf8');
 function context(path, params = {}) {
@@ -40,6 +42,32 @@ test('favorites mutation requires a bearer token before any database write', asy
         headers: { 'content-type': 'application/json' },
     });
     const response = await addFavorite({ request, env: {} });
+    assert.equal(response.status, 401);
+    assert.equal((await response.json()).error.code, 'AUTH_REQUIRED');
+});
+
+test('song submission requires a bearer token before validation or database write', async () => {
+    const request = new Request('https://example.test/api/songs', {
+        method: 'POST',
+        body: JSON.stringify({ title: 'Contoh' }),
+        headers: { 'content-type': 'application/json' },
+    });
+    const response = await submitSong({ request, env: {} });
+    assert.equal(response.status, 401);
+    assert.equal((await response.json()).error.code, 'AUTH_REQUIRED');
+});
+
+test('submission moderation requires a bearer token', async () => {
+    const request = new Request('https://example.test/api/songs/00000000-0000-0000-0000-000000000000', {
+        method: 'PATCH',
+        body: JSON.stringify({ status: 'published' }),
+        headers: { 'content-type': 'application/json' },
+    });
+    const response = await moderateSong({
+        request,
+        params: { id: '00000000-0000-0000-0000-000000000000' },
+        env: {},
+    });
     assert.equal(response.status, 401);
     assert.equal((await response.json()).error.code, 'AUTH_REQUIRED');
 });
