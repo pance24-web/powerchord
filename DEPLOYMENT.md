@@ -32,7 +32,7 @@ Response sukses menggunakan `{ "data": ... }`. Daftar lagu menambahkan `{ "meta"
 
 ### Auth dan RLS
 
-Endpoint favorites membutuhkan header `Authorization: Bearer <supabase-access-token>`. Function memvalidasi token melalui Supabase Auth, meneruskan token pengguna ke REST API, dan mengambil `user_id` dari identitas token—bukan dari input client. Jalankan `database/migrations/20260914_user_favorites.sql` pada Supabase sebelum mengaktifkan endpoint ini. RLS membatasi `SELECT`, `INSERT`, dan `DELETE` hanya pada baris dengan `auth.uid() = user_id`; tidak ada policy mutation untuk role anonim.
+Endpoint favorites membutuhkan header `Authorization: Bearer <supabase-access-token>`. Client mengirim slug pada `song_id`; Function memvalidasi token melalui Supabase Auth, me-resolve slug ke `public.songs.id`, lalu meneruskan UUID dan JWT pengguna ke REST API. `user_id` selalu diambil dari identitas token, bukan dari input client. Jalankan `database/migrations/20260914_user_favorites.sql` pada Supabase sebelum mengaktifkan endpoint ini. Migration menargetkan tabel canonical `public.song_favorites` yang sudah memiliki foreign key UUID ke `public.songs.id`. RLS membatasi `SELECT`, `INSERT`, dan `DELETE` hanya pada baris dengan `auth.uid() = user_id`; tidak ada policy mutation untuk role anonim.
 
 ## Local verification
 
