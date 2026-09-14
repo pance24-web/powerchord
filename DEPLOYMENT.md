@@ -24,8 +24,15 @@ Cloudflare Pages Functions menyediakan endpoint read-only berikut:
 |---|---|---|
 | `GET` | `/api/songs` | Daftar lagu published dengan `q`, `genre`, `limit`, dan `offset` |
 | `GET` | `/api/songs/:id` | Detail lagu berdasarkan slug; legacy ID numerik didukung jika tersedia |
+| `GET` | `/api/favorites` | Mengambil favorit milik pengguna yang sedang login |
+| `POST` | `/api/favorites` | Menyimpan `{ "song_id": "..." }` untuk pengguna yang sedang login |
+| `DELETE` | `/api/favorites` | Menghapus `{ "song_id": "..." }` dari favorit pengguna |
 
 Response sukses menggunakan `{ "data": ... }`. Daftar lagu menambahkan `{ "meta": { "total", "limit", "offset" } }`. Error menggunakan `{ "error": { "code", "message" } }` dan status HTTP `400`, `404`, atau `503`. Functions membaca `public/data/songs.json` melalui binding `ASSETS`, sehingga API tetap menggunakan dataset lokal yang tervalidasi dan tidak bergantung pada Supabase untuk read-only MVP.
+
+### Auth dan RLS
+
+Endpoint favorites membutuhkan header `Authorization: Bearer <supabase-access-token>`. Function memvalidasi token melalui Supabase Auth, meneruskan token pengguna ke REST API, dan mengambil `user_id` dari identitas token—bukan dari input client. Jalankan `database/migrations/20260914_user_favorites.sql` pada Supabase sebelum mengaktifkan endpoint ini. RLS membatasi `SELECT`, `INSERT`, dan `DELETE` hanya pada baris dengan `auth.uid() = user_id`; tidak ada policy mutation untuk role anonim.
 
 ## Local verification
 
