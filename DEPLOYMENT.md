@@ -16,6 +16,17 @@ PowerChord adalah static HTML site tanpa framework dan tanpa build output terpis
 
 `wrangler.toml` menetapkan `public/` sebagai direktori output Cloudflare Pages secara eksplisit. `npm run build` menyiapkan asset runtime ke `public/`, menjalankan quality check, static verifier, dan unit test. Source canonical dataset tetap berada di `data/songs.json`, sedangkan Cloudflare Pages mempublikasikan hasil build dari `public/`, termasuk HTML, CSS, JavaScript, JSON, favicon, `_headers`, dan `robots.txt`.
 
+## Read-only API
+
+Cloudflare Pages Functions menyediakan endpoint read-only berikut:
+
+| Method | Endpoint | Keterangan |
+|---|---|---|
+| `GET` | `/api/songs` | Daftar lagu published dengan `q`, `genre`, `limit`, dan `offset` |
+| `GET` | `/api/songs/:id` | Detail lagu berdasarkan slug; legacy ID numerik didukung jika tersedia |
+
+Response sukses menggunakan `{ "data": ... }`. Daftar lagu menambahkan `{ "meta": { "total", "limit", "offset" } }`. Error menggunakan `{ "error": { "code", "message" } }` dan status HTTP `400`, `404`, atau `503`. Functions membaca `public/data/songs.json` melalui binding `ASSETS`, sehingga API tetap menggunakan dataset lokal yang tervalidasi dan tidak bergantung pada Supabase untuk read-only MVP.
+
 ## Local verification
 
 ```bash
