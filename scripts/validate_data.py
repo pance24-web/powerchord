@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_FILE = ROOT / 'data' / 'songs.json'
-REQUIRED_SONG_KEYS = {'id', 'judul', 'artis', 'genre', 'kunci', 'lirik'}
+REQUIRED_SONG_KEYS = {'id', 'title', 'artist', 'genre', 'key', 'lyrics', 'status'}
 ALLOWED_GENRES = {
     'Dangdut',
     'Folk',
@@ -54,7 +54,7 @@ for index, song in enumerate(songs):
         fail(f'duplikasi id: {song_id}')
     ids.add(song_id)
 
-    for field in ('judul', 'artis', 'genre', 'kunci'):
+    for field in ('title', 'artist', 'genre', 'key', 'status'):
         value = song[field]
         if not isinstance(value, str) or not value.strip():
             fail(f'item {index} memiliki {field} yang tidak valid')
@@ -65,25 +65,27 @@ for index, song in enumerate(songs):
 
     if song['genre'] not in ALLOWED_GENRES:
         fail(f'item {index} memiliki genre tidak dikenal: {song["genre"]}')
-    keys = [part.strip() for part in song['kunci'].split(',')]
+    if song['status'] != 'published':
+        fail(f'item {index} memiliki status bukan published')
+    keys = [part.strip() for part in song['key'].split(',')]
     if not keys or any(not KEY_PATTERN.fullmatch(part) for part in keys):
-        fail(f'item {index} memiliki kunci tidak valid: {song["kunci"]}')
+        fail(f'item {index} memiliki key tidak valid: {song["key"]}')
 
-    if not isinstance(song['lirik'], list) or not song['lirik']:
-        fail(f'item {index} memiliki lirik yang tidak valid')
-    for line_index, line in enumerate(song['lirik']):
+    if not isinstance(song['lyrics'], list) or not song['lyrics']:
+        fail(f'item {index} memiliki lyrics yang tidak valid')
+    for line_index, line in enumerate(song['lyrics']):
         if not isinstance(line, dict):
             fail(f'item {index}, baris {line_index} bukan object')
-        if not isinstance(line.get('chord'), str) or not isinstance(line.get('teks'), str):
-            fail(f'item {index}, baris {line_index} harus memiliki chord dan teks string')
-        if not line['chord'].strip() and not line['teks'].strip():
+        if not isinstance(line.get('chord'), str) or not isinstance(line.get('text'), str):
+            fail(f'item {index}, baris {line_index} harus memiliki chord dan text string')
+        if not line['chord'].strip() and not line['text'].strip():
             fail(f'item {index}, baris {line_index} tidak boleh kosong')
-        if len(line['chord']) > MAX_TEXT_LENGTH or len(line['teks']) > MAX_TEXT_LENGTH:
+        if len(line['chord']) > MAX_TEXT_LENGTH or len(line['text']) > MAX_TEXT_LENGTH:
             fail(f'item {index}, baris {line_index} terlalu panjang')
 
-    identity = (song['judul'].casefold(), song['artis'].casefold())
+    identity = (song['title'].casefold(), song['artist'].casefold())
     if identity in identities:
-        fail(f'duplikasi lagu: {song["judul"]} - {song["artis"]}')
+        fail(f'duplikasi lagu: {song["title"]} - {song["artist"]}')
     identities.add(identity)
 
 print(f'VALIDATION OK: {len(songs)} lagu tervalidasi')

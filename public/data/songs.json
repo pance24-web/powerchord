@@ -1,1373 +1,1406 @@
 [
   {
     "id": "pupus-dewa-19",
-    "judul": "Pupus",
-    "artis": "Dewa 19",
+    "title": "Pupus",
+    "artist": "Dewa 19",
     "genre": "Rock",
-    "kunci": "G",
-    "lirik": [
+    "key": "G",
+    "capo": 0,
+    "lyrics": [
       {
         "chord": "G",
-        "teks": "Aku tak mengerti"
+        "text": "Aku tak mengerti"
       },
       {
         "chord": "G/F#",
-        "teks": "Apa yang ku rasa"
+        "text": "Apa yang ku rasa"
       },
       {
         "chord": "G/E",
-        "teks": "Rindu yang tak pernah"
+        "text": "Rindu yang tak pernah"
       },
       {
         "chord": "C",
-        "teks": "Begitu hebatnya"
+        "text": "Begitu hebatnya"
       },
       {
         "chord": "C/B",
-        "teks": "Aku mencintaimu lebih dari yang kau tahu"
+        "text": "Aku mencintaimu lebih dari yang kau tahu"
       },
       {
         "chord": "C",
-        "teks": "Meski kau tak'kan pernah tahu"
+        "text": "Meski kau tak'kan pernah tahu"
       },
       {
         "chord": "G",
-        "teks": "Aku persembahkan hidupku untukmu"
+        "text": "Aku persembahkan hidupku untukmu"
       },
       {
         "chord": "G/F#",
-        "teks": "Telah kurelakan hatiku padamu"
+        "text": "Telah kurelakan hatiku padamu"
       },
       {
         "chord": "C",
-        "teks": "Namun kau masih bisu"
+        "text": "Namun kau masih bisu"
       },
       {
         "chord": "C/B",
-        "teks": "Diam seribu bahasa"
+        "text": "Diam seribu bahasa"
       },
       {
         "chord": "Am",
-        "teks": "Dan hati kecilku bicara"
+        "text": "Dan hati kecilku bicara"
       },
       {
         "chord": "G",
-        "teks": "Baru ku sadari"
+        "text": "Baru ku sadari"
       },
       {
         "chord": "D/F#",
-        "teks": "Cintaku bertepuk sebelah tangan"
+        "text": "Cintaku bertepuk sebelah tangan"
       },
       {
         "chord": "C/E",
-        "teks": "Kau buat remuk seluruh hatiku"
+        "text": "Kau buat remuk seluruh hatiku"
       },
       {
         "chord": "G",
-        "teks": "Semoga waktu akan mengilhami"
+        "text": "Semoga waktu akan mengilhami"
       },
       {
         "chord": "G/F#",
-        "teks": "sisi hatimu yang beku"
+        "text": "sisi hatimu yang beku"
       },
       {
         "chord": "C",
-        "teks": "Semoga akan datang keajaiban"
+        "text": "Semoga akan datang keajaiban"
       },
       {
         "chord": "C/B",
-        "teks": "Hingga akhirnya kau pun mau"
+        "text": "Hingga akhirnya kau pun mau"
       },
       {
         "chord": "G",
-        "teks": "Aku mencintaimu"
+        "text": "Aku mencintaimu"
       },
       {
         "chord": "G",
-        "teks": "Lebih dari yang kau tahu"
+        "text": "Lebih dari yang kau tahu"
       },
       {
         "chord": "C",
-        "teks": "Meski kau tak'kan pernah tahu"
+        "text": "Meski kau tak'kan pernah tahu"
       },
       {
         "chord": "G",
-        "teks": "Baru ku sadari"
+        "text": "Baru ku sadari"
       },
       {
         "chord": "D/F#",
-        "teks": "Cintaku bertepuk sebelah tangan"
+        "text": "Cintaku bertepuk sebelah tangan"
       },
       {
         "chord": "C/E",
-        "teks": "Kau buat remuk seluruh hatiku"
+        "text": "Kau buat remuk seluruh hatiku"
       },
       {
         "chord": "G",
-        "teks": "Baru ku sadari"
+        "text": "Baru ku sadari"
       },
       {
         "chord": "D/F#",
-        "teks": "Cintaku bertepuk sebelah tangan"
+        "text": "Cintaku bertepuk sebelah tangan"
       },
       {
         "chord": "C/E",
-        "teks": "Kau buat remuk seluruh hatiku"
+        "text": "Kau buat remuk seluruh hatiku"
       }
-    ]
+    ],
+    "status": "published",
+    "updated_at": "2026-09-14T00:00:00Z"
   },
   {
     "id": "arjuna-dewa-19",
-    "judul": "Arjuna",
-    "artis": "Dewa 19",
+    "title": "Arjuna",
+    "artist": "Dewa 19",
     "genre": "Rock",
-    "kunci": "Gm",
-    "lirik": [
+    "key": "Gm",
+    "capo": 0,
+    "lyrics": [
       {
         "chord": "Gm",
-        "teks": "Sudah kudaki gunung tertinggi"
+        "text": "Sudah kudaki gunung tertinggi"
       },
       {
         "chord": "D/F#",
-        "teks": "Hanya untuk mencari dimana dirimu"
+        "text": "Hanya untuk mencari dimana dirimu"
       },
       {
         "chord": "Fm6",
-        "teks": "Sudah kujelajahi isi bumi"
+        "text": "Sudah kujelajahi isi bumi"
       },
       {
         "chord": "C/E",
-        "teks": "Hanya untuk dapat hidup bersamamu"
+        "text": "Hanya untuk dapat hidup bersamamu"
       },
       {
         "chord": "Cm/Eb",
-        "teks": "Sudah kuarungi laut samudera"
+        "text": "Sudah kuarungi laut samudera"
       },
       {
         "chord": "Gm/D",
-        "teks": "Hanya untuk mencari tempat berlabuhmu"
+        "text": "Hanya untuk mencari tempat berlabuhmu"
       },
       {
         "chord": "Gm",
-        "teks": "Tapi semakin jauhku mencari cinta"
+        "text": "Tapi semakin jauhku mencari cinta"
       },
       {
         "chord": "D",
-        "teks": "Semakin aku tak mengerti"
+        "text": "Semakin aku tak mengerti"
       },
       {
         "chord": "Gm",
-        "teks": "Akulah Arjuna"
+        "text": "Akulah Arjuna"
       },
       {
         "chord": "D/F#",
-        "teks": "yang mencari cinta"
+        "text": "yang mencari cinta"
       },
       {
         "chord": "Fm6",
-        "teks": "Wahai wanita"
+        "text": "Wahai wanita"
       },
       {
         "chord": "C/E",
-        "teks": "cintailah aku"
+        "text": "cintailah aku"
       },
       {
         "chord": "Gm",
-        "teks": "Mungkin kutemui cinta sejati"
+        "text": "Mungkin kutemui cinta sejati"
       },
       {
         "chord": "D/F#",
-        "teks": "Saat aku hembuskan nafas terakhirku"
+        "text": "Saat aku hembuskan nafas terakhirku"
       },
       {
         "chord": "C/E",
-        "teks": "Mungkin cinta sejati memang tak ada"
+        "text": "Mungkin cinta sejati memang tak ada"
       },
       {
         "chord": "Cm/Eb",
-        "teks": "Dalam cerita kehidupan ini"
+        "text": "Dalam cerita kehidupan ini"
       },
       {
         "chord": "Gm/D",
-        "teks": ""
+        "text": ""
       }
-    ]
+    ],
+    "status": "published",
+    "updated_at": "2026-09-14T00:00:00Z"
   },
   {
     "id": "satu-dewa-19",
-    "judul": "Satu",
-    "artis": "Dewa 19",
+    "title": "Satu",
+    "artist": "Dewa 19",
     "genre": "Rock",
-    "kunci": "G",
-    "lirik": [
+    "key": "G",
+    "capo": 0,
+    "lyrics": [
       {
         "chord": "G",
-        "teks": "Aku ini adalah dirimu"
+        "text": "Aku ini adalah dirimu"
       },
       {
         "chord": "C",
-        "teks": "Cinta ini adalah cintamu"
+        "text": "Cinta ini adalah cintamu"
       },
       {
         "chord": "G",
-        "teks": "Aku ini adalah dirimu"
+        "text": "Aku ini adalah dirimu"
       },
       {
         "chord": "C",
-        "teks": "Jiwa ini adalah jiwamu"
+        "text": "Jiwa ini adalah jiwamu"
       },
       {
         "chord": "Bm",
-        "teks": "Rindu ini adalah rindumu"
+        "text": "Rindu ini adalah rindumu"
       },
       {
         "chord": "Am",
-        "teks": "Darah ini adalah darahmu"
+        "text": "Darah ini adalah darahmu"
       },
       {
         "chord": "G",
-        "teks": "Tak ada yang lain"
+        "text": "Tak ada yang lain"
       },
       {
         "chord": "D",
-        "teks": "selain dirimu"
+        "text": "selain dirimu"
       },
       {
         "chord": "Em",
-        "teks": "Yang selalu kupuja"
+        "text": "Yang selalu kupuja"
       },
       {
         "chord": "Bm",
-        "teks": "wouwow"
+        "text": "wouwow"
       },
       {
         "chord": "G",
-        "teks": "Ku sebut namamu"
+        "text": "Ku sebut namamu"
       },
       {
         "chord": "Bm",
-        "teks": "Di setiap hembusan nafasku"
+        "text": "Di setiap hembusan nafasku"
       },
       {
         "chord": "C",
-        "teks": "Ku sebut namamu"
+        "text": "Ku sebut namamu"
       },
       {
         "chord": "Cm",
-        "teks": "Ku sebut namamu"
+        "text": "Ku sebut namamu"
       },
       {
         "chord": "G",
-        "teks": "Dengan tangan-Mu aku menyentuh"
+        "text": "Dengan tangan-Mu aku menyentuh"
       },
       {
         "chord": "C",
-        "teks": "Dengan kaki-Mu aku berjalan"
+        "text": "Dengan kaki-Mu aku berjalan"
       },
       {
         "chord": "G",
-        "teks": "Dengan mata-Mu aku memandang"
+        "text": "Dengan mata-Mu aku memandang"
       },
       {
         "chord": "C",
-        "teks": "Dengan telinga-Mu aku mendengar"
+        "text": "Dengan telinga-Mu aku mendengar"
       },
       {
         "chord": "Bm",
-        "teks": "Dengan lidah-Mu aku bicara"
+        "text": "Dengan lidah-Mu aku bicara"
       },
       {
         "chord": "Am",
-        "teks": "Dengan hati-Mu aku merasa"
+        "text": "Dengan hati-Mu aku merasa"
       }
-    ]
+    ],
+    "status": "published",
+    "updated_at": "2026-09-14T00:00:00Z"
   },
   {
     "id": "dewi-dewa-19",
-    "judul": "Dewi",
-    "artis": "Dewa 19",
+    "title": "Dewi",
+    "artist": "Dewa 19",
     "genre": "Rock",
-    "kunci": "Am",
-    "lirik": [
+    "key": "Am",
+    "capo": 0,
+    "lyrics": [
       {
         "chord": "Am",
-        "teks": "Dewi aku mohon beri kesempatan"
+        "text": "Dewi aku mohon beri kesempatan"
       },
       {
         "chord": "Dm",
-        "teks": "Tuk bisa menebus dosaku kepadamu"
+        "text": "Tuk bisa menebus dosaku kepadamu"
       },
       {
         "chord": "G",
-        "teks": "Maafkanlah aku yang menyakitimu"
+        "text": "Maafkanlah aku yang menyakitimu"
       },
       {
         "chord": "C",
-        "teks": "Aku tidak pernah menyangka bisa begini"
+        "text": "Aku tidak pernah menyangka bisa begini"
       },
       {
         "chord": "E",
-        "teks": "Oh dewi, dengarkanlah"
+        "text": "Oh dewi, dengarkanlah"
       },
       {
         "chord": "F",
-        "teks": "Dewi, kaulah hidupku"
+        "text": "Dewi, kaulah hidupku"
       },
       {
         "chord": "Em",
-        "teks": "Aku cinta padamu sampai mati"
+        "text": "Aku cinta padamu sampai mati"
       },
       {
         "chord": "Gm",
-        "teks": "Dewi, belahlah dadaku"
+        "text": "Dewi, belahlah dadaku"
       },
       {
         "chord": "A",
-        "teks": "Agar kau tahu"
+        "text": "Agar kau tahu"
       },
       {
         "chord": "Fm",
-        "teks": "agar kau mengerti"
+        "text": "agar kau mengerti"
       },
       {
         "chord": "C",
-        "teks": "Semua terjadi begitu saja"
+        "text": "Semua terjadi begitu saja"
       },
       {
         "chord": "Dm",
-        "teks": "Tak ada yang serius antara dia dan aku"
+        "text": "Tak ada yang serius antara dia dan aku"
       },
       {
         "chord": "G",
-        "teks": "Tidak ada cinta dan tidak ada hati"
+        "text": "Tidak ada cinta dan tidak ada hati"
       },
       {
         "chord": "C",
-        "teks": "Hanya karena aku lelaki dan dia wanita"
+        "text": "Hanya karena aku lelaki dan dia wanita"
       },
       {
         "chord": "E",
-        "teks": "Oh dewi, dengarkanlah"
+        "text": "Oh dewi, dengarkanlah"
       },
       {
         "chord": "F",
-        "teks": "Dewi, kaulah hidupku"
+        "text": "Dewi, kaulah hidupku"
       },
       {
         "chord": "Em",
-        "teks": "Aku cinta padamu sampai mati"
+        "text": "Aku cinta padamu sampai mati"
       },
       {
         "chord": "Gm",
-        "teks": "Dewi, belahlah dadaku"
+        "text": "Dewi, belahlah dadaku"
       },
       {
         "chord": "A",
-        "teks": "Agar kau tahu"
+        "text": "Agar kau tahu"
       },
       {
         "chord": "Fm",
-        "teks": "agar kau mengerti"
+        "text": "agar kau mengerti"
       },
       {
         "chord": "Am",
-        "teks": "Oh dewi, dengarkanlah"
+        "text": "Oh dewi, dengarkanlah"
       },
       {
         "chord": "Em",
-        "teks": "Dewi, kaulah hidupku"
+        "text": "Dewi, kaulah hidupku"
       },
       {
         "chord": "Gm",
-        "teks": "Aku cinta padamu sampai mati"
+        "text": "Aku cinta padamu sampai mati"
       },
       {
         "chord": "A",
-        "teks": "Dewi, belahlah dadaku"
+        "text": "Dewi, belahlah dadaku"
       },
       {
         "chord": "Fm",
-        "teks": "Agar kau tahu"
+        "text": "Agar kau tahu"
       },
       {
         "chord": "C",
-        "teks": "agar kau mengerti"
+        "text": "agar kau mengerti"
       },
       {
         "chord": "F",
-        "teks": "wouo wouo wouo wouo"
+        "text": "wouo wouo wouo wouo"
       },
       {
         "chord": "Em",
-        "teks": "Dewi, kaulah hidupku"
+        "text": "Dewi, kaulah hidupku"
       },
       {
         "chord": "G",
-        "teks": "Aku cinta padamu sampai mati"
+        "text": "Aku cinta padamu sampai mati"
       },
       {
         "chord": "Dm",
-        "teks": "Dewi, belahlah dadaku"
+        "text": "Dewi, belahlah dadaku"
       },
       {
         "chord": "Fm",
-        "teks": "Agar kau tahu"
+        "text": "Agar kau tahu"
       },
       {
         "chord": "C",
-        "teks": "agar kau mengerti"
+        "text": "agar kau mengerti"
       },
       {
         "chord": "Am",
-        "teks": "Aku cinta padamu sampai mati"
+        "text": "Aku cinta padamu sampai mati"
       },
       {
         "chord": "G",
-        "teks": "Dewi, belahlah dadaku"
+        "text": "Dewi, belahlah dadaku"
       },
       {
         "chord": "Fm",
-        "teks": "Agar kau tahu"
+        "text": "Agar kau tahu"
       },
       {
         "chord": "Em",
-        "teks": "agar kau mengerti"
+        "text": "agar kau mengerti"
       }
-    ]
+    ],
+    "status": "published",
+    "updated_at": "2026-09-14T00:00:00Z"
   },
   {
     "id": "risalah-hati-dewa-19",
-    "judul": "Risalah Hati",
-    "artis": "Dewa 19",
+    "title": "Risalah Hati",
+    "artist": "Dewa 19",
     "genre": "Rock",
-    "kunci": "Am",
-    "lirik": [
+    "key": "Am",
+    "capo": 0,
+    "lyrics": [
       {
         "chord": "Am",
-        "teks": "Hidupku tanpa cintamu"
+        "text": "Hidupku tanpa cintamu"
       },
       {
         "chord": "Em",
-        "teks": "Bagai malam tanpa bintang"
+        "text": "Bagai malam tanpa bintang"
       },
       {
         "chord": "F",
-        "teks": "Cintaku tanpa sambutmu"
+        "text": "Cintaku tanpa sambutmu"
       },
       {
         "chord": "G",
-        "teks": "Bagai panas tanpa hujan"
+        "text": "Bagai panas tanpa hujan"
       },
       {
         "chord": "F",
-        "teks": "Jiwaku berbisik lirih"
+        "text": "Jiwaku berbisik lirih"
       },
       {
         "chord": "Em",
-        "teks": "ku harus milikimu"
+        "text": "ku harus milikimu"
       },
       {
         "chord": "Dm",
-        "teks": "Aku bisa membuatmu jatuh cinta kepadaku"
+        "text": "Aku bisa membuatmu jatuh cinta kepadaku"
       },
       {
         "chord": "Em",
-        "teks": "Meski kau tak cinta kepadaku"
+        "text": "Meski kau tak cinta kepadaku"
       },
       {
         "chord": "A",
-        "teks": "Beri sedikit waktu biar cinta datang"
+        "text": "Beri sedikit waktu biar cinta datang"
       },
       {
         "chord": "Dm",
-        "teks": "Karena telah terbiasa"
+        "text": "Karena telah terbiasa"
       },
       {
         "chord": "Am",
-        "teks": "Simpan mawar yang ku beri"
+        "text": "Simpan mawar yang ku beri"
       },
       {
         "chord": "Em",
-        "teks": "Mungkin wanginya mengilhami"
+        "text": "Mungkin wanginya mengilhami"
       },
       {
         "chord": "F",
-        "teks": "Sudikah dirimu untuk"
+        "text": "Sudikah dirimu untuk"
       },
       {
         "chord": "G",
-        "teks": "Kenali aku dulu"
+        "text": "Kenali aku dulu"
       },
       {
         "chord": "F",
-        "teks": "Sebelum kau ludahi aku"
+        "text": "Sebelum kau ludahi aku"
       },
       {
         "chord": "Em",
-        "teks": "Sebelum kau robek hatiku"
+        "text": "Sebelum kau robek hatiku"
       },
       {
         "chord": "Dm",
-        "teks": "Aku bisa membuatmu jatuh cinta kepadaku"
+        "text": "Aku bisa membuatmu jatuh cinta kepadaku"
       },
       {
         "chord": "Em",
-        "teks": "Meski kau tak cinta kepadaku"
+        "text": "Meski kau tak cinta kepadaku"
       },
       {
         "chord": "A",
-        "teks": "Beri sedikit waktu biar cinta datang"
+        "text": "Beri sedikit waktu biar cinta datang"
       },
       {
         "chord": "Dm",
-        "teks": "Karena telah terbiasa"
+        "text": "Karena telah terbiasa"
       },
       {
         "chord": "Gm",
-        "teks": "Aku bisa membuatmu jatuh cinta kepadaku"
+        "text": "Aku bisa membuatmu jatuh cinta kepadaku"
       },
       {
         "chord": "Em",
-        "teks": "Meski kau tak cinta"
+        "text": "Meski kau tak cinta"
       },
       {
         "chord": "A",
-        "teks": "Aku bisa membuatmu jatuh cinta kepadaku"
+        "text": "Aku bisa membuatmu jatuh cinta kepadaku"
       },
       {
         "chord": "Dm",
-        "teks": "Meski kau tak cinta"
+        "text": "Meski kau tak cinta"
       },
       {
         "chord": "Em",
-        "teks": "Beri sedikit waktu biar cinta datang"
+        "text": "Beri sedikit waktu biar cinta datang"
       },
       {
         "chord": "F",
-        "teks": "Karena telah terbiasa"
+        "text": "Karena telah terbiasa"
       },
       {
         "chord": "Am",
-        "teks": "Hidupku tanpa cintamu"
+        "text": "Hidupku tanpa cintamu"
       },
       {
         "chord": "Em",
-        "teks": "Bagai malam tanpa bintang"
+        "text": "Bagai malam tanpa bintang"
       },
       {
         "chord": "F",
-        "teks": "Cinta tanpa sambutmu"
+        "text": "Cinta tanpa sambutmu"
       },
       {
         "chord": "Am",
-        "teks": "Bagai panas tanpa hujan"
+        "text": "Bagai panas tanpa hujan"
       }
-    ]
+    ],
+    "status": "published",
+    "updated_at": "2026-09-14T00:00:00Z"
   },
   {
     "id": "kangen-dewa-19",
-    "judul": "Kangen",
-    "artis": "Dewa 19",
+    "title": "Kangen",
+    "artist": "Dewa 19",
     "genre": "Rock",
-    "kunci": "D",
-    "lirik": [
+    "key": "D",
+    "capo": 0,
+    "lyrics": [
       {
         "chord": "D",
-        "teks": "Ku terima suratmu"
+        "text": "Ku terima suratmu"
       },
       {
         "chord": "Bm",
-        "teks": "tlah ku baca dan aku mengerti"
+        "text": "tlah ku baca dan aku mengerti"
       },
       {
         "chord": "G",
-        "teks": "Betapa merindunya"
+        "text": "Betapa merindunya"
       },
       {
         "chord": "A",
-        "teks": "dirimu akan hadirnya diriku"
+        "text": "dirimu akan hadirnya diriku"
       },
       {
         "chord": "F#m",
-        "teks": "Di dalam hari-harimu"
+        "text": "Di dalam hari-harimu"
       },
       {
         "chord": "G",
-        "teks": "bersama lagi"
+        "text": "bersama lagi"
       },
       {
         "chord": "Bm",
-        "teks": "Kau tanyakan padaku"
+        "text": "Kau tanyakan padaku"
       },
       {
         "chord": "G",
-        "teks": "kapan aku akan kembali lagi"
+        "text": "kapan aku akan kembali lagi"
       },
       {
         "chord": "A",
-        "teks": "Katamu kau tak kuasa"
+        "text": "Katamu kau tak kuasa"
       },
       {
         "chord": "G",
-        "teks": "melawan gejolak di dalam dada"
+        "text": "melawan gejolak di dalam dada"
       },
       {
         "chord": "F#m",
-        "teks": "Yang membara menahan rasa"
+        "text": "Yang membara menahan rasa"
       },
       {
         "chord": "G",
-        "teks": "pertemuan kita nanti"
+        "text": "pertemuan kita nanti"
       },
       {
         "chord": "Bm",
-        "teks": "Saat kau ada di sisiku"
+        "text": "Saat kau ada di sisiku"
       },
       {
         "chord": "F#m",
-        "teks": "Semua kata rindumu semakin membuatku"
+        "text": "Semua kata rindumu semakin membuatku"
       },
       {
         "chord": "G",
-        "teks": "Tak berdaya menahan rasa ingin jumpa"
+        "text": "Tak berdaya menahan rasa ingin jumpa"
       },
       {
         "chord": "A",
-        "teks": "Percayalah padaku akupun rindu kamu"
+        "text": "Percayalah padaku akupun rindu kamu"
       },
       {
         "chord": "Bm",
-        "teks": "Ku akan pulang melepas semua kerinduan"
+        "text": "Ku akan pulang melepas semua kerinduan"
       },
       {
         "chord": "A/C#",
-        "teks": "Yang terpendam"
+        "text": "Yang terpendam"
       },
       {
         "chord": "D",
-        "teks": "Kau tuliskan padaku"
+        "text": "Kau tuliskan padaku"
       },
       {
         "chord": "Bm",
-        "teks": "Kata cinta yang manis dalam suratmu"
+        "text": "Kata cinta yang manis dalam suratmu"
       },
       {
         "chord": "G",
-        "teks": "Kau katakan padaku"
+        "text": "Kau katakan padaku"
       },
       {
         "chord": "A",
-        "teks": "Saat ini ku ingin hangat pelukmu"
+        "text": "Saat ini ku ingin hangat pelukmu"
       },
       {
         "chord": "F#m",
-        "teks": "Dan belai lembut kasihmu"
+        "text": "Dan belai lembut kasihmu"
       },
       {
         "chord": "G",
-        "teks": "Takkan ku lupa slamanya"
+        "text": "Takkan ku lupa slamanya"
       },
       {
         "chord": "Bm",
-        "teks": "Saat kau ada di sisiku"
+        "text": "Saat kau ada di sisiku"
       },
       {
         "chord": "F#m",
-        "teks": "Semua kata rindumu semakin membuatku"
+        "text": "Semua kata rindumu semakin membuatku"
       },
       {
         "chord": "G",
-        "teks": "Tak berdaya menahan rasa ingin jumpa"
+        "text": "Tak berdaya menahan rasa ingin jumpa"
       },
       {
         "chord": "A",
-        "teks": "Percayalah padaku akupun rindu kamu"
+        "text": "Percayalah padaku akupun rindu kamu"
       },
       {
         "chord": "Bm",
-        "teks": "Ku akan pulang melepas semua kerinduan"
+        "text": "Ku akan pulang melepas semua kerinduan"
       },
       {
         "chord": "A/C#",
-        "teks": "Yang terpendam"
+        "text": "Yang terpendam"
       },
       {
         "chord": "Em",
-        "teks": "Jangan katakan cinta menambah beban rasa"
+        "text": "Jangan katakan cinta menambah beban rasa"
       },
       {
         "chord": "Bm",
-        "teks": "Sudah simpan saja sedihmu itu"
+        "text": "Sudah simpan saja sedihmu itu"
       },
       {
         "chord": "Em",
-        "teks": "Ku akan datang"
+        "text": "Ku akan datang"
       },
       {
         "chord": "F#m",
-        "teks": "Dengan tangan-Mu aku menyentuh"
+        "text": "Dengan tangan-Mu aku menyentuh"
       },
       {
         "chord": "G",
-        "teks": "Dengan kaki-Mu aku berjalan"
+        "text": "Dengan kaki-Mu aku berjalan"
       },
       {
         "chord": "A",
-        "teks": "Dengan mata-Mu aku memandang"
+        "text": "Dengan mata-Mu aku memandang"
       }
-    ]
+    ],
+    "status": "published",
+    "updated_at": "2026-09-14T00:00:00Z"
   },
   {
     "id": "aku-milikmu-dewa-19",
-    "judul": "Aku Milikmu",
-    "artis": "Dewa 19",
+    "title": "Aku Milikmu",
+    "artist": "Dewa 19",
     "genre": "Rock",
-    "kunci": "A",
-    "lirik": [
+    "key": "A",
+    "capo": 0,
+    "lyrics": [
       {
         "chord": "A",
-        "teks": "Terdengar lirih bisikanmu diantara bayang-bayangmu"
+        "text": "Terdengar lirih bisikanmu diantara bayang-bayangmu"
       },
       {
         "chord": "E",
-        "teks": "Terucap kata cinta yang dulu tersimpan"
+        "text": "Terucap kata cinta yang dulu tersimpan"
       },
       {
         "chord": "C#m",
-        "teks": "Dan tak mau pergi"
+        "text": "Dan tak mau pergi"
       },
       {
         "chord": "B",
-        "teks": "Sekejap cinta yang terjalin dari sebuah cerita"
+        "text": "Sekejap cinta yang terjalin dari sebuah cerita"
       },
       {
         "chord": "E",
-        "teks": "Yang tak mungkin terlupa terukir di hati"
+        "text": "Yang tak mungkin terlupa terukir di hati"
       },
       {
         "chord": "C#m",
-        "teks": "Dan tak mau pergi"
+        "text": "Dan tak mau pergi"
       },
       {
         "chord": "F#m",
-        "teks": "Mungkinkah kumiliki cinta seperti ini lagi"
+        "text": "Mungkinkah kumiliki cinta seperti ini lagi"
       },
       {
         "chord": "G#m",
-        "teks": "Jangan biarkan aku kehilangan dirimu"
+        "text": "Jangan biarkan aku kehilangan dirimu"
       },
       {
         "chord": "E",
-        "teks": "Coba dengarkanlah sumpahku janji suci dari hati"
+        "text": "Coba dengarkanlah sumpahku janji suci dari hati"
       },
       {
         "chord": "A",
-        "teks": "Aku cinta kamu"
+        "text": "Aku cinta kamu"
       },
       {
         "chord": "C#m",
-        "teks": "Jangan dengar kata mereka yang tak ingin kita satu"
+        "text": "Jangan dengar kata mereka yang tak ingin kita satu"
       },
       {
         "chord": "D",
-        "teks": "Yakinkan aku milikmu aku milikmu"
+        "text": "Yakinkan aku milikmu aku milikmu"
       },
       {
         "chord": "A",
-        "teks": "Jalinan cinta tulus suci terpadu terikat erat"
+        "text": "Jalinan cinta tulus suci terpadu terikat erat"
       },
       {
         "chord": "E",
-        "teks": "Jangan terpisah lagi waktu kan menguji"
+        "text": "Jangan terpisah lagi waktu kan menguji"
       },
       {
         "chord": "C#m",
-        "teks": "Cinta kita berdua"
+        "text": "Cinta kita berdua"
       },
       {
         "chord": "F#m",
-        "teks": "Mungkinkah kumiliki cinta seperti ini lagi"
+        "text": "Mungkinkah kumiliki cinta seperti ini lagi"
       },
       {
         "chord": "G#m",
-        "teks": "Jangan biarkan aku kehilangan dirimu"
+        "text": "Jangan biarkan aku kehilangan dirimu"
       },
       {
         "chord": "E",
-        "teks": "Coba dengarkanlah sumpahku janji suci dari hati"
+        "text": "Coba dengarkanlah sumpahku janji suci dari hati"
       },
       {
         "chord": "A",
-        "teks": "Aku cinta kamu"
+        "text": "Aku cinta kamu"
       },
       {
         "chord": "C#m",
-        "teks": "Jangan dengar kata mereka yang tak ingin kita satu"
+        "text": "Jangan dengar kata mereka yang tak ingin kita satu"
       },
       {
         "chord": "D",
-        "teks": "Yakinkan aku milikmu aku milikmu"
+        "text": "Yakinkan aku milikmu aku milikmu"
       }
-    ]
+    ],
+    "status": "published",
+    "updated_at": "2026-09-14T00:00:00Z"
   },
   {
     "id": "bertaruh-pada-api-dongker",
-    "judul": "Bertaruh Pada Api",
-    "artis": "Dongker",
+    "title": "Bertaruh Pada Api",
+    "artist": "Dongker",
     "genre": "Indie Rock",
-    "kunci": "A",
-    "lirik": [
+    "key": "A",
+    "capo": 0,
+    "lyrics": [
       {
         "chord": "",
-        "teks": "[Intro]"
+        "text": "[Intro]"
       },
       {
         "chord": "A F#m7 Bm7 E7",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "A F#m7 Bm7 E7",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "",
-        "teks": "[Verse 1]"
+        "text": "[Verse 1]"
       },
       {
         "chord": "A",
-        "teks": "bertaruh pada api"
+        "text": "bertaruh pada api"
       },
       {
         "chord": "F#m7",
-        "teks": "Kuharap takkan mati"
+        "text": "Kuharap takkan mati"
       },
       {
         "chord": "Bm7",
-        "teks": "Tapi sial, ini padam dan tak terang"
+        "text": "Tapi sial, ini padam dan tak terang"
       },
       {
         "chord": "A F#m7",
-        "teks": "Percuma.... Oh-oh"
+        "text": "Percuma.... Oh-oh"
       },
       {
         "chord": "Bm7 E7",
-        "teks": "Percuma.... Oh-oh"
+        "text": "Percuma.... Oh-oh"
       },
       {
         "chord": "A F#m7",
-        "teks": "Lagu ini dinyanyikan"
+        "text": "Lagu ini dinyanyikan"
       },
       {
         "chord": "Bm7",
-        "teks": "mencari cinta yang abadi"
+        "text": "mencari cinta yang abadi"
       },
       {
         "chord": "E7",
-        "teks": "mengajak siapapun"
+        "text": "mengajak siapapun"
       },
       {
         "chord": "",
-        "teks": "menari dan menari"
+        "text": "menari dan menari"
       },
       {
         "chord": "A",
-        "teks": "Karena"
+        "text": "Karena"
       },
       {
         "chord": "F#m7",
-        "teks": "Tak ada yang berubah"
+        "text": "Tak ada yang berubah"
       },
       {
         "chord": "Bm7",
-        "teks": "Tak ada yang mengalah"
+        "text": "Tak ada yang mengalah"
       },
       {
         "chord": "E7",
-        "teks": "Di dunia yang angkuh ku bersumpah"
+        "text": "Di dunia yang angkuh ku bersumpah"
       },
       {
         "chord": "",
-        "teks": "[Chorus]"
+        "text": "[Chorus]"
       },
       {
         "chord": "Bm(add9)",
-        "teks": "Payah"
+        "text": "Payah"
       },
       {
         "chord": "Bm6",
-        "teks": "Diriku"
+        "text": "Diriku"
       },
       {
         "chord": "A",
-        "teks": "Akan selalu mencarimu di setiap waktu berharap tak hancur"
+        "text": "Akan selalu mencarimu di setiap waktu berharap tak hancur"
       },
       {
         "chord": "Bm(add9)",
-        "teks": "Sial"
+        "text": "Sial"
       },
       {
         "chord": "Bm6",
-        "teks": "Aku selalu"
+        "text": "Aku selalu"
       },
       {
         "chord": "A",
-        "teks": "Mencoba tuk menang dan tak akan pernah memenangkan semua"
+        "text": "Mencoba tuk menang dan tak akan pernah memenangkan semua"
       },
       {
         "chord": "",
-        "teks": "[Bridge]"
+        "text": "[Bridge]"
       },
       {
         "chord": "A B C# D E",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "",
-        "teks": "[Verse 2]"
+        "text": "[Verse 2]"
       },
       {
         "chord": "A F#m7",
-        "teks": "Aku ingin terus hidup"
+        "text": "Aku ingin terus hidup"
       },
       {
         "chord": "Bm7",
-        "teks": "Berharap umurku panjang"
+        "text": "Berharap umurku panjang"
       },
       {
         "chord": "E7",
-        "teks": "Tapi lihat ku tak tenang selamanya, di hatimu"
+        "text": "Tapi lihat ku tak tenang selamanya, di hatimu"
       },
       {
         "chord": "A F#m7",
-        "teks": "Lagu ini dinyanyikan"
+        "text": "Lagu ini dinyanyikan"
       },
       {
         "chord": "Bm7",
-        "teks": "Akankah merubah dunia?"
+        "text": "Akankah merubah dunia?"
       },
       {
         "chord": "E7",
-        "teks": "Kunyanyikan setiap saat tak berubah"
+        "text": "Kunyanyikan setiap saat tak berubah"
       },
       {
         "chord": "A",
-        "teks": "Tuhan obati luka"
+        "text": "Tuhan obati luka"
       },
       {
         "chord": "F#m7",
-        "teks": "Di celah celah negara"
+        "text": "Di celah celah negara"
       },
       {
         "chord": "Bm7",
-        "teks": "Tapi sayang kau tak bisa"
+        "text": "Tapi sayang kau tak bisa"
       },
       {
         "chord": "",
-        "teks": "[Chorus]"
+        "text": "[Chorus]"
       },
       {
         "chord": "Bm(add9)",
-        "teks": "Percuma"
+        "text": "Percuma"
       },
       {
         "chord": "Bm6",
-        "teks": "Diriku akan"
+        "text": "Diriku akan"
       },
       {
         "chord": "A",
-        "teks": "Selalu.... ingin memelukmu"
+        "text": "Selalu.... ingin memelukmu"
       },
       {
         "chord": "Bm(add9)",
-        "teks": "Oh lihatlah aku patah"
+        "text": "Oh lihatlah aku patah"
       },
       {
         "chord": "Bm6",
-        "teks": "Dipatahkan oleh siapa"
+        "text": "Dipatahkan oleh siapa"
       },
       {
         "chord": "A",
-        "teks": "Oleh rencana oleh bencana yang tak terhindarkan"
+        "text": "Oleh rencana oleh bencana yang tak terhindarkan"
       },
       {
         "chord": "",
-        "teks": "[Bridge]"
+        "text": "[Bridge]"
       },
       {
         "chord": "A G#",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "F# G# A B",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "A F#m7 Bm7 E7",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "A F#m7 Bm7 E7",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "",
-        "teks": "[Verse 3]"
+        "text": "[Verse 3]"
       },
       {
         "chord": "A",
-        "teks": "Bertaruh pada api"
+        "text": "Bertaruh pada api"
       },
       {
         "chord": "F#m7",
-        "teks": "Berpura takkan mati"
+        "text": "Berpura takkan mati"
       },
       {
         "chord": "E7",
-        "teks": "Aku sendiri Apakah kita sendiri"
+        "text": "Aku sendiri Apakah kita sendiri"
       },
       {
         "chord": "A",
-        "teks": "Semua orang takkan patuh"
+        "text": "Semua orang takkan patuh"
       },
       {
         "chord": "F#m7",
-        "teks": "Semua cinta tekkan runtuh"
+        "text": "Semua cinta tekkan runtuh"
       },
       {
         "chord": "Bm7 E7",
-        "teks": "Oleh kuasa suara kita"
+        "text": "Oleh kuasa suara kita"
       },
       {
         "chord": "A",
-        "teks": "Takkan menyerah di bawah tanah"
+        "text": "Takkan menyerah di bawah tanah"
       },
       {
         "chord": "F#m7",
-        "teks": "Kabar baik menunggumu"
+        "text": "Kabar baik menunggumu"
       },
       {
         "chord": "Bm7",
-        "teks": "Datang hari tanpa batas"
+        "text": "Datang hari tanpa batas"
       },
       {
         "chord": "E7",
-        "teks": "tanpa negara tanpa agama"
+        "text": "tanpa negara tanpa agama"
       },
       {
         "chord": "",
-        "teks": "[Outro]"
+        "text": "[Outro]"
       },
       {
         "chord": "A",
-        "teks": ""
+        "text": ""
       }
-    ]
+    ],
+    "status": "published",
+    "updated_at": "2026-09-14T00:00:00Z"
   },
   {
     "id": "mati-muda-kelompok-penerbang-roket",
-    "judul": "Mati Muda",
-    "artis": "Kelompok Penerbang Roket",
+    "title": "Mati Muda",
+    "artist": "Kelompok Penerbang Roket",
     "genre": "Rock",
-    "kunci": "E5",
-    "lirik": [
+    "key": "E5",
+    "capo": 0,
+    "lyrics": [
       {
         "chord": "E5 D5 E5 G5",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "E5 D5 E5 G5",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "E5",
-        "teks": "Berseragam berlaga jagoan"
+        "text": "Berseragam berlaga jagoan"
       },
       {
         "chord": "D5 E5 G5",
-        "teks": "Mau jadi apa?"
+        "text": "Mau jadi apa?"
       },
       {
         "chord": "E5",
-        "teks": "Seperti tentara kau menyerang"
+        "text": "Seperti tentara kau menyerang"
       },
       {
         "chord": "D5 E5 G5",
-        "teks": "Dan akhirnya celaka!"
+        "text": "Dan akhirnya celaka!"
       },
       {
         "chord": "C5 G5 D5 A5",
-        "teks": "Mati... Muda..."
+        "text": "Mati... Muda..."
       },
       {
         "chord": "E5",
-        "teks": "Impian harapan orang tua"
+        "text": "Impian harapan orang tua"
       },
       {
         "chord": "D5 E5 G5",
-        "teks": "Musnah begitu saja!"
+        "text": "Musnah begitu saja!"
       },
       {
         "chord": "E5",
-        "teks": "Nyawa-nyawa penerus bangsa"
+        "text": "Nyawa-nyawa penerus bangsa"
       },
       {
         "chord": "D5 E5 G5",
-        "teks": "Tidak ada harganya!"
+        "text": "Tidak ada harganya!"
       },
       {
         "chord": "C5 G5 D5 A5",
-        "teks": "Mati... Muda"
+        "text": "Mati... Muda"
       },
       {
         "chord": "C5 G5 D5 A5",
-        "teks": "Mati... Muda..."
+        "text": "Mati... Muda..."
       },
       {
         "chord": "E5",
-        "teks": "Parapapa papa papa!"
+        "text": "Parapapa papa papa!"
       },
       {
         "chord": "D5 G5",
-        "teks": "Papara para papa papa papa!"
+        "text": "Papara para papa papa papa!"
       },
       {
         "chord": "E5",
-        "teks": "Papara para papa papa papa!"
+        "text": "Papara para papa papa papa!"
       },
       {
         "chord": "D5 G5",
-        "teks": "Papara para papa papa papa!"
+        "text": "Papara para papa papa papa!"
       },
       {
         "chord": "E5",
-        "teks": "Paparapa!"
+        "text": "Paparapa!"
       },
       {
         "chord": "C5 G5 D5 A5",
-        "teks": "Mati... Muda..."
+        "text": "Mati... Muda..."
       },
       {
         "chord": "C5 G5 D5 A5",
-        "teks": "Mati... Muda..."
+        "text": "Mati... Muda..."
       },
       {
         "chord": "C5 G5 D5 A5",
-        "teks": "Mati... Muda..."
+        "text": "Mati... Muda..."
       },
       {
         "chord": "C5 G5 D5 A5",
-        "teks": "Mati... Muda..."
+        "text": "Mati... Muda..."
       }
-    ]
+    ],
+    "status": "published",
+    "updated_at": "2026-09-14T00:00:00Z"
   },
   {
     "id": "anjing-jalanan-kelompok-penerbang-roket",
-    "judul": "Anjing Jalanan",
-    "artis": "Kelompok Penerbang Roket",
+    "title": "Anjing Jalanan",
+    "artist": "Kelompok Penerbang Roket",
     "genre": "Rock",
-    "kunci": "Em",
-    "lirik": [
+    "key": "Em",
+    "capo": 0,
+    "lyrics": [
       {
         "chord": "Em",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "C",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "G",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "D",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "Em",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "C D",
-        "teks": ""
+        "text": ""
       },
       {
         "chord": "Em",
-        "teks": "Semua orang gelisah dengan kelakuannya"
+        "text": "Semua orang gelisah dengan kelakuannya"
       },
       {
         "chord": "C",
-        "teks": "Tak punya akal sehat"
+        "text": "Tak punya akal sehat"
       },
       {
         "chord": "D",
-        "teks": "Tak kenal dosa"
+        "text": "Tak kenal dosa"
       },
       {
         "chord": "Em",
-        "teks": "Bajingan jalanan"
+        "text": "Bajingan jalanan"
       },
       {
         "chord": "C D",
-        "teks": "Si anjing jalanan"
+        "text": "Si anjing jalanan"
       },
       {
         "chord": "Em",
-        "teks": "Bertindak sembarangan kencing di jalan"
+        "text": "Bertindak sembarangan kencing di jalan"
       },
       {
         "chord": "C D",
-        "teks": "Bertindak sesukanya membabi buta"
+        "text": "Bertindak sesukanya membabi buta"
       },
       {
         "chord": "Em",
-        "teks": "Bajingan jalanan"
+        "text": "Bajingan jalanan"
       },
       {
         "chord": "C D",
-        "teks": "Si anjing jalanan"
+        "text": "Si anjing jalanan"
       },
       {
         "chord": "Em",
-        "teks": "Membuat kerusuhan demi kepuasan"
+        "text": "Membuat kerusuhan demi kepuasan"
       },
       {
         "chord": "C D",
-        "teks": "Jalani kehidupan dengan kekerasan"
+        "text": "Jalani kehidupan dengan kekerasan"
       },
       {
         "chord": "Em",
-        "teks": "Bajingan jalanan"
+        "text": "Bajingan jalanan"
       },
       {
         "chord": "C D",
-        "teks": "Si anjing jalanan"
+        "text": "Si anjing jalanan"
       },
       {
         "chord": "Em C D Em",
-        "teks": ""
+        "text": ""
       }
-    ]
+    ],
+    "status": "published",
+    "updated_at": "2026-09-14T00:00:00Z"
   },
   {
     "id": "roda-gila-kelompok-penerbang-roket",
-    "judul": "Roda Gila",
-    "artis": "Kelompok Penerbang Roket",
+    "title": "Roda Gila",
+    "artist": "Kelompok Penerbang Roket",
     "genre": "Rock",
-    "kunci": "E",
-    "lirik": [
+    "key": "E",
+    "capo": 0,
+    "lyrics": [
       {
         "chord": "",
-        "teks": "[Intro]"
+        "text": "[Intro]"
       },
       {
         "chord": "E G A E",
-        "teks": "(4x)"
+        "text": "(4x)"
       },
       {
         "chord": "",
-        "teks": "[Verse 1]"
+        "text": "[Verse 1]"
       },
       {
         "chord": "E",
-        "teks": "Kehidupan di dunia"
+        "text": "Kehidupan di dunia"
       },
       {
         "chord": "G A",
-        "teks": "Banyak cara terlupa"
+        "text": "Banyak cara terlupa"
       },
       {
         "chord": "E",
-        "teks": "Kita manusia yang punya akal pikiran"
+        "text": "Kita manusia yang punya akal pikiran"
       },
       {
         "chord": "",
-        "teks": "[Pre-Chorus]"
+        "text": "[Pre-Chorus]"
       },
       {
         "chord": "C D",
-        "teks": "Jangan gentar, bernyali besar"
+        "text": "Jangan gentar, bernyali besar"
       },
       {
         "chord": "",
-        "teks": "[Chorus]"
+        "text": "[Chorus]"
       },
       {
         "chord": "E G A",
-        "teks": "Roda kencang melaju berani"
+        "text": "Roda kencang melaju berani"
       },
       {
         "chord": "E G A",
-        "teks": "Melesat gila kejar cahaya"
+        "text": "Melesat gila kejar cahaya"
       },
       {
         "chord": "E G A",
-        "teks": "Membakar panas, tubuh berapi"
+        "text": "Membakar panas, tubuh berapi"
       },
       {
         "chord": "C D E",
-        "teks": "Terus berputar tak henti-henti"
+        "text": "Terus berputar tak henti-henti"
       },
       {
         "chord": "",
-        "teks": "[Interlude]"
+        "text": "[Interlude]"
       },
       {
         "chord": "E G A E",
-        "teks": "(2x)"
+        "text": "(2x)"
       },
       {
         "chord": "",
-        "teks": "[Verse 2]"
+        "text": "[Verse 2]"
       },
       {
         "chord": "E",
-        "teks": "Kehidupan di jalanan"
+        "text": "Kehidupan di jalanan"
       },
       {
         "chord": "G A",
-        "teks": "Dihadang dan terhalang"
+        "text": "Dihadang dan terhalang"
       },
       {
         "chord": "E",
-        "teks": "Rintangan yang besar selalu diterjang"
+        "text": "Rintangan yang besar selalu diterjang"
       },
       {
         "chord": "",
-        "teks": "[Pre-Chorus]"
+        "text": "[Pre-Chorus]"
       },
       {
         "chord": "C D",
-        "teks": "Jangan gentar, bernyali besar"
+        "text": "Jangan gentar, bernyali besar"
       },
       {
         "chord": "",
-        "teks": "[Chorus]"
+        "text": "[Chorus]"
       },
       {
         "chord": "E G A",
-        "teks": "Roda kencang melaju berani"
+        "text": "Roda kencang melaju berani"
       },
       {
         "chord": "E G A",
-        "teks": "Melesat gila kejar cahaya"
+        "text": "Melesat gila kejar cahaya"
       },
       {
         "chord": "E G A",
-        "teks": "Membakar panas, tubuh berapi"
+        "text": "Membakar panas, tubuh berapi"
       },
       {
         "chord": "C D E",
-        "teks": "Terus berputar tak henti-henti"
+        "text": "Terus berputar tak henti-henti"
       },
       {
         "chord": "",
-        "teks": "[Outro / Solo]"
+        "text": "[Outro / Solo]"
       },
       {
         "chord": "E G A E",
-        "teks": ""
+        "text": ""
       }
-    ]
+    ],
+    "status": "published",
+    "updated_at": "2026-09-14T00:00:00Z"
   }
 ]

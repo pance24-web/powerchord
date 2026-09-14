@@ -11,6 +11,7 @@ import {
     getChordShape,
 } from './core.js';
 import { fetchSongsFromSupabase } from './supabase.js';
+import { fetchLocalSongs, normalizeAndValidateSongs } from './song-service.js';
 
 const state = {
     searchQuery: '',
@@ -132,7 +133,7 @@ function makeReferenceLink(song) {
     const link = document.createElement('a');
     link.className = 'reference-link';
     link.href = getSongHref(song, getSongIndex(song));
-    link.textContent = `${song.artis} - ${song.judul}`;
+    link.textContent = `${song.artist} - ${song.title}`;
     return link;
 }
 
@@ -152,11 +153,11 @@ function renderSongRow(song, { asLink = false } = {}) {
     const title = document.createElement(asLink ? 'span' : 'a');
     title.className = 'song-title';
     if (!asLink) title.href = getSongHref(song, getSongIndex(song));
-    title.textContent = song.judul;
+    title.textContent = song.title;
     const artist = document.createElement(asLink ? 'span' : 'a');
     artist.className = 'song-artist';
-    if (!asLink) artist.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
-    artist.textContent = song.artis;
+    if (!asLink) artist.href = `catalog.html?artist=${encodeURIComponent(song.artist)}`;
+    artist.textContent = song.artist;
     main.append(title, artist);
 
     const difficulty = document.createElement('span');
@@ -164,7 +165,7 @@ function renderSongRow(song, { asLink = false } = {}) {
     difficulty.textContent = getDifficulty(song);
     const key = document.createElement('span');
     key.className = 'song-key';
-    key.textContent = song.kunci || '—';
+    key.textContent = song.key || '—';
     const arrow = document.createElement('span');
     arrow.className = 'song-arrow';
     arrow.textContent = '→';
@@ -274,7 +275,7 @@ function renderLatestSongRow(song) {
 
 function matchesLetter(song) {
     if (!state.activeLetter) return true;
-    const firstLetter = song.judul.trim().charAt(0).toUpperCase();
+    const firstLetter = song.title.trim().charAt(0).toUpperCase();
     if (state.activeLetter === '0-9') return /\d/.test(firstLetter);
     return firstLetter === state.activeLetter;
 }
@@ -333,7 +334,7 @@ function renderSearchResults(filtered) {
         option.setAttribute('role', 'option');
         option.setAttribute('aria-selected', 'false');
         option.href = getSongHref(song, getSongIndex(song));
-        option.textContent = `${song.judul} — ${song.artis}`;
+        option.textContent = `${song.title} — ${song.artist}`;
         option.addEventListener('click', closeSearchResults);
         results.appendChild(option);
     });
@@ -371,12 +372,12 @@ function renderPopularSongRow(song, index) {
     const title = document.createElement('a');
     title.className = 'popular-song-title';
     title.href = getSongHref(song, getSongIndex(song));
-    title.textContent = song.judul;
+    title.textContent = song.title;
 
     const artistLink = document.createElement('a');
     artistLink.className = 'popular-song-artist';
-    artistLink.href = `catalog.html?artist=${encodeURIComponent(song.artis)}`;
-    artistLink.textContent = song.artis;
+    artistLink.href = `catalog.html?artist=${encodeURIComponent(song.artist)}`;
+    artistLink.textContent = song.artist;
 
     main.append(title, artistLink);
 
@@ -619,18 +620,14 @@ function loadSongs() {
     const supabaseTimeoutId = setTimeout(() => supabaseController.abort(), NETWORK_TIMEOUT_MS);
 
     try {
-        state.songs = await fetchSongsFromSupabase({ signal: supabaseController.signal });
+        state.songs = normalizeAndValidateSongs(await fetchSongsFromSupabase({ signal: supabaseController.signal }));
         debugLog(`Memuat ${state.songs.length} lagu dari Supabase`);
     } catch (supabaseError) {
         debugWarn('Supabase tidak tersedia, menggunakan fallback JSON:', supabaseError);
         const fallbackController = new AbortController();
         const fallbackTimeoutId = setTimeout(() => fallbackController.abort(), NETWORK_TIMEOUT_MS);
         try {
-            const response = await fetch('data/songs.json', { signal: fallbackController.signal });
-            if (!response.ok) throw new Error(`Fallback HTTP error: ${response.status}`);
-            const data = await response.json();
-            if (!Array.isArray(data)) throw new Error('Format data lagu fallback tidak valid');
-            state.songs = data;
+            state.songs = await fetchLocalSongs({ signal: fallbackController.signal });
         } catch (fallbackError) {
             console.error('Gagal memuat data lagu:', fallbackError);
             const songList = document.getElementById('songList');
@@ -676,17 +673,17 @@ function initDetailPage() {
 
     initChordDiagramModal();
 
-    titleElement.textContent = song.judul;
-    document.title = `${song.judul} — Chord & Lirik PowerChord`;
+    titleElement.textContent = song.title;
+    document.title = `${song.title} — Chord & Lirik PowerChord`;
 
     const breadcrumb = document.getElementById('breadcrumbSong');
-    if (breadcrumb) breadcrumb.textContent = song.judul;
+    if (breadcrumb) breadcrumb.textContent = song.title;
 
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.href = new URL(getSongHref(song, getSongIndex(song)), window.location.href).href;
 
     const artistElement = document.getElementById('artisLagu');
-    if (artistElement) artistElement.textContent = song.artis;
+    if (artistElement) artistElement.textContent = song.artist;
 
     addToHistory(song.id);
     const favoriteButton = document.getElementById('toggleFavorite');
@@ -696,8 +693,8 @@ function initDetailPage() {
         favoriteButton.textContent = favorite ? '★ Tersimpan' : '☆ Simpan';
         favoriteButton.setAttribute('aria-pressed', String(favorite));
         favoriteButton.setAttribute('aria-label', favorite
-            ? `Hapus ${song.judul} dari koleksi`
-            : `Simpan ${song.judul} ke koleksi`);
+            ? `Hapus ${song.title} dari koleksi`
+            : `Simpan ${song.title} ke koleksi`);
         favoriteButton.classList.toggle('is-favorite', favorite);
     };
     favoriteButton?.addEventListener('click', () => {
@@ -711,7 +708,7 @@ function initDetailPage() {
     const originalKeyEl = document.getElementById('originalKey');
     if (difficultyEl) difficultyEl.textContent = `🎸 ${getDifficulty(song)}`;
     if (genreEl) genreEl.textContent = song.genre || 'Guitar';
-    if (originalKeyEl) originalKeyEl.textContent = `Original key: ${song.kunci || 'C'}`;
+    if (originalKeyEl) originalKeyEl.textContent = `Original key: ${song.key || 'C'}`;
 
     const relatedSongs = state.songs
         .filter((candidate) => candidate !== song && candidate.genre === song.genre)
@@ -719,7 +716,7 @@ function initDetailPage() {
     renderReferenceList(document.getElementById('relatedSongs'), relatedSongs);
 
     let offset = 0;
-    const originalKey = song.kunci || 'C';
+    const originalKey = song.key || 'C';
     const keyDisplay = document.getElementById('keyNow');
     if (keyDisplay) keyDisplay.textContent = originalKey;
 
@@ -730,7 +727,7 @@ function initDetailPage() {
         const container = document.getElementById('lirik');
         if (!container) return;
         container.replaceChildren();
-        (Array.isArray(song.lirik) ? song.lirik : []).forEach((line) => {
+        (Array.isArray(song.lyrics) ? song.lyrics : []).forEach((line) => {
             const row = document.createElement('div');
             row.className = 'baris-lirik';
             const chordGroup = document.createElement('span');
@@ -755,7 +752,7 @@ function initDetailPage() {
             });
             const text = document.createElement('span');
             text.className = 'teks-lirik';
-            text.textContent = line.teks;
+            text.textContent = line.text;
             row.append(chordGroup, text);
             container.appendChild(row);
         });
@@ -774,7 +771,7 @@ function initDetailPage() {
 
     function updateCapoUI() {
         if (!capoBox || !btnCapoSuggest || !capoStatus) return;
-        const currentChords = extractSongChords(song.lirik);
+        const currentChords = extractSongChords(song.lyrics);
         const currentTransposedChords = currentChords.map((c) => transposeChord(c, offset) || c);
         const currentKey = transposeChord(originalKey, offset);
 

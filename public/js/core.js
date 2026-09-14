@@ -3,6 +3,18 @@ export const OCTAVE_SIZE = CHROMATIC.length;
 
 const ENHARMONIC = { Db: 'C#', Eb: 'D#', Gb: 'F#', Ab: 'G#', Bb: 'A#' };
 
+export function getSongTitle(song) {
+    return song?.title ?? song?.judul ?? '';
+}
+
+export function getSongArtist(song) {
+    return song?.artist ?? song?.artis ?? '';
+}
+
+export function getSongLyrics(song) {
+    return song?.lyrics ?? song?.lirik ?? [];
+}
+
 export function extractSongChords(lirik) {
     const chords = new Set(
         (Array.isArray(lirik) ? lirik : [])
@@ -22,7 +34,7 @@ export function getSongHref(song, index = 0) {
 
 export function getDifficulty(song) {
     const chords = new Set(
-        (Array.isArray(song?.lirik) ? song.lirik : [])
+        getSongLyrics(song)
             .map((line) => typeof line?.chord === 'string' ? line.chord.trim() : '')
             .filter(Boolean),
     );
@@ -106,8 +118,8 @@ function tokenMatches(queryTokens, fieldTokens) {
 export function rankSong(song, query = '') {
     const normalizedQuery = normalizeSearchQuery(query);
     if (!normalizedQuery) return { score: 0, matchType: 'all' };
-    const title = normalizeSearchQuery(song?.judul);
-    const artist = normalizeSearchQuery(song?.artis);
+    const title = normalizeSearchQuery(getSongTitle(song));
+    const artist = normalizeSearchQuery(getSongArtist(song));
     const queryTokens = normalizedQuery.split(' ').filter(Boolean);
     const titleTokens = title.split(' ').filter(Boolean);
     const artistTokens = artist.split(' ').filter(Boolean);
@@ -138,8 +150,8 @@ export function searchSongs(songs, query = '', activeGenre = 'All') {
         .map((song, index) => ({ song, index, ranking: rankSong(song, normalizedQuery) }))
         .filter(({ ranking }) => !normalizedQuery || ranking.matchType !== 'none')
         .sort((left, right) => left.ranking.score - right.ranking.score
-            || normalizeSearchQuery(left.song.judul).localeCompare(normalizeSearchQuery(right.song.judul))
-            || normalizeSearchQuery(left.song.artis).localeCompare(normalizeSearchQuery(right.song.artis))
+            || normalizeSearchQuery(getSongTitle(left.song)).localeCompare(normalizeSearchQuery(getSongTitle(right.song)))
+            || normalizeSearchQuery(getSongArtist(left.song)).localeCompare(normalizeSearchQuery(getSongArtist(right.song)))
             || left.index - right.index)
         .map(({ song }) => song);
 }

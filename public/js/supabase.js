@@ -10,8 +10,8 @@ function parseSongContent(content) {
         if (!line || /^\{(?:title|artist|key):/i.test(line)) return lines;
         const match = line.match(/^((?:\[[^\]]*\])+)?\s*(.*)$/);
         const chord = (match?.[1] || '').replace(/[\[\]]/g, '').trim();
-        const teks = (match?.[2] || '').trim();
-        if (chord || teks) lines.push({ chord, teks });
+        const text = (match?.[2] || '').trim();
+        if (chord || text) lines.push({ chord, text });
         return lines;
     }, []);
 }
@@ -23,10 +23,10 @@ function normalizeSong(row) {
         ? row.source_id.trim()
         : (typeof row.slug === 'string' && row.slug.trim() ? row.slug.trim() : '');
 
-    const judul = typeof row.title === 'string' ? row.title.trim() : '';
-    if (!id || !judul) return null;
+    const title = typeof row.title === 'string' ? row.title.trim() : '';
+    if (!id || !title) return null;
 
-    const artis = typeof row.artists?.name === 'string' && row.artists.name.trim()
+    const artist = typeof row.artists?.name === 'string' && row.artists.name.trim()
         ? row.artists.name.trim()
         : 'Unknown Artist';
 
@@ -34,20 +34,23 @@ function normalizeSong(row) {
         ? row.genre.trim()
         : 'Uncategorized';
 
-    const kunci = typeof row.original_key === 'string' && row.original_key.trim()
+    const key = typeof row.original_key === 'string' && row.original_key.trim()
         ? row.original_key.trim()
         : 'C';
 
-    const lirik = parseSongContent(row.content);
-    if (!lirik.length) return null;
+    const lyrics = parseSongContent(row.content);
+    if (!lyrics.length) return null;
 
     return {
         id,
-        judul,
-        artis,
+        title,
+        artist,
         genre,
-        kunci,
-        lirik,
+        key,
+        capo: 0,
+        lyrics,
+        status: 'published',
+        updated_at: null,
     };
 }
 
@@ -75,4 +78,3 @@ export async function fetchSongsFromSupabase({ signal, limit = 500 } = {}) {
     if (!Array.isArray(data)) throw new Error('Format data Supabase tidak valid');
     return data.map(normalizeSong).filter(Boolean);
 }
-

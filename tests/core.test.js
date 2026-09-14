@@ -38,13 +38,13 @@ test('getSongHref creates stable detail URLs', () => {
 // --- Test parseSongReference ---
 test('parseSongReference supports stable IDs and legacy numeric links', () => {
     const firstSong = songs[0];
-    
+
     // Test dengan ID yang valid
     assert.equal(parseSongReference(firstSong.id, songs), firstSong, 'Harus menemukan lagu dengan ID yang valid');
-    
+
     // Test dengan index 0 (legacy)
     assert.equal(parseSongReference('0', songs), firstSong, 'Harus menemukan lagu dengan index 0');
-    
+
     // Test dengan ID yang tidak ada
     assert.equal(parseSongReference('missing-song', songs), null, 'Harus mengembalikan null untuk ID yang tidak ada');
 });
@@ -52,17 +52,17 @@ test('parseSongReference supports stable IDs and legacy numeric links', () => {
 // --- Test filterSongs ---
 test('filterSongs searches title and artist and applies genre', () => {
     if (songs.length === 0) assert.fail('Tidak ada lagu untuk ditest');
-    
+
     // Test pencarian dengan judul atau artis
     const firstSong = songs[0];
-    const searchTerm = firstSong.judul.substring(0, 3).toLowerCase();
+    const searchTerm = firstSong.title.substring(0, 3).toLowerCase();
     const filtered = filterSongs(songs, searchTerm);
     assert.ok(filtered.length >= 0, 'Harus mengembalikan array (bisa kosong jika tidak ada match)');
-    
+
     // Test filter dengan genre
     const popSongs = filterSongs(songs, '', 'Pop');
     assert.ok(popSongs.every(song => song.genre === 'Pop'), 'Semua lagu harus memiliki genre Pop');
-    
+
     // Test filter dengan genre yang tidak ada
     const unknownGenreSongs = filterSongs(songs, '', 'UnknownGenre');
     assert.equal(unknownGenreSongs.length, 0, 'Harus mengembalikan 0 lagu untuk genre yang tidak ada');
@@ -71,10 +71,10 @@ test('filterSongs searches title and artist and applies genre', () => {
 // --- Test searchSongs ---
 test('search normalizes whitespace and matches all songs deterministically', () => {
     assert.equal(normalizeSearchQuery('  SLaNk   terlalu  '), 'slank terlalu', 'Harus menormalisasi whitespace');
-    
+
     if (songs.length > 0) {
         const firstSong = songs[0];
-        const searchTerm = firstSong.judul.substring(0, 3).toLowerCase();
+        const searchTerm = firstSong.title.substring(0, 3).toLowerCase();
         const results = searchSongs(songs, searchTerm);
         assert.ok(Array.isArray(results), 'Harus mengembalikan array');
         assert.ok(results.length >= 0, 'Jumlah hasil bisa 0 atau lebih');
@@ -85,11 +85,11 @@ test('search normalizes whitespace and matches all songs deterministically', () 
 test('search ranks exact title before title, artist, and partial matches', () => {
     if (songs.length > 0) {
         const firstSong = songs[0];
-        const exactMatch = rankSong(firstSong, firstSong.judul);
+        const exactMatch = rankSong(firstSong, firstSong.title);
         assert.equal(exactMatch.matchType, 'exact-title', 'Pencarian dengan judul yang tepat harus memiliki matchType exact-title');
-        
+
         // Test pencarian dengan artis
-        const artistMatch = rankSong(firstSong, firstSong.artis);
+        const artistMatch = rankSong(firstSong, firstSong.artist);
         assert.ok(['exact-title', 'artist', 'title', 'partial'].includes(artistMatch.matchType), 'Match type harus valid');
     }
 });
