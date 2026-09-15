@@ -40,5 +40,5 @@ export async function supabaseRequest(context, path, options = {}) {
 }
 
 export function mutationResponse(data, status = 200) {
-    return json({ data }, { status });
+    return json({ data }, { status, headers: { 'cache-control': 'no-store' } });
 }

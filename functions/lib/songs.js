@@ -50,8 +50,8 @@ export function json(data, init = {}) {
             'content-type': 'application/json; charset=utf-8',
             'cache-control': 'public, max-age=60, stale-while-revalidate=300',
             'access-control-allow-origin': '*',
-            'access-control-allow-methods': 'GET, OPTIONS',
-            'access-control-allow-headers': 'content-type',
+            'access-control-allow-methods': 'GET, POST, DELETE, PATCH, OPTIONS',
+            'access-control-allow-headers': 'authorization, content-type, prefer',
             ...init.headers,
         },
     });

@@ -6,7 +6,12 @@ export async function onRequestOptions() {
 }
 
 export async function onRequestGet(context) {
-    const reference = decodeURIComponent(context.params.id || '').trim();
+    let reference;
+    try {
+        reference = decodeURIComponent(context.params.id || '').trim();
+    } catch {
+        return errorResponse('INVALID_ID', 'ID lagu tidak valid.', 400);
+    }
     if (!reference) return errorResponse('INVALID_ID', 'ID lagu wajib diisi.', 400);
     try {
         const songs = await loadSongs(context);
@@ -47,12 +52,18 @@ export async function onRequestPatch(context) {
             update[field] = body[field].trim();
         }
     }
+    if (update.key !== undefined && !/^[A-G](?:#|b)?(?:m|maj|min|dim|aug|sus)?(?:[0-9]+)?$/.test(update.key)) {
+        return errorResponse('INVALID_FIELD', 'key tidak valid.', 400);
+    }
     if (body?.capo !== undefined) {
         if (!Number.isInteger(body.capo) || body.capo < 0 || body.capo > 24) return errorResponse('INVALID_CAPO', 'capo harus berada pada 0 sampai 24.', 400);
         update.capo = body.capo;
     }
     if (body?.lyrics !== undefined) {
         if (!Array.isArray(body.lyrics) || !body.lyrics.length || body.lyrics.length > 1000) return errorResponse('INVALID_LYRICS', 'lyrics harus berisi 1 sampai 1000 baris.', 400);
+        if (body.lyrics.some((line) => !line || typeof line.chord !== 'string' || typeof line.text !== 'string' || line.chord.length > 300 || line.text.length > 300 || (!line.chord.trim() && !line.text.trim()))) {
+            return errorResponse('INVALID_LYRICS', 'Setiap baris lyrics harus valid dan maksimal 300 karakter.', 400);
+        }
         update.lyrics = body.lyrics;
     }
     if (update.status === 'published') update.reviewed_by = auth.user.id;

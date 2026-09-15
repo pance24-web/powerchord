@@ -76,7 +76,7 @@ export async function onRequestPost(context) {
         if (response.status === 401) return errorResponse('INVALID_TOKEN', 'Token autentikasi tidak valid.', 401);
         if (response.status === 403) return errorResponse('FORBIDDEN', 'Tidak diizinkan membuat submission.', 403);
         if (!response.ok) return errorResponse('SUBMISSION_CREATE_FAILED', 'Submission tidak dapat disimpan.', 502);
-        return json({ data: (await response.json())[0] }, { status: 201 });
+        return json({ data: (await response.json())[0] }, { status: 201, headers: { 'cache-control': 'no-store' } });
     } catch (error) {
         console.error('POST /api/songs failed', error);
         return errorResponse('SUBMISSION_CREATE_FAILED', 'Submission tidak dapat disimpan.', 503);

@@ -6,6 +6,8 @@ import { onRequestGet as getSong } from '../functions/api/songs/[id].js';
 import { onRequestPatch as moderateSong } from '../functions/api/songs/[id].js';
 import { onRequestPost as addFavorite } from '../functions/api/favorites.js';
 import { onRequestPost as submitSong } from '../functions/api/songs.js';
+import { json } from '../functions/lib/songs.js';
+import { mutationResponse } from '../functions/lib/supabase.js';
 
 const dataset = await readFile(new URL('../data/songs.json', import.meta.url), 'utf8');
 function context(path, params = {}) {
@@ -23,6 +25,7 @@ test('GET /api/songs filters and paginates canonical songs', async () => {
     assert.equal(body.meta.total, 1);
     assert.equal(body.data[0].title, 'Pupus');
     assert.equal(body.data[0].lyrics[0].text, 'Aku tak mengerti');
+    assert.equal(response.headers.get('access-control-allow-headers'), 'authorization, content-type, prefer');
 });
 
 test('GET /api/songs/:id returns song by slug and clear 404 error', async () => {
@@ -33,6 +36,17 @@ test('GET /api/songs/:id returns song by slug and clear 404 error', async () => 
     const missing = await getSong(context('/api/songs/missing', { id: 'missing' }));
     assert.equal(missing.status, 404);
     assert.equal((await missing.json()).error.code, 'SONG_NOT_FOUND');
+});
+
+test('GET /api/songs/:id returns 400 for malformed URI references', async () => {
+    const response = await getSong(context('/api/songs/%', { id: '%' }));
+    assert.equal(response.status, 400);
+    assert.equal((await response.json()).error.code, 'INVALID_ID');
+});
+
+test('authenticated mutation responses are not publicly cacheable', async () => {
+    assert.equal(mutationResponse({ ok: true }).headers.get('cache-control'), 'no-store');
+    assert.equal(json({ ok: true }).headers.get('cache-control'), 'public, max-age=60, stale-while-revalidate=300');
 });
 
 test('favorites mutation requires a bearer token before any database write', async () => {
