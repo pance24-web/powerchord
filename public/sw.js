@@ -1,5 +1,6 @@
-// PowerChord Service Worker - v12
-const CACHE_VERSION = 'powerchord-v12';
+// PowerChord Service Worker - v13
+// Bump this version whenever cached HTML, CSS, or JavaScript changes.
+const CACHE_VERSION = 'powerchord-v13';
 const swDebug = (...args) => {
   if (self.__POWERCHORD_DEBUG__ === true) self.console?.info(...args);
 };
