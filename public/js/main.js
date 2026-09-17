@@ -395,33 +395,48 @@ function initHeroSearch() {
 }
 
 function renderPopularSongRow(song, index) {
-    const row = document.createElement('div');
-    row.className = 'popular-song-row';
-
+    const row = document.createElement('a');
+    row.className = `song-row${index < 3 ? ' top' : ''}`;
+    row.href = getSongHref(song, getSongIndex(song));
     const rank = document.createElement('span');
-    rank.className = 'popular-rank';
-    rank.textContent = `#${index + 1}`;
-
-    const main = document.createElement('div');
-    main.className = 'popular-song-main';
-    const title = document.createElement('a');
-    title.className = 'popular-song-title';
-    title.href = getSongHref(song, getSongIndex(song));
+    rank.className = 'rank';
+    rank.textContent = String(index + 1);
+    const meta = document.createElement('span');
+    meta.className = 'meta';
+    const title = document.createElement('b');
     title.textContent = song.title;
-
-    const artistLink = document.createElement('a');
-    artistLink.className = 'popular-song-artist';
-    artistLink.href = `catalog.html?artist=${encodeURIComponent(song.artist)}`;
-    artistLink.textContent = song.artist;
-
-    main.append(title, artistLink);
-
-    const genre = document.createElement('span');
-    genre.className = 'popular-genre';
-    genre.textContent = song.genre || 'Pop';
-
-    row.append(rank, main, genre);
+    const subtitle = document.createElement('span');
+    subtitle.textContent = `${song.artist} · ${song.genre || 'Pop'}`;
+    meta.append(title, subtitle);
+    const right = document.createElement('span');
+    right.className = 'col-right';
+    const difficulty = document.createElement('span');
+    difficulty.className = `badge ${getDifficulty(song) === 'Easy' ? 'easy' : getDifficulty(song) === 'Advanced' ? 'hard' : 'mid'}`;
+    difficulty.textContent = getDifficulty(song) === 'Easy' ? 'Mudah' : getDifficulty(song) === 'Advanced' ? 'Sulit' : 'Sedang';
+    const key = document.createElement('span');
+    key.className = 'badge key';
+    key.textContent = song.key || '—';
+    right.append(difficulty, key);
+    row.append(rank, meta, right);
     return row;
+}
+
+function renderNewSongRow(song) {
+    const row = renderPopularSongRow(song, 0);
+    row.classList.remove('top');
+    row.querySelector('.rank')?.remove();
+    const badge = document.createElement('span');
+    badge.className = 'badge new';
+    badge.textContent = 'Baru';
+    row.querySelector('.col-right')?.prepend(badge);
+    return row;
+}
+
+function renderNewSongs() {
+    const container = document.getElementById('newSongList');
+    if (!container) return;
+    container.replaceChildren();
+    state.songs.slice(-4).reverse().forEach((song) => container.appendChild(renderNewSongRow(song)));
 }
 
 function renderPopularSongs() {
@@ -429,9 +444,8 @@ function renderPopularSongs() {
     if (!container || !state.songs.length) return;
 
     const markedPopular = state.songs.filter((song) => song.popular === true);
-    const topSongs = markedPopular.length >= 4
-        ? markedPopular.slice(0, 4)
-        : state.songs.slice(0, 4);
+    const remainingSongs = state.songs.filter((song) => song.popular !== true);
+    const topSongs = [...markedPopular, ...remainingSongs].slice(0, 5);
 
     container.replaceChildren();
     topSongs.forEach((song, index) => {
@@ -452,7 +466,7 @@ function filterHomepage() {
 
     // NON-CRITICAL: Render saat browser idle dengan fallback aman (PERF-006)
     const renderNonCritical = () => {
-        renderReferenceList(document.getElementById('newSongList'), state.songs.slice(-5).reverse());
+        renderNewSongs();
         renderPopularSongs();
     };
 
@@ -485,7 +499,7 @@ function initTheme() {
     const storedTheme = getLocalStorage('powerchord-theme', 'dark');
     const initialTheme = storedTheme === 'dark' || storedTheme === 'light'
         ? storedTheme
-        : 'dark';
+        : 'light';
 
     const applyTheme = (theme) => {
         document.documentElement.dataset.theme = theme;
@@ -970,7 +984,7 @@ window.handleDrawerSearch = function (value) {
 // --- SERVICE WORKER REGISTRATION (PWA) ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js?v=13', { updateViaCache: 'none' })
+    navigator.serviceWorker.register('/sw.js?v=14', { updateViaCache: 'none' })
       .then((registration) => {
         registration.update();
         debugLog('[SW] Registered with scope:', registration.scope);

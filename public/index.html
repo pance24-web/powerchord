@@ -87,113 +87,71 @@
                 </button>
             </div>
         </header>
-        <!-- HERO SEARCH-FIRST -->
-        <section class="hero-search-first" aria-labelledby="hero-title">
-            <div class="container hero-search-first__inner">
-                <div class="hero-search-first__copy">
-                    <p class="hero-search-first__eyebrow"><span aria-hidden="true">🎸</span> Database chord gitar Indonesia</p>
-                    <h1 id="hero-title">Temukan chord lagu favoritmu, <span>lalu langsung mainkan.</span></h1>
-                    <p class="hero-search-first__description">Cari chord dan lirik lagu Indonesia dengan tampilan yang rapi, transpose, diagram chord, capo, dan auto-scroll untuk latihan.</p>
-                </div>
-                <form id="heroSearchForm" class="hero-search-first__form" role="search" aria-label="Cari chord dan lirik lagu">
-                    <label class="visually-hidden" for="heroSearchInput">Cari judul lagu atau artis</label>
-                    <span class="hero-search-first__icon" aria-hidden="true">⌕</span>
-                    <input id="heroSearchInput" name="q" type="search" placeholder="Cari judul lagu atau artis..." autocomplete="off" enterkeyhint="search" />
-                    <button type="submit" class="hero-search-first__submit">Cari</button>
+        <!-- HERO: search-first ala mockup Chordtela × Ultimate Guitar -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="container hero-inner">
+                <h1 id="hero-title">Chord gitar lagu Indonesia, <em>akurat &amp; terverifikasi</em>.</h1>
+                <p class="sub">Chord &amp; lirik sejajar dengan rating komunitas — transpose, autoscroll, diagram interaktif.</p>
+                <form id="heroSearchForm" class="hero-search" role="search" aria-label="Cari chord di PowerChord">
+                    <label class="visually-hidden" for="heroSearchInput">Cari chord, lagu, atau artis</label>
+                    <input id="heroSearchInput" type="search" placeholder="Coba: Pupus, Dewa 19, atau Roda Gila..." autocomplete="off" />
+                    <button type="submit">Cari</button>
                 </form>
-                <p class="hero-search-first__hint">Coba cari:
-                    <button type="button" class="hero-search-first__example" data-search-example="Pupus">Pupus</button>
-                    <span aria-hidden="true">·</span>
-                    <button type="button" class="hero-search-first__example" data-search-example="Dewa 19">Dewa 19</button>
-                    <span aria-hidden="true">·</span>
-                    <button type="button" class="hero-search-first__example" data-search-example="Roda Gila">Roda Gila</button>
-                </p>
-                <div class="hero-search-first__genres" aria-label="Genre populer">
-                    <span class="hero-search-first__genres-label">Genre populer:</span>
-                    <button type="button" class="genre-chip" data-genre="Pop" aria-pressed="false">Pop</button>
-                    <button type="button" class="genre-chip" data-genre="Rock" aria-pressed="false">Rock</button>
-                    <button type="button" class="genre-chip" data-genre="Dangdut" aria-pressed="false">Dangdut</button>
-                    <button type="button" class="genre-chip" data-genre="Indie" aria-pressed="false">Indie</button>
-                    <button type="button" class="genre-chip" data-genre="Minang" aria-pressed="false">Minang</button>
+                <div class="hero-chips" role="navigation" aria-label="Genre populer">
+                    <button type="button" class="chip" data-genre="Rock" aria-pressed="false">Rock</button>
+                    <button type="button" class="chip" data-genre="Indie" aria-pressed="false">Indie Rock</button>
+                    <button type="button" class="chip" data-genre="Pop" aria-pressed="false">Pop</button>
+                    <button type="button" class="chip" data-genre="Dangdut" aria-pressed="false">Dangdut</button>
+                    <button type="button" class="chip" data-genre="Minang" aria-pressed="false">Minang</button>
                 </div>
-                <div class="hero-search-first__stats" aria-label="Ringkasan PowerChord">
-                    <div class="hero-stat"><strong id="heroSongCount">—</strong><span>Lagu</span></div>
-                    <div class="hero-stat"><strong id="heroArtistCount">—</strong><span>Artis</span></div>
-                    <div class="hero-stat"><strong>Transpose</strong><span>Siap dimainkan</span></div>
-                    <div class="hero-stat"><strong>PWA</strong><span>Bisa offline</span></div>
+                <div class="hero-stats" aria-label="Statistik PowerChord">
+                    <div class="stat"><strong id="heroSongCount">—</strong><span>Lagu</span></div>
+                    <div class="stat"><strong id="heroArtistCount">—</strong><span>Artis</span></div>
+                    <div class="stat"><strong>Transpose</strong><span>Siap dimainkan</span></div>
+                    <div class="stat"><strong>Offline</strong><span>PWA</span></div>
                 </div>
             </div>
         </section>
 
-        <!-- Lagu Populer -->
-        <section class="popular-section" aria-labelledby="popular-title">
-            <div class="container">
-                <div class="section-header-with-link">
-                    <h2 id="popular-title">🔥 Lagu Populer</h2>
-                    <a href="catalog.html" class="view-all-link">Lihat Semua →</a>
-                </div>
-                <div id="popularSongsList" class="popular-songs-list">
-                    <p class="loading-state">Memuat lagu populer…</p>
+        <!-- A-Z: dipindah ke atas sesuai mockup -->
+        <section class="browse" aria-label="Jelajahi lagu berdasarkan abjad">
+            <div class="container browse-inner">
+                <h2>📖 Jelajahi Berdasarkan Abjad</h2>
+                <div class="letters">
+                    <a href="#song-catalog" data-letter="0-9">#</a><a href="#song-catalog" data-letter="A">A</a><a href="#song-catalog" data-letter="B">B</a><a href="#song-catalog" data-letter="C">C</a><a href="#song-catalog" data-letter="D">D</a><a href="#song-catalog" data-letter="E">E</a><a href="#song-catalog" data-letter="F">F</a><a href="#song-catalog" data-letter="G">G</a><a href="#song-catalog" data-letter="H">H</a><a href="#song-catalog" data-letter="I">I</a><a href="#song-catalog" data-letter="J">J</a><a href="#song-catalog" data-letter="K">K</a><a href="#song-catalog" data-letter="L">L</a><a href="#song-catalog" data-letter="M">M</a><a href="#song-catalog" data-letter="N">N</a><a href="#song-catalog" data-letter="O">O</a><a href="#song-catalog" data-letter="P">P</a><a href="#song-catalog" data-letter="Q">Q</a><a href="#song-catalog" data-letter="R">R</a><a href="#song-catalog" data-letter="S">S</a><a href="#song-catalog" data-letter="T">T</a><a href="#song-catalog" data-letter="U">U</a><a href="#song-catalog" data-letter="V">V</a><a href="#song-catalog" data-letter="W">W</a><a href="#song-catalog" data-letter="X">X</a><a href="#song-catalog" data-letter="Y">Y</a><a href="#song-catalog" data-letter="Z">Z</a>
                 </div>
             </div>
         </section>
 
-        <!-- Alphabet Navigation -->
-        <section class="alphabet-section" aria-label="Daftar lagu berdasarkan abjad">
-            <div class="container">
-                <h2 class="section-subtitle">📖 Daftar Lagu (A-Z)</h2>
-                <div class="alphabet-nav">
-                    <a href="#song-catalog" data-letter="0-9">0-9</a>
-                    <a href="#song-catalog" data-letter="A">A</a>
-                    <a href="#song-catalog" data-letter="B">B</a>
-                    <a href="#song-catalog" data-letter="C">C</a>
-                    <a href="#song-catalog" data-letter="D">D</a>
-                    <a href="#song-catalog" data-letter="E">E</a>
-                    <a href="#song-catalog" data-letter="F">F</a>
-                    <a href="#song-catalog" data-letter="G">G</a>
-                    <a href="#song-catalog" data-letter="H">H</a>
-                    <a href="#song-catalog" data-letter="I">I</a>
-                    <a href="#song-catalog" data-letter="J">J</a>
-                    <a href="#song-catalog" data-letter="K">K</a>
-                    <a href="#song-catalog" data-letter="L">L</a>
-                    <a href="#song-catalog" data-letter="M">M</a>
-                    <a href="#song-catalog" data-letter="N">N</a>
-                    <a href="#song-catalog" data-letter="O">O</a>
-                    <a href="#song-catalog" data-letter="P">P</a>
-                    <a href="#song-catalog" data-letter="Q">Q</a>
-                    <a href="#song-catalog" data-letter="R">R</a>
-                    <a href="#song-catalog" data-letter="S">S</a>
-                    <a href="#song-catalog" data-letter="T">T</a>
-                    <a href="#song-catalog" data-letter="U">U</a>
-                    <a href="#song-catalog" data-letter="V">V</a>
-                    <a href="#song-catalog" data-letter="W">W</a>
-                    <a href="#song-catalog" data-letter="X">X</a>
-                    <a href="#song-catalog" data-letter="Y">Y</a>
-                    <a href="#song-catalog" data-letter="Z">Z</a>
-                </div>
-            </div>
-        </section>
+        <div class="container mockup-content">
+            <section class="block" aria-labelledby="popular-title">
+                <div class="section-head"><h2 id="popular-title">🔥 Top Lagu Minggu Ini</h2><a class="more" href="catalog.html">Top 100 →</a></div>
+                <div id="popularSongsList" class="song-table"><p class="loading-state">Memuat lagu populer…</p></div>
+            </section>
 
-        <!-- Katalog Lagu -->
-        <main class="container home-layout" id="main-content">
+            <section class="block" aria-labelledby="new-title">
+                <div class="section-head"><h2 id="new-title">🆕 Baru Ditambahkan</h2><a class="more" href="catalog.html">Katalog →</a></div>
+                <div id="newSongList" class="song-table"><p class="loading-state">Memuat lagu terbaru…</p></div>
+            </section>
+        </div>
+
+        <!-- Katalog lengkap tetap tersedia sebagai fallback navigasi dan hasil filter -->
+        <main class="container home-layout mockup-catalog" id="main-content">
             <section class="primary-column">
-                <header class="section-intro section-intro--compact">
-                    <p class="section-kicker">KATALOG TERBARU</p>
-                    <h2>Jelajahi lagu yang siap dimainkan</h2>
-                    <p>Pilih lagu berdasarkan abjad, genre, atau gunakan pencarian untuk menemukan chord dan lirik dengan cepat.</p>
-                </header>
                 <section class="content-block" id="song-catalog">
-                    <div class="section-heading">
-                        <h2>📋 Katalog Chord</h2>
-                        <span class="result-count" id="latestCount">Memuat...</span>
-                    </div>
+                    <div class="section-heading"><h2>📋 Katalog Chord</h2><span class="result-count" id="latestCount">Memuat...</span></div>
                     <div id="searchResults" class="search-results" hidden></div>
-                    <div id="songList" class="link-list catalog-shell is-loading">
-                        <p class="loading-state" role="status">Memuat daftar lagu…</p>
-                    </div>
+                    <div id="songList" class="link-list catalog-shell is-loading"><p class="loading-state" role="status">Memuat daftar lagu…</p></div>
                 </section>
             </section>
         </main>
+
+        <section class="cta" aria-labelledby="cta-title">
+            <h3 id="cta-title">Chord favoritmu belum ada? 🎸</h3>
+            <p>Request lagu melalui halaman kontak PowerChord dan bantu kami memperluas katalog.</p>
+            <a class="btn primary" href="contact.html">Request Lagu</a>
+            <a class="btn ghost" href="about.html">Tentang PowerChord</a>
+        </section>
 
         <!-- Footer -->
         <footer class="footer">
