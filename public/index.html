@@ -87,23 +87,40 @@
                 </button>
             </div>
         </header>
-
-        <!-- Genre Filter -->
-        <section class="genre-filter-section" aria-label="Filter genre">
-            <div class="container">
-                <h2 class="section-subtitle">🎯 Filter Genre:</h2>
-                <div class="genre-filters">
-                    <button type="button" data-genre="All" class="active">Semua</button>
-                    <button type="button" data-genre="Pop">Pop</button>
-                    <button type="button" data-genre="Rock">Rock</button>
-                    <button type="button" data-genre="Dangdut">Dangdut</button>
-                    <button type="button" data-genre="Indie">Indie</button>
-                    <button type="button" data-genre="Reggae">Reggae</button>
-                    <button type="button" data-genre="Minang">Minang</button>
-                    <button type="button" data-genre="Melayu">Melayu</button>
-                    <button type="button" data-genre="Pop Rock">Pop Rock</button>
-                    <button type="button" data-genre="Ska">Ska</button>
-                    <button type="button" data-genre="Folk">Folk</button>
+        <!-- HERO SEARCH-FIRST -->
+        <section class="hero-search-first" aria-labelledby="hero-title">
+            <div class="container hero-search-first__inner">
+                <div class="hero-search-first__copy">
+                    <p class="hero-search-first__eyebrow"><span aria-hidden="true">🎸</span> Database chord gitar Indonesia</p>
+                    <h1 id="hero-title">Temukan chord lagu favoritmu, <span>lalu langsung mainkan.</span></h1>
+                    <p class="hero-search-first__description">Cari chord dan lirik lagu Indonesia dengan tampilan yang rapi, transpose, diagram chord, capo, dan auto-scroll untuk latihan.</p>
+                </div>
+                <form id="heroSearchForm" class="hero-search-first__form" role="search" aria-label="Cari chord dan lirik lagu">
+                    <label class="visually-hidden" for="heroSearchInput">Cari judul lagu atau artis</label>
+                    <span class="hero-search-first__icon" aria-hidden="true">⌕</span>
+                    <input id="heroSearchInput" name="q" type="search" placeholder="Cari judul lagu atau artis..." autocomplete="off" enterkeyhint="search" />
+                    <button type="submit" class="hero-search-first__submit">Cari</button>
+                </form>
+                <p class="hero-search-first__hint">Coba cari:
+                    <button type="button" class="hero-search-first__example" data-search-example="Pupus">Pupus</button>
+                    <span aria-hidden="true">·</span>
+                    <button type="button" class="hero-search-first__example" data-search-example="Dewa 19">Dewa 19</button>
+                    <span aria-hidden="true">·</span>
+                    <button type="button" class="hero-search-first__example" data-search-example="Roda Gila">Roda Gila</button>
+                </p>
+                <div class="hero-search-first__genres" aria-label="Genre populer">
+                    <span class="hero-search-first__genres-label">Genre populer:</span>
+                    <button type="button" class="genre-chip" data-genre="Pop" aria-pressed="false">Pop</button>
+                    <button type="button" class="genre-chip" data-genre="Rock" aria-pressed="false">Rock</button>
+                    <button type="button" class="genre-chip" data-genre="Dangdut" aria-pressed="false">Dangdut</button>
+                    <button type="button" class="genre-chip" data-genre="Indie" aria-pressed="false">Indie</button>
+                    <button type="button" class="genre-chip" data-genre="Minang" aria-pressed="false">Minang</button>
+                </div>
+                <div class="hero-search-first__stats" aria-label="Ringkasan PowerChord">
+                    <div class="hero-stat"><strong id="heroSongCount">—</strong><span>Lagu</span></div>
+                    <div class="hero-stat"><strong id="heroArtistCount">—</strong><span>Artis</span></div>
+                    <div class="hero-stat"><strong>Transpose</strong><span>Siap dimainkan</span></div>
+                    <div class="hero-stat"><strong>PWA</strong><span>Bisa offline</span></div>
                 </div>
             </div>
         </section>
@@ -160,9 +177,10 @@
         <!-- Katalog Lagu -->
         <main class="container home-layout" id="main-content">
             <section class="primary-column">
-                <header class="intro-block">
-                    <h1>Kumpulan Chord Kunci Gitar Dasar</h1>
-                    <p>Temukan chord gitar dan lirik lagu favoritmu di PowerChord. Lengkap, akurat, dan mudah dimainkan untuk pemula hingga mahir.</p>
+                <header class="section-intro section-intro--compact">
+                    <p class="section-kicker">KATALOG TERBARU</p>
+                    <h2>Jelajahi lagu yang siap dimainkan</h2>
+                    <p>Pilih lagu berdasarkan abjad, genre, atau gunakan pencarian untuk menemukan chord dan lirik dengan cepat.</p>
                 </header>
                 <section class="content-block" id="song-catalog">
                     <div class="section-heading">

@@ -359,6 +359,41 @@ function renderSearchResults(filtered) {
     input?.setAttribute('aria-expanded', 'true');
 }
 
+
+function renderHeroStats(songs) {
+    const songCount = document.getElementById('heroSongCount');
+    const artistCount = document.getElementById('heroArtistCount');
+    if (songCount) songCount.textContent = `${songs.length}+`;
+    if (artistCount) artistCount.textContent = `${new Set(songs.map((song) => song.artist).filter(Boolean)).size}+`;
+}
+
+function initHeroSearch() {
+    const heroForm = document.getElementById('heroSearchForm');
+    const heroInput = document.getElementById('heroSearchInput');
+    const headerInput = document.getElementById('searchInput');
+    const headerForm = document.getElementById('headerSearchForm');
+    if (!heroForm || !heroInput) return;
+    const syncToHeader = () => {
+        if (!headerInput) return;
+        headerInput.value = heroInput.value;
+        headerInput.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+    heroInput.addEventListener('input', syncToHeader);
+    heroForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        syncToHeader();
+        if (headerForm) headerForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+        else document.getElementById('song-catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    document.querySelectorAll('[data-search-example]').forEach((button) => {
+        button.addEventListener('click', () => {
+            heroInput.value = button.dataset.searchExample || '';
+            syncToHeader();
+            heroInput.focus();
+        });
+    });
+}
+
 function renderPopularSongRow(song, index) {
     const row = document.createElement('div');
     row.className = 'popular-song-row';
@@ -642,6 +677,7 @@ function loadSongs() {
         clearTimeout(supabaseTimeoutId);
     }
 
+    renderHeroStats(state.songs);
     if (document.getElementById('songList')) filterHomepage();
     if (document.getElementById('judulLagu')) initDetailPage();
     })();
@@ -1119,6 +1155,7 @@ initOfflineIndicator();
 initTheme();
 initDrawer();
 initSearchInteractions();
+initHeroSearch();
 loadSongs();
 initCollectionPage();
 initHistoryPage();
