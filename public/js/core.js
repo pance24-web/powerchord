@@ -1,3 +1,5 @@
+import { getCachedDifficulty, getCachedSongSearchFields } from './performance-cache.js';
+
 export const CHROMATIC = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 export const OCTAVE_SIZE = CHROMATIC.length;
 
@@ -32,7 +34,7 @@ export function getSongHref(song, index = 0) {
     return `detail.html?id=${encodeURIComponent(getSongId(song, index))}`;
 }
 
-export function getDifficulty(song) {
+function calculateDifficulty(song) {
     const chords = new Set(
         getSongLyrics(song)
             .map((line) => typeof line?.chord === 'string' ? line.chord.trim() : '')
@@ -41,6 +43,10 @@ export function getDifficulty(song) {
     if (chords.size <= 4) return 'Easy';
     if (chords.size <= 7) return 'Intermediate';
     return 'Advanced';
+}
+
+export function getDifficulty(song) {
+    return getCachedDifficulty(song, calculateDifficulty);
 }
 
 export function matchesGenre(song, activeGenre = 'All') {
@@ -118,11 +124,8 @@ function tokenMatches(queryTokens, fieldTokens) {
 export function rankSong(song, query = '') {
     const normalizedQuery = normalizeSearchQuery(query);
     if (!normalizedQuery) return { score: 0, matchType: 'all' };
-    const title = normalizeSearchQuery(getSongTitle(song));
-    const artist = normalizeSearchQuery(getSongArtist(song));
+    const { title, artist, titleTokens, artistTokens } = getCachedSongSearchFields(song, normalizeSearchQuery);
     const queryTokens = normalizedQuery.split(' ').filter(Boolean);
-    const titleTokens = title.split(' ').filter(Boolean);
-    const artistTokens = artist.split(' ').filter(Boolean);
     const titleMatches = tokenMatches(queryTokens, titleTokens);
     const artistMatches = tokenMatches(queryTokens, artistTokens);
     const exactTitle = title === normalizedQuery;
@@ -150,8 +153,8 @@ export function searchSongs(songs, query = '', activeGenre = 'All') {
         .map((song, index) => ({ song, index, ranking: rankSong(song, normalizedQuery) }))
         .filter(({ ranking }) => !normalizedQuery || ranking.matchType !== 'none')
         .sort((left, right) => left.ranking.score - right.ranking.score
-            || normalizeSearchQuery(getSongTitle(left.song)).localeCompare(normalizeSearchQuery(getSongTitle(right.song)))
-            || normalizeSearchQuery(getSongArtist(left.song)).localeCompare(normalizeSearchQuery(getSongArtist(right.song)))
+            || getCachedSongSearchFields(left.song, normalizeSearchQuery).title.localeCompare(getCachedSongSearchFields(right.song, normalizeSearchQuery).title)
+            || getCachedSongSearchFields(left.song, normalizeSearchQuery).artist.localeCompare(getCachedSongSearchFields(right.song, normalizeSearchQuery).artist)
             || left.index - right.index)
         .map(({ song }) => song);
 }

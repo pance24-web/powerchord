@@ -1698,3 +1698,89 @@ body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSyst
     .song-table .meta b { font-size: .72rem; }
 }
 @media (prefers-reduced-motion: reduce) { .desktop-nav a, .chip, .letters a { transition: none; } }
+
+/* Desktop mockup alignment: keep the mobile layout untouched below 760px. */
+@media (min-width: 761px) {
+    .catalog-page,
+    .detail-page { background: #f5f8fc; }
+
+    .catalog-page .header,
+    .detail-page .header { background: #fff; border-bottom: 1px solid #e5eaf2; }
+
+    .catalog-page .header-inner,
+    .detail-page .header-inner { max-width: 1380px; min-height: 62px; padding: 0 28px; }
+
+    .catalog-page .desktop-nav,
+    .detail-page .desktop-nav { gap: 24px; margin-left: 32px; }
+
+    .catalog-page .desktop-nav a,
+    .detail-page .desktop-nav a { font-size: 11px; }
+
+    .catalog-page .header-search,
+    .detail-page .header-search { width: 28px; margin-left: auto; border: 0; background: transparent; }
+
+    .catalog-page .header-search input,
+    .detail-page .header-search input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+    .catalog-page .header-search:focus-within,
+    .detail-page .header-search:focus-within { width: 220px; border: 1px solid var(--accent); border-radius: 8px; background: #fff; }
+
+    .catalog-page .header-search:focus-within input,
+    .detail-page .header-search:focus-within input { position: static; width: 100%; height: auto; opacity: 1; pointer-events: auto; }
+
+    .catalog-page .theme-toggle,
+    .detail-page .theme-toggle { font-size: 14px; }
+
+    .catalog-page .header-account,
+    .detail-page .header-account { color: var(--text); font-size: 15px; text-decoration: none; }
+
+    .catalog-page .genre-filter-section,
+    .catalog-page .alphabet-section { display: none; }
+
+    .catalog-page .home-layout { width: min(100% - 56px, 1180px); margin: 34px auto 80px; }
+    .catalog-page .primary-column { width: 100%; }
+    .catalog-page .page-hero { padding: 0 0 24px; border: 0; background: transparent; text-align: left; }
+    .catalog-page .page-hero .section-kicker { display: none; }
+    .catalog-page .page-hero h1 { margin: 0 0 4px; color: #16213d; font-size: 27px; letter-spacing: -.04em; }
+    .catalog-page .page-hero > p:not(.section-kicker) { margin: 0 0 18px; color: #7c879e; font-size: 12px; }
+    .catalog-hero-search { display: flex; max-width: 100%; height: 38px; }
+    .catalog-hero-search input { flex: 1; min-width: 0; padding: 0 14px; border: 1px solid #dfe5ef; border-radius: 7px 0 0 7px; background: #fff; color: var(--text); font-size: 12px; }
+    .catalog-hero-search input:focus { border-color: var(--accent); outline: none; }
+    .catalog-hero-search button { width: 42px; border: 0; border-radius: 0 7px 7px 0; background: var(--accent-button); color: #fff; font-size: 18px; }
+    .catalog-page .content-block { padding: 0; border: 0; box-shadow: none; background: transparent; }
+    .catalog-page .section-heading { margin: 18px 0 10px; }
+    .catalog-page .section-heading h2 { color: #17213b; font-size: 14px; }
+    .catalog-page .catalog-shell { border: 1px solid #e1e7f0; border-radius: 9px; background: #fff; box-shadow: 0 8px 24px rgba(39,57,93,.04); }
+    .catalog-page .catalog-shell .song-row { min-height: 54px; padding: 10px 16px; border-bottom: 1px solid #edf0f5; }
+    .catalog-page .catalog-shell .song-row:last-child { border-bottom: 0; }
+    .catalog-page .catalog-shell .song-title { color: #273555; font-size: 12px; font-weight: 600; }
+    .catalog-page .catalog-shell .song-artist { color: #8993a8; font-size: 11px; }
+    .catalog-page .catalog-shell .song-meta { color: #71809a; font-size: 10px; }
+    .catalog-page .catalog-shell .song-key { min-width: 32px; padding: 3px 7px; border-radius: 999px; background: #f0efff; color: #655be8; font-size: 10px; text-align: center; }
+
+    .detail-page .detail-layout { display: grid; grid-template-columns: minmax(0, 1fr) 292px; gap: 18px; width: min(100% - 56px, 1180px); padding: 34px 0 80px; }
+    .detail-page .detail-primary,
+    .detail-page .detail-sidebar { max-width: none; margin: 0; border: 1px solid #e1e7f0; border-radius: 10px; background: #fff; box-shadow: 0 8px 24px rgba(39,57,93,.04); }
+    .detail-page .detail-primary { padding: 22px 24px 28px; }
+    .detail-page .detail-sidebar { display: block; padding: 18px; align-self: start; }
+    .detail-page .breadcrumb { margin-bottom: 20px; color: #77839b; font-size: 11px; }
+    .detail-page .detail-primary h1 { margin: 0 0 3px; color: #17213b; font-size: 26px; letter-spacing: -.04em; }
+    .detail-page .detail-artist { color: #7b879c; font-size: 12px; }
+    .detail-page .detail-meta { gap: 18px; margin: 14px 0 20px; color: #7b879c; font-size: 10px; }
+    .detail-page .detail-meta span { padding: 0; border: 0; background: transparent; }
+    .detail-page .control-bar { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid #edf0f5; border-bottom: 1px solid #edf0f5; }
+    .detail-page .favorite-box { order: 4; margin-left: auto; }
+    .detail-page .btn-favorite { padding: 7px 12px; border: 0; border-radius: 6px; background: var(--accent-button); color: #fff; font-size: 11px; }
+    .detail-page .transpose-box,
+    .detail-page .capo-box,
+    .detail-page .autoscroll-box { font-size: 11px; }
+    .detail-page .lirik-area { max-width: none; min-height: 620px; margin: 0; padding: 26px 0 40px; font-size: 13px; line-height: 1.45; }
+    .detail-page .baris-lirik { margin-bottom: 17px; }
+    .detail-page .chord-lirik { color: #5b55df; font-size: 12px; font-weight: 700; }
+    .detail-page .teks-lirik { color: #34415f; font-size: 13px; }
+    .detail-page .sidebar-block h2 { margin: 0 0 14px; color: #17213b; font-size: 13px; }
+    .detail-page .sidebar-list { display: grid; gap: 0; }
+    .detail-page .sidebar-list .reference-link { display: block; padding: 12px 0; border-bottom: 1px solid #edf0f5; color: #273555; font-size: 11px; text-decoration: none; }
+    .detail-page .sidebar-list .reference-link:last-child { border-bottom: 0; }
+    .detail-page .sidebar-list .reference-link:hover { color: var(--accent); }
+}

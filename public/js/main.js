@@ -1032,8 +1032,8 @@ function renderCollectionList() {
 
     if (!container) return;
 
-    const favorites = getFavorites();
-    const songs = state.songs.filter(song => favorites.includes(song.id));
+    const favorites = new Set(getFavorites());
+    const songs = state.songs.filter(song => favorites.has(song.id));
 
     if (countElement) {
         countElement.textContent = `${songs.length} lagu`;
@@ -1061,8 +1061,8 @@ function renderHistoryList() {
 
     if (!container) return;
 
-    const history = getHistory();
-    const songs = state.songs.filter(song => history.includes(song.id));
+    const history = new Set(getHistory());
+    const songs = state.songs.filter(song => history.has(song.id));
 
     if (countElement) {
         countElement.textContent = `${songs.length} lagu`;

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/style.min.css">
     <link rel="icon" type="image/webp" href="asset/favicon.webp">
 </head>
-<body>
+<body class="catalog-page">
 
 <div class="app-wrapper">
 
@@ -58,6 +58,12 @@
                 <a href="index.html" class="logo" aria-label="PowerChord Home">
                     <img src="asset/PowerChord-logo.webp" alt="Logo PowerChord" class="logo-img" loading="lazy" /><span class="logo-text">Power<span>Chord</span></span>
                 </a>
+                <nav class="desktop-nav" aria-label="Navigasi utama">
+                    <a href="index.html">Beranda</a>
+                    <a class="active" href="catalog.html">Katalog</a>
+                    <a href="artists.html">Artis</a>
+                    <a href="contact.html">Request Chord</a>
+                </nav>
                 <form id="headerSearchForm" class="header-search" role="search">
                     <label for="searchInput" class="visually-hidden">Cari chord</label>
                     <span aria-hidden="true">⌕</span>
@@ -75,6 +81,7 @@
                     <span class="icon-moon" aria-hidden="true">🌙</span>
                     <span class="icon-sun" aria-hidden="true">☀️</span>
                 </button>
+                <a class="header-account" href="collection.html" aria-label="Koleksi saya" title="Koleksi saya">♙</a>
             </div>
         </header>
 
@@ -137,7 +144,16 @@
         <!-- KATALOG LAGU -->
         <main class="container home-layout">
             <section class="primary-column">
-                <header class="intro-block page-hero"><p class="section-kicker">POWERCHORD</p><h1>Katalog Chord Kunci Gitar</h1><p>Temukan lagu berdasarkan judul, artis, genre, atau huruf awal.</p></header>
+                <header class="intro-block page-hero">
+                    <p class="section-kicker">POWERCHORD</p>
+                    <h1>Katalog Chord</h1>
+                    <p>Jelajahi semua lagu berdasarkan genre dan huruf awal.</p>
+                    <form class="catalog-hero-search" action="index.html" method="get" role="search">
+                        <label class="visually-hidden" for="catalogQuery">Cari lagu atau artis</label>
+                        <input id="catalogQuery" name="q" type="search" placeholder="Cari lagu atau artis..." autocomplete="off">
+                        <button type="submit" aria-label="Cari">⌕</button>
+                    </form>
+                </header>
                 <section class="content-block" id="song-catalog">
                     <div class="section-heading">
                         <h2>📋 Semua Lagu</h2>

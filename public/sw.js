@@ -1,6 +1,6 @@
-// PowerChord Service Worker - v14
+// PowerChord Service Worker - v15
 // Bump this version whenever cached HTML, CSS, or JavaScript changes.
-const CACHE_VERSION = 'powerchord-v14';
+const CACHE_VERSION = 'powerchord-v15';
 const swDebug = (...args) => {
   if (self.__POWERCHORD_DEBUG__ === true) self.console?.info(...args);
 };
@@ -17,6 +17,7 @@ const STATIC_ASSETS = [
   '/css/style.css',
   '/js/main.js',
   '/js/core.js',
+  '/js/performance-cache.js',
   '/manifest.json',
   '/asset/PowerChord-logo.webp',
   '/asset/favicon.webp',
